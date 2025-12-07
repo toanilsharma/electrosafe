@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ElectroSafe.homes - Global Home Electrical Safety</title>
+    <meta name="description" content="Your global guide to home electrical safety, protection, and prevention. Tools, calculators, and safety guides for everyone." />
+    <meta name="theme-color" content="#007BFF">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-417K6D9Q74"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-417K6D9Q74');
+    </script>
+
+    <!-- PWA & Mobile Settings -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ElectroSafe">
+    <link rel="manifest" href="./manifest.json">
+    <link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/npm/lucide-static@0.344.0/icons/zap.svg">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      @media print {
+        .no-print { display: none !important; }
+        .print-only { display: block !important; }
+        body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      }
+      
+      /* Premium Animations */
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      @keyframes slideUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes zoomIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+      }
+      @keyframes pulse-ring {
+        0% { transform: scale(0.33); }
+        80%, 100% { opacity: 0; }
+      }
+      @keyframes pulse-dot {
+        0% { transform: scale(0.8); }
+        50% { transform: scale(1); }
+        100% { transform: scale(0.8); }
+      }
+
+      .animate-fade-in { animation: fadeIn 0.6s ease-out forwards; }
+      .animate-slide-up { opacity: 0; animation: slideUp 0.6s ease-out forwards; }
+      
+      /* Utility classes for component animations */
+      .animate-in { animation-duration: 0.3s; animation-fill-mode: forwards; }
+      .fade-in { animation-name: fadeIn; }
+      .slide-in-from-top-2 { animation-name: slideUp; } /* Reusing slideUp for simplicity */
+      .slide-in-from-bottom-2 { animation-name: slideUp; }
+      .zoom-in-95 { animation-name: zoomIn; }
+      
+      .delay-100 { animation-delay: 0.1s; }
+      .delay-200 { animation-delay: 0.2s; }
+      .delay-300 { animation-delay: 0.3s; }
+      .delay-400 { animation-delay: 0.4s; }
+      .delay-500 { animation-delay: 0.5s; }
+
+      .sos-pulse::before {
+        content: '';
+        position: absolute;
+        left: 0; top: 0;
+        display: block;
+        width: 100%; height: 100%;
+        background-color: rgba(239, 68, 68, 0.6);
+        border-radius: 50%;
+        animation: pulse-ring 1.25s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        z-index: -1;
+      }
+      
+      /* Custom Scrollbar for lists */
+      .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+      .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+      .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.10.0",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-gray-50 text-gray-900 antialiased selection:bg-blue-100 selection:text-blue-900">
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>

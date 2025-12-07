@@ -1,0 +1,16 @@
+{
+  "short_name": "ElectroSafe",
+  "name": "ElectroSafe.homes",
+  "icons": [
+    {
+      "src": "https://cdn.jsdelivr.net/npm/lucide-static@0.344.0/icons/zap.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192 512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#007BFF",
+  "background_color": "#ffffff",
+  "orientation": "portrait"
+}
