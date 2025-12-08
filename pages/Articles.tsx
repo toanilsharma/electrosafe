@@ -1,20 +1,38 @@
-
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { ARTICLES } from '../data';
 import { Clock, Tag, ChevronLeft } from 'lucide-react';
 import { Article } from '../types';
 
 export const Articles = () => {
   const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
 
   useEffect(() => {
-    if (location.state?.id) {
-      const found = ARTICLES.find(a => a.id === location.state.id);
+    const paramId = searchParams.get('id');
+    const stateId = location.state?.id;
+    const targetId = paramId ? parseInt(paramId) : stateId;
+
+    if (targetId) {
+      const found = ARTICLES.find(a => a.id === targetId);
       if (found) setSelectedArticle(found);
+    } else {
+      setSelectedArticle(null);
     }
-  }, [location.state]);
+  }, [location.state, searchParams]);
+
+  // Sync state back to URL when internal navigation happens
+  const handleArticleSelect = (article: Article | null) => {
+    setSelectedArticle(article);
+    if (article) {
+      setSearchParams({ id: article.id.toString() });
+      window.scrollTo(0, 0);
+    } else {
+      setSearchParams({});
+    }
+  };
 
   // Helper to parse bold text markers (**text**)
   const formatText = (text: string) => {
@@ -30,13 +48,42 @@ export const Articles = () => {
   if (selectedArticle) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-12 animate-in slide-in-from-bottom-4">
-        <button 
-          onClick={() => setSelectedArticle(null)}
+        <Helmet>
+          <title>{selectedArticle.title} | ElectroSafe Articles</title>
+          <meta name="description" content={selectedArticle.excerpt} />
+          <script type="application/ld+json">
+            {JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Article",
+              "headline": selectedArticle.title,
+              "description": selectedArticle.excerpt,
+              "author": {
+                "@type": "Organization",
+                "name": "ElectroSafe.homes"
+              },
+              "publisher": {
+                "@type": "Organization",
+                "name": "ElectroSafe.homes",
+                "logo": {
+                  "@type": "ImageObject",
+                  "url": "https://electrosafe.homes/logo.png"
+                }
+              },
+              "datePublished": "2024-01-01",
+              "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": window.location.href
+              }
+            })}
+          </script>
+        </Helmet>
+        <button
+          onClick={() => handleArticleSelect(null)}
           className="flex items-center text-blue-600 hover:text-blue-800 font-medium mb-8 transition-colors"
         >
           <ChevronLeft className="w-5 h-5 mr-1" /> Back to Knowledge Base
         </button>
-        
+
         <article className="bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-gray-200">
           <header className="mb-10">
             <div className="flex gap-4 items-center text-sm font-bold tracking-wide text-blue-600 mb-4 uppercase">
@@ -51,7 +98,7 @@ export const Articles = () => {
 
           <div className="space-y-6 text-gray-800 leading-relaxed">
             {selectedArticle.content.map((paragraph, idx) => {
-              
+
               // 1. Bullet Points
               if (paragraph.trim().startsWith('•')) {
                 return (
@@ -63,9 +110,9 @@ export const Articles = () => {
               }
 
               // 2. Headers (Short text ending in :)
-              const isHeader = paragraph.includes(':') && 
-                               paragraph.split(':')[0].length < 60 && 
-                               !paragraph.includes('. ');
+              const isHeader = paragraph.includes(':') &&
+                paragraph.split(':')[0].length < 60 &&
+                !paragraph.includes('. ');
 
               if (isHeader) {
                 const [title, ...rest] = paragraph.split(':');
@@ -105,13 +152,13 @@ export const Articles = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {ARTICLES.map((article) => (
-          <div 
-            key={article.id} 
-            onClick={() => setSelectedArticle(article)}
+          <div
+            key={article.id}
+            onClick={() => handleArticleSelect(article)}
             className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-200 cursor-pointer group flex flex-col relative overflow-hidden"
           >
             <div className="absolute top-0 left-0 w-1 h-full bg-blue-600 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            
+
             <div className="flex-grow">
               <div className="flex justify-between items-center mb-4">
                 <span className="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-bold uppercase tracking-wider rounded-full">
@@ -128,7 +175,7 @@ export const Articles = () => {
                 {article.excerpt}
               </p>
             </div>
-            
+
             <div className="pt-4 border-t border-gray-100 flex items-center text-blue-600 font-bold text-sm group-hover:translate-x-2 transition-transform">
               Read Article <ChevronLeft className="w-4 h-4 rotate-180 ml-1" />
             </div>

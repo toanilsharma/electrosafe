@@ -1,8 +1,9 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { HashRouter as Router, Link, useLocation, useNavigate } from 'react-router-dom';
-import { 
-  Menu, X, Zap, ShieldCheck, Search, ChevronRight, AlertOctagon, 
+import { Helmet } from 'react-helmet-async';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import {
+  Menu, X, Zap, ShieldCheck, Search, ChevronRight, AlertOctagon,
   ChevronDown, Calculator, ClipboardCheck, AlertTriangle, UserCheck,
   Hammer, BookOpen, PenTool, Image, Download, Mail, Globe, Map, LifeBuoy
 } from 'lucide-react';
@@ -24,15 +25,14 @@ const NavDropdown = ({ title, items, icon: Icon }: { title: string, items: any[]
   };
 
   return (
-    <div 
+    <div
       className="relative"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <button 
-        className={`flex items-center gap-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-          isOpen ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
-        }`}
+      <button
+        className={`flex items-center gap-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${isOpen ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+          }`}
       >
         <Icon className="w-4 h-4" />
         {title}
@@ -43,8 +43,8 @@ const NavDropdown = ({ title, items, icon: Icon }: { title: string, items: any[]
         <div className="absolute top-full left-0 w-80 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden z-50 animate-in fade-in slide-in-from-top-2">
           <div className="p-2 space-y-1">
             {items.map((item, idx) => (
-              <Link 
-                key={idx} 
+              <Link
+                key={idx}
                 to={item.path}
                 onClick={() => setIsOpen(false)}
                 className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
@@ -72,183 +72,11 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Dynamic SEO & Meta Data Update (Keep existing SEO Logic)
-  useEffect(() => {
-    const routeData: Record<string, { title: string; desc: string; type?: string }> = {
-      '/': {
-        title: 'Global Home Electrical Safety',
-        desc: 'Your global guide to home electrical safety, protection, and prevention. Tools, calculators, and safety guides for everyone.',
-        type: 'WebSite'
-      },
-      '/assessment': {
-        title: 'Safety Assessment Tool',
-        desc: 'Rate your home electrical safety with our 25-point global assessment tool. Identify hazards before they become dangerous.',
-        type: 'SoftwareApplication'
-      },
-      '/load-calc': {
-        title: 'Load Calculator',
-        desc: 'Calculate your household electrical load (kW) and Amps. Prevent overloads with our universal load calculator.',
-        type: 'SoftwareApplication'
-      },
-      '/protection-guide': {
-        title: 'Protection Guide',
-        desc: 'Find the right circuit breakers and GFCI/RCD protection for your specific home size and needs.',
-        type: 'HowTo'
-      },
-      '/risk-predictor': {
-        title: 'Risk Predictor',
-        desc: 'Analyze symptoms like burning smells or flickering lights to predict shock and fire risks in your home.',
-        type: 'MedicalWebPage'
-      },
-      '/tenant-request': {
-        title: 'Tenant Request Generator',
-        desc: 'Create professional, safety-focused repair requests for landlords and wardens. Get hazards fixed faster.',
-        type: 'SoftwareApplication'
-      },
-      '/appliances': {
-        title: 'Appliance Safety Guides',
-        desc: 'Safe usage guides for Air Conditioners, Heaters, EV Chargers, and other high-power home appliances.',
-        type: 'CollectionPage'
-      },
-      '/rooms': {
-        title: 'Room-by-Room Safety',
-        desc: 'Electrical safety checklists for every room: Kitchen, Bathroom, Bedroom, Garage, and Outdoor areas.',
-        type: 'CollectionPage'
-      },
-      '/hardware': {
-        title: 'Hardware & Component Guide',
-        desc: 'Encyclopedia of electrical parts. Learn about MCBs, wires, sockets, and how to select ratings.',
-        type: 'Article'
-      },
-      '/new-home': {
-        title: 'New Home Building Guide',
-        desc: 'A master plan for building a safe home. From planning sockets to procurement and quality checks.',
-        type: 'Article'
-      },
-      '/everyday-safety': {
-        title: 'Everyday Safety Toolkit',
-        desc: 'Non-expert tools: Lightbulb guide, Power outage detective, and Slang dictionary.',
-        type: 'SoftwareApplication'
-      },
-      '/articles': {
-        title: 'Safety Articles & Knowledge',
-        desc: 'Read expert guides on preventing electrical fires, childproofing outlets, and maintaining your home wiring.',
-        type: 'CollectionPage'
-      },
-      '/gallery': {
-        title: 'Hazard Photo Gallery',
-        desc: 'Visual guide to electrical hazards. Learn to identify dangerous outlets, plugs, and wiring faults.',
-        type: 'ImageGallery'
-      },
-      '/downloads': {
-        title: 'Downloads & Checklists',
-        desc: 'Free printable PDF templates for electrical audits, circuit labeling, and fire prevention checklists.',
-        type: 'CollectionPage'
-      },
-      '/legal': {
-        title: 'Legal & Privacy',
-        desc: 'Privacy policy, terms of use, and disclaimer for ElectroSafe.homes.',
-        type: 'WebPage'
-      },
-      '/contact': {
-        title: 'Contact Us',
-        desc: 'Get in touch with the team at ElectroSafe.homes. Send feedback, report bugs, or share your safety story.',
-        type: 'ContactPage'
-      },
-      '/emergency': {
-        title: 'EMERGENCY PROTOCOL',
-        desc: 'Immediate steps for electrical fires, shocks, and emergencies. Isolate power and call help.',
-        type: 'MedicalWebPage'
-      }
-    };
-    
-    const data = routeData[location.pathname] || routeData['/'];
-    const fullTitle = `${data.title} | ElectroSafe.homes`;
-    
-    document.title = fullTitle;
-    
-    const updateMeta = (name: string, content: string) => {
-      let element = document.querySelector(`meta[name="${name}"]`);
-      if (!element) {
-        element = document.createElement('meta');
-        element.setAttribute('name', name);
-        document.head.appendChild(element);
-      }
-      element.setAttribute('content', content);
-    };
-
-    const updateOG = (property: string, content: string) => {
-      let element = document.querySelector(`meta[property="${property}"]`);
-      if (!element) {
-        element = document.createElement('meta');
-        element.setAttribute('property', property);
-        document.head.appendChild(element);
-      }
-      element.setAttribute('content', content);
-    };
-
-    const updateCanonical = (url: string) => {
-      let element = document.querySelector(`link[rel="canonical"]`);
-      if (!element) {
-        element = document.createElement('link');
-        element.setAttribute('rel', 'canonical');
-        document.head.appendChild(element);
-      }
-      element.setAttribute('href', url);
-    };
-
-    const updateJsonLd = (schemaData: any) => {
-      let element = document.getElementById('schema-json-ld');
-      if (!element) {
-        element = document.createElement('script');
-        element.id = 'schema-json-ld';
-        element.setAttribute('type', 'application/ld+json');
-        document.head.appendChild(element);
-      }
-      element.textContent = JSON.stringify(schemaData);
-    };
-
-    updateMeta('description', data.desc);
-    updateOG('og:title', fullTitle);
-    updateOG('og:description', data.desc);
-    updateOG('og:type', 'website');
-    updateOG('og:url', window.location.href);
-    updateCanonical(window.location.href);
-
-    const baseSchema = {
-      "@context": "https://schema.org",
-      "@type": data.type || "WebPage",
-      "name": fullTitle,
-      "description": data.desc,
-      "url": window.location.href,
-      "publisher": {
-        "@type": "Organization",
-        "name": "ElectroSafe.homes",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://electrosafe.homes/logo.png" 
-        }
-      }
-    };
-
-    updateJsonLd(baseSchema);
-
-    // Google Analytics Page View Tracking
-    if (typeof (window as any).gtag === 'function') {
-      (window as any).gtag('config', 'G-417K6D9Q74', {
-        page_path: location.pathname + location.search
-      });
-    }
-
-    window.scrollTo(0, 0);
-
-  }, [location]);
-
   // Search Logic with Deep Linking
   const getSearchResults = () => {
     if (!searchQuery) return [];
     const lowerQ = searchQuery.toLowerCase();
-    
+
     const results = [
       ...ARTICLES.map(a => ({ type: 'Article', title: a.title, path: '/articles', sub: a.category, id: a.id })),
       ...APPLIANCES.map(a => ({ type: 'Appliance', title: a.name, path: '/appliances', sub: 'Guide', id: a.id })),
@@ -262,7 +90,7 @@ const Navbar = () => {
       { type: 'Safety Tool', title: 'Smart Home Check', path: '/everyday-safety', sub: 'Compatibility', tab: 'smart' },
       { type: 'Safety Tool', title: 'Baby Proofing', path: '/everyday-safety', sub: 'Child Safety', tab: 'baby' },
       { type: 'Safety Tool', title: 'Electrician Glossary', path: '/everyday-safety', sub: 'Terms', tab: 'glossary' },
-      
+
       { type: 'Tool', title: 'Load Calculator', path: '/load-calc', sub: 'Tool' },
       { type: 'Tool', title: 'Safety Assessment', path: '/assessment', sub: 'Audit' },
       { type: 'Tool', title: 'Risk Predictor', path: '/risk-predictor', sub: 'Diagnosis' },
@@ -271,8 +99,8 @@ const Navbar = () => {
       { type: 'Guide', title: 'New Home Master Plan', path: '/new-home', sub: 'Construction' },
     ];
 
-    return results.filter(item => 
-      item.title.toLowerCase().includes(lowerQ) || 
+    return results.filter(item =>
+      item.title.toLowerCase().includes(lowerQ) ||
       item.sub.toLowerCase().includes(lowerQ)
     );
   };
@@ -316,20 +144,20 @@ const Navbar = () => {
               </span>
             </Link>
           </div>
-          
+
           {/* DESKTOP NAV */}
           <div className="hidden lg:flex items-center space-x-2">
             <NavDropdown title="Smart Tools" items={toolsMenu} icon={Calculator} />
             <NavDropdown title="Master Guides" items={guidesMenu} icon={Hammer} />
             <NavDropdown title="Knowledge Base" items={learnMenu} icon={BookOpen} />
-            
+
             <Link to="/downloads" className="flex items-center gap-1 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">
               <Download className="w-4 h-4" /> Downloads
             </Link>
 
             <div className="h-6 w-px bg-gray-200 mx-2"></div>
 
-            <button 
+            <button
               onClick={() => setIsSearchOpen(!isSearchOpen)}
               className="p-2 text-gray-500 hover:text-blue-600 hover:bg-gray-100 rounded-full transition"
             >
@@ -339,7 +167,7 @@ const Navbar = () => {
 
           {/* MOBILE TOGGLE */}
           <div className="flex items-center lg:hidden gap-4">
-             <button 
+            <button
               onClick={() => setIsSearchOpen(!isSearchOpen)}
               className="p-2 text-gray-500"
             >
@@ -369,14 +197,14 @@ const Navbar = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
-              <button 
+              <button
                 onClick={() => { setIsSearchOpen(false); setSearchQuery(''); }}
                 className="absolute right-3 top-2.5 px-2 py-1 text-xs bg-gray-100 rounded text-gray-500 hover:bg-gray-200"
               >
                 ESC
               </button>
             </div>
-            
+
             {searchQuery && (
               <div className="mt-4 max-h-64 overflow-y-auto bg-gray-50 rounded-lg border border-gray-200 custom-scrollbar">
                 {getSearchResults().length === 0 ? (
@@ -390,7 +218,7 @@ const Navbar = () => {
                         const navState: any = {};
                         if ((res as any).id) navState.id = (res as any).id;
                         if ((res as any).tab) navState.tab = (res as any).tab;
-                        
+
                         navigate(res.path, { state: navState });
                         setIsSearchOpen(false);
                         setSearchQuery('');
@@ -448,13 +276,13 @@ const Navbar = () => {
                 {link.name}
               </Link>
             ))}
-             <Link
-                to="/downloads"
-                onClick={() => setIsMobileOpen(false)}
-                className="block px-3 py-2 rounded-md text-base font-medium text-green-600 hover:bg-green-50 mt-4 border border-green-200 text-center"
-              >
-                Download Checklists
-              </Link>
+            <Link
+              to="/downloads"
+              onClick={() => setIsMobileOpen(false)}
+              className="block px-3 py-2 rounded-md text-base font-medium text-green-600 hover:bg-green-50 mt-4 border border-green-200 text-center"
+            >
+              Download Checklists
+            </Link>
           </div>
         </div>
       )}
@@ -465,7 +293,7 @@ const Navbar = () => {
 const Breadcrumbs = () => {
   const location = useLocation();
   const pathnames = location.pathname.split('/').filter((x) => x);
-  
+
   if (pathnames.length === 0 || location.pathname === '/emergency') return null;
 
   const formatName = (str: string) => str.replace('-', ' ').replace(/\b\w/g, c => c.toUpperCase());
@@ -501,7 +329,7 @@ const Footer = () => {
     <footer className="bg-zinc-900 text-white pt-16 pb-8 no-print border-t border-zinc-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
-          
+
           {/* Column 1: Brand & Mission (4 cols) */}
           <div className="md:col-span-5">
             <div className="flex items-center gap-2 mb-6">
@@ -513,7 +341,7 @@ const Footer = () => {
               </span>
             </div>
             <p className="text-zinc-400 text-sm leading-relaxed mb-8 max-w-sm">
-              Empowering every home with professional electrical safety knowledge. 
+              Empowering every home with professional electrical safety knowledge.
               We translate complex engineering standards into simple, life-saving actions for homeowners, tenants, and builders worldwide.
             </p>
             <div className="flex items-center gap-4">
@@ -521,7 +349,7 @@ const Footer = () => {
               <span className="px-3 py-1 bg-zinc-800 rounded-full text-xs text-zinc-400 font-medium border border-zinc-700">Global Standards</span>
             </div>
           </div>
-          
+
           {/* Column 2: Legal & Company (3 cols) */}
           <div className="md:col-span-3">
             <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-6">Company & Legal</h3>
@@ -536,33 +364,33 @@ const Footer = () => {
 
           {/* Column 3: Contact & Credits (4 cols) */}
           <div className="md:col-span-4">
-             <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-6">Connect</h3>
-             <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                   <Mail className="w-5 h-5 text-blue-500 mt-0.5" />
-                   <div>
-                     <div className="text-sm font-medium text-white">Get in touch</div>
-                     <a href="mailto:0808miracle@gmail.com" className="text-sm text-zinc-400 hover:text-blue-400 transition-colors">
-                       0808miracle@gmail.com
-                     </a>
-                   </div>
+            <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-6">Connect</h3>
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <Mail className="w-5 h-5 text-blue-500 mt-0.5" />
+                <div>
+                  <div className="text-sm font-medium text-white">Get in touch</div>
+                  <a href="mailto:0808miracle@gmail.com" className="text-sm text-zinc-400 hover:text-blue-400 transition-colors">
+                    0808miracle@gmail.com
+                  </a>
                 </div>
-                <div className="flex items-start gap-3">
-                   <Globe className="w-5 h-5 text-green-500 mt-0.5" />
-                   <div>
-                     <div className="text-sm font-medium text-white">Created by</div>
-                     <div className="text-sm text-zinc-400">
-                       Anil Sharma
-                     </div>
-                   </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <Globe className="w-5 h-5 text-green-500 mt-0.5" />
+                <div>
+                  <div className="text-sm font-medium text-white">Created by</div>
+                  <div className="text-sm text-zinc-400">
+                    Anil Sharma
+                  </div>
                 </div>
-                
-                <div className="pt-6 mt-6 border-t border-zinc-800">
-                  <Link to="/emergency" className="inline-flex items-center gap-2 text-red-400 hover:text-red-300 text-sm font-bold transition-colors">
-                    <AlertOctagon className="w-4 h-4" /> Emergency Protocol
-                  </Link>
-                </div>
-             </div>
+              </div>
+
+              <div className="pt-6 mt-6 border-t border-zinc-800">
+                <Link to="/emergency" className="inline-flex items-center gap-2 text-red-400 hover:text-red-300 text-sm font-bold transition-colors">
+                  <AlertOctagon className="w-4 h-4" /> Emergency Protocol
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -584,8 +412,8 @@ const EmergencyButton = () => {
   if (location.pathname === '/emergency') return null;
 
   return (
-    <Link 
-      to="/emergency" 
+    <Link
+      to="/emergency"
       className="fixed bottom-6 right-6 z-50 flex items-center justify-center gap-2 bg-red-600 text-white px-5 py-3 rounded-full shadow-2xl hover:bg-red-700 transition-transform hover:scale-105 active:scale-95 no-print"
       aria-label="Emergency Protocol"
     >
@@ -599,8 +427,144 @@ const EmergencyButton = () => {
 };
 
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const location = useLocation();
+  const routeData: Record<string, { title: string; desc: string; type?: string }> = {
+    '/': {
+      title: 'Electrical Safety Guide: Protect Your Home & Family Global',
+      desc: 'Electrical safety is critical. Discover our expert guide on home protection, hazard prevention, and daily safety tools for homeowners worldwide.',
+      type: 'WebSite'
+    },
+    '/assessment': {
+      title: 'Assessment Tool: Rate Your Home Electrical Safety Score',
+      desc: 'Assessment tool for home safety. Identify fire risks and shock hazards in minutes with our comprehensive 25-point global electrical safety audit.',
+      type: 'SoftwareApplication'
+    },
+    '/load-calc': {
+      title: 'Load Calculator: Estimate Home Amps & Prevent Overloads',
+      desc: 'Load calculator for preventing electrical fires. accurately estimate your household kW usage and Amps to ensure your wiring is never overloaded.',
+      type: 'SoftwareApplication'
+    },
+    '/protection-guide': {
+      title: 'Circuit Protection Guide: Breakers, GFCI & RCD Safety',
+      desc: 'Circuit protection is your first line of defense. Learn how to select the right miniature circuit breakers, GFCIs, and RCDs for your specific needs.',
+      type: 'HowTo'
+    },
+    '/risk-predictor': {
+      title: 'Risk Predictor: Diagnose Electrical Fire & Shock Hazards',
+      desc: 'Risk predictor tool analyzes symptoms like burning smells or flickering lights. Diagnose hidden electrical fire and shock hazards before failure.',
+      type: 'MedicalWebPage'
+    },
+    '/tenant-request': {
+      title: 'Tenant Request Generator: Report Repairs to Landlords',
+      desc: 'Tenant request generator helps you get repairs fast. Create professional, safety-focused maintenance emails for landlords to fix hazards quickly.',
+      type: 'SoftwareApplication'
+    },
+    '/appliances': {
+      title: 'Appliance Safety Guides: ACs, Heaters & EV Charger Tips',
+      desc: 'Appliance safety guides for high-power devices. Learn correct usage and installation for Air Conditioners, Heaters, EV Chargers, and home wiring.',
+      type: 'CollectionPage'
+    },
+    '/rooms': {
+      title: 'Room Safety Checklists: Kitchen, Bathroom & Outdoor Tips',
+      desc: 'Room safety checklists ensure every corner of your home is secure. Explore detailed electrical guides for Kitchens, Bathrooms, Garages, and Outdoors.',
+      type: 'CollectionPage'
+    },
+    '/hardware': {
+      title: 'Electrical Hardware Guide: MCBs, Wires & Switches Encyclopedia',
+      desc: 'Electrical hardware guide for homeowners. identifying the right MCBs, wire gauges, and switches is crucial for a safe and compliant home installation.',
+      type: 'Article'
+    },
+    '/new-home': {
+      title: 'New Home Electrical Plan: Construction & Safety Guide Master',
+      desc: 'New home electrical planning made simple. Follow our master guide for socket placement, wiring standards, procurement, and quality safety checks.',
+      type: 'Article'
+    },
+    '/everyday-safety': {
+      title: 'Everyday Safety Toolkit: Lightbulbs, Outages & First Aid',
+      desc: 'Everyday safety toolkit for non-experts. Access our lightbulb guide, power outage detective, and shock first aid protocols to stay safe daily.',
+      type: 'SoftwareApplication'
+    },
+    '/articles': {
+      title: 'Safety Articles: Expert Electrical Advice & Knowledge Base',
+      desc: 'Safety articles and expert advice on preventing electrical fires. consistent maintenance and knowledge are key to childproofing and home wiring.',
+      type: 'CollectionPage'
+    },
+    '/gallery': {
+      title: 'Hazard Gallery: Visual Guide to Real Electrical Dangers',
+      desc: 'Hazard gallery visualizes real electrical dangers. Learn to identify brunt outlets, exposed wiring, and dangerous plugs to prevent future accidents.',
+      type: 'ImageGallery'
+    },
+    '/downloads': {
+      title: 'Safety Checklists: Free PDF Downloads & Audit Templates',
+      desc: 'Safety checklists and templates for free. Download printable PDF audits, panel labels, and maintenance logs to keep your home electrical system safe.',
+      type: 'CollectionPage'
+    },
+    '/legal': {
+      title: 'Privacy Policy & Terms: ElectroSafe Legal Information Page',
+      desc: 'Privacy Policy and Terms of Use for ElectroSafe.homes. We are committed to protecting your data while providing critical safety information.',
+      type: 'WebPage'
+    },
+    '/contact': {
+      title: 'Contact Us: Support, Feedback & Safety Story Submission',
+      desc: 'Contact us for support or to share your story. We value your feedback on our electrical safety tools and guides to help protect more homes globally.',
+      type: 'ContactPage'
+    },
+    '/emergency': {
+      title: 'Emergency Protocol: Electrical Fire & Shock First Aid Steps',
+      desc: 'Emergency protocol for electrical fires and shocks. Immediate life-saving steps to isolate power and call for help during an electrical crisis.',
+      type: 'MedicalWebPage'
+    }
+  };
+
+  const data = routeData[location.pathname] || routeData['/'];
+  const fullTitle = `${data.title} | ElectroSafe.homes`;
+  const currentUrl = window.location.href;
+
+  const baseSchema = {
+    "@context": "https://schema.org",
+    "@type": data.type || "WebPage",
+    "name": fullTitle,
+    "description": data.desc,
+    "url": currentUrl,
+    "publisher": {
+      "@type": "Organization",
+      "name": "ElectroSafe.homes",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://electrosafe.homes/logo.png"
+      }
+    }
+  };
+
+  useEffect(() => {
+    // Google Analytics Page View Tracking
+    if (typeof (window as any).gtag === 'function') {
+      (window as any).gtag('config', 'G-417K6D9Q74', {
+        page_path: location.pathname + location.search
+      });
+    }
+    window.scrollTo(0, 0);
+  }, [location]);
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 font-sans">
+      <Helmet>
+        <title>{fullTitle}</title>
+        <meta name="description" content={data.desc} />
+        <link rel="canonical" href={currentUrl} />
+
+        {/* Open Graph */}
+        <meta property="og:title" content={fullTitle} />
+        <meta property="og:description" content={data.desc} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={currentUrl} />
+
+        {/* Organization & Base Schema */}
+        <script type="application/ld+json">
+          {JSON.stringify(baseSchema)}
+        </script>
+      </Helmet>
+
       <Navbar />
       <Breadcrumbs />
       <main className="flex-grow">

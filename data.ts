@@ -3,59 +3,59 @@ import { Article, RoomGuide, ApplianceGuide, QuizQuestion, HazardImage, TenantIs
 import { Home, BedDouble, Bath, Car, Sofa, Monitor, Sun } from 'lucide-react';
 
 export const TENANT_ISSUES: TenantIssue[] = [
-  { 
-    id: 'spark', 
-    label: 'Outlet Sparks when plugging in', 
-    technicalTerm: 'Arcing Receptacle', 
+  {
+    id: 'spark',
+    label: 'Outlet Sparks when plugging in',
+    technicalTerm: 'Arcing Receptacle',
     riskDescription: 'This indicates loose internal contacts which cause arcing temperatures capable of melting the faceplate and igniting surrounding materials.',
     urgency: 'High'
   },
-  { 
-    id: 'hot_switch', 
-    label: 'Switch/Outlet feels hot', 
-    technicalTerm: 'Overheating Component (High Resistance)', 
+  {
+    id: 'hot_switch',
+    label: 'Switch/Outlet feels hot',
+    technicalTerm: 'Overheating Component (High Resistance)',
     riskDescription: 'Heat indicates active electrical resistance and potential insulation failure. This is a direct precursor to an electrical fire.',
     urgency: 'Emergency'
   },
-  { 
-    id: 'loose', 
-    label: 'Plug falls out of outlet', 
-    technicalTerm: 'Worn Receptacle Contacts', 
+  {
+    id: 'loose',
+    label: 'Plug falls out of outlet',
+    technicalTerm: 'Worn Receptacle Contacts',
     riskDescription: 'Poor contact pressure increases resistance and heat. It also exposes live pins if the plug hangs halfway out.',
     urgency: 'Medium'
   },
-  { 
-    id: 'flicker', 
-    label: 'Lights flicker continuously', 
-    technicalTerm: 'Voltage Fluctuation / Loose Neutral', 
+  {
+    id: 'flicker',
+    label: 'Lights flicker continuously',
+    technicalTerm: 'Voltage Fluctuation / Loose Neutral',
     riskDescription: 'This suggests a loose connection in the circuit or panel, which can damage sensitive electronics and pose a fire risk.',
     urgency: 'Medium'
   },
-  { 
-    id: 'trip', 
-    label: 'Breaker trips frequently', 
-    technicalTerm: 'Circuit Overload / Short Circuit', 
+  {
+    id: 'trip',
+    label: 'Breaker trips frequently',
+    technicalTerm: 'Circuit Overload / Short Circuit',
     riskDescription: 'The circuit is being pushed beyond its safe amperage limit. Continued resetting without diagnosis can degrade the breaker.',
     urgency: 'High'
   },
-  { 
-    id: 'shock', 
-    label: 'Tingle/Shock from appliance', 
-    technicalTerm: 'Ground Fault / Leakage Current', 
+  {
+    id: 'shock',
+    label: 'Tingle/Shock from appliance',
+    technicalTerm: 'Ground Fault / Leakage Current',
     riskDescription: 'This indicates the grounding path is broken or missing. This is a lethal shock hazard if the fault worsens.',
     urgency: 'Emergency'
   },
-  { 
-    id: 'water', 
-    label: 'Water leaking near electrics', 
-    technicalTerm: 'Water Ingress Risk', 
+  {
+    id: 'water',
+    label: 'Water leaking near electrics',
+    technicalTerm: 'Water Ingress Risk',
     riskDescription: 'Water is conductive. Proximity to live electrical components creates an immediate electrocution hazard.',
     urgency: 'Emergency'
   },
-  { 
-    id: 'broken', 
-    label: 'Cracked faceplate/Cover', 
-    technicalTerm: 'Exposed Live Parts', 
+  {
+    id: 'broken',
+    label: 'Cracked faceplate/Cover',
+    technicalTerm: 'Exposed Live Parts',
     riskDescription: 'The physical barrier protecting users from live voltage is compromised.',
     urgency: 'Medium'
   }
@@ -141,155 +141,155 @@ export const LIGHTBULB_GUIDE = [
 ];
 
 export const QUESTIONS: QuizQuestion[] = [
-  { 
-    id: 1, 
-    question: "How old is the electrical wiring in your home?", 
+  {
+    id: 1,
+    question: "How old is the electrical wiring in your home?",
     whyItMatters: "Insulation on wires degrades over time, becoming brittle and cracking, which exposes live wires. 30+ years is the danger zone.",
-    options: [{ label: "Less than 10 years", score: 0 }, { label: "10-25 years", score: 2 }, { label: "Over 30 years", score: 5 }, { label: "I don't know", score: 3 }] 
+    options: [{ label: "Less than 10 years", score: 0 }, { label: "10-25 years", score: 2 }, { label: "Over 30 years", score: 5 }, { label: "I don't know", score: 3 }]
   },
-  { 
-    id: 2, 
-    question: "Do you have Ground Fault Protection (RCD/GFCI) installed?", 
+  {
+    id: 2,
+    question: "Do you have Ground Fault Protection (RCD/GFCI) installed?",
     whyItMatters: "Standard breakers protect the house from fire. GFCI/RCDs protect YOU from fatal shock. Without them, electricity can pass through your body to the ground.",
-    options: [{ label: "Yes, on all circuits", score: 0 }, { label: "Only in wet areas", score: 2 }, { label: "No / I don't know", score: 5 }] 
+    options: [{ label: "Yes, on all circuits", score: 0 }, { label: "Only in wet areas", score: 2 }, { label: "No / I don't know", score: 5 }]
   },
-  { 
-    id: 3, 
-    question: "Do your circuit breakers trip frequently?", 
+  {
+    id: 3,
+    question: "Do your circuit breakers trip frequently?",
     whyItMatters: "Frequent tripping means the circuit is overloaded (too much heat). Ignoring this leads to wire insulation melting inside the walls.",
-    options: [{ label: "Never", score: 0 }, { label: "Occasionally", score: 3 }, { label: "Often", score: 5 }] 
+    options: [{ label: "Never", score: 0 }, { label: "Occasionally", score: 3 }, { label: "Often", score: 5 }]
   },
-  { 
-    id: 4, 
-    question: "Is there a burning smell near your electrical panel?", 
+  {
+    id: 4,
+    question: "Is there a burning smell near your electrical panel?",
     whyItMatters: "Fishy or burning smells indicate active melting of plastic components. This is a pre-fire condition.",
-    options: [{ label: "No", score: 0 }, { label: "Yes", score: 5 }] 
+    options: [{ label: "No", score: 0 }, { label: "Yes", score: 5 }]
   },
-  { 
-    id: 5, 
-    question: "Do you hear buzzing sounds from switches or outlets?", 
+  {
+    id: 5,
+    question: "Do you hear buzzing sounds from switches or outlets?",
     whyItMatters: "Buzzing is the sound of electricity jumping a gap (arcing). This arc is thousands of degrees hot and starts fires.",
-    options: [{ label: "No", score: 0 }, { label: "Yes", score: 5 }] 
+    options: [{ label: "No", score: 0 }, { label: "Yes", score: 5 }]
   },
-  { 
-    id: 6, 
-    question: "Are any wall outlets warm to the touch?", 
+  {
+    id: 6,
+    question: "Are any wall outlets warm to the touch?",
     whyItMatters: "Resistance creates heat. A warm outlet means the connection inside is loose or corroded.",
-    options: [{ label: "No", score: 0 }, { label: "Yes", score: 5 }] 
+    options: [{ label: "No", score: 0 }, { label: "Yes", score: 5 }]
   },
-  { 
-    id: 7, 
-    question: "Are your outlet cover plates broken or cracked?", 
+  {
+    id: 7,
+    question: "Are your outlet cover plates broken or cracked?",
     whyItMatters: "Cracks expose live bus bars. A curious child or a metal object can easily bridge the connection.",
-    options: [{ label: "None", score: 0 }, { label: "A few", score: 3 }, { label: "Many", score: 5 }] 
+    options: [{ label: "None", score: 0 }, { label: "A few", score: 3 }, { label: "Many", score: 5 }]
   },
-  { 
-    id: 8, 
-    question: "Do plugs fit tightly into your wall outlets?", 
+  {
+    id: 8,
+    question: "Do plugs fit tightly into your wall outlets?",
     whyItMatters: "A loose plug has poor contact area. This increases resistance, causing the plug blades to overheat and melt.",
-    options: [{ label: "Yes, very tight", score: 0 }, { label: "Some are loose", score: 3 }, { label: "Most fall out", score: 5 }] 
+    options: [{ label: "Yes, very tight", score: 0 }, { label: "Some are loose", score: 3 }, { label: "Most fall out", score: 5 }]
   },
-  { 
-    id: 9, 
-    question: "Do you see sparks when plugging in devices?", 
+  {
+    id: 9,
+    question: "Do you see sparks when plugging in devices?",
     whyItMatters: "Small blue sparks can be normal, but large yellow/orange sparks indicate a load mismatch or bad contacts.",
-    options: [{ label: "Never", score: 0 }, { label: "Rarely", score: 2 }, { label: "Often", score: 5 }] 
+    options: [{ label: "Never", score: 0 }, { label: "Rarely", score: 2 }, { label: "Often", score: 5 }]
   },
-  { 
-    id: 10, 
-    question: "Are any outlets discolored or showing scorch marks?", 
+  {
+    id: 10,
+    question: "Are any outlets discolored or showing scorch marks?",
     whyItMatters: "Brown/Black marks are carbon from previous arcing events. Carbon conducts electricity, creating a heating element on your wall.",
-    options: [{ label: "No", score: 0 }, { label: "Yes", score: 5 }] 
+    options: [{ label: "No", score: 0 }, { label: "Yes", score: 5 }]
   },
-  { 
-    id: 11, 
-    question: "Do your lights flicker when an appliance turns on?", 
+  {
+    id: 11,
+    question: "Do your lights flicker when an appliance turns on?",
     whyItMatters: "This means the voltage is dropping significantly across the whole house. It indicates a loose main neutral or undersized service wiring.",
-    options: [{ label: "Never", score: 0 }, { label: "Rarely", score: 2 }, { label: "Often", score: 5 }] 
+    options: [{ label: "Never", score: 0 }, { label: "Rarely", score: 2 }, { label: "Often", score: 5 }]
   },
-  { 
-    id: 12, 
-    question: "Do you use extension cords for permanent appliances (Fridge, AC)?", 
+  {
+    id: 12,
+    question: "Do you use extension cords for permanent appliances (Fridge, AC)?",
     whyItMatters: "Extension cords are for temporary use. They are usually thinner than wall wire and overheat under continuous heavy loads.",
-    options: [{ label: "Never", score: 0 }, { label: "Sometimes", score: 3 }, { label: "Yes, frequently", score: 5 }] 
+    options: [{ label: "Never", score: 0 }, { label: "Sometimes", score: 3 }, { label: "Yes, frequently", score: 5 }]
   },
-  { 
-    id: 13, 
-    question: "Are power strips daisy-chained (plugged into each other)?", 
+  {
+    id: 13,
+    question: "Are power strips daisy-chained (plugged into each other)?",
     whyItMatters: "This funnels the current of multiple strips through the single plug of the first strip, guaranteeing an overload.",
-    options: [{ label: "No", score: 0 }, { label: "Yes", score: 5 }] 
+    options: [{ label: "No", score: 0 }, { label: "Yes", score: 5 }]
   },
-  { 
-    id: 14, 
-    question: "Have you ever experienced a mild shock when touching an appliance?", 
+  {
+    id: 14,
+    question: "Have you ever experienced a mild shock when touching an appliance?",
     whyItMatters: "This is a 'leakage current'. It means the chassis of your appliance is live and your grounding is failing.",
-    options: [{ label: "Never", score: 0 }, { label: "Once", score: 3 }, { label: "Multiple times", score: 5 }] 
+    options: [{ label: "Never", score: 0 }, { label: "Once", score: 3 }, { label: "Multiple times", score: 5 }]
   },
-  { 
-    id: 15, 
-    question: "Do you run cables under rugs or carpets?", 
+  {
+    id: 15,
+    question: "Do you run cables under rugs or carpets?",
     whyItMatters: "Foot traffic crushes the cable insulation. The carpet traps the heat. This is a classic fire starter.",
-    options: [{ label: "No", score: 0 }, { label: "Yes", score: 5 }] 
+    options: [{ label: "No", score: 0 }, { label: "Yes", score: 5 }]
   },
-  { 
-    id: 16, 
-    question: "Are there outlets within 1 meter of water sources without covers?", 
+  {
+    id: 16,
+    question: "Are there outlets within 1 meter of water sources without covers?",
     whyItMatters: "Water splashes can bridge the Live and Neutral pins, causing a short circuit or electrocution.",
-    options: [{ label: "No", score: 0 }, { label: "Yes", score: 5 }] 
+    options: [{ label: "No", score: 0 }, { label: "Yes", score: 5 }]
   },
-  { 
-    id: 17, 
-    question: "Do you leave portable heaters on while sleeping?", 
+  {
+    id: 17,
+    question: "Do you leave portable heaters on while sleeping?",
     whyItMatters: "Heaters are high-wattage. If they tip over or overheat while you sleep, you won't react in time.",
-    options: [{ label: "Never", score: 0 }, { label: "Sometimes", score: 5 }] 
+    options: [{ label: "Never", score: 0 }, { label: "Sometimes", score: 5 }]
   },
-  { 
-    id: 18, 
-    question: "Are electrical cords frayed or taped up?", 
+  {
+    id: 18,
+    question: "Are electrical cords frayed or taped up?",
     whyItMatters: "Tape dries and falls off. Exposed wires are a direct shock hazard to children and pets.",
-    options: [{ label: "None", score: 0 }, { label: "A few", score: 3 }, { label: "Yes, many", score: 5 }] 
+    options: [{ label: "None", score: 0 }, { label: "A few", score: 3 }, { label: "Yes, many", score: 5 }]
   },
-  { 
-    id: 19, 
-    question: "Do you have working smoke detectors in the home?", 
+  {
+    id: 19,
+    question: "Do you have working smoke detectors in the home?",
     whyItMatters: "Most electrical fires happen at night. Smoke detectors are your only warning system when you are asleep.",
-    options: [{ label: "Yes, tested monthly", score: 0 }, { label: "Yes, but unsure if working", score: 2 }, { label: "No", score: 5 }] 
+    options: [{ label: "Yes, tested monthly", score: 0 }, { label: "Yes, but unsure if working", score: 2 }, { label: "No", score: 5 }]
   },
-  { 
-    id: 20, 
-    question: "Is your electrical panel easily accessible (not blocked)?", 
+  {
+    id: 20,
+    question: "Is your electrical panel easily accessible (not blocked)?",
     whyItMatters: "In an emergency (fire/shock), you need to cut power in seconds. Moving boxes or furniture takes too long.",
-    options: [{ label: "Yes", score: 0 }, { label: "No", score: 3 }] 
+    options: [{ label: "Yes", score: 0 }, { label: "No", score: 3 }]
   },
-  { 
-    id: 21, 
-    question: "When was your last professional electrical inspection?", 
+  {
+    id: 21,
+    question: "When was your last professional electrical inspection?",
     whyItMatters: "Systems degrade silently. Connections loosen over time due to thermal expansion/contraction.",
-    options: [{ label: "Last 5 years", score: 0 }, { label: "Over 10 years ago", score: 3 }, { label: "Never", score: 5 }] 
+    options: [{ label: "Last 5 years", score: 0 }, { label: "Over 10 years ago", score: 3 }, { label: "Never", score: 5 }]
   },
-  { 
-    id: 22, 
-    question: "Do you rely on adapters for non-fitting plugs?", 
+  {
+    id: 22,
+    question: "Do you rely on adapters for non-fitting plugs?",
     whyItMatters: "Adapters often bypass the ground pin connection, leaving the appliance unsafe.",
-    options: [{ label: "Never", score: 0 }, { label: "Sometimes", score: 2 }, { label: "Always", score: 4 }] 
+    options: [{ label: "Never", score: 0 }, { label: "Sometimes", score: 2 }, { label: "Always", score: 4 }]
   },
-  { 
-    id: 23, 
-    question: "Do you have surge protection for expensive electronics?", 
+  {
+    id: 23,
+    question: "Do you have surge protection for expensive electronics?",
     whyItMatters: "Voltage spikes from the grid can fry sensitive circuit boards in milliseconds.",
-    options: [{ label: "Yes", score: 0 }, { label: "No", score: 2 }] 
+    options: [{ label: "Yes", score: 0 }, { label: "No", score: 2 }]
   },
-  { 
-    id: 24, 
-    question: "Do you unplug small appliances (toaster, kettle) when not in use?", 
+  {
+    id: 24,
+    question: "Do you unplug small appliances (toaster, kettle) when not in use?",
     whyItMatters: "Toasters can malfunction and turn on. If plugged in, they are a fire risk even when 'off'.",
-    options: [{ label: "Usually", score: 0 }, { label: "Rarely", score: 2 }] 
+    options: [{ label: "Usually", score: 0 }, { label: "Rarely", score: 2 }]
   },
-  { 
-    id: 25, 
-    question: "Do you know where your main power shut-off switch is?", 
+  {
+    id: 25,
+    question: "Do you know where your main power shut-off switch is?",
     whyItMatters: "Knowing this location is the single most important safety knowledge for any resident.",
-    options: [{ label: "Yes", score: 0 }, { label: "No", score: 5 }] 
+    options: [{ label: "Yes", score: 0 }, { label: "No", score: 5 }]
   },
 ];
 
@@ -930,7 +930,7 @@ export const ARTICLES: Article[] = [
 export const HAZARD_GALLERY: HazardImage[] = [
   {
     id: '1',
-    src: 'https://images.unsplash.com/photo-1621252179027-94459d27d3ee?auto=format&fit=crop&q=80&w=800', 
+    src: 'https://images.unsplash.com/photo-1621252179027-94459d27d3ee?auto=format&fit=crop&q=80&w=800',
     title: 'Overloaded Power Strip',
     description: 'Multiple high-power adapters plugged into a single low-quality strip.',
     risk: 'High Fire Risk due to overheating of the internal copper strips.',

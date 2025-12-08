@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { AlertTriangle, CheckCircle, RefreshCw, ShieldAlert, CheckSquare, Flame, Zap } from 'lucide-react';
 
 export const RiskPredictor = () => {
@@ -11,67 +12,67 @@ export const RiskPredictor = () => {
 
   // Refined risk factors with weights, critical flags, and educational descriptions
   const riskFactors = [
-    { 
-      id: 'wiring_age', 
-      label: 'Home wiring is older than 30 years', 
+    {
+      id: 'wiring_age',
+      label: 'Home wiring is older than 30 years',
       description: 'Old insulation becomes brittle and cracks, exposing live wires to potential short circuits.',
-      weight: 3 
+      weight: 3
     },
-    { 
-      id: 'moisture', 
-      label: 'Moisture or water exposure near outlets/switches', 
+    {
+      id: 'moisture',
+      label: 'Moisture or water exposure near outlets/switches',
       description: 'Water conducts electricity, creating a direct path for lethal shocks and short circuits.',
-      weight: 4 
+      weight: 4
     },
-    { 
-      id: 'loose_sockets', 
-      label: 'Loose sockets (plugs fall out easily)', 
+    {
+      id: 'loose_sockets',
+      label: 'Loose sockets (plugs fall out easily)',
       description: 'Poor contact area increases resistance, causing heat buildup and potential arcing.',
-      weight: 4 
+      weight: 4
     },
-    { 
-      id: 'overheating', 
-      label: 'Outlets or switches feel warm to the touch', 
+    {
+      id: 'overheating',
+      label: 'Outlets or switches feel warm to the touch',
       description: 'Heat indicates active electrical resistance, a direct precursor to melting and fire.',
-      weight: 10, 
-      isCritical: true 
+      weight: 10,
+      isCritical: true
     },
-    { 
-      id: 'breaker_trips', 
-      label: 'Circuit breakers trip frequently', 
+    {
+      id: 'breaker_trips',
+      label: 'Circuit breakers trip frequently',
       description: 'The safety mechanism is detecting sustained overloads or faults that strain your wiring.',
-      weight: 4 
+      weight: 4
     },
-    { 
-      id: 'no_gfci', 
-      label: 'No Ground Fault Protection (RCD/GFCI)', 
+    {
+      id: 'no_gfci',
+      label: 'No Ground Fault Protection (RCD/GFCI)',
       description: 'Without RCDs, there is no automatic shutoff to prevent fatal electric shocks.',
-      weight: 5 
+      weight: 5
     },
-    { 
-      id: 'smell', 
-      label: 'Occasional burning or fishy smell', 
+    {
+      id: 'smell',
+      label: 'Occasional burning or fishy smell',
       description: 'Chemical odors indicate wire insulation is actively melting, posing an immediate fire risk.',
-      weight: 10, 
-      isCritical: true 
+      weight: 10,
+      isCritical: true
     },
-    { 
-      id: 'sparks', 
-      label: 'Visible sparks when plugging in devices', 
+    {
+      id: 'sparks',
+      label: 'Visible sparks when plugging in devices',
       description: 'Visible arcing generates intense heat (thousands of degrees) capable of igniting dust or covers.',
-      weight: 4 
+      weight: 4
     },
-    { 
-      id: 'flicker', 
-      label: 'Lights flicker when major appliances start', 
+    {
+      id: 'flicker',
+      label: 'Lights flicker when major appliances start',
       description: 'Flickering indicates loose connections or voltage drops, both of which generate dangerous heat.',
-      weight: 2 
+      weight: 2
     },
-    { 
-      id: 'adapters', 
-      label: 'Heavy reliance on adapters/extension cords', 
+    {
+      id: 'adapters',
+      label: 'Heavy reliance on adapters/extension cords',
       description: 'Every additional connection point adds resistance and is a potential failure point for overheating.',
-      weight: 3 
+      weight: 3
     }
   ];
 
@@ -105,7 +106,7 @@ export const RiskPredictor = () => {
       const factor = riskFactors.find(f => f.id === id);
       if (factor) {
         currentScore += factor.weight;
-        
+
         // Smell Sub-logic
         if (id === 'smell' && subAnswers['smell']) {
           const loc = subAnswers['smell'];
@@ -129,7 +130,7 @@ export const RiskPredictor = () => {
     });
 
     // 2. Compound Logic (The "Nuanced" Scoring)
-    
+
     // Water + No Protection = Lethal Shock Risk
     if (factors.includes('moisture') && factors.includes('no_gfci')) {
       currentScore += 10;
@@ -162,7 +163,7 @@ export const RiskPredictor = () => {
 
   const getActionPlan = () => {
     const actions = [];
-    
+
     // Immediate Critical Actions
     if (factors.includes('smell') || factors.includes('overheating')) {
       actions.push("EMERGENCY: Switch off the main power to affected circuits immediately.");
@@ -202,7 +203,7 @@ export const RiskPredictor = () => {
 
     // Dynamic additions based on factors
     factors.forEach(id => {
-      switch(id) {
+      switch (id) {
         case 'wiring_age':
           steps.push("Schedule an insulation resistance test every 3-5 years.");
           steps.push("Avoid high-wattage loads on old branch circuits.");
@@ -250,6 +251,24 @@ export const RiskPredictor = () => {
   return (
     <div className="max-w-3xl mx-auto px-4 py-12">
       <div className="text-center mb-10">
+        <Helmet>
+          <title>Electrical Risk Predictor | ElectroSafe.homes</title>
+          <meta name="description" content="Analyze electrical fire and shock risks in your home with our diagnostic tool." />
+          <script type="application/ld+json">
+            {JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": riskFactors.map(f => ({
+                "@type": "Question",
+                "name": f.label,
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": f.description
+                }
+              }))
+            })}
+          </script>
+        </Helmet>
         <h1 className="text-3xl font-bold text-gray-900 flex items-center justify-center gap-3">
           <Zap className="text-yellow-500" /> Shock & Fire Risk Predictor
         </h1>
@@ -292,8 +311,8 @@ export const RiskPredictor = () => {
                           { val: 'appliance', text: 'Near appliances' }
                         ].map(opt => (
                           <label key={opt.val} className="flex items-center gap-2 cursor-pointer">
-                            <input 
-                              type="radio" 
+                            <input
+                              type="radio"
                               name="smell_loc"
                               value={opt.val}
                               checked={subAnswers['smell'] === opt.val}
@@ -310,7 +329,7 @@ export const RiskPredictor = () => {
               ))}
             </div>
           </div>
-          
+
           <div className="flex justify-center">
             <button
               onClick={calculateRisk}
@@ -322,22 +341,20 @@ export const RiskPredictor = () => {
         </div>
       ) : (
         <div className="space-y-8 animate-in zoom-in-50 duration-500">
-          <div className={`p-8 rounded-xl border-2 text-center shadow-md ${
-            result === 'low' ? 'bg-green-50 border-green-200' :
-            result === 'medium' ? 'bg-yellow-50 border-yellow-200' :
-            'bg-red-50 border-red-200'
-          }`}>
+          <div className={`p-8 rounded-xl border-2 text-center shadow-md ${result === 'low' ? 'bg-green-50 border-green-200' :
+              result === 'medium' ? 'bg-yellow-50 border-yellow-200' :
+                'bg-red-50 border-red-200'
+            }`}>
             <div className="flex justify-center mb-4">
               {result === 'low' && <CheckCircle className="w-16 h-16 text-green-600" />}
               {result === 'medium' && <AlertTriangle className="w-16 h-16 text-yellow-600" />}
               {result === 'high' && <Flame className="w-16 h-16 text-red-600 animate-pulse" />}
             </div>
-            
-            <h2 className={`text-4xl font-extrabold uppercase mb-2 ${
-              result === 'low' ? 'text-green-700' :
-              result === 'medium' ? 'text-yellow-700' :
-              'text-red-700'
-            }`}>
+
+            <h2 className={`text-4xl font-extrabold uppercase mb-2 ${result === 'low' ? 'text-green-700' :
+                result === 'medium' ? 'text-yellow-700' :
+                  'text-red-700'
+              }`}>
               {result} RISK
             </h2>
 
@@ -350,16 +367,15 @@ export const RiskPredictor = () => {
               </div>
               <div className="w-full h-4 bg-gray-200 rounded-full overflow-hidden relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-green-400 via-yellow-400 to-red-500 opacity-30"></div>
-                <div 
-                  className={`h-full transition-all duration-1000 ease-out rounded-full ${
-                    result === 'low' ? 'bg-green-500' : result === 'medium' ? 'bg-yellow-500' : 'bg-red-600'
-                  }`}
+                <div
+                  className={`h-full transition-all duration-1000 ease-out rounded-full ${result === 'low' ? 'bg-green-500' : result === 'medium' ? 'bg-yellow-500' : 'bg-red-600'
+                    }`}
                   style={{ width: `${Math.min((score / 25) * 100, 100)}%` }}
                 ></div>
               </div>
               <p className="text-xs text-gray-400 mt-1 text-right">Risk Score: {score}</p>
             </div>
-            
+
             <p className="text-gray-700 text-lg font-medium max-w-xl mx-auto mb-4">
               {result === 'low' && "Your home shows minimal signs of electrical stress. Maintain your safety habits."}
               {result === 'medium' && "There are clear warning signs. Preventative maintenance is needed soon to avoid failure."}
@@ -368,14 +384,14 @@ export const RiskPredictor = () => {
 
             {/* Risk Details / Why is it high? */}
             {riskDetails.length > 0 && (
-               <div className="bg-white/60 p-4 rounded-lg text-left max-w-lg mx-auto border border-black/5">
-                 <h4 className="text-sm font-bold text-gray-800 mb-2 uppercase tracking-wide">Analysis Breakdown:</h4>
-                 <ul className="list-disc pl-4 space-y-1">
-                   {riskDetails.map((detail, idx) => (
-                     <li key={idx} className="text-sm text-red-700 font-medium">{detail}</li>
-                   ))}
-                 </ul>
-               </div>
+              <div className="bg-white/60 p-4 rounded-lg text-left max-w-lg mx-auto border border-black/5">
+                <h4 className="text-sm font-bold text-gray-800 mb-2 uppercase tracking-wide">Analysis Breakdown:</h4>
+                <ul className="list-disc pl-4 space-y-1">
+                  {riskDetails.map((detail, idx) => (
+                    <li key={idx} className="text-sm text-red-700 font-medium">{detail}</li>
+                  ))}
+                </ul>
+              </div>
             )}
           </div>
 
@@ -411,7 +427,7 @@ export const RiskPredictor = () => {
 
           <div className="flex justify-center pt-4">
             <button
-              onClick={() => { setResult(null); setFactors([]); setRiskDetails([]); setScore(0); setSubAnswers({}); window.scrollTo(0,0); }}
+              onClick={() => { setResult(null); setFactors([]); setRiskDetails([]); setScore(0); setSubAnswers({}); window.scrollTo(0, 0); }}
               className="flex items-center gap-2 px-8 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition shadow-md"
             >
               <RefreshCw className="w-4 h-4" /> Start New Prediction
