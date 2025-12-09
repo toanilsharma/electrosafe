@@ -1,6 +1,15 @@
 
 import { Article, RoomGuide, ApplianceGuide, QuizQuestion, HazardImage, TenantIssue, HardwareItem, GlossaryTerm } from './types';
 import { Home, BedDouble, Bath, Car, Sofa, Monitor, Sun } from 'lucide-react';
+import rustedTerminalsImg from './assets/rusted_terminals.png';
+import overloadedStripImg from './assets/overloaded_strip.png';
+import scorchedOutletImg from './assets/scorched_outlet.png';
+import waterExposureImg from './assets/water_exposure.png';
+import brokenSwitchImg from './assets/broken_switch.png';
+import damagedCordImg from './assets/damaged_cord.png';
+import diyFailImg from './assets/diy_fail.png';
+import overheatingPanelImg from './assets/overheating_panel.png';
+import rodentDamageImg from './assets/rodent_damage.png';
 
 export const TENANT_ISSUES: TenantIssue[] = [
   {
@@ -930,7 +939,7 @@ export const ARTICLES: Article[] = [
 export const HAZARD_GALLERY: HazardImage[] = [
   {
     id: '1',
-    src: 'https://images.unsplash.com/photo-1621252179027-94459d27d3ee?auto=format&fit=crop&q=80&w=800',
+    src: overloadedStripImg,
     title: 'Overloaded Power Strip',
     description: 'Multiple high-power adapters plugged into a single low-quality strip.',
     risk: 'High Fire Risk due to overheating of the internal copper strips.',
@@ -938,7 +947,7 @@ export const HAZARD_GALLERY: HazardImage[] = [
   },
   {
     id: '2',
-    src: 'https://images.unsplash.com/photo-1583253755294-1a3b934d67d2?auto=format&fit=crop&q=80&w=800',
+    src: damagedCordImg,
     title: 'Damaged Cord Insulation',
     description: 'Outer sheath broken, exposing internal colored wires.',
     risk: 'Electrocution and Short Circuit.',
@@ -946,7 +955,7 @@ export const HAZARD_GALLERY: HazardImage[] = [
   },
   {
     id: '3',
-    src: 'https://images.unsplash.com/photo-1524312297184-21c601660723?auto=format&fit=crop&q=80&w=800',
+    src: scorchedOutletImg,
     title: 'Scorched Outlet',
     description: 'Black marks around the plug holes indicating high heat.',
     risk: 'Internal arcing indicating loose connections.',
@@ -954,7 +963,7 @@ export const HAZARD_GALLERY: HazardImage[] = [
   },
   {
     id: '4',
-    src: 'https://images.unsplash.com/photo-1584622154407-7d8b5a004c86?auto=format&fit=crop&q=80&w=800',
+    src: waterExposureImg,
     title: 'Water Exposure',
     description: 'Outlet installed too close to a sink without a cover.',
     risk: 'Fatal Shock Hazard.',
@@ -962,7 +971,7 @@ export const HAZARD_GALLERY: HazardImage[] = [
   },
   {
     id: '5',
-    src: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&q=80&w=800',
+    src: diyFailImg,
     title: 'DIY Wiring Fail',
     description: 'Wires joined with tape instead of junction boxes/nuts.',
     risk: 'Short circuit and fire.',
@@ -970,7 +979,7 @@ export const HAZARD_GALLERY: HazardImage[] = [
   },
   {
     id: '6',
-    src: 'https://images.unsplash.com/photo-1574971868353-85888bd9a805?auto=format&fit=crop&q=80&w=800',
+    src: overheatingPanelImg,
     title: 'Overheating Panel',
     description: 'Circuit breakers running hot or showing burn marks.',
     risk: 'Main system failure and fire.',
@@ -978,7 +987,7 @@ export const HAZARD_GALLERY: HazardImage[] = [
   },
   {
     id: '7',
-    src: 'https://images.unsplash.com/photo-1586278853665-22d735071169?auto=format&fit=crop&q=80&w=800',
+    src: brokenSwitchImg,
     title: 'Broken Light Switch',
     description: 'Cracked toggle or housing on a wall switch.',
     risk: 'Shock hazard from exposed live parts inside.',
@@ -986,7 +995,7 @@ export const HAZARD_GALLERY: HazardImage[] = [
   },
   {
     id: '8',
-    src: 'https://images.unsplash.com/photo-1616782570085-3004b7c10b77?auto=format&fit=crop&q=80&w=800',
+    src: rustedTerminalsImg,
     title: 'Rusted Terminals',
     description: 'Corrosion on battery or connection terminals.',
     risk: 'High resistance causing heat buildup and failure.',
@@ -994,7 +1003,7 @@ export const HAZARD_GALLERY: HazardImage[] = [
   },
   {
     id: '9',
-    src: 'https://images.unsplash.com/photo-1425082661705-1834bfd09dca?auto=format&fit=crop&q=80&w=800',
+    src: rodentDamageImg,
     title: 'Rodent Damage',
     description: 'Chewed wire insulation in an attic or basement.',
     risk: 'Major fire risk from exposed copper arcing against wood.',
