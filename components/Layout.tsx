@@ -428,104 +428,124 @@ const EmergencyButton = () => {
 
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const location = useLocation();
-  const routeData: Record<string, { title: string; desc: string; type?: string }> = {
+  const routeData: Record<string, { title: string; desc: string; type?: string; keywords: string }> = {
     '/': {
       title: 'Electrical Safety Guide: Protect Your Home & Family Global',
       desc: 'Electrical safety is critical. Discover our expert guide on home protection, hazard prevention, and daily safety tools for homeowners worldwide.',
-      type: 'WebSite'
+      type: 'WebSite',
+      keywords: 'electrical safety, home protection, fire prevention, shock hazards, electrical guide'
     },
     '/assessment': {
       title: 'Assessment Tool: Rate Your Home Electrical Safety Score',
       desc: 'Assessment tool for home safety. Identify fire risks and shock hazards in minutes with our comprehensive 25-point global electrical safety audit.',
-      type: 'SoftwareApplication'
+      type: 'SoftwareApplication',
+      keywords: 'safety audit, home inspection, electrical checklist, fire risk assessment, shock hazard'
     },
     '/load-calc': {
       title: 'Load Calculator: Estimate Home Amps & Prevent Overloads',
       desc: 'Load calculator for preventing electrical fires. accurately estimate your household kW usage and Amps to ensure your wiring is never overloaded.',
-      type: 'SoftwareApplication'
+      type: 'SoftwareApplication',
+      keywords: 'load calculator, amperage estimate, wattage calculator, prevent overload, electrical design'
     },
     '/protection-guide': {
       title: 'Circuit Protection Guide: Breakers, GFCI & RCD Safety',
       desc: 'Circuit protection is your first line of defense. Learn how to select the right miniature circuit breakers, GFCIs, and RCDs for your specific needs.',
-      type: 'HowTo'
+      type: 'HowTo',
+      keywords: 'circuit breakers, GFCI, RCD, electrical protection, safety switches, fuse box'
     },
     '/risk-predictor': {
       title: 'Risk Predictor: Diagnose Electrical Fire & Shock Hazards',
       desc: 'Risk predictor tool analyzes symptoms like burning smells or flickering lights. Diagnose hidden electrical fire and shock hazards before failure.',
-      type: 'MedicalWebPage'
+      type: 'MedicalWebPage',
+      keywords: 'electrical diagnosis, fire hazard, flickering lights, burning smell, troubleshooting'
     },
     '/tenant-request': {
       title: 'Tenant Request Generator: Report Repairs to Landlords',
       desc: 'Tenant request generator helps you get repairs fast. Create professional, safety-focused maintenance emails for landlords to fix hazards quickly.',
-      type: 'SoftwareApplication'
+      type: 'SoftwareApplication',
+      keywords: 'tenant rights, repair request, landlord letter, maintenance issue, rental safety'
     },
     '/appliances': {
       title: 'Appliance Safety Guides: ACs, Heaters & EV Charger Tips',
       desc: 'Appliance safety guides for high-power devices. Learn correct usage and installation for Air Conditioners, Heaters, EV Chargers, and home wiring.',
-      type: 'CollectionPage'
+      type: 'CollectionPage',
+      keywords: 'appliance safety, AC installation, heater safety, EV charger, high power devices'
     },
     '/rooms': {
       title: 'Room Safety Checklists: Kitchen, Bathroom & Outdoor Tips',
       desc: 'Room safety checklists ensure every corner of your home is secure. Explore detailed electrical guides for Kitchens, Bathrooms, Garages, and Outdoors.',
-      type: 'CollectionPage'
+      type: 'CollectionPage',
+      keywords: 'kitchen safety, bathroom electrical, outdoor wiring, garage safety, room checklist'
     },
     '/hardware': {
       title: 'Electrical Hardware Guide: MCBs, Wires & Switches Encyclopedia',
       desc: 'Electrical hardware guide for homeowners. identifying the right MCBs, wire gauges, and switches is crucial for a safe and compliant home installation.',
-      type: 'Article'
+      type: 'Article',
+      keywords: 'electrical hardware, wire gauge, MCB types, switches, electrical components'
     },
     '/new-home': {
       title: 'New Home Electrical Plan: Construction & Safety Guide Master',
       desc: 'New home electrical planning made simple. Follow our master guide for socket placement, wiring standards, procurement, and quality safety checks.',
-      type: 'Article'
+      type: 'Article',
+      keywords: 'new home wiring, electrical plan, construction guide, socket placement, wiring standards'
     },
     '/everyday-safety': {
       title: 'Everyday Safety Toolkit: Lightbulbs, Outages & First Aid',
       desc: 'Everyday safety toolkit for non-experts. Access our lightbulb guide, power outage detective, and shock first aid protocols to stay safe daily.',
-      type: 'SoftwareApplication'
+      type: 'SoftwareApplication',
+      keywords: 'everyday safety, power outage, first aid, lightbulb guide, child safety'
     },
     '/articles': {
       title: 'Safety Articles: Expert Electrical Advice & Knowledge Base',
       desc: 'Safety articles and expert advice on preventing electrical fires. consistent maintenance and knowledge are key to childproofing and home wiring.',
-      type: 'CollectionPage'
+      type: 'CollectionPage',
+      keywords: 'electrical articles, safety advice, expert tips, home maintenance, knowledge base'
     },
     '/gallery': {
       title: 'Hazard Gallery: Visual Guide to Real Electrical Dangers',
       desc: 'Hazard gallery visualizes real electrical dangers. Learn to identify brunt outlets, exposed wiring, and dangerous plugs to prevent future accidents.',
-      type: 'ImageGallery'
+      type: 'ImageGallery',
+      keywords: 'hazard gallery, electrical dangers, burnt outlet, exposed wire, visual guide'
     },
     '/downloads': {
       title: 'Safety Checklists: Free PDF Downloads & Audit Templates',
       desc: 'Safety checklists and templates for free. Download printable PDF audits, panel labels, and maintenance logs to keep your home electrical system safe.',
-      type: 'CollectionPage'
+      type: 'CollectionPage',
+      keywords: 'safety checklists, PDF download, audit templates, maintenance log, printable guides'
     },
     '/legal': {
       title: 'Privacy Policy & Terms: ElectroSafe Legal Information Page',
       desc: 'Privacy Policy and Terms of Use for ElectroSafe.homes. We are committed to protecting your data while providing critical safety information.',
-      type: 'WebPage'
+      type: 'WebPage',
+      keywords: 'privacy policy, terms of use, legal info, disclaimer'
     },
     '/contact': {
       title: 'Contact Us: Support, Feedback & Safety Story Submission',
       desc: 'Contact us for support or to share your story. We value your feedback on our electrical safety tools and guides to help protect more homes globally.',
-      type: 'ContactPage'
+      type: 'ContactPage',
+      keywords: 'contact us, support, feedback, get in touch'
     },
     '/emergency': {
       title: 'Emergency Protocol: Electrical Fire & Shock First Aid Steps',
       desc: 'Emergency protocol for electrical fires and shocks. Immediate life-saving steps to isolate power and call for help during an electrical crisis.',
-      type: 'MedicalWebPage'
+      type: 'MedicalWebPage',
+      keywords: 'electrical emergency, fire protocol, electric shock, first aid, emergency steps'
     }
   };
 
+  /* Restore necessary variable declarations */
   const data = routeData[location.pathname] || routeData['/'];
   const fullTitle = `${data.title} | ElectroSafe.homes`;
-  const currentUrl = window.location.href;
+
+  // Canonical URL - Remove query parameters for SEO
+  const canonicalUrl = window.location.origin + location.pathname;
 
   const baseSchema = {
     "@context": "https://schema.org",
     "@type": data.type || "WebPage",
     "name": fullTitle,
     "description": data.desc,
-    "url": currentUrl,
+    "url": canonicalUrl,
     "publisher": {
       "@type": "Organization",
       "name": "ElectroSafe.homes",
@@ -539,7 +559,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
   useEffect(() => {
     // Google Analytics Page View Tracking
     if (typeof (window as any).gtag === 'function') {
-      (window as any).gtag('config', 'G-417K6D9Q74', {
+      (window as any).gtag('config', 'G-D9L2WJRB5N', {
         page_path: location.pathname + location.search
       });
     }
@@ -551,13 +571,21 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       <Helmet>
         <title>{fullTitle}</title>
         <meta name="description" content={data.desc} />
-        <link rel="canonical" href={currentUrl} />
+        <meta name="keywords" content={data.keywords} />
+        <link rel="canonical" href={canonicalUrl} />
 
         {/* Open Graph */}
         <meta property="og:title" content={fullTitle} />
         <meta property="og:description" content={data.desc} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={currentUrl} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:image" content="https://electrosafe.homes/logo.png" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={fullTitle} />
+        <meta name="twitter:description" content={data.desc} />
+        <meta name="twitter:image" content="https://electrosafe.homes/logo.png" />
 
         {/* Organization & Base Schema */}
         <script type="application/ld+json">
