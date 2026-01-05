@@ -5,7 +5,8 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   Menu, X, Zap, ShieldCheck, Search, ChevronRight, AlertOctagon,
   ChevronDown, Calculator, ClipboardCheck, AlertTriangle, UserCheck,
-  Hammer, BookOpen, PenTool, Image, Download, Mail, Globe, Map, LifeBuoy
+  Hammer, BookOpen, PenTool, Image, Download, Mail, Globe, Map, LifeBuoy,
+  Facebook, Linkedin, Twitter, Instagram, MessageCircle
 } from 'lucide-react';
 import { ARTICLES, APPLIANCES, ROOMS, HAZARD_GALLERY } from '../data';
 
@@ -385,6 +386,27 @@ const Footer = () => {
                 </div>
               </div>
 
+              <div className="flex flex-wrap gap-3 pt-6 mt-6 border-t border-zinc-800">
+                <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" className="p-2 bg-zinc-800 rounded-lg text-green-500 hover:bg-green-500 hover:text-white transition-all" aria-label="WhatsApp">
+                  <MessageCircle className="w-5 h-5" />
+                </a>
+                <a href="#" target="_blank" rel="noopener noreferrer" className="p-2 bg-zinc-800 rounded-lg text-blue-600 hover:bg-blue-600 hover:text-white transition-all" aria-label="LinkedIn">
+                  <Linkedin className="w-5 h-5" />
+                </a>
+                <a href="#" target="_blank" rel="noopener noreferrer" className="p-2 bg-zinc-800 rounded-lg text-blue-500 hover:bg-blue-500 hover:text-white transition-all" aria-label="Facebook">
+                  <Facebook className="w-5 h-5" />
+                </a>
+                <a href="#" target="_blank" rel="noopener noreferrer" className="p-2 bg-zinc-800 rounded-lg text-sky-400 hover:bg-sky-400 hover:text-white transition-all" aria-label="Twitter">
+                  <Twitter className="w-5 h-5" />
+                </a>
+                <a href="#" target="_blank" rel="noopener noreferrer" className="p-2 bg-zinc-800 rounded-lg text-pink-500 hover:bg-pink-500 hover:text-white transition-all" aria-label="Instagram">
+                  <Instagram className="w-5 h-5" />
+                </a>
+                <a href="mailto:0808miracle@gmail.com" className="p-2 bg-zinc-800 rounded-lg text-yellow-500 hover:bg-yellow-500 hover:text-white transition-all" aria-label="Email">
+                  <Mail className="w-5 h-5" />
+                </a>
+              </div>
+
               <div className="pt-6 mt-6 border-t border-zinc-800">
                 <Link to="/emergency" className="inline-flex items-center gap-2 text-red-400 hover:text-red-300 text-sm font-bold transition-colors">
                   <AlertOctagon className="w-4 h-4" /> Emergency Protocol
@@ -430,103 +452,103 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
   const location = useLocation();
   const routeData: Record<string, { title: string; desc: string; type?: string; keywords: string }> = {
     '/': {
-      title: 'Electrical Safety Guide: Protect Your Home & Family Global',
+      title: 'Complete Home Electrical Safety Guide',
       desc: 'Electrical safety is critical. Discover our expert guide on home protection, hazard prevention, and daily safety tools for homeowners worldwide.',
       type: 'WebSite',
       keywords: 'electrical safety, home protection, fire prevention, shock hazards, electrical guide'
     },
     '/assessment': {
-      title: 'Assessment Tool: Rate Your Home Electrical Safety Score',
+      title: 'Free Home Electrical Safety Audit',
       desc: 'Assessment tool for home safety. Identify fire risks and shock hazards in minutes with our comprehensive 25-point global electrical safety audit.',
       type: 'SoftwareApplication',
       keywords: 'safety audit, home inspection, electrical checklist, fire risk assessment, shock hazard'
     },
     '/load-calc': {
-      title: 'Load Calculator: Estimate Home Amps & Prevent Overloads',
+      title: 'Electrical Load Calculator Tool',
       desc: 'Load calculator for preventing electrical fires. accurately estimate your household kW usage and Amps to ensure your wiring is never overloaded.',
       type: 'SoftwareApplication',
       keywords: 'load calculator, amperage estimate, wattage calculator, prevent overload, electrical design'
     },
     '/protection-guide': {
-      title: 'Circuit Protection Guide: Breakers, GFCI & RCD Safety',
+      title: 'Circuit Protection & Breaker Guide',
       desc: 'Circuit protection is your first line of defense. Learn how to select the right miniature circuit breakers, GFCIs, and RCDs for your specific needs.',
       type: 'HowTo',
       keywords: 'circuit breakers, GFCI, RCD, electrical protection, safety switches, fuse box'
     },
     '/risk-predictor': {
-      title: 'Risk Predictor: Diagnose Electrical Fire & Shock Hazards',
+      title: 'Electrical Hazard Risk Predictor',
       desc: 'Risk predictor tool analyzes symptoms like burning smells or flickering lights. Diagnose hidden electrical fire and shock hazards before failure.',
       type: 'MedicalWebPage',
       keywords: 'electrical diagnosis, fire hazard, flickering lights, burning smell, troubleshooting'
     },
     '/tenant-request': {
-      title: 'Tenant Request Generator: Report Repairs to Landlords',
+      title: 'Tenant Repair Request Generator',
       desc: 'Tenant request generator helps you get repairs fast. Create professional, safety-focused maintenance emails for landlords to fix hazards quickly.',
       type: 'SoftwareApplication',
       keywords: 'tenant rights, repair request, landlord letter, maintenance issue, rental safety'
     },
     '/appliances': {
-      title: 'Appliance Safety Guides: ACs, Heaters & EV Charger Tips',
+      title: 'Home Appliance Electrical Safety',
       desc: 'Appliance safety guides for high-power devices. Learn correct usage and installation for Air Conditioners, Heaters, EV Chargers, and home wiring.',
       type: 'CollectionPage',
       keywords: 'appliance safety, AC installation, heater safety, EV charger, high power devices'
     },
     '/rooms': {
-      title: 'Room Safety Checklists: Kitchen, Bathroom & Outdoor Tips',
+      title: 'Complete Room Safety Checklists',
       desc: 'Room safety checklists ensure every corner of your home is secure. Explore detailed electrical guides for Kitchens, Bathrooms, Garages, and Outdoors.',
       type: 'CollectionPage',
       keywords: 'kitchen safety, bathroom electrical, outdoor wiring, garage safety, room checklist'
     },
     '/hardware': {
-      title: 'Electrical Hardware Guide: MCBs, Wires & Switches Encyclopedia',
+      title: 'Electrical Hardware & Wiring Guide',
       desc: 'Electrical hardware guide for homeowners. identifying the right MCBs, wire gauges, and switches is crucial for a safe and compliant home installation.',
       type: 'Article',
       keywords: 'electrical hardware, wire gauge, MCB types, switches, electrical components'
     },
     '/new-home': {
-      title: 'New Home Electrical Plan: Construction & Safety Guide Master',
+      title: 'New Home Electrical Planning Guide',
       desc: 'New home electrical planning made simple. Follow our master guide for socket placement, wiring standards, procurement, and quality safety checks.',
       type: 'Article',
       keywords: 'new home wiring, electrical plan, construction guide, socket placement, wiring standards'
     },
     '/everyday-safety': {
-      title: 'Everyday Safety Toolkit: Lightbulbs, Outages & First Aid',
+      title: 'Everyday Home Electrical Safety',
       desc: 'Everyday safety toolkit for non-experts. Access our lightbulb guide, power outage detective, and shock first aid protocols to stay safe daily.',
       type: 'SoftwareApplication',
       keywords: 'everyday safety, power outage, first aid, lightbulb guide, child safety'
     },
     '/articles': {
-      title: 'Safety Articles: Expert Electrical Advice & Knowledge Base',
+      title: 'Expert Electrical Safety Articles',
       desc: 'Safety articles and expert advice on preventing electrical fires. consistent maintenance and knowledge are key to childproofing and home wiring.',
       type: 'CollectionPage',
       keywords: 'electrical articles, safety advice, expert tips, home maintenance, knowledge base'
     },
     '/gallery': {
-      title: 'Hazard Gallery: Visual Guide to Real Electrical Dangers',
+      title: 'Electrical Hazard Visual Gallery',
       desc: 'Hazard gallery visualizes real electrical dangers. Learn to identify brunt outlets, exposed wiring, and dangerous plugs to prevent future accidents.',
       type: 'ImageGallery',
       keywords: 'hazard gallery, electrical dangers, burnt outlet, exposed wire, visual guide'
     },
     '/downloads': {
-      title: 'Safety Checklists: Free PDF Downloads & Audit Templates',
+      title: 'Free Safety Checklist Downloads',
       desc: 'Safety checklists and templates for free. Download printable PDF audits, panel labels, and maintenance logs to keep your home electrical system safe.',
       type: 'CollectionPage',
       keywords: 'safety checklists, PDF download, audit templates, maintenance log, printable guides'
     },
     '/legal': {
-      title: 'Privacy Policy & Terms: ElectroSafe Legal Information Page',
+      title: 'Legal Information & Privacy Policy',
       desc: 'Privacy Policy and Terms of Use for ElectroSafe.homes. We are committed to protecting your data while providing critical safety information.',
       type: 'WebPage',
       keywords: 'privacy policy, terms of use, legal info, disclaimer'
     },
     '/contact': {
-      title: 'Contact Us: Support, Feedback & Safety Story Submission',
+      title: 'Contact Us - Support & Feedback',
       desc: 'Contact us for support or to share your story. We value your feedback on our electrical safety tools and guides to help protect more homes globally.',
       type: 'ContactPage',
       keywords: 'contact us, support, feedback, get in touch'
     },
     '/emergency': {
-      title: 'Emergency Protocol: Electrical Fire & Shock First Aid Steps',
+      title: 'Electrical Fire & Shock Emergency',
       desc: 'Emergency protocol for electrical fires and shocks. Immediate life-saving steps to isolate power and call for help during an electrical crisis.',
       type: 'MedicalWebPage',
       keywords: 'electrical emergency, fire protocol, electric shock, first aid, emergency steps'
@@ -554,6 +576,17 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
         "url": "https://electrosafe.homes/logo.png"
       }
     }
+  };
+
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "ElectroSafe.homes",
+    "image": "https://electrosafe.homes/logo.png",
+    "description": "Professional electrical safety guides and tools for homeowners.",
+    "email": "0808miracle@gmail.com",
+    "url": "https://electrosafe.homes",
+    "priceRange": "$$"
   };
 
   useEffect(() => {
@@ -590,6 +623,9 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
         {/* Organization & Base Schema */}
         <script type="application/ld+json">
           {JSON.stringify(baseSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(localBusinessSchema)}
         </script>
       </Helmet>
 

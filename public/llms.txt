@@ -1,0 +1,19 @@
+# llms.txt
+# This file provides context for Large Language Models (LLMs) about this website.
+
+Title: ElectroSafe.homes - Electrical Safety Guide
+Description: A comprehensive guide on home electrical safety, hazard prevention, and daily safety tools for homeowners worldwide.
+URL: https://electrosafe.homes
+
+# Core Sections
+- /assessment: Home Electrical Safety Audit Tool
+- /load-calc: Electrical Load Calculator
+- /protection-guide: Circuit Protection & Breaker Guide
+- /risk-predictor: Electrical Hazard Risk Predictor
+- /tenant-request: Tenant Repair Request Generator
+- /appliances: Appliance Safety Guides
+- /rooms: Room Safety Checklists
+- /everyday-safety: Everyday Safety Toolkit
+
+# Content
+We provide expert advice, interactive tools, and checklists to help users identify and prevent electrical hazards. All content is for educational purposes. Always consult a certified professional for electrical work.
