@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Shield, ShieldCheck, AlertCircle, RefreshCw, Settings, Sliders, Info, Zap, Globe, Activity, Calculator, ArrowRightCircle, Search } from 'lucide-react';
 
 interface ProtectionResult {
@@ -25,7 +26,7 @@ export const GuideProtection = () => {
     length: 20, // meters
     wireSize: 2.5 // mm2
   });
-  
+
   // State for Breaker Decoder
   const [breakerType, setBreakerType] = useState('B');
   const [breakerAmps, setBreakerAmps] = useState('16');
@@ -92,7 +93,7 @@ export const GuideProtection = () => {
     // V_drop = (2 * L * I * rho) / A  (2-wire single phase)
     const drop = (2 * calc.length * calc.amps * rho) / calc.wireSize;
     const percent = (drop / calc.voltage) * 100;
-    
+
     // Status Logic
     let status = 'good';
     if (percent > 3) status = 'warning';
@@ -111,7 +112,7 @@ export const GuideProtection = () => {
   };
 
   const dropResult = calculateDrop();
-  
+
   // Breaker Decoder Content
   const getBreakerInfo = () => {
     let usage = "";
@@ -124,7 +125,7 @@ export const GuideProtection = () => {
       capacity: `Can safely interrupt a short circuit of ${parseInt(breakerCap).toLocaleString()} Amps without exploding.`
     };
   };
-  
+
   const breakerInfo = getBreakerInfo();
 
   return (
@@ -147,10 +148,10 @@ export const GuideProtection = () => {
           <div className="space-y-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Home Size</label>
-              <select 
+              <select
                 className="w-full border-gray-300 rounded-md shadow-sm p-2 border"
                 value={inputs.homeSize}
-                onChange={(e) => setInputs({...inputs, homeSize: e.target.value})}
+                onChange={(e) => setInputs({ ...inputs, homeSize: e.target.value })}
               >
                 <option value="small">Small (Apartment / Studio)</option>
                 <option value="medium">Medium (2-3 Bedroom House)</option>
@@ -160,23 +161,23 @@ export const GuideProtection = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Number of Existing Circuits</label>
-              <input 
+              <input
                 type="number"
                 min="1"
                 max="50"
                 className="w-full border-gray-300 rounded-md shadow-sm p-2 border"
                 value={inputs.circuitCount}
-                onChange={(e) => setInputs({...inputs, circuitCount: parseInt(e.target.value) || 0})}
+                onChange={(e) => setInputs({ ...inputs, circuitCount: parseInt(e.target.value) || 0 })}
               />
               <p className="text-xs text-gray-500 mt-1">Count the switches/breakers in your main panel.</p>
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Sensitivity Preference</label>
-              <select 
+              <select
                 className="w-full border-gray-300 rounded-md shadow-sm p-2 border"
                 value={inputs.sensitivity}
-                onChange={(e) => setInputs({...inputs, sensitivity: e.target.value})}
+                onChange={(e) => setInputs({ ...inputs, sensitivity: e.target.value })}
               >
                 <option value="standard">Standard (Basic Safety)</option>
                 <option value="high">High Sensitivity (Max Protection / Sensitive Electronics)</option>
@@ -185,37 +186,37 @@ export const GuideProtection = () => {
 
             <div className="space-y-3 pt-2 border-t border-gray-100">
               <label className="flex items-center space-x-3">
-                <input 
-                  type="checkbox" 
+                <input
+                  type="checkbox"
                   className="h-5 w-5 text-blue-600 rounded"
                   checked={inputs.wetAreas}
-                  onChange={(e) => setInputs({...inputs, wetAreas: e.target.checked})}
+                  onChange={(e) => setInputs({ ...inputs, wetAreas: e.target.checked })}
                 />
                 <span className="text-gray-700 text-sm">Has wet areas (Garden, Pool, Balcony)?</span>
               </label>
 
               <label className="flex items-center space-x-3">
-                <input 
-                  type="checkbox" 
+                <input
+                  type="checkbox"
                   className="h-5 w-5 text-blue-600 rounded"
                   checked={inputs.highPower}
-                  onChange={(e) => setInputs({...inputs, highPower: e.target.checked})}
+                  onChange={(e) => setInputs({ ...inputs, highPower: e.target.checked })}
                 />
                 <span className="text-gray-700 text-sm">Using high-power appliances (EV, Induction)?</span>
               </label>
 
               <label className="flex items-center space-x-3">
-                <input 
-                  type="checkbox" 
+                <input
+                  type="checkbox"
                   className="h-5 w-5 text-blue-600 rounded"
                   checked={inputs.childSafety}
-                  onChange={(e) => setInputs({...inputs, childSafety: e.target.checked})}
+                  onChange={(e) => setInputs({ ...inputs, childSafety: e.target.checked })}
                 />
                 <span className="text-gray-700 text-sm">Need child safety protection?</span>
               </label>
             </div>
 
-            <button 
+            <button
               onClick={generateGuide}
               className="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition shadow-md"
             >
@@ -237,9 +238,8 @@ export const GuideProtection = () => {
                 <ShieldCheck className="w-8 h-8 text-green-600" />
                 <div>
                   <h3 className="font-bold text-lg text-gray-900">Recommended Configuration</h3>
-                  <span className={`text-xs font-bold px-2 py-1 rounded-full uppercase tracking-wide ${
-                    result.level.includes("Maximum") ? 'bg-purple-100 text-purple-800' : 'bg-blue-100 text-blue-800'
-                  }`}>
+                  <span className={`text-xs font-bold px-2 py-1 rounded-full uppercase tracking-wide ${result.level.includes("Maximum") ? 'bg-purple-100 text-purple-800' : 'bg-blue-100 text-blue-800'
+                    }`}>
                     {result.level}
                   </span>
                 </div>
@@ -273,9 +273,9 @@ export const GuideProtection = () => {
                   </ul>
                 </div>
               )}
-              
-              <button 
-                onClick={() => setResult(null)} 
+
+              <button
+                onClick={() => setResult(null)}
                 className="text-gray-500 text-sm hover:text-gray-800 flex items-center gap-1 mt-4"
               >
                 <RefreshCw className="w-3 h-3" /> Reset
@@ -296,68 +296,68 @@ export const GuideProtection = () => {
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-           <div>
-             <label className="text-xs font-bold text-gray-400 uppercase mb-2 block">Curve Type (Letter)</label>
-             <div className="flex gap-2">
-               {['B', 'C', 'D'].map(type => (
-                 <button 
-                   key={type}
-                   onClick={() => setBreakerType(type)}
-                   className={`flex-1 py-2 rounded-lg font-bold transition-all ${breakerType === type ? 'bg-green-500 text-white' : 'bg-white/10 hover:bg-white/20'}`}
-                 >
-                   {type}
-                 </button>
-               ))}
-             </div>
-           </div>
-           
-           <div>
-             <label className="text-xs font-bold text-gray-400 uppercase mb-2 block">Current Rating (Number)</label>
-             <select 
-               className="w-full bg-white/10 border border-white/20 rounded-lg p-2.5 text-white"
-               value={breakerAmps}
-               onChange={(e) => setBreakerAmps(e.target.value)}
-             >
-               <option value="6">6A (Lights)</option>
-               <option value="10">10A (Lights/Fan)</option>
-               <option value="16">16A (Sockets)</option>
-               <option value="20">20A (AC/Heater)</option>
-               <option value="32">32A (Main/Cooker)</option>
-               <option value="63">63A (Main)</option>
-             </select>
-           </div>
+          <div>
+            <label className="text-xs font-bold text-gray-400 uppercase mb-2 block">Curve Type (Letter)</label>
+            <div className="flex gap-2">
+              {['B', 'C', 'D'].map(type => (
+                <button
+                  key={type}
+                  onClick={() => setBreakerType(type)}
+                  className={`flex-1 py-2 rounded-lg font-bold transition-all ${breakerType === type ? 'bg-green-500 text-white' : 'bg-white/10 hover:bg-white/20'}`}
+                >
+                  {type}
+                </button>
+              ))}
+            </div>
+          </div>
 
-           <div>
-             <label className="text-xs font-bold text-gray-400 uppercase mb-2 block">Capacity (Box Number)</label>
-             <select 
-               className="w-full bg-white/10 border border-white/20 rounded-lg p-2.5 text-white"
-               value={breakerCap}
-               onChange={(e) => setBreakerCap(e.target.value)}
-             >
-               <option value="3000">3000 (3kA) - Old</option>
-               <option value="4500">4500 (4.5kA) - Standard</option>
-               <option value="6000">6000 (6kA) - Home</option>
-               <option value="10000">10000 (10kA) - Premium</option>
-             </select>
-           </div>
+          <div>
+            <label className="text-xs font-bold text-gray-400 uppercase mb-2 block">Current Rating (Number)</label>
+            <select
+              className="w-full bg-white/10 border border-white/20 rounded-lg p-2.5 text-white"
+              value={breakerAmps}
+              onChange={(e) => setBreakerAmps(e.target.value)}
+            >
+              <option value="6">6A (Lights)</option>
+              <option value="10">10A (Lights/Fan)</option>
+              <option value="16">16A (Sockets)</option>
+              <option value="20">20A (AC/Heater)</option>
+              <option value="32">32A (Main/Cooker)</option>
+              <option value="63">63A (Main)</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="text-xs font-bold text-gray-400 uppercase mb-2 block">Capacity (Box Number)</label>
+            <select
+              className="w-full bg-white/10 border border-white/20 rounded-lg p-2.5 text-white"
+              value={breakerCap}
+              onChange={(e) => setBreakerCap(e.target.value)}
+            >
+              <option value="3000">3000 (3kA) - Old</option>
+              <option value="4500">4500 (4.5kA) - Standard</option>
+              <option value="6000">6000 (6kA) - Home</option>
+              <option value="10000">10000 (10kA) - Premium</option>
+            </select>
+          </div>
         </div>
 
         <div className="bg-white/10 rounded-xl p-6 backdrop-blur-sm border border-white/10">
-           <h3 className="text-xl font-bold mb-4 text-green-400">What does "{breakerType}{breakerAmps}" mean?</h3>
-           <ul className="space-y-3">
-             <li className="flex gap-3">
-               <span className="font-bold text-gray-400">Usage:</span>
-               <span>{breakerInfo.usage}</span>
-             </li>
-             <li className="flex gap-3">
-               <span className="font-bold text-gray-400">Limit:</span>
-               <span>It will trip if you use more than <strong>{breakerAmps} Amps</strong> for a long time.</span>
-             </li>
-             <li className="flex gap-3">
-               <span className="font-bold text-gray-400">Safety:</span>
-               <span>{breakerInfo.capacity}</span>
-             </li>
-           </ul>
+          <h3 className="text-xl font-bold mb-4 text-green-400">What does "{breakerType}{breakerAmps}" mean?</h3>
+          <ul className="space-y-3">
+            <li className="flex gap-3">
+              <span className="font-bold text-gray-400">Usage:</span>
+              <span>{breakerInfo.usage}</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="font-bold text-gray-400">Limit:</span>
+              <span>It will trip if you use more than <strong>{breakerAmps} Amps</strong> for a long time.</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="font-bold text-gray-400">Safety:</span>
+              <span>{breakerInfo.capacity}</span>
+            </li>
+          </ul>
         </div>
       </div>
 
@@ -373,107 +373,106 @@ export const GuideProtection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Inputs */}
           <div className="space-y-4 bg-gray-50 p-6 rounded-xl border border-gray-100">
-             <div>
-               <label className="text-xs font-bold text-gray-500 uppercase">System Voltage</label>
-               <select 
-                 className="w-full mt-1 border-gray-300 rounded-md"
-                 value={calc.voltage}
-                 onChange={(e) => setCalc({...calc, voltage: parseInt(e.target.value)})}
-               >
-                 <option value={230}>230V (EU/Asia/UK)</option>
-                 <option value={110}>110V (USA/Canada)</option>
-               </select>
-             </div>
-             <div>
-               <label className="text-xs font-bold text-gray-500 uppercase">Load Current (Amps)</label>
-               <input 
-                 type="number"
-                 className="w-full mt-1 border-gray-300 rounded-md"
-                 value={calc.amps}
-                 onChange={(e) => setCalc({...calc, amps: parseFloat(e.target.value) || 0})}
-               />
-               <p className="text-xs text-gray-400 mt-1">e.g., 16A for a Heater</p>
-             </div>
-             <div>
-               <label className="text-xs font-bold text-gray-500 uppercase">Distance (Meters)</label>
-               <input 
-                 type="number"
-                 className="w-full mt-1 border-gray-300 rounded-md"
-                 value={calc.length}
-                 onChange={(e) => setCalc({...calc, length: parseFloat(e.target.value) || 0})}
-               />
-             </div>
-             <div>
-               <label className="text-xs font-bold text-gray-500 uppercase">Wire Size (mm²)</label>
-               <select 
-                 className="w-full mt-1 border-gray-300 rounded-md"
-                 value={calc.wireSize}
-                 onChange={(e) => setCalc({...calc, wireSize: parseFloat(e.target.value)})}
-               >
-                 <option value={1.5}>1.5 mm² (Lights)</option>
-                 <option value={2.5}>2.5 mm² (Sockets)</option>
-                 <option value={4.0}>4.0 mm² (AC/Heater)</option>
-                 <option value={6.0}>6.0 mm² (Cooker)</option>
-                 <option value={10.0}>10.0 mm² (Main)</option>
-               </select>
-             </div>
+            <div>
+              <label className="text-xs font-bold text-gray-500 uppercase">System Voltage</label>
+              <select
+                className="w-full mt-1 border-gray-300 rounded-md"
+                value={calc.voltage}
+                onChange={(e) => setCalc({ ...calc, voltage: parseInt(e.target.value) })}
+              >
+                <option value={230}>230V (EU/Asia/UK)</option>
+                <option value={110}>110V (USA/Canada)</option>
+              </select>
+            </div>
+            <div>
+              <label className="text-xs font-bold text-gray-500 uppercase">Load Current (Amps)</label>
+              <input
+                type="number"
+                className="w-full mt-1 border-gray-300 rounded-md"
+                value={calc.amps}
+                onChange={(e) => setCalc({ ...calc, amps: parseFloat(e.target.value) || 0 })}
+              />
+              <p className="text-xs text-gray-400 mt-1">e.g., 16A for a Heater</p>
+            </div>
+            <div>
+              <label className="text-xs font-bold text-gray-500 uppercase">Distance (Meters)</label>
+              <input
+                type="number"
+                className="w-full mt-1 border-gray-300 rounded-md"
+                value={calc.length}
+                onChange={(e) => setCalc({ ...calc, length: parseFloat(e.target.value) || 0 })}
+              />
+            </div>
+            <div>
+              <label className="text-xs font-bold text-gray-500 uppercase">Wire Size (mm²)</label>
+              <select
+                className="w-full mt-1 border-gray-300 rounded-md"
+                value={calc.wireSize}
+                onChange={(e) => setCalc({ ...calc, wireSize: parseFloat(e.target.value) })}
+              >
+                <option value={1.5}>1.5 mm² (Lights)</option>
+                <option value={2.5}>2.5 mm² (Sockets)</option>
+                <option value={4.0}>4.0 mm² (AC/Heater)</option>
+                <option value={6.0}>6.0 mm² (Cooker)</option>
+                <option value={10.0}>10.0 mm² (Main)</option>
+              </select>
+            </div>
           </div>
 
           {/* Visualization */}
           <div className="lg:col-span-2 flex flex-col justify-center">
-             <div className="bg-gray-900 text-white rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
-                <div className="text-center md:text-left">
-                  <div className="text-sm text-gray-400 font-bold uppercase mb-1">Voltage Drop</div>
-                  <div className={`text-5xl font-extrabold ${
-                    dropResult.status === 'good' ? 'text-green-400' :
+            <div className="bg-gray-900 text-white rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="text-center md:text-left">
+                <div className="text-sm text-gray-400 font-bold uppercase mb-1">Voltage Drop</div>
+                <div className={`text-5xl font-extrabold ${dropResult.status === 'good' ? 'text-green-400' :
                     dropResult.status === 'warning' ? 'text-yellow-400' : 'text-red-500'
                   }`}>
-                    {dropResult.percent}%
-                  </div>
-                  <div className="text-sm text-gray-400 mt-1">{dropResult.drop} Volts lost</div>
+                  {dropResult.percent}%
                 </div>
+                <div className="text-sm text-gray-400 mt-1">{dropResult.drop} Volts lost</div>
+              </div>
 
-                <div className="h-12 w-px bg-gray-700 hidden md:block"></div>
+              <div className="h-12 w-px bg-gray-700 hidden md:block"></div>
 
-                <div className="text-center md:text-left flex-1">
-                   <div className="text-sm text-gray-400 font-bold uppercase mb-2">Recommendation</div>
-                   <div className="text-lg font-bold flex items-center gap-2 justify-center md:justify-start">
-                     <ArrowRightCircle className="w-5 h-5 text-blue-400" />
-                     {dropResult.status === 'good' ? (
-                       <span className="text-green-300">Wire size is sufficient.</span>
-                     ) : (
-                       <span className="text-red-300">UPSIZE WIRE IMMEDIATELY.</span>
-                     )}
-                   </div>
-                   <p className="text-xs text-gray-500 mt-2">
-                     Ideally, drop should be under 3% for lighting and 5% for sockets.
-                   </p>
+              <div className="text-center md:text-left flex-1">
+                <div className="text-sm text-gray-400 font-bold uppercase mb-2">Recommendation</div>
+                <div className="text-lg font-bold flex items-center gap-2 justify-center md:justify-start">
+                  <ArrowRightCircle className="w-5 h-5 text-blue-400" />
+                  {dropResult.status === 'good' ? (
+                    <span className="text-green-300">Wire size is sufficient.</span>
+                  ) : (
+                    <span className="text-red-300">UPSIZE WIRE IMMEDIATELY.</span>
+                  )}
                 </div>
-             </div>
+                <p className="text-xs text-gray-500 mt-2">
+                  Ideally, drop should be under 3% for lighting and 5% for sockets.
+                </p>
+              </div>
+            </div>
 
-             <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="border border-gray-200 p-4 rounded-xl flex items-start gap-3">
-                  <div className={`mt-1 w-3 h-3 rounded-full flex-shrink-0 ${dropResult.status === 'good' ? 'bg-green-500' : 'bg-red-500'}`}></div>
-                  <div>
-                    <strong className="text-gray-900 text-sm block mb-1">Status</strong>
-                    <p className="text-xs text-gray-600">
-                      {dropResult.status === 'good' && 'Safe. Efficiency loss is minimal.'}
-                      {dropResult.status === 'warning' && 'Borderline. Lights may dim slightly. Acceptable for general power.'}
-                      {dropResult.status === 'critical' && 'Dangerous. Voltage loss is too high. Equipment may overheat or fail to start.'}
-                    </p>
-                  </div>
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="border border-gray-200 p-4 rounded-xl flex items-start gap-3">
+                <div className={`mt-1 w-3 h-3 rounded-full flex-shrink-0 ${dropResult.status === 'good' ? 'bg-green-500' : 'bg-red-500'}`}></div>
+                <div>
+                  <strong className="text-gray-900 text-sm block mb-1">Status</strong>
+                  <p className="text-xs text-gray-600">
+                    {dropResult.status === 'good' && 'Safe. Efficiency loss is minimal.'}
+                    {dropResult.status === 'warning' && 'Borderline. Lights may dim slightly. Acceptable for general power.'}
+                    {dropResult.status === 'critical' && 'Dangerous. Voltage loss is too high. Equipment may overheat or fail to start.'}
+                  </p>
                 </div>
-                <div className="border border-gray-200 p-4 rounded-xl flex items-start gap-3">
-                  <div className="mt-1 w-3 h-3 rounded-full bg-blue-500 flex-shrink-0"></div>
-                  <div>
-                    <strong className="text-gray-900 text-sm block mb-1">Breaker Recommendation</strong>
-                    <p className="text-xs text-gray-600">{dropResult.breakerRec}</p>
-                    <p className="text-[10px] text-gray-400 mt-1">
-                      (Long runs increase impedance, potentially stopping standard C-Curve breakers from tripping instantly during a short.)
-                    </p>
-                  </div>
+              </div>
+              <div className="border border-gray-200 p-4 rounded-xl flex items-start gap-3">
+                <div className="mt-1 w-3 h-3 rounded-full bg-blue-500 flex-shrink-0"></div>
+                <div>
+                  <strong className="text-gray-900 text-sm block mb-1">Breaker Recommendation</strong>
+                  <p className="text-xs text-gray-600">{dropResult.breakerRec}</p>
+                  <p className="text-[10px] text-gray-400 mt-1">
+                    (Long runs increase impedance, potentially stopping standard C-Curve breakers from tripping instantly during a short.)
+                  </p>
                 </div>
-             </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -481,21 +480,21 @@ export const GuideProtection = () => {
       {/* Educational Section - GFCI/RCD */}
       <div className="bg-indigo-50 rounded-2xl p-8 border border-indigo-100">
         <div className="text-center mb-8">
-           <h2 className="text-2xl font-bold text-gray-900 flex items-center justify-center gap-3">
-             <Info className="text-indigo-600" /> Understanding Life-Saving Tech: GFCI / RCD
-           </h2>
-           <p className="text-gray-600 mt-2 max-w-2xl mx-auto">
-             Standard breakers only protect wires from fire. These specialized devices protect <strong>YOU</strong> from electrocution.
-           </p>
+          <h2 className="text-2xl font-bold text-gray-900 flex items-center justify-center gap-3">
+            <Info className="text-indigo-600" /> Understanding Life-Saving Tech: GFCI / RCD
+          </h2>
+          <p className="text-gray-600 mt-2 max-w-2xl mx-auto">
+            Standard breakers only protect wires from fire. These specialized devices protect <strong>YOU</strong> from electrocution.
+          </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div className="bg-white p-6 rounded-xl shadow-sm border border-indigo-50">
             <div className="bg-blue-100 w-10 h-10 rounded-full flex items-center justify-center mb-4">
               <Globe className="w-5 h-5 text-blue-600" />
             </div>
             <h3 className="font-bold text-gray-900 mb-2">Global Terminology</h3>
-             <ul className="space-y-2 text-sm text-gray-600">
+            <ul className="space-y-2 text-sm text-gray-600">
               <li className="border-b border-gray-100 pb-1"><strong>GFCI:</strong> Ground Fault Circuit Interrupter (USA/Canada)</li>
               <li className="border-b border-gray-100 pb-1"><strong>RCD:</strong> Residual Current Device (UK/EU/Asia/Aus)</li>
               <li><strong>RCBO:</strong> A Breaker + RCD combined in one unit.</li>
@@ -519,13 +518,13 @@ export const GuideProtection = () => {
             <h3 className="font-bold text-gray-900 mb-2">Sensitivity (mA)</h3>
             <p className="text-sm text-gray-600 mb-2">Rated in milliamps. The lower, the safer.</p>
             <ul className="space-y-1 text-sm">
-               <li className="flex justify-between"><span className="text-gray-500">Human Safety:</span> <span className="font-bold text-indigo-700">30mA (standard)</span></li>
-               <li className="flex justify-between"><span className="text-gray-500">Fire Safety:</span> <span className="font-bold text-gray-700">100mA / 300mA</span></li>
+              <li className="flex justify-between"><span className="text-gray-500">Human Safety:</span> <span className="font-bold text-indigo-700">30mA (standard)</span></li>
+              <li className="flex justify-between"><span className="text-gray-500">Fire Safety:</span> <span className="font-bold text-gray-700">100mA / 300mA</span></li>
             </ul>
             <p className="text-xs text-orange-800 mt-2">Only 30mA or less prevents lethal shock.</p>
           </div>
 
-           <div className="bg-white p-6 rounded-xl shadow-sm border border-indigo-50">
+          <div className="bg-white p-6 rounded-xl shadow-sm border border-indigo-50">
             <div className="bg-red-100 w-10 h-10 rounded-full flex items-center justify-center mb-4">
               <ShieldCheck className="w-5 h-5 text-red-600" />
             </div>

@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { APPLIANCES } from '../data';
 import { ApplianceGuide } from '../types';
 import { Power, AlertOctagon, Plug, Clock, ShieldAlert, Baby, BookOpen } from 'lucide-react';
@@ -17,8 +18,29 @@ export const Appliances = () => {
 
   const activeAppliance = APPLIANCES.find(a => a.id === activeId) || APPLIANCES[0];
 
+  const safeUsageSummary = activeAppliance.safeUsage.join(' ');
+
+  const commonSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{
+      "@type": "Question",
+      "name": `How to use ${activeAppliance.name} safely?`,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": safeUsageSummary
+      }
+    }]
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
+      <Helmet>
+        <title>{activeAppliance.name} Safety Guide | ElectroSafe</title>
+        <meta name="description" content={`Electrical safety guide for ${activeAppliance.name}. Learn about outlet requirements, overload signs, and safe usage.`} />
+        <script type="application/ld+json">{JSON.stringify(commonSchema)}</script>
+      </Helmet>
+
       <div className="text-center mb-12">
         <h1 className="text-3xl font-bold text-gray-900">Appliance Safety Guides</h1>
         <p className="mt-2 text-gray-600 flex items-center justify-center gap-2">
@@ -36,11 +58,10 @@ export const Appliances = () => {
             <button
               key={app.id}
               onClick={() => setActiveId(app.id)}
-              className={`w-full text-left px-4 py-3 rounded-lg transition-colors font-medium ${
-                activeId === app.id 
-                  ? 'bg-blue-600 text-white shadow-md' 
+              className={`w-full text-left px-4 py-3 rounded-lg transition-colors font-medium ${activeId === app.id
+                  ? 'bg-blue-600 text-white shadow-md'
                   : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-100'
-              }`}
+                }`}
             >
               {app.name}
             </button>
@@ -57,8 +78,18 @@ export const Appliances = () => {
               <h2 className="text-2xl font-bold text-gray-900">{activeAppliance.name}</h2>
             </div>
 
+            {/* Direct Answer Block */}
+            <div className="px-8 pt-8">
+              <div className="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-xl">
+                <h3 className="font-bold text-indigo-900 text-lg mb-2">Safe Usage Executive Summary</h3>
+                <p className="text-indigo-800 text-base leading-relaxed">
+                  {safeUsageSummary}
+                </p>
+              </div>
+            </div>
+
             <div className="p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-              
+
               {/* Safe Usage */}
               <div>
                 <h3 className="flex items-center gap-2 font-bold text-gray-900 mb-4">
@@ -102,7 +133,7 @@ export const Appliances = () => {
                 </h3>
                 <p className="text-sm text-blue-800 font-medium mb-2">{activeAppliance.outletReqs}</p>
                 <div className="text-xs text-blue-700 mt-2 border-t border-blue-200 pt-2">
-                   <strong>When to Unplug:</strong> {activeAppliance.whenToUnplug.join(', ')}
+                  <strong>When to Unplug:</strong> {activeAppliance.whenToUnplug.join(', ')}
                 </div>
               </div>
 

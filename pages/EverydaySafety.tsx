@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
 import { GLOSSARY, LIGHTBULB_GUIDE } from '../data';
 import { Lightbulb, CloudLightning, Activity, HelpCircle, Baby, Wifi, Search, AlertCircle, ArrowRight, CheckCircle2, Thermometer, Box, Ruler, Info } from 'lucide-react';
@@ -38,9 +39,8 @@ export const EverydaySafety = () => {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`w-full flex items-center gap-3 px-4 py-4 text-left border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors ${
-                  activeTab === tab.id ? 'bg-blue-50 text-blue-700 font-bold border-l-4 border-l-blue-600' : 'text-gray-700'
-                }`}
+                className={`w-full flex items-center gap-3 px-4 py-4 text-left border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors ${activeTab === tab.id ? 'bg-blue-50 text-blue-700 font-bold border-l-4 border-l-blue-600' : 'text-gray-700'
+                  }`}
               >
                 <tab.icon className={`w-5 h-5 ${activeTab === tab.id ? 'text-blue-600' : 'text-gray-400'}`} />
                 {tab.label}
@@ -68,6 +68,19 @@ const LightbulbTool = () => {
   const [kelvin, setKelvin] = useState(2700);
   const [mode, setMode] = useState<'color' | 'brightness' | 'fitting'>('color');
 
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{
+      "@type": "Question",
+      "name": "How do I choose the right lightbulb color?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use 2700K (Warm White) for bedrooms and living rooms to relax. Use 4000K-6500K (Cool/Daylight) for kitchens and workspaces to focus."
+      }
+    }]
+  };
+
   const getCurrentGuide = () => {
     return LIGHTBULB_GUIDE.reduce((prev, curr) => {
       return (Math.abs(curr.k - kelvin) < Math.abs(prev.k - kelvin) ? curr : prev);
@@ -92,10 +105,22 @@ const LightbulbTool = () => {
 
   return (
     <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(schema)}</script>
+      </Helmet>
       <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
         <Lightbulb className="text-yellow-500" /> Lightbulb Translator
       </h2>
-      
+
+      {/* Direct Answer Block */}
+      <div className="bg-indigo-50 border-l-4 border-indigo-500 p-6 mb-8 rounded-r-xl">
+        <h3 className="font-bold text-indigo-900 text-lg mb-2">How do I choose the right lightbulb color?</h3>
+        <p className="text-indigo-800 text-base leading-relaxed">
+          Use <strong>2700K (Warm White)</strong> for bedrooms and living rooms to relax.
+          Use <strong>4000K-6500K (Cool/Daylight)</strong> for kitchens and workspaces to focus.
+        </p>
+      </div>
+
       <div className="flex gap-2 mb-8 bg-gray-100 p-1 rounded-lg">
         {['color', 'brightness', 'fitting'].map(m => (
           <button
@@ -116,10 +141,10 @@ const LightbulbTool = () => {
               <span>Warm (Cozy)</span>
               <span>Cool (Focus)</span>
             </div>
-            <input 
-              type="range" 
-              min="2700" 
-              max="6500" 
+            <input
+              type="range"
+              min="2700"
+              max="6500"
               step="100"
               value={kelvin}
               onChange={(e) => setKelvin(parseInt(e.target.value))}
@@ -131,16 +156,16 @@ const LightbulbTool = () => {
           <div className="bg-gray-50 p-6 rounded-xl text-center border border-gray-100">
             <div className="text-sm text-gray-500 uppercase font-bold mb-1">Best For</div>
             <div className="text-2xl font-bold text-gray-900 mb-4">{guide.use}</div>
-            
+
             <div className="grid grid-cols-2 gap-4 text-left">
-               <div className="bg-white p-4 rounded-lg shadow-sm">
-                 <div className="text-xs text-gray-400 font-bold uppercase">Mood</div>
-                 <div className="font-medium text-gray-800">{guide.mood}</div>
-               </div>
-               <div className="bg-white p-4 rounded-lg shadow-sm">
-                 <div className="text-xs text-gray-400 font-bold uppercase">Look for label</div>
-                 <div className="font-medium text-gray-800">{guide.label}</div>
-               </div>
+              <div className="bg-white p-4 rounded-lg shadow-sm">
+                <div className="text-xs text-gray-400 font-bold uppercase">Mood</div>
+                <div className="font-medium text-gray-800">{guide.mood}</div>
+              </div>
+              <div className="bg-white p-4 rounded-lg shadow-sm">
+                <div className="text-xs text-gray-400 font-bold uppercase">Look for label</div>
+                <div className="font-medium text-gray-800">{guide.label}</div>
+              </div>
             </div>
           </div>
         </div>
@@ -177,13 +202,13 @@ const LightbulbTool = () => {
       {mode === 'fitting' && (
         <div className="animate-in fade-in grid grid-cols-1 sm:grid-cols-2 gap-4">
           {FITTINGS.map((fit) => (
-             <div key={fit.id} className="bg-white border border-gray-200 p-4 rounded-xl hover:shadow-md transition">
-               <div className="bg-gray-100 w-12 h-12 rounded-full flex items-center justify-center mb-3 font-bold text-gray-500">
-                 {fit.id}
-               </div>
-               <h3 className="font-bold text-gray-900">{fit.name}</h3>
-               <p className="text-sm text-gray-600 mt-1">{fit.desc}</p>
-             </div>
+            <div key={fit.id} className="bg-white border border-gray-200 p-4 rounded-xl hover:shadow-md transition">
+              <div className="bg-gray-100 w-12 h-12 rounded-full flex items-center justify-center mb-3 font-bold text-gray-500">
+                {fit.id}
+              </div>
+              <h3 className="font-bold text-gray-900">{fit.name}</h3>
+              <p className="text-sm text-gray-600 mt-1">{fit.desc}</p>
+            </div>
           ))}
         </div>
       )}
@@ -201,7 +226,7 @@ const OutageTool = () => {
       <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
         <HelpCircle className="text-purple-500" /> Power Outage Detective
       </h2>
-      
+
       {step === 0 && (
         <div className="animate-in fade-in">
           <h3 className="text-xl font-bold mb-4">Question 1: Look out the window.</h3>
@@ -222,26 +247,26 @@ const OutageTool = () => {
           </div>
 
           <div className="bg-orange-50 p-6 rounded-xl border border-orange-100">
-             <h4 className="font-bold text-orange-900 mb-3 flex items-center gap-2">
-               <Thermometer className="w-5 h-5" /> Food Safety Timer
-             </h4>
-             <div className="space-y-4">
-               <div className="flex items-center justify-between border-b border-orange-200 pb-2">
-                 <span className="text-orange-900 font-medium">Fridge (Closed)</span>
-                 <span className="text-orange-700 font-bold">Safe for 4 Hours</span>
-               </div>
-               <div className="flex items-center justify-between border-b border-orange-200 pb-2">
-                 <span className="text-orange-900 font-medium">Freezer (Half Full)</span>
-                 <span className="text-orange-700 font-bold">Safe for 24 Hours</span>
-               </div>
-               <div className="flex items-center justify-between">
-                 <span className="text-orange-900 font-medium">Freezer (Full)</span>
-                 <span className="text-orange-700 font-bold">Safe for 48 Hours</span>
-               </div>
-             </div>
-             <p className="text-xs text-orange-800 mt-4">
-               <strong>Tip:</strong> Do NOT open the door to check. Every opening loses 30 mins of cold.
-             </p>
+            <h4 className="font-bold text-orange-900 mb-3 flex items-center gap-2">
+              <Thermometer className="w-5 h-5" /> Food Safety Timer
+            </h4>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between border-b border-orange-200 pb-2">
+                <span className="text-orange-900 font-medium">Fridge (Closed)</span>
+                <span className="text-orange-700 font-bold">Safe for 4 Hours</span>
+              </div>
+              <div className="flex items-center justify-between border-b border-orange-200 pb-2">
+                <span className="text-orange-900 font-medium">Freezer (Half Full)</span>
+                <span className="text-orange-700 font-bold">Safe for 24 Hours</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-orange-900 font-medium">Freezer (Full)</span>
+                <span className="text-orange-700 font-bold">Safe for 48 Hours</span>
+              </div>
+            </div>
+            <p className="text-xs text-orange-800 mt-4">
+              <strong>Tip:</strong> Do NOT open the door to check. Every opening loses 30 mins of cold.
+            </p>
           </div>
           <button onClick={reset} className="text-blue-600 underline mt-4 block text-center">Start Over</button>
         </div>
@@ -249,13 +274,13 @@ const OutageTool = () => {
 
       {step === 2 && (
         <div className="animate-in fade-in">
-           <h3 className="text-xl font-bold mb-4">Question 2: Check your home.</h3>
-           <p className="mb-6 text-gray-600">Is the power out in the whole house, or just some rooms?</p>
-           <div className="flex gap-4">
-             <button onClick={() => setStep(3)} className="flex-1 bg-gray-100 p-4 rounded-xl hover:bg-gray-200 font-bold text-left">Whole House</button>
-             <button onClick={() => setStep(4)} className="flex-1 bg-blue-50 p-4 rounded-xl hover:bg-blue-100 font-bold text-blue-800 text-left">Just One Room / Area</button>
-           </div>
-           <div className="mt-4 text-center"><button onClick={reset} className="text-sm text-gray-400">Back</button></div>
+          <h3 className="text-xl font-bold mb-4">Question 2: Check your home.</h3>
+          <p className="mb-6 text-gray-600">Is the power out in the whole house, or just some rooms?</p>
+          <div className="flex gap-4">
+            <button onClick={() => setStep(3)} className="flex-1 bg-gray-100 p-4 rounded-xl hover:bg-gray-200 font-bold text-left">Whole House</button>
+            <button onClick={() => setStep(4)} className="flex-1 bg-blue-50 p-4 rounded-xl hover:bg-blue-100 font-bold text-blue-800 text-left">Just One Room / Area</button>
+          </div>
+          <div className="mt-4 text-center"><button onClick={reset} className="text-sm text-gray-400">Back</button></div>
         </div>
       )}
 
@@ -281,7 +306,7 @@ const OutageTool = () => {
           <div className="text-4xl mb-4">🔌</div>
           <h3 className="text-xl font-bold mb-2 text-yellow-900">Local Circuit Overload</h3>
           <p className="text-gray-700 mb-6">You likely plugged in too many things in that room.</p>
-           <div className="text-left bg-white p-4 rounded-lg shadow-sm mb-6">
+          <div className="text-left bg-white p-4 rounded-lg shadow-sm mb-6">
             <h4 className="font-bold text-sm mb-2">Steps:</h4>
             <ol className="list-decimal pl-4 text-sm space-y-1">
               <li>Unplug the last thing you turned on (Hairdryer? Heater?).</li>
@@ -297,42 +322,67 @@ const OutageTool = () => {
 };
 
 const FirstAidTool = () => {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{
+      "@type": "Question",
+      "name": "What should I do if someone gets an electric shock?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "First, do NOT touch them. Turn off the main power or push them away with a wooden object. Then, check for breathing and call emergency services."
+      }
+    }]
+  };
+
   return (
     <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(schema)}</script>
+      </Helmet>
       <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
         <Activity className="text-red-500" /> Post-Shock First Aid
       </h2>
+
+      {/* Direct Answer Block */}
+      <div className="bg-indigo-50 border-l-4 border-indigo-500 p-6 mb-8 rounded-r-xl">
+        <h3 className="font-bold text-indigo-900 text-lg mb-2">What should I do if someone gets an electric shock?</h3>
+        <p className="text-indigo-800 text-base leading-relaxed">
+          First, <strong>do NOT touch them</strong>. Turn off the main power or push them away with a wooden object.
+          Then, check for breathing and call emergency services.
+        </p>
+      </div>
       <div className="bg-red-50 p-4 rounded-lg border border-red-100 mb-6 text-sm text-red-800 font-medium">
         Disclaimer: This is for educational purposes. If the victim is unconscious, call Emergency Services immediately.
       </div>
 
       <div className="space-y-6">
         <div className="flex gap-4 items-start">
-           <div className="bg-blue-100 text-blue-800 font-bold px-3 py-1 rounded-full text-sm">1</div>
-           <div>
-             <h3 className="font-bold text-gray-900">Do NOT touch them</h3>
-             <p className="text-sm text-gray-600">If they are still holding the appliance, you will get shocked too. Turn off the Main Breaker or use a wooden broom to knock the wire away.</p>
-           </div>
+          <div className="bg-blue-100 text-blue-800 font-bold px-3 py-1 rounded-full text-sm">1</div>
+          <div>
+            <h3 className="font-bold text-gray-900">Do NOT touch them</h3>
+            <p className="text-sm text-gray-600">If they are still holding the appliance, you will get shocked too. Turn off the Main Breaker or use a wooden broom to knock the wire away.</p>
+          </div>
         </div>
         <div className="flex gap-4 items-start">
-           <div className="bg-blue-100 text-blue-800 font-bold px-3 py-1 rounded-full text-sm">2</div>
-           <div>
-             <h3 className="font-bold text-gray-900">The "Feel Fine" Trap</h3>
-             <p className="text-sm text-gray-600 mb-3">Even a small shock can disrupt heart rhythm. Watch for these <strong>Red Flag Symptoms</strong>:</p>
-             <ul className="grid grid-cols-2 gap-2 text-sm text-red-700 bg-red-50 p-3 rounded">
-               <li>• Irregular Heartbeat</li>
-               <li>• Muscle Pain / Cramps</li>
-               <li>• Confusion</li>
-               <li>• Dark Urine (Kidney issue)</li>
-             </ul>
-           </div>
+          <div className="bg-blue-100 text-blue-800 font-bold px-3 py-1 rounded-full text-sm">2</div>
+          <div>
+            <h3 className="font-bold text-gray-900">The "Feel Fine" Trap</h3>
+            <p className="text-sm text-gray-600 mb-3">Even a small shock can disrupt heart rhythm. Watch for these <strong>Red Flag Symptoms</strong>:</p>
+            <ul className="grid grid-cols-2 gap-2 text-sm text-red-700 bg-red-50 p-3 rounded">
+              <li>• Irregular Heartbeat</li>
+              <li>• Muscle Pain / Cramps</li>
+              <li>• Confusion</li>
+              <li>• Dark Urine (Kidney issue)</li>
+            </ul>
+          </div>
         </div>
         <div className="flex gap-4 items-start">
-           <div className="bg-blue-100 text-blue-800 font-bold px-3 py-1 rounded-full text-sm">3</div>
-           <div>
-             <h3 className="font-bold text-gray-900">Check for Burns</h3>
-             <p className="text-sm text-gray-600">Look at the entry point (hand) and exit point (feet). Electric burns happen from the inside out and can be deeper than they look.</p>
-           </div>
+          <div className="bg-blue-100 text-blue-800 font-bold px-3 py-1 rounded-full text-sm">3</div>
+          <div>
+            <h3 className="font-bold text-gray-900">Check for Burns</h3>
+            <p className="text-sm text-gray-600">Look at the entry point (hand) and exit point (feet). Electric burns happen from the inside out and can be deeper than they look.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -340,31 +390,57 @@ const FirstAidTool = () => {
 };
 
 const StormTool = () => {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{
+      "@type": "Question",
+      "name": "What should I unplug during a storm?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "During a lightning storm, you must physically unplug sensitive electronics. Turning off a surge protector strip is insufficient because lightning can jump the switch gap."
+      }
+    }]
+  };
+
   return (
     <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(schema)}</script>
+      </Helmet>
       <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
         <CloudLightning className="text-indigo-600" /> Storm Mode Protocol
       </h2>
+
+      {/* Direct Answer Block */}
+      <div className="bg-indigo-50 border-l-4 border-indigo-500 p-6 mb-8 rounded-r-xl">
+        <h3 className="font-bold text-indigo-900 text-lg mb-2">What should I unplug during a storm?</h3>
+        <p className="text-indigo-800 text-base leading-relaxed">
+          During a lightning storm, you must <strong>physically unplug</strong> sensitive electronics.
+          Turning off a surge protector strip is insufficient because lightning can jump the switch gap.
+        </p>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
-           <h3 className="font-bold text-red-600 mb-4 border-b border-red-100 pb-2">UNPLUG NOW</h3>
-           <ul className="space-y-3">
-             {['Desktop Computers', 'Game Consoles', 'Expensive TVs', 'Modem / Router'].map(i => (
-               <li key={i} className="flex items-center gap-2 text-gray-700 text-sm">
-                 <AlertCircle className="w-4 h-4 text-red-400" /> {i}
-               </li>
-             ))}
-           </ul>
+          <h3 className="font-bold text-red-600 mb-4 border-b border-red-100 pb-2">UNPLUG NOW</h3>
+          <ul className="space-y-3">
+            {['Desktop Computers', 'Game Consoles', 'Expensive TVs', 'Modem / Router'].map(i => (
+              <li key={i} className="flex items-center gap-2 text-gray-700 text-sm">
+                <AlertCircle className="w-4 h-4 text-red-400" /> {i}
+              </li>
+            ))}
+          </ul>
         </div>
         <div>
-           <h3 className="font-bold text-green-600 mb-4 border-b border-green-100 pb-2">SAFE TO USE</h3>
-           <ul className="space-y-3">
-             {['Battery Laptops', 'Cell Phones (Not charging)', 'LED Lights', 'Battery Radio'].map(i => (
-               <li key={i} className="flex items-center gap-2 text-gray-700 text-sm">
-                 <CheckCircle2 className="w-4 h-4 text-green-400" /> {i}
-               </li>
-             ))}
-           </ul>
+          <h3 className="font-bold text-green-600 mb-4 border-b border-green-100 pb-2">SAFE TO USE</h3>
+          <ul className="space-y-3">
+            {['Battery Laptops', 'Cell Phones (Not charging)', 'LED Lights', 'Battery Radio'].map(i => (
+              <li key={i} className="flex items-center gap-2 text-gray-700 text-sm">
+                <CheckCircle2 className="w-4 h-4 text-green-400" /> {i}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
       <div className="mt-8 bg-gray-100 p-4 rounded-lg text-sm text-gray-700">
@@ -375,11 +451,36 @@ const StormTool = () => {
 };
 
 const SmartCheckTool = () => {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{
+      "@type": "Question",
+      "name": "Do I have a neutral wire for smart switches?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Check your switch box for a bundle of white or black wires capped off in the back. Standard switches only have live wires. If missing, you need 'No-Neutral' smart switches."
+      }
+    }]
+  };
+
   return (
     <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(schema)}</script>
+      </Helmet>
       <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
         <Wifi className="text-blue-500" /> Smart Home Reality Check
       </h2>
+
+      {/* Direct Answer Block */}
+      <div className="bg-indigo-50 border-l-4 border-indigo-500 p-6 mb-8 rounded-r-xl">
+        <h3 className="font-bold text-indigo-900 text-lg mb-2">Do I have a neutral wire for smart switches?</h3>
+        <p className="text-indigo-800 text-base leading-relaxed">
+          Check your switch box for a bundle of white or black wires capped off in the back. Standard switches only have live wires.
+          If missing, you need <strong>'No-Neutral'</strong> smart switches.
+        </p>
+      </div>
       <p className="text-gray-600 mb-6">Before you buy smart switches, check if your house is compatible.</p>
 
       <div className="space-y-6">
@@ -390,25 +491,25 @@ const SmartCheckTool = () => {
           </h3>
           <p className="text-sm text-blue-800 mb-4">Smart switches need power 24/7. Old light switches usually only have a Live wire.</p>
           <div className="bg-white p-4 rounded-lg text-sm border border-blue-100">
-             <strong>Check:</strong> Open the switchboard. Do you see a bundle of Black/White wires capped off in the back? <br/>
-             <span className="text-green-600 font-bold">Yes:</span> Compatible. <br/>
-             <span className="text-red-600 font-bold">No:</span> Buy "No-Neutral" switches.
+            <strong>Check:</strong> Open the switchboard. Do you see a bundle of Black/White wires capped off in the back? <br />
+            <span className="text-green-600 font-bold">Yes:</span> Compatible. <br />
+            <span className="text-red-600 font-bold">No:</span> Buy "No-Neutral" switches.
           </div>
         </div>
 
         {/* Test 2: Box Depth */}
         <div className="bg-indigo-50 p-6 rounded-xl border border-indigo-100">
-           <h3 className="font-bold text-indigo-900 mb-2 flex items-center gap-2">
+          <h3 className="font-bold text-indigo-900 mb-2 flex items-center gap-2">
             <Box className="w-5 h-5" /> Test 2: Wall Box Depth
           </h3>
           <p className="text-sm text-indigo-800 mb-4">Smart switches are much fatter than normal switches. They need space.</p>
-           <div className="flex items-center gap-4 bg-white p-4 rounded-lg border border-indigo-100">
-             <Ruler className="w-8 h-8 text-indigo-400" />
-             <div className="text-sm">
-               <strong>Requirement:</strong> You need at least <strong>50mm (2 inches)</strong> depth inside the wall box. <br/>
-               Standard boxes are often only 35mm. Measure before buying!
-             </div>
-           </div>
+          <div className="flex items-center gap-4 bg-white p-4 rounded-lg border border-indigo-100">
+            <Ruler className="w-8 h-8 text-indigo-400" />
+            <div className="text-sm">
+              <strong>Requirement:</strong> You need at least <strong>50mm (2 inches)</strong> depth inside the wall box. <br />
+              Standard boxes are often only 35mm. Measure before buying!
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -416,12 +517,37 @@ const SmartCheckTool = () => {
 };
 
 const BabyProofTool = () => {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{
+      "@type": "Question",
+      "name": "What is the best way to baby proof electrical outlets?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The safest method is installing Tamper Resistant Receptacles (TRR). Avoid plastic plugs as they are choking hazards. Sliding plate covers are a safe alternative."
+      }
+    }]
+  };
+
   return (
     <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
-       <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(schema)}</script>
+      </Helmet>
+      <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
         <Baby className="text-pink-500" /> Baby Proofing Guide
       </h2>
-      
+
+      {/* Direct Answer Block */}
+      <div className="bg-indigo-50 border-l-4 border-indigo-500 p-6 mb-8 rounded-r-xl">
+        <h3 className="font-bold text-indigo-900 text-lg mb-2">What is the best way to baby proof electrical outlets?</h3>
+        <p className="text-indigo-800 text-base leading-relaxed">
+          The safest method is installing <strong>Tamper Resistant Receptacles (TRR)</strong>.
+          Avoid plastic plugs as they are choking hazards. Sliding plate covers are a safe alternative.
+        </p>
+      </div>
+
       <p className="text-gray-600 mb-6">Not all protection is created equal. Upgrade your strategy.</p>
 
       <div className="space-y-4">
@@ -431,31 +557,31 @@ const BabyProofTool = () => {
           <div>
             <h3 className="font-bold text-red-900">Level 1: Plastic Plugs</h3>
             <p className="text-sm text-red-800">
-              <strong>Verdict: Dangerous.</strong><br/>
+              <strong>Verdict: Dangerous.</strong><br />
               Toddlers can pry them off. They become choking hazards. Parents forget to replace them.
             </p>
           </div>
         </div>
-        
+
         {/* Level 2: Better */}
         <div className="flex items-start gap-4 p-4 border border-yellow-200 bg-yellow-50 rounded-xl">
           <div className="text-2xl">⚠️</div>
           <div>
-             <h3 className="font-bold text-yellow-900">Level 2: Sliding Plate Covers</h3>
+            <h3 className="font-bold text-yellow-900">Level 2: Sliding Plate Covers</h3>
             <p className="text-sm text-yellow-800">
-              <strong>Verdict: Okay.</strong><br/>
+              <strong>Verdict: Okay.</strong><br />
               These stick over the existing outlet. The plate slides shut automatically. Good for rental homes.
             </p>
           </div>
         </div>
 
         {/* Level 3: Best */}
-         <div className="flex items-start gap-4 p-4 border border-green-200 bg-green-50 rounded-xl">
+        <div className="flex items-start gap-4 p-4 border border-green-200 bg-green-50 rounded-xl">
           <div className="text-2xl">✅</div>
           <div>
-             <h3 className="font-bold text-green-900">Level 3: TRR Outlets</h3>
+            <h3 className="font-bold text-green-900">Level 3: TRR Outlets</h3>
             <p className="text-sm text-green-800">
-              <strong>Verdict: Expert.</strong><br/>
+              <strong>Verdict: Expert.</strong><br />
               "Tamper Resistant Receptacles" have built-in internal shutters. They look like normal outlets but physically block anything unless two prongs enter simultaneously.
             </p>
           </div>
@@ -467,16 +593,16 @@ const BabyProofTool = () => {
 
 const GlossaryTool = () => {
   const [query, setQuery] = useState('');
-  
+
   const filtered = GLOSSARY.filter(t => t.term.toLowerCase().includes(query.toLowerCase()));
 
   return (
-     <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
-       <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+    <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+      <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
         <Search className="text-gray-600" /> Speak "Electrician"
       </h2>
-      <input 
-        type="text" 
+      <input
+        type="text"
         placeholder="Search term (e.g. Short, Trip, Phase)..."
         className="w-full p-3 border border-gray-300 rounded-lg mb-6 focus:ring-2 focus:ring-blue-500"
         value={query}
@@ -494,6 +620,6 @@ const GlossaryTool = () => {
           </div>
         ))}
       </div>
-     </div>
+    </div>
   );
 };

@@ -108,8 +108,12 @@ export const Articles = () => {
               )}
             </div>
             <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-6 leading-tight">{selectedArticle.title}</h1>
-            <div className="text-xl text-gray-600 leading-relaxed border-l-4 border-blue-500 pl-6 py-4 italic bg-gray-50 rounded-r-lg">
-              {selectedArticle.excerpt}
+            {/* Direct Answer / Excerpt Block */}
+            <div className="bg-indigo-50 border-l-4 border-indigo-500 p-6 mb-8 rounded-r-xl">
+              <h3 className="font-bold text-indigo-900 text-lg mb-2">Key Takeaway</h3>
+              <p className="text-indigo-800 text-base leading-relaxed">
+                {selectedArticle.excerpt}
+              </p>
             </div>
 
             <div className="mt-8 pt-6 border-t border-gray-100">
