@@ -1,12 +1,46 @@
 import React from 'react';
 import { AlertTriangle, Phone, Power, DoorOpen, Flame } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 export const Emergency = () => {
+  const emergencySchema = {
+    "@context": "https://schema.org",
+    "@type": ["MedicalWebPage", "HowTo"],
+    "name": "Electrical Fire & Shock Emergency Protocol",
+    "description": "Immediate life-saving steps for electrical fires and electric shocks.",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Isolate Power",
+        "text": "Switch off the Main Breaker immediately if safe to do so."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Check for Fire",
+        "text": "Do not use water. Use Class C extinguisher only."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Evacuate",
+        "text": "Get everyone outside immediately."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Call Emergency Services",
+        "text": "Call 911 or local emergency number."
+      }
+    ]
+  };
+
   return (
     <div className="min-h-screen bg-red-600 text-white pb-20">
+      <Helmet>
+        <title>Emergency: Electrical Fire & Shock Protocol | ElectroSafe</title>
+        <script type="application/ld+json">{JSON.stringify(emergencySchema)}</script>
+      </Helmet>
       <div className="max-w-4xl mx-auto px-4 py-8">
-        
+
         {/* Header */}
         <div className="flex items-center justify-between mb-12 border-b border-red-400 pb-4">
           <div className="flex items-center gap-3">
@@ -19,7 +53,7 @@ export const Emergency = () => {
         </div>
 
         <div className="space-y-6">
-          
+
           {/* Step 1: Immediate Action */}
           <section className="bg-white text-gray-900 rounded-2xl p-8 shadow-2xl animate-slide-up">
             <div className="flex items-start gap-4">
@@ -56,7 +90,7 @@ export const Emergency = () => {
             </div>
           </section>
 
-           {/* Step 3: Evacuate */}
+          {/* Step 3: Evacuate */}
           <section className="bg-white text-gray-900 rounded-2xl p-8 shadow-2xl animate-slide-up delay-200">
             <div className="flex items-start gap-4">
               <div className="bg-blue-100 p-4 rounded-full">

@@ -332,7 +332,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
 
           {/* Column 1: Brand & Mission (4 cols) */}
-          <div className="md:col-span-5">
+          <div className="md:col-span-4">
             <div className="flex items-center gap-2 mb-6">
               <div className="bg-blue-600 p-1 rounded-md">
                 <Zap className="h-5 w-5 text-white" />
@@ -351,20 +351,60 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Column 2: Legal & Company (3 cols) */}
-          <div className="md:col-span-3">
-            <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-6">Company & Legal</h3>
+          {/* Column 2: Legal & Company (2 cols) */}
+          <div className="md:col-span-2">
+            <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-6">Company</h3>
             <ul className="space-y-4 text-sm text-zinc-400">
+              <li><Link to="/standards-and-sources" className="hover:text-white transition-colors">Standards & Sources</Link></li>
               <li><Link to="/contact" className="hover:text-white transition-colors">Contact Us</Link></li>
               <li><Link to="/about" className="hover:text-white transition-colors">About Us</Link></li>
               <li><Link to="/legal" className="hover:text-white transition-colors">Privacy Policy</Link></li>
               <li><Link to="/legal" className="hover:text-white transition-colors">Terms of Use</Link></li>
-              <li><Link to="/legal" className="hover:text-white transition-colors">Disclaimer</Link></li>
             </ul>
           </div>
 
-          {/* Column 3: Contact & Credits (4 cols) */}
-          <div className="md:col-span-4">
+          {/* Column 3: Our Network (3 cols) */}
+          <div className="md:col-span-3">
+            <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-6">Explore Our Tools</h3>
+            <ul className="space-y-4">
+              <li>
+                <a href="https://designcalculators.co.in" target="_blank" rel="noopener noreferrer" className="group block">
+                  <div className="text-white text-sm font-medium group-hover:text-blue-400 transition-colors flex items-center gap-1">
+                    Design Calculators
+                    <ChevronRight className="w-3 h-3 opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all text-blue-400" />
+                  </div>
+                  <div className="text-zinc-500 text-xs mt-0.5 leading-snug group-hover:text-zinc-400 transition-colors">
+                    Simplify complex engineering math with instant, free design tools.
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="https://reliabilitytools.co.in" target="_blank" rel="noopener noreferrer" className="group block">
+                  <div className="text-white text-sm font-medium group-hover:text-blue-400 transition-colors flex items-center gap-1">
+                    Reliability Tools
+                    <ChevronRight className="w-3 h-3 opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all text-blue-400" />
+                  </div>
+                  <div className="text-zinc-500 text-xs mt-0.5 leading-snug group-hover:text-zinc-400 transition-colors">
+                    Predict system failures and calculate MTBF with professional precision.
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="https://knowyourname.co.in" target="_blank" rel="noopener noreferrer" className="group block">
+                  <div className="text-white text-sm font-medium group-hover:text-blue-400 transition-colors flex items-center gap-1">
+                    Know Your Name
+                    <ChevronRight className="w-3 h-3 opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all text-blue-400" />
+                  </div>
+                  <div className="text-zinc-500 text-xs mt-0.5 leading-snug group-hover:text-zinc-400 transition-colors">
+                    Curious? Unlock the hidden numerology and meaning behind your name.
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 4: Contact & Credits (3 cols) */}
+          <div className="md:col-span-3">
             <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-6">Connect</h3>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
@@ -386,30 +426,21 @@ const Footer = () => {
                 </div>
               </div>
 
-              <div className="flex flex-wrap gap-3 pt-6 mt-6 border-t border-zinc-800">
-                <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" className="p-2 bg-zinc-800 rounded-lg text-green-500 hover:bg-green-500 hover:text-white transition-all" aria-label="WhatsApp">
-                  <MessageCircle className="w-5 h-5" />
+              <div className="flex flex-wrap gap-2 pt-6 mt-6 border-t border-zinc-800">
+                <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" className="p-2 bg-zinc-800 rounded-lg text-green-500 hover:bg-green-500 hover:text-white transition-all">
+                  <MessageCircle className="w-4 h-4" />
                 </a>
-                <a href="#" target="_blank" rel="noopener noreferrer" className="p-2 bg-zinc-800 rounded-lg text-blue-600 hover:bg-blue-600 hover:text-white transition-all" aria-label="LinkedIn">
-                  <Linkedin className="w-5 h-5" />
+                <a href="#" target="_blank" rel="noopener noreferrer" className="p-2 bg-zinc-800 rounded-lg text-blue-600 hover:bg-blue-600 hover:text-white transition-all">
+                  <Linkedin className="w-4 h-4" />
                 </a>
-                <a href="#" target="_blank" rel="noopener noreferrer" className="p-2 bg-zinc-800 rounded-lg text-blue-500 hover:bg-blue-500 hover:text-white transition-all" aria-label="Facebook">
-                  <Facebook className="w-5 h-5" />
+                <a href="#" target="_blank" rel="noopener noreferrer" className="p-2 bg-zinc-800 rounded-lg text-blue-500 hover:bg-blue-500 hover:text-white transition-all">
+                  <Facebook className="w-4 h-4" />
                 </a>
-                <a href="#" target="_blank" rel="noopener noreferrer" className="p-2 bg-zinc-800 rounded-lg text-sky-400 hover:bg-sky-400 hover:text-white transition-all" aria-label="Twitter">
-                  <Twitter className="w-5 h-5" />
+                <a href="mailto:0808miracle@gmail.com" className="p-2 bg-zinc-800 rounded-lg text-yellow-500 hover:bg-yellow-500 hover:text-white transition-all">
+                  <Mail className="w-4 h-4" />
                 </a>
-                <a href="#" target="_blank" rel="noopener noreferrer" className="p-2 bg-zinc-800 rounded-lg text-pink-500 hover:bg-pink-500 hover:text-white transition-all" aria-label="Instagram">
-                  <Instagram className="w-5 h-5" />
-                </a>
-                <a href="mailto:0808miracle@gmail.com" className="p-2 bg-zinc-800 rounded-lg text-yellow-500 hover:bg-yellow-500 hover:text-white transition-all" aria-label="Email">
-                  <Mail className="w-5 h-5" />
-                </a>
-              </div>
-
-              <div className="pt-6 mt-6 border-t border-zinc-800">
-                <Link to="/emergency" className="inline-flex items-center gap-2 text-red-400 hover:text-red-300 text-sm font-bold transition-colors">
-                  <AlertOctagon className="w-4 h-4" /> Emergency Protocol
+                <Link to="/emergency" className="p-2 bg-red-900/30 rounded-lg text-red-500 hover:bg-red-600 hover:text-white transition-all">
+                  <AlertOctagon className="w-4 h-4" />
                 </Link>
               </div>
             </div>
@@ -420,8 +451,8 @@ const Footer = () => {
           <p className="text-zinc-500 text-xs">
             © {new Date().getFullYear()} ElectroSafe.homes. All rights reserved.
           </p>
-          <p className="text-zinc-600 text-xs">
-            For educational purposes only. Always consult a certified professional.
+          <p className="text-zinc-500 text-xs text-center md:text-right max-w-xl">
+            This guide provides safety education and does not replace licensed electricians or emergency services.
           </p>
         </div>
       </div>
@@ -589,6 +620,19 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
     "priceRange": "$$"
   };
 
+  const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Anil Sharma",
+    "jobTitle": "Electrical Reliability Expert",
+    "url": "https://electrosafe.homes/about",
+    "sameAs": [
+      "https://designcalculators.co.in",
+      "https://reliabilitytools.co.in"
+    ],
+    "description": "Expert in industrial electrical maintenance and reliability engineering with 25+ years of experience."
+  };
+
   useEffect(() => {
     // Google Analytics Page View Tracking
     if (typeof (window as any).gtag === 'function') {
@@ -626,6 +670,9 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
         </script>
         <script type="application/ld+json">
           {JSON.stringify(localBusinessSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(personSchema)}
         </script>
       </Helmet>
 

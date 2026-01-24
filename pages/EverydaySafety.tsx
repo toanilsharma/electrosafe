@@ -335,10 +335,19 @@ const FirstAidTool = () => {
     }]
   };
 
+  const medicalSchema = {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "name": "Electric Shock First Aid",
+    "description": "Emergency first aid procedure for electric shock victims.",
+    "medicalSpecialty": "EmergencyMedicine"
+  };
+
   return (
     <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(schema)}</script>
+        <script type="application/ld+json">{JSON.stringify(medicalSchema)}</script>
       </Helmet>
       <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
         <Activity className="text-red-500" /> Post-Shock First Aid
