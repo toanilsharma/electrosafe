@@ -186,6 +186,11 @@
     <priority>0.4</priority>
   </url>
   <url>
+    <loc>https://electrosafe.homes/standards-and-sources</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://electrosafe.homes/emergency</loc>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
