@@ -19,6 +19,7 @@ import { NewHomeGuide } from './pages/NewHomeGuide';
 import { EverydaySafety } from './pages/EverydaySafety';
 import { Legal } from './pages/Legal';
 import { ContactUs } from './pages/ContactUs';
+import { About } from './pages/About';
 import { Emergency } from './pages/Emergency';
 
 function App() {
@@ -40,6 +41,8 @@ function App() {
             <Route path="/everyday-safety" element={<EverydaySafety />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/articles" element={<Articles />} />
+            <Route path="/articles/:slug" element={<Articles />} />
+            <Route path="/about" element={<About />} />
             <Route path="/downloads" element={<Downloads />} />
             <Route path="/legal" element={<Legal />} />
             <Route path="/contact" element={<ContactUs />} />

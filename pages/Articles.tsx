@@ -1,38 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams, useParams, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { ARTICLES } from '../data';
-import { Clock, Tag, ChevronLeft } from 'lucide-react';
+import { Clock, Tag, ChevronLeft, CheckCircle2, BookOpen, ShieldCheck, UserCheck } from 'lucide-react';
+import { SocialShare } from '../components/SocialShare';
 import { Article } from '../types';
 
 export const Articles = () => {
-  const location = useLocation();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { slug } = useParams();
+  const navigate = useNavigate();
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
 
   useEffect(() => {
-    const paramId = searchParams.get('id');
-    const stateId = location.state?.id;
-    const targetId = paramId ? parseInt(paramId) : stateId;
-
-    if (targetId) {
-      const found = ARTICLES.find(a => a.id === targetId);
-      if (found) setSelectedArticle(found);
+    if (slug) {
+      const found = ARTICLES.find(a => a.slug === slug);
+      if (found) {
+        setSelectedArticle(found);
+      } else {
+        // Fallback or 404 handling. For now, we will just show the list if slug is invalid.
+        // In a real app, you might want a dedicated 404 component.
+        setSelectedArticle(null);
+      }
     } else {
       setSelectedArticle(null);
     }
-  }, [location.state, searchParams]);
-
-  // Sync state back to URL when internal navigation happens
-  const handleArticleSelect = (article: Article | null) => {
-    setSelectedArticle(article);
-    if (article) {
-      setSearchParams({ id: article.id.toString() });
-      window.scrollTo(0, 0);
-    } else {
-      setSearchParams({});
-    }
-  };
+    window.scrollTo(0, 0);
+  }, [slug]);
 
   // Helper to parse bold text markers (**text**)
   const formatText = (text: string) => {
@@ -46,73 +39,103 @@ export const Articles = () => {
   };
 
   if (selectedArticle) {
+    const jsonLd = {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": selectedArticle.title,
+      "description": selectedArticle.metaDescription || selectedArticle.excerpt,
+      "author": {
+        "@type": "Person",
+        "name": "Anil Sharma",
+        "jobTitle": "Electrical Reliability Expert",
+        "url": "https://electrosafe.homes/about"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ElectroSafe.homes",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://electrosafe.homes/logo.png"
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": window.location.href
+      }
+    };
+
+    const faqLd = selectedArticle.faqs && selectedArticle.faqs.length > 0 ? {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": selectedArticle.faqs.map(f => ({
+        "@type": "Question",
+        "name": f.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": f.answer
+        }
+      }))
+    } : null;
+
     return (
       <div className="max-w-4xl mx-auto px-4 py-12 animate-in slide-in-from-bottom-4">
         <Helmet>
-          <title>{selectedArticle.title} | ElectroSafe Articles</title>
-          <meta name="description" content={selectedArticle.excerpt} />
-          <script type="application/ld+json">
-            {JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Article",
-              "headline": selectedArticle.title,
-              "description": selectedArticle.excerpt,
-              "author": {
-                "@type": "Organization",
-                "name": "ElectroSafe.homes"
-              },
-              "publisher": {
-                "@type": "Organization",
-                "name": "ElectroSafe.homes",
-                "logo": {
-                  "@type": "ImageObject",
-                  "url": "https://electrosafe.homes/logo.png"
-                }
-              },
-              "datePublished": "2024-01-01",
-              "mainEntityOfPage": {
-                "@type": "WebPage",
-                "@id": window.location.href
-              }
-            })}
-          </script>
+          <title>{selectedArticle.seoTitle || selectedArticle.title} | ElectroSafe Articles</title>
+          <meta name="description" content={selectedArticle.metaDescription || selectedArticle.excerpt} />
+          <meta name="keywords" content={selectedArticle.keywords ? selectedArticle.keywords.join(', ') : ''} />
+          <link rel="canonical" href={`https://electrosafe.homes/articles/${selectedArticle.slug}`} />
+          <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+          {faqLd && <script type="application/ld+json">{JSON.stringify(faqLd)}</script>}
         </Helmet>
+
         <button
-          onClick={() => handleArticleSelect(null)}
-          className="flex items-center text-blue-600 hover:text-blue-800 font-medium mb-8 transition-colors"
+          onClick={() => navigate('/articles')}
+          className="flex items-center text-blue-600 hover:text-blue-800 font-medium mb-8 transition-colors group"
         >
-          <ChevronLeft className="w-5 h-5 mr-1" /> Back to Knowledge Base
+          <ChevronLeft className="w-5 h-5 mr-1 group-hover:-translate-x-1 transition-transform" /> Back to Knowledge Base
         </button>
 
-        <article className="bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-gray-200">
+        <article className="bg-white p-6 md:p-12 rounded-3xl shadow-sm border border-gray-200">
           <header className="mb-10">
-            <div className="flex gap-4 items-center text-sm font-bold tracking-wide text-blue-600 mb-4 uppercase">
+            <div className="flex flex-wrap gap-4 items-center text-sm font-bold tracking-wide text-blue-600 mb-6 uppercase">
               <span className="flex items-center bg-blue-50 px-3 py-1 rounded-full"><Tag className="w-3 h-3 mr-2" /> {selectedArticle.category}</span>
               <span className="flex items-center text-gray-400"><Clock className="w-4 h-4 mr-1" /> {selectedArticle.readTime} read</span>
+              {selectedArticle.standards && selectedArticle.standards.length > 0 && (
+                <span className="flex items-center bg-green-50 text-green-700 px-3 py-1 rounded-full border border-green-100" title="Reference Standards">
+                  <BookOpen className="w-3 h-3 mr-2" />
+                  {selectedArticle.standards.join(', ')}
+                </span>
+              )}
             </div>
             <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-6 leading-tight">{selectedArticle.title}</h1>
-            <div className="text-xl text-gray-600 leading-relaxed border-l-4 border-blue-500 pl-6 py-2 italic bg-gray-50 rounded-r-lg">
+            <div className="text-xl text-gray-600 leading-relaxed border-l-4 border-blue-500 pl-6 py-4 italic bg-gray-50 rounded-r-lg">
               {selectedArticle.excerpt}
+            </div>
+
+            <div className="mt-8 pt-6 border-t border-gray-100">
+              <SocialShare
+                url={window.location.href}
+                title={`Essential reading: ${selectedArticle.title}`}
+                size="md"
+              />
             </div>
           </header>
 
           <div className="space-y-6 text-gray-800 leading-relaxed">
             {selectedArticle.content.map((paragraph, idx) => {
-
               // 1. Bullet Points
-              if (paragraph.trim().startsWith('•')) {
+              if (paragraph.trim().startsWith('•') || paragraph.trim().startsWith('1.') || paragraph.trim().match(/^\d+\./)) {
                 return (
                   <div key={idx} className="flex gap-4 pl-2 mb-3 items-start group">
                     <div className="mt-2 w-2 h-2 bg-blue-500 rounded-full flex-shrink-0 group-hover:scale-125 transition-transform"></div>
-                    <p className="text-lg text-gray-700 leading-relaxed">{formatText(paragraph.replace(/^•\s*/, ''))}</p>
+                    <p className="text-lg text-gray-700 leading-relaxed">{formatText(paragraph.replace(/^[•\d\.]+\s*/, ''))}</p>
                   </div>
                 );
               }
 
-              // 2. Headers (Short text ending in :)
-              const isHeader = paragraph.includes(':') &&
-                paragraph.split(':')[0].length < 60 &&
-                !paragraph.includes('. ');
+              // 2. Headers
+              // Heuristic: Short line ending in colon, no period.
+              const isHeader = paragraph.includes(':') && paragraph.split(':')[0].length < 60 && !paragraph.includes('. ');
 
               if (isHeader) {
                 const [title, ...rest] = paragraph.split(':');
@@ -128,7 +151,6 @@ export const Articles = () => {
                 );
               }
 
-              // 3. Standard Paragraph
               return (
                 <p key={idx} className="text-lg text-gray-700 leading-8 mb-6">
                   {formatText(paragraph)}
@@ -136,13 +158,69 @@ export const Articles = () => {
               );
             })}
           </div>
+
+          {/* FAQs Section */}
+          {selectedArticle.faqs && selectedArticle.faqs.length > 0 && (
+            <div className="mt-16 pt-10 border-t-2 border-gray-100">
+              <h3 className="text-2xl font-bold text-gray-900 mb-8 flex items-center gap-2">
+                <CheckCircle2 className="w-6 h-6 text-green-500" /> Frequently Asked Questions
+              </h3>
+              <div className="grid gap-6">
+                {selectedArticle.faqs.map((faq, i) => (
+                  <div key={i} className="bg-gray-50 rounded-xl p-6 border border-gray-100 hover:border-blue-100 transition-colors">
+                    <h4 className="font-bold text-lg text-gray-900 mb-3">{faq.question}</h4>
+                    <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </article>
+
+        {/* E-E-A-T Author Card */}
+        <div className="mt-8 bg-white p-8 rounded-3xl border border-gray-200 shadow-sm flex flex-col md:flex-row gap-6 items-center md:items-start animate-in slide-in-from-bottom-8">
+          <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0 border-2 border-white shadow-md">
+            <UserCheck className="w-10 h-10 text-gray-400" />
+          </div>
+          <div>
+            <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Written & Verified By</p>
+            <h3 className="text-xl font-bold text-gray-900 mb-1">Anil Sharma</h3>
+            <p className="text-blue-600 font-medium text-sm mb-3">Industrial Electrical Reliability Expert (25+ Years Exp)</p>
+            <p className="text-gray-600 text-sm leading-relaxed mb-4">
+              With over two decades of experience in industrial electrical maintenance, instrumentation, and projects, Anil brings professional-grade reliability standards to home safety. He is dedicated to preventing electrical accidents through education.
+            </p>
+            <div className="flex gap-4 text-xs font-bold text-gray-500">
+              <span className="flex items-center gap-1"><ShieldCheck className="w-3 h-3 text-green-500" /> Maintenance Expert</span>
+              <span className="flex items-center gap-1"><BookOpen className="w-3 h-3 text-blue-500" /> Reliability Engineer</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-12 bg-blue-900 rounded-3xl p-8 text-center text-white relative overflow-hidden shadow-xl">
+          <div className="relative z-10 flex flex-col items-center">
+            <h3 className="text-2xl font-bold mb-4">Don't let friends learn the hard way.</h3>
+            <p className="mb-6 text-blue-200">Share this guide. You might save a home from a fire today.</p>
+            <SocialShare
+              url={window.location.href}
+              title={`Essential reading: ${selectedArticle.title}`}
+              size="lg"
+              className="justify-center"
+            />
+          </div>
+        </div>
       </div>
     );
   }
 
+  // Grid View
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
+      <Helmet>
+        <title>Electrical Safety Articles | ElectroSafe Knowledge Base</title>
+        <meta name="description" content="Expert electrical safety guides for homeowners. Learn about wiring hazards, prevent fires, and understand your home's electrical system." />
+        <link rel="canonical" href="https://electrosafe.homes/articles" />
+      </Helmet>
+
       <div className="text-center mb-16">
         <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight">Electrical Knowledge Base</h1>
         <p className="mt-4 text-xl text-gray-600 max-w-2xl mx-auto">
@@ -154,7 +232,7 @@ export const Articles = () => {
         {ARTICLES.map((article) => (
           <div
             key={article.id}
-            onClick={() => handleArticleSelect(article)}
+            onClick={() => navigate(`/articles/${article.slug}`)}
             className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-200 cursor-pointer group flex flex-col relative overflow-hidden"
           >
             <div className="absolute top-0 left-0 w-1 h-full bg-blue-600 opacity-0 group-hover:opacity-100 transition-opacity"></div>

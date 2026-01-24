@@ -1,11 +1,18 @@
 
 export interface Article {
-  id: string;
+  id: string; // Keep for internal ref if needed
+  slug: string; // NEW: SEO friendly URL
   title: string;
   excerpt: string;
   content: string[]; // Array of paragraphs
   category: string;
   readTime: string;
+  // New Fields for World-Class Content
+  faqs?: { question: string; answer: string }[];
+  standards?: string[]; // e.g., ["IEC 60364-4-41"]
+  seoTitle?: string; // NEW: Search Intent Title
+  metaDescription?: string;
+  keywords?: string[];
 }
 
 export interface RoomGuide {

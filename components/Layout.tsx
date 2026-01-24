@@ -356,7 +356,7 @@ const Footer = () => {
             <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-6">Company & Legal</h3>
             <ul className="space-y-4 text-sm text-zinc-400">
               <li><Link to="/contact" className="hover:text-white transition-colors">Contact Us</Link></li>
-              <li><Link to="/legal" className="hover:text-white transition-colors">About Us</Link></li>
+              <li><Link to="/about" className="hover:text-white transition-colors">About Us</Link></li>
               <li><Link to="/legal" className="hover:text-white transition-colors">Privacy Policy</Link></li>
               <li><Link to="/legal" className="hover:text-white transition-colors">Terms of Use</Link></li>
               <li><Link to="/legal" className="hover:text-white transition-colors">Disclaimer</Link></li>
@@ -450,7 +450,7 @@ const EmergencyButton = () => {
 
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const location = useLocation();
-  const routeData: Record<string, { title: string; desc: string; type?: string; keywords: string }> = {
+  const routeData: Record<string, { title: string; desc: string; type?: string; keywords: string; image?: string }> = {
     '/': {
       title: 'Complete Home Electrical Safety Guide',
       desc: 'Electrical safety is critical. Discover our expert guide on home protection, hazard prevention, and daily safety tools for homeowners worldwide.',
@@ -612,13 +612,13 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
         <meta property="og:description" content={data.desc} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={canonicalUrl} />
-        <meta property="og:image" content="https://electrosafe.homes/logo.png" />
+        <meta property="og:image" content={data.image || "https://electrosafe.homes/logo.png"} />
 
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={fullTitle} />
         <meta name="twitter:description" content={data.desc} />
-        <meta name="twitter:image" content="https://electrosafe.homes/logo.png" />
+        <meta name="twitter:image" content={data.image || "https://electrosafe.homes/logo.png"} />
 
         {/* Organization & Base Schema */}
         <script type="application/ld+json">

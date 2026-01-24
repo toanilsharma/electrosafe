@@ -544,223 +544,377 @@ export const APPLIANCES: ApplianceGuide[] = [
 export const ARTICLES: Article[] = [
   {
     id: '1',
+    slug: '10-signs-electrical-problems',
+    seoTitle: "10 Signs of Electrical Problems: Burning Smells & Buzzing Switches",
     title: "10 Silent Screams of a Dying Electrical System",
     excerpt: "Your house is talking to you before it burns down. Are you listening? Here are the Red Flags you cannot ignore.",
     category: "Basics",
-    readTime: "5 min",
+    readTime: "8 min",
+    metaDescription: "Learn the 10 critical signs of electrical failure in your home. From fishy smells to buzzing switches, identify the red flags before a fire starts.",
+    keywords: ["electrical fire signs", "buzzing switch", "burning smell outlet", "flickering lights", "home electrical safety"],
+    standards: ["NFPA 73", "IEC 60364-6"],
     content: [
       "Electricity is invisible, silent, and odorless—until it isn't. When your electrical system starts making noise or smell, it's not a warning. **It's a scream.**",
-      "Here are the 10 undeniable signs that your home is trying to tell you something is wrong:",
-      "Fishy Smells:",
-      "Does your bedroom smell like rotting fish or urine? No, it's not the cat. It's the chemicals in wire insulation melting. **This is a 911-level emergency.**",
-      "The 'Buzz':",
-      "Electricity should be silent. If your switch buzzes like a bee, it means electricity is jumping across a gap (arcing). **That gap is a mini-fire.**",
-      "The Warm Faceplate:",
-      "Put your hand on the wall switch. It should be cool. If it's warm, there is high resistance inside. **Resistance = Fire.**",
-      "The Flicker:",
-      "Lights don't just 'flicker' for fun. It means a loose connection is vibrating somewhere in the wall. One day, it will disconnect for good—after sparking a flame.",
-      "The Trip:",
-      "Breakers don't trip because they are 'old'. They trip because they are saving your life from an overload. If you just flip it back without finding the cause, you are playing Russian Roulette.",
-      "The Rodent Sign:",
-      "Found droppings in the attic? Rats chew wires to sharpen their teeth. Exposed copper in a wooden attic is a ticking time bomb.",
-      "The Scorch Mark:",
-      "Any brown or black mark on an outlet is carbon. Carbon conducts electricity. The outlet is now a heater."
+      "Most electrical fires don't happen 'suddenly'. They happen after months or years of the system begging for attention. Here are the 10 undeniable signs that your home is trying to tell you something is wrong:",
+      "1. Fishy Smells:",
+      "Does your bedroom smell like rotting fish or urine? No, it's not the cat. It's the chemicals in wire insulation (often Urea Formaldehyde in older components) melting. **This is a 911-level emergency.** The heat has already reached a critical level.",
+      "2. The 'Buzz':",
+      "Electricity should be silent. If your switch buzzes like a bee, it means electricity is jumping across a gap (arcing). **That gap is a mini-fire.** The sound is literally the air expanding and contracting from heat.",
+      "3. The Warm Faceplate:",
+      "Put your hand on the wall switch. It should be cool. If it's warm, there is high resistance inside. **Resistance = Heat.** It means the wire is loose or the switch is corroded.",
+      "4. The Flicker:",
+      "Lights don't just 'flicker' for fun. It means a loose connection is vibrating somewhere in the wall, making and breaking contact. One day, it will disconnect for good—often after sparking a flame.",
+      "5. The Trip:",
+      "Breakers don't trip because they are 'tired' or 'old'. They trip because they are saving your life from an overload. If you just flip it back without finding the cause, you are playing Russian Roulette with your wires.",
+      "6. The Rodent Sign:",
+      "Found droppings in the attic? Rats love to chew wire insulation to sharpen their teeth. Exposed copper in a wooden attic is a ticking time bomb.",
+      "7. The Scorch Mark:",
+      "Any brown or black mark on an outlet is carbon. Carbon conducts electricity. The outlet has essentially become a heating element. Replace it immediately.",
+      "8. The Loose Plug:",
+      "Does the plug fall out of the wall? This means the metal 'wipers' inside have lost tension. Poor contact pressure creates heat (Joule Heating).",
+      "9. Aluminium Wiring (Pre-1972):",
+      "If you live in North America and your house was built in the late 60s, you might have Aluminium wiring. It expands/contracts 30% more than copper, loosening its own screws over time.",
+      "10. No Ground:",
+      "If you have 2-prong outlets, you have no safety drain for leakage current. Your body becomes the backup plan."
+    ],
+    faqs: [
+      {
+        question: "What should I do if my outlet smells like fish?",
+        answer: "Stop using it immediately. Turn off the circuit breaker for that room. The smell indicates that the plastic insulation or the device body is actively melting due to high heat. Call an electrician."
+      },
+      {
+        question: "Is a buzzing light switch dangerous?",
+        answer: "Yes. Buzzing indicates 'Arcing'—electricity jumping a gap between loose contacts. This arc can reach temperatures of several thousand degrees and ignite surrounding wood or dust."
+      },
+      {
+        question: "Why do my lights flicker when the AC turns on?",
+        answer: "This is voltage drop. The AC draws a huge current on start-up. If your main service wires are too thin or loose, the voltage drops for the whole house. It can damage sensitive electronics like PCs."
+      }
     ]
   },
   {
     id: '2',
+    slug: 'outlet-fire-physics',
+    seoTitle: "Why Electrical Outlets Burn: Loose Connections & Friction Fire Risks",
     title: "The Friction Fire: Why Outlets Burn",
     excerpt: "It's not just 'bad luck'. It's physics. Learn why loose connections turn your wall into a toaster.",
     category: "Prevention",
-    readTime: "4 min",
+    readTime: "6 min",
+    metaDescription: "Understand the physics behind electrical fires. How loose connections create resistance and heat (Joule Heating) leading to outlet failure.",
+    keywords: ["outlet fire", "loose connection", "electrical resistance", "joule heating", "melted outlet"],
+    standards: ["IEC 60884-1", "UL 498"],
     content: [
-      "Why do outlets melt? It comes down to one physics equation: **Resistance creates Heat.**",
-      "Imagine a garden hose. If you squeeze it, the water sprays harder and faster. In electricity, a 'squeeze' is a loose connection.",
-      "The Squeeze Effect:",
-      "• **Tiny Contact Point:** When a screw is loose, electricity has to squeeze through a pinpoint.",
-      "• **Massive Friction:** This squeeze creates massive electrical friction (Resistance).",
-      "• **The Meltdown:** Friction creates Heat. The metal heats up, melting the plastic faceplate.",
-      "• **The Arc:** Eventually, the air gets so hot it turns into plasma (Arcing). That's the blue flash you see.",
-      "The Fix:",
-      "Tighten your connections! If you are DIY-ing, use a screwdriver with torque control. And never, ever 'backstab' wires into the back of an outlet. **Always curl the wire around the screw.**"
+      "**Why do outlets melt?** It comes down to one physics equation: **Resistance creates Heat (P=I²R)**. When connections are loose, electricity is forced through a tiny contact point, creating massive friction and heat.",
+      "Specifically, the formula is **P = I²R**. Power (Heat) equals Current squared times Resistance.",
+      "Imagine a garden hose. If you squeeze it, the water sprays harder. In electricity, a 'squeeze' is a loose connection. But instead of water spraying, you get Heat.",
+      "The Mechanism of Failure:",
+      "• **Step 1: The Looseness.** A screw vibrates loose over years, or the metal contacts inside the socket spread apart from use.",
+      "• **Step 2: The Constriction.** The electricity, which usually flows through a wide metal surface, is forced to flow through a microscopic point of contact.",
+      "• **Step 3: The Heat.** High current through a small point creates massive resistance. The metal heats up.",
+      "• **Step 4: The Oxidation.** Hot copper reacts with air to form Copper Oxide. Copper Oxide is a poor conductor. This adds MORE resistance.",
+      "• **Step 5: The Runaway.** More resistance = More heat = More oxidation. It's a loop until the plastic melts.",
+      "The 'Backstab' Danger:",
+      "Many lazy electricians use the 'push-in' holes on the back of cheaper outlets. This relies on a tiny spring to hold the wire. It is the #1 failure point in home wiring. **Always use the screw terminals.**",
+      "Fix it Yourself:",
+      "If you are replacing an outlet, buy 'Commercial Grade' or 'Spec Grade'. They cost $3 instead of $0.50, but they have brass clamps that grip the wire harder than consumer-grade ones."
+    ],
+    faqs: [
+      {
+        question: "How tight should electrical screws be?",
+        answer: "They should be torqued to manufacturer specs (usually 1.2 to 2.0 Nm). If you don't have a torque screwdriver, 'hand tight plus a quarter turn' is a common rule, but professional torque tools are safer."
+      },
+      {
+        question: "Are push-in connectors safe?",
+        answer: "Wago-style lever connectors are very safe. However, the 'backstab' push-in holes found on cheap receptacles are notorious for failing over time and are banned in some jurisdictions for certain loads."
+      }
     ]
   },
   {
     id: '3',
+    slug: 'lithium-battery-fire-safety',
+    seoTitle: "Lithium Battery Safety: Why Phones Explode & Prevention Tips",
     title: "The Pocket Bomb: Lithium Fires",
     excerpt: "Your phone battery holds the energy of a hand grenade. Learn why they explode and how to charge safely.",
     category: "Modern Risks",
-    readTime: "4 min",
+    readTime: "5 min",
+    metaDescription: "Lithium-ion battery safety guide. Why thermal runaway happens, how to prevent phone explosions, and why you should never charge under a pillow.",
+    keywords: ["lithium fire", "thermal runaway", "phone battery explosion", "safe charging", "e-bike fire"],
+    standards: ["UL 1642", "IEC 62133"],
     content: [
-      "Lithium-ion batteries are miracles of engineering. They are also chemically unstable bombs if treated wrong.",
-      "Why They Explode:",
-      "Inside a battery is a thin plastic sheet separating the Positive and Negative sides. If that sheet breaks (from dropping your phone or cheap manufacturing), the two sides touch.",
-      "This creates an internal short circuit. The battery heats up to 1000°F in seconds. This is called **Thermal Runaway**.",
-      "The Scary Part:",
-      "• **Self-Oxygenating:** Lithium fires create their own oxygen. You cannot smother them.",
-      "• **Water Makes it Worse:** Water reacts with Lithium to create Hydrogen gas (Explosive).",
+      "**Why do lithium batteries explode?** Lithium-ion batteries fail due to **Thermal Runaway**—a chemical chain reaction where the battery creates its own heat and oxygen, making it impossible to smother.",
+      "**The Anatomy of a Disaster:**",
+      "Inside a battery is a very thin plastic sheet (Separator) keeping the Positive and Negative chemicals apart. If that sheet breaks, the two sides touch.",
+      "This creates an internal short circuit. The battery dumps all its energy into that one spot instantly. The temperature hits 1000°F in seconds. This is called **Thermal Runaway**.",
+      "Why is it so dangerous?",
+      "• **Self-Oxygenating:** Lithium fires create their own oxygen as they burn. You cannot smother them with a blanket. They will burn underwater.",
+      "• **Toxic Gas:** The smoke contains Hydrogen Fluoride, which can melt your lungs.",
+      "• **Explosive Force:** The pressure buildup often causes the metal casing to explode like shrapnel.",
+      "Common Causes:",
+      "1. **Physical Damage:** Dropping your phone or crushing an e-bike battery.",
+      "2. **Overcharging:** Using a cheap $2 charger that lacks the 'safety cut-off' chip.",
+      "3. **Heat:** Charging a phone under a pillow. The heat can't escape, degrading the separator.",
       "Safety Rules:",
-      "• **Never charge overnight under a pillow.** Heat needs to escape.",
-      "• **Throw away swollen batteries.** If your phone case is bulging, it's a ticking time bomb.",
-      "• **Don't buy $2 chargers.** They lack the 'Overcharge Protection' chip that stops the current when the battery is full."
+      "• **Never** charge e-bikes or scooters in the hallway (your escape route).",
+      "• **Throw away** any battery that is swollen or 'puffy'.",
+      "• **Use OEM chargers.** Apple engineers designed the charger to talk to the phone. A gas station charger is just a dumb power hose."
+    ],
+    faqs: [
+      {
+        question: "Can I leave my phone charging overnight?",
+        answer: "Modern smartphones have smart chips to stop charging at 100%. However, it keeps the battery at high tension. It's safe-ish, but never put it under your pillow or on a bed where heat puts stress on the cells."
+      },
+      {
+        question: "How do I put out a lithium fire?",
+        answer: "Standard extinguishers don't work well. Water helps cool it down (preventing spread), but won't extinguish the chemical reaction easily. The best strategy is to evacuate and call the fire department."
+      }
     ]
   },
   {
     id: '4',
+    slug: 'extension-cord-dangers',
+    seoTitle: "Extension Cord Safety: Risks of Daisy Chaining & Overloading",
     title: "The Extension Cord Trap",
     excerpt: "They are meant for temporary use, not permanent solutions. Here is why daisy-chaining kills.",
     category: "Habits",
-    readTime: "3 min",
+    readTime: "4 min",
+    metaDescription: "Why extension cords are the #1 cause of electrical fires. Daisy chaining risks, voltage drop, and safe usage guidelines.",
+    keywords: ["daisy chaining", "extension cord fire", "power strip safety", "electrical overload"],
+    standards: ["NFPA 70 Art 400", "UL 817"],
     content: [
-      "Extension cords are the #1 cause of electrical fires in rental homes.",
-      "The Daisy Chain of Death:",
+      "Extension cords are the #1 cause of electrical fires in rental homes. Why? Because people treat them like permanent wiring.",
+      "The 'Daisy Chain' of Death:",
       "Plugging a power strip into another power strip is called 'Daisy Chaining'. It is dangerous for two reasons:",
-      "• **Resistance Multiplier:** Every connection point adds resistance.",
-      "• **The Funnel Effect:** You might have 10 appliances running. The first strip's cord has to carry the current for ALL of them. It wasn't built for that.",
-      "The Rule:",
-      "• **One Wall Outlet = One Strip.**",
-      "• **Heaters/ACs/Fridges = Wall Only.** Never plug high-draw appliances into a strip.",
-      "• **Touch Test:** If the cord feels warm, it is overloaded. Unplug immediately."
+      "• **Resistance Multiplier:** Every connection point adds resistance. Two strips = double the failure points.",
+      "• **The Funnel Effect:** You might have 10 appliances running across 3 strips. But ALL that current has to flow through the single, thin wire of the first strip plugged into the wall. It wasn't built for that load.",
+      "The Heater Problem:",
+      "Space heaters draw 1500 Watts. Most cheap extension cords are rated for less. When you plug a heater into a cheap cord, the cord becomes a heater too. It creates a line of fire across your carpet.",
+      "The Golden Rules:",
+      "• **Temporary Only:** If a cord is used for more than 30 days, you need a new wall outlet installed.",
+      "• **One Wall, One Strip:** Never plug a strip into a strip.",
+      "• **High Power = Wall:** Air Conditioners, Heaters, Fridges, and Microwaves must go DIRECTLY into the wall. No exceptions."
+    ],
+    faqs: [
+      {
+        question: "Can I use an extension cord for my fridge?",
+        answer: "No. Fridges need a constant voltage. Extension cords cause voltage drop, which can burn out the fridge's compressor motor. Plus, the fire risk behind a fridge is undetectable until it's too late."
+      },
+      {
+        question: "What does the gauge (AWG) mean?",
+        answer: "Lower number = Thicker wire. A 12 AWG cord is thick and safe for tools. A 16 AWG cord is thin and only for lamps. Never use a 16 AWG cord for a heater."
+      }
     ]
   },
   {
     id: '5',
+    slug: 'bathroom-shock-myth',
+    seoTitle: "Why Water Conducts Electricity: Bathroom Shock Hazards & GFCI Safety",
     title: "Water + Volts: The Bathroom Myth",
     excerpt: "Pure water doesn't conduct electricity. But your bath water does. Learn the science of shock.",
     category: "Basics",
-    readTime: "3 min",
+    readTime: "4 min",
+    metaDescription: "The science of electric shock in bathrooms. Why tap water conducts electricity and why GFCI/RCDs are mandatory in wet areas.",
+    keywords: ["water electricity", "bathroom shock", "GFCI", "RCD", "electrocution"],
+    standards: ["IEC 60364-7-701"],
     content: [
-      "You learned in school that water conducts electricity. Actually, pure distilled water is an insulator.",
-      "So why is it dangerous?",
-      "Because tap water isn't pure. It has minerals, salts, and chlorine. **These impurities conduct electricity perfectly.**",
+      "You learned in school that water conducts electricity. Actually, pure distilled water is an insulator. So why is it dangerous?",
+      "Because tap water isn't pure. It has minerals, salts, and chlorine (ions). **These ions form a highway for electrons.**",
       "The Hairdryer Scenario:",
       "If you drop a hairdryer in the tub:",
-      "• The electricity jumps from the live wire into the water.",
-      "• It looks for the fastest path to the ground (The drain pipe).",
-      "• **You are in the way.** It travels through your body to get to the drain.",
-      "The Solution:",
-      "**GFCI / RCD Plugs.** These devices sense that the electricity leaked into the water and cut the power in 0.03 seconds. If your bathroom outlets don't have 'Test/Reset' buttons, you are gambling with your life."
+      "• The electricity leaks from the live wire into the water.",
+      "• It looks for the path of least resistance to the ground (usually the metal drain pipe).",
+      "• **You are in the way.** The current travels through your salty, conductive body to get to the drain.",
+      "• It stops your heart (Cardiac Arrest) in seconds.",
+      "The Solution: GFCI / RCD:",
+      "A Ground Fault Circuit Interrupter (GFCI) or Residual Current Device (RCD) is a life-saving calculator. It measures the current going OUT on the live wire and coming BACK on the neutral.",
+      "• If 5.0 Amps goes out, and only 4.9 Amps comes back, it knows 0.1 Amps is leaking (probably through you).",
+      "• It cuts the power in 0.03 seconds. You might feel a 'bite', but you will live.",
+      "• If your bathroom outlets don't have 'Test/Reset' buttons (or aren't protected by an RCD breaker), you are gambling with your life every morning."
+    ],
+    faqs: [
+      {
+        question: "How do I know if my bathroom is safe?",
+        answer: "Look for a button on the outlet that says 'TEST'. Press it. The power should cut immediately. If it doesn't, replace the outlet. In Europe/Asia, check your main panel for a wide switch marked 'RCD' or 'RCCB'."
+      }
     ]
   },
   {
     id: '6',
+    slug: 'grounding-myth-safety',
+    seoTitle: "What is Electrical Grounding? Why You Need a 3rd Pin for Safety",
     title: "The Grounding Myth",
     excerpt: "My appliance works fine without the 3rd pin. Sure. It works fine... until it kills you.",
     category: "Safety Systems",
-    readTime: "4 min",
+    readTime: "5 min",
+    metaDescription: "Why grounding is essential for metal appliances. The dangers of 'cheater plugs' and how the earth wire saves lives.",
+    keywords: ["grounding", "earthing", "3rd pin", "cheater plug", "electric shock prevention"],
+    standards: ["IEEE 142", "IEC 60364-5-54"],
     content: [
-      "People break the 3rd pin (Earth/Ground) off plugs to fit them into 2-pin sockets. This is insane.",
+      "People often break the 3rd pin (Earth/Ground) off plugs to fit them into 2-pin sockets. This is arguably the most dangerous DIY hack in existence.",
       "The Job of the 3rd Pin:",
-      "• It is a drain pipe. It does nothing 99% of the time.",
-      "• But if a wire comes loose inside your fridge and touches the metal door, the electricity needs a place to go.",
-      "• **With Grounding:** It flows down the drain (Ground wire) instantly. The breaker trips. You are safe.",
-      "• **Without Grounding:** The electricity waits on the door handle. It turns the whole fridge into a live battery.",
-      "• **The Trap:** It waits for YOU to touch it. When you do, YOU become the ground wire.",
+      "• It is a drain pipe. It does absolutely nothing 99.9% of the time.",
+      "• But imagine a wire comes loose inside your metal washing machine. It touches the metal casing.",
+      "• **With Grounding:** The casing becomes 'live'. But because the Earth wire is connected to the casing, the electricity creates a massive short circuit to the ground. This instantly trips the breaker. You are safe.",
+      "• **Without Grounding:** The casing becomes 'live'. The electricity has nowhere to go. It sits there, waiting.",
+      "• **The Trap:** You touch the washer. Now YOU are the ground wire. 230 Volts flows through your chest.",
       "Impact:",
-      "Never use 'Cheater Plugs' (3-to-2 adapters) for metal appliances (Fridges, Microwaves, PCs). You are removing the only thing standing between you and lethal current."
+      "Never use 'Cheater Plugs' (3-to-2 adapters) for metal appliances (Fridges, Microwaves, PCs, Laundry). Plastic appliances (Phone chargers) often don't need ground (Double Insulated), which is why they only have 2 pins."
+    ],
+    faqs: [
+      {
+        question: "Why do some plugs only have 2 pins?",
+        answer: "These appliances are 'Double Insulated' (Class II). They usually have plastic casings so you can't touch any metal part that could become live. They are safe without a ground."
+      }
     ]
   },
   {
     id: '7',
+    slug: 'childproofing-outlets-hazard',
+    seoTitle: "Best Outlet Covers for Babies: TRR vs Plastic Caps Safety",
     title: "Childproofing 2.0",
     excerpt: "Why those cheap plastic outlet plugs are actually dangerous choking hazards.",
     category: "Family",
     readTime: "3 min",
+    metaDescription: "The truth about plastic outlet caps. Why TRR (Tamper Resistant Receptacles) are superior and safer for children.",
+    keywords: ["childproofing outlets", "plastic outlet caps", "TRR", "tamper resistant receptacle", "baby safety"],
+    standards: ["NEC 406.12"],
     content: [
       "For decades, parents bought those plastic caps to shove into outlets. They are better than nothing, but barely.",
       "The Problem:",
-      "• **Choking Hazard:** Toddlers are smart. They can pry them off. Once off, it goes straight into the mouth.",
-      "• **Forgetting:** Parents take them out to vacuum and forget to put them back.",
+      "• **Choking Hazard:** Toddlers are smart and determined. They can pry them off. Once off, it's a small plastic object that goes straight into the mouth.",
+      "• **Forgetting:** Parents take them out to vacuum, get distracted, and leave the outlet exposed.",
       "The Solution: TRR (Tamper Resistant Receptacles)",
-      "• Modern codes require TRR outlets.",
+      "• Since 2008, the US Electrical Code (NEC) requires TRR outlets in all homes.",
       "• They have internal plastic shutters behind the holes.",
-      "• **The Secret:** The shutters only open if TWO prongs push at the exact same time. A kid pushing a key into one side hits a wall.",
-      "• It is passive safety. You don't have to remember anything."
+      "• **The Secret:** The shutters only open if TWO prongs push at the exact same time with equal pressure (like a real plug).",
+      "• A kid pushing a key or paperclip into one side hits a hard plastic wall. No shock.",
+      "• It is passive safety. It works 24/7 without you remembering to put the cap back."
+    ],
+    faqs: [
+      {
+        question: "How do I know if I have TRR outlets?",
+        answer: "Look closely at the vertical slots. If you see plastic filling the holes instead of darkness/contacts, they are TRR. They might also have 'TR' stamped on the face."
+      }
     ]
   },
   {
     id: '8',
+    slug: 'old-wiring-dangers',
+    seoTitle: "Old House Wiring Dangers: When to Rewire & Insulation Risks",
     title: "The 30-Year Itch: Old Wiring",
     excerpt: "Copper doesn't age. But plastic does. Why homes built before 1990 are reaching a tipping point.",
     category: "Maintenance",
     readTime: "5 min",
+    metaDescription: "Dangers of old wiring. How deteriorating insulation leads to short circuits and fires in homes older than 30 years.",
+    keywords: ["old wiring", "knob and tube", "brittle insulation", "rewiring house", "electrical inspection"],
+    standards: ["IEC 60227"],
     content: [
-      "Copper is an element. It lasts forever. So why do we rewire houses?",
+      "Copper is an element. It lasts forever. So why do we need to rewire houses?",
       "It's about the **Insulation** (The plastic coating).",
       "The Crunch Test:",
-      "• Plastic dries out over decades of heating up and cooling down.",
-      "• After 30-40 years, it becomes brittle like a dry leaf.",
+      "• Plastic dries out over decades of heating up and cooling down (thermal cycling).",
+      "• After 30-40 years, the plasticizers evaporate. The insulation becomes brittle like a dry leaf.",
       "• If you bend an old wire, the insulation might just crack and fall off.",
       "The Result:",
       "• You now have bare copper wires sitting next to dry wood inside your walls.",
-      "• A single vibration (slamming a door) can make them touch.",
+      "• A single vibration (slamming a door, walking heavily) can make them touch.",
       "• **Short Circuit -> Spark -> Fire.**",
       "Advice:",
-      "If your home is 30+ years old, get an 'Insulation Resistance Test' (Megger Test). It checks the health of the plastic without opening the walls."
+      "If your home is 30+ years old, get an 'Insulation Resistance Test' (Megger Test). An electrician sends high voltage down the line to test the plastic's strength without opening the walls."
+    ],
+    faqs: [
+      {
+        question: "Do I have to tear down my walls to rewire?",
+        answer: "Not distinctively. Skilled electricians can 'fish' new wires through existing cavities using the old wires as pull-cords, minimizing damage to drywall."
+      }
     ]
   },
   {
     id: '9',
+    slug: 'appliance-voltage-drop',
+    seoTitle: "What Causes Voltage Drop? How Low Voltage Damages Motors & Appliances",
     title: "Appliance Suicide: Voltage Drop",
     excerpt: "Why your AC motor burned out even though you didn't use it much.",
     category: "Appliances",
     readTime: "4 min",
+    metaDescription: "How voltage drop destroys motors. Why using long extension cords ruins air conditioners and fridges.",
+    keywords: ["voltage drop", "motor burnout", "AC failure", "extension cord damage"],
+    standards: ["IEC 60364-5-52"],
     content: [
       "Motors (ACs, Fridges, Pumps) are hungry beasts. They need 'fuel' (Voltage) to push them.",
       "What happens if the fuel is low? (Low Voltage):",
       "• You might think the motor just runs slower. **Wrong.**",
-      "• To do the same amount of work with less voltage, the motor sucks in **MORE Current (Amps)**.",
-      "• More Amps = More Heat.",
-      "• The windings inside the motor get hot. Eventually, the insulation melts and the motor burns out.",
+      "• To do the same amount of work (maintain speed) with less voltage, the motor automatically sucks in **MORE Current (Amps)**.",
+      "• **More Amps = More Heat.**",
+      "• The windings inside the motor get hot. Eventually, the lacquer insulation melts and the motor burns out.",
       "The Culprit:",
-      "• Usually, it's a thin wire. If you run a heavy AC on a thin extension cord, the voltage drops before it reaches the AC.",
-      "• You are literally starving your appliance to death."
-    ]
+      "• Usually, it's a thin wire. If you run a heavy AC on a thin, long extension cord, the resistance of the cord 'eats' some voltage.",
+      "• Example: 120V at the wall -> Cord eats 10V -> AC gets 110V.",
+      "• That 10% drop can cause a 20% increase in heat. You are literally starving your appliance to death."
+    ],
+    faqs: []
   },
   {
     id: '10',
+    slug: 'smart-switch-neutral-wire',
+    seoTitle: "Smart Switch Wiring: Why You Need a Neutral Wire (Not Ground)",
     title: "The Neutral Crime",
     excerpt: "Smart switches are cool. But installing them without a Neutral wire is a fire hazard.",
     category: "Modern Risks",
     readTime: "4 min",
+    metaDescription: "Smart switch installation dangers. Why you need a neutral wire and why using the ground wire is illegal and unsafe.",
+    keywords: ["smart switch", "neutral wire", "no neutral switch", "electrical safety"],
+    standards: ["NEC 404.2"],
     content: [
-      "Smart switches (WiFi) need power 24/7 to listen for your voice command.",
+      "Smart switches (WiFi/Zigbee) need power 24/7 to listen for your voice command or phone app.",
       "Old switches simply cut the line. They have no 'Return Path' (Neutral).",
       "The Hack:",
       "• Some people try to use the 'Ground' wire as a Neutral to power the smart switch.",
       "• **THIS IS ILLEGAL AND DANGEROUS.**",
-      "• You are putting current onto the safety wire. Now, the metal casing of your microwave might be live.",
+      "• You are putting current onto the safety wire. Current that is supposed to ensure safety is now being used for function.",
+      "• Result: The metal casing of other appliances on that ground loop might become live.",
       "The Fix:",
-      "• Buy 'No-Neutral' smart switches (They use a capacitor trick).",
-      "• Or hire an electrician to pull a new Neutral wire to the box.",
-      "• Never cheat with the Ground wire."
-    ]
+      "1. Buy 'No-Neutral' smart switches (They use a capacitor trick to trickle power).",
+      "2. Hire an electrician to pull a new Neutral wire to the box.",
+      "3. Never cheat with the Ground wire."
+    ],
+    faqs: []
   },
   {
     id: '11',
+    slug: 'lightning-surge-protection',
+    seoTitle: "Lightning Protection for Home Electronics: Surge Protectors vs Unplugging",
     title: "Storm Mode: What to Unplug",
     excerpt: "Lightning doesn't care about your surge protector strip. Here is the physics of a strike.",
     category: "Nature",
     readTime: "3 min",
+    metaDescription: "How to protect electronics from lightning. Why power strips fail against direct strikes and what to unplug.",
+    keywords: ["lightning protection", "surge protector", "storm safety", "unplugging devices"],
+    standards: ["IEEE C62.41"],
     content: [
-      "A lightning bolt travels miles through the sky. Do you think a 1-inch plastic gap in your surge protector will stop it?",
-      "**No.**",
-      "If lightning hits your power line, it can jump (arc) across switches and protectors.",
+      "**What should you unplug during a storm?** You must physically unplug sensitive electronics like PCs, OLED TVs, and Modems. Turning off a surge protector strip is **insufficient** because lightning can easily jump (arc) across the small switch gap.",
+      "A lightning bolt travels miles through the sky, overcoming the massive resistance of air. Do you think a 1-inch plastic gap in your surge protector toggle switch will stop it?",
+      "If lightning hits your power line, it can jump (arc) across switches and protectors. It's millions of volts.",
       "What to Unplug:",
       "• **Expensive Electronics:** PCs, OLED TVs, Consoles.",
-      "• **Modems:** Lightning loves traveling through phone/cable lines too.",
+      "• **Modems:** Lightning loves traveling through phone/cable/fiber lines too.",
       "What to Ignore:",
-      "• Lamps, Toasters, Fridges (They are robust and usually survive).",
+      "• Lamps, Toasters, Fridges (They are robust simple machines and usually survive or are cheaper to repair).",
       "**Myth:** 'I can just turn off the strip.'",
-      "**Fact:** Physical unplugging is the only 100% guarantee. Lightning can jump the 'Off' switch gap."
-    ]
+      "**Fact:** Physical unplugging is the only 100% guarantee. Lightning can jump the 'Off' switch gap easily."
+    ],
+    faqs: []
   },
   {
     id: '12',
+    slug: 'electrical-tape-danger',
+    seoTitle: "Wire Nuts vs Electrical Tape: Safe Wire Splicing Methods",
     title: "The DIY Disaster: Tape vs Nuts",
     excerpt: "Electrical tape is for marking wires, not for joining them forever.",
     category: "DIY",
     readTime: "3 min",
+    metaDescription: "Why electrical tape is unsafe for wire joints. Use wire nuts or Wago connectors instead to prevent fires.",
+    keywords: ["electrical tape", "wire nuts", "wago connectors", "wire splicing"],
+    standards: ["UL 486C"],
     content: [
       "The classic handyman move: Twist two wires together, wrap them in black tape, shove them in the wall.",
       "Why this fails:",
@@ -769,170 +923,227 @@ export const ARTICLES: Article[] = [
       "• **Oxidation:** Air gets in. The copper rusts (oxidizes). Resistance goes up. Heat goes up.",
       "The Pro Way:",
       "• **Wire Nuts (Marrettes):** A mechanical spring grips the wires.",
-      "• **Wago Connectors:** A clamp locks them in place.",
-      "• Mechanical pressure is key. Sticky tape is not mechanical pressure."
-    ]
+      "• **Wago Connectors:** A lever clamp locks them in place. This is the gold standard in Europe.",
+      "• **Pressure vs Sticky:** Mechanical pressure ensures a gas-tight seal. Sticky tape does not."
+    ],
+    faqs: []
   },
   {
     id: '13',
+    slug: 'circuit-breaker-tripping',
+    seoTitle: "Circuit Breaker Tripping? Why Upgrading the Breaker is Dangerous",
     title: "Breaker Psychology",
     excerpt: "A tripping breaker is annoying. But it's saving your life. Don't punish it.",
     category: "Basics",
     readTime: "3 min",
+    metaDescription: "Why circuit breakers trip. The dangers of upgrading a breaker without upgrading the wire.",
+    keywords: ["breaker tripping", "overloaded circuit", "replace circuit breaker", "electrical safety"],
+    standards: ["UL 489"],
     content: [
+      "**Why is my breaker tripping?** A circuit breaker trips because it is protecting your wires from overheating. It is **saving your life**. Replacing it with a higher-rated breaker without upgrading the wires creates an immediate fire hazard.",
       "Scenario: You turn on the heater. *Click*. The breaker trips.",
-      "You flip it back. 5 minutes later. *Click*.",
       "You think: 'This breaker is weak. I should replace it with a stronger one.'",
       "**STOP.**",
-      "• The breaker is doing its job. It senses the wire is getting too hot.",
-      "• If you put a bigger breaker (e.g., replacing 15A with 20A), you remove the limit.",
-      "• The wire keeps heating up. The breaker doesn't trip. **The house catches fire.**",
+      "• The breaker is matched to the **WIRE**, not your lifestyle.",
+      "• If you have a 1.5mm wire, it can handle 15 Amps. The breaker is 15 Amps.",
+      "• If you put a 20 Amp breaker, you remove the limit.",
+      "• Now, you can pull 19 Amps. The wire heats up red hot. The breaker doesn't trip. **The house catches fire.**",
       "Rule:",
-      "Never upgrade a breaker without upgrading the wire too. If it trips, reduce the load."
-    ]
+      "Never upgrade a breaker rating. If it trips, reduce the load or install a new circuit."
+    ],
+    faqs: []
   },
   {
     id: '14',
+    slug: 'rodents-chewing-wires',
+    seoTitle: "Rodent Damage to Wiring: Signs of Rats Chewing Wires in Attic",
     title: "The Rodent War",
     excerpt: "Why rats love electricity. It's not about the taste.",
     category: "Nature",
-    readTime: "3 min",
+    readTime: "4 min",
+    metaDescription: "Why rats chew electrical wires. Signs of rodent damage and how to prevent electrical fires caused by pests.",
+    keywords: ["rats chewing wires", "rodent damage", "electrical fire pests", "attic wiring"],
+    standards: [],
     content: [
-      "Rodents have teeth that never stop growing. They need to file them down.",
-      "Copper wire is the perfect hardness for a rat dentist.",
+      "Rodents (Rats, Mice, Squirrels) have teeth that never stop growing. They MUST chew on things to file them down.",
+      "Electrical wire is the perfect texture. Not too hard, not too soft.",
       "The Damage:",
-      "• They chew off the plastic insulation.",
-      "• They leave bare copper wires touching the dry wood of your attic beams.",
-      "• One spark is all it takes.",
+      "• They strip the insulation, leaving bare copper.",
+      "• They often do this in hidden places: attics, crawlspaces, inside walls.",
+      "• They bridge the Hot and Neutral wires, causing a massive arc.",
       "Signs:",
-      "• Scratching sounds in walls.",
-      "• Lights flickering for no reason.",
-      "• Urine smell in the attic.",
-      "Solution:",
-      "Don't just set traps. Inspect the wiring. Use steel-armored cable (BX cable) in basements and attics."
-    ]
+      "• Scratching sounds in the ceiling.",
+      "• Flickering lights in one specific room.",
+      "• Breakers tripping for no reason.",
+      "• **Smell of Urine:** Rodents follow urine trails. If your attic smells, check the wires."
+    ],
+    faqs: []
   },
   {
     id: '15',
+    slug: 'light-bulb-wattage',
+    seoTitle: "Light Fixture Wattage Limit: Dangers of Overlamping & Fire Risk",
     title: "Wattage Wars: Lamps",
     excerpt: "Putting a 100W bulb in a 60W fixture is the most common fire starter in bedrooms.",
     category: "Habits",
     readTime: "3 min",
+    metaDescription: "Danger of exceeding lamp wattage rating. Overlamping risks and how to check fixture limits.",
+    keywords: ["light bulb wattage", "overlamping", "fixture rating", "fire hazard"],
+    standards: ["UL 1598"],
     content: [
       "Every light fixture has a sticker: 'Max 60 Watts'.",
-      "People ignore it. They want it brighter. They put in a 100W bulb.",
-      "The Physics:",
-      "• 100W creates nearly double the heat of 60W.",
-      "• The fixture's wires are only rated for 60W of heat.",
-      "• The socket insulation bakes, cracks, and crumbles.",
-      "• Eventually, the live wire touches the metal lamp casing.",
-      "The Fix:",
-      "**Switch to LED.** A 100W-equivalent LED only uses 14 Watts. You get the brightness without the heat danger."
-    ]
+      "What happens if you put a 100W bulb in?",
+      "• **Heat Trap:** The fixture was designed to dissipate the heat of 60W.",
+      "• With 100W, the heat builds up. It bakes the socket.",
+      "• The insulation on the wires *inside* the fixture becomes brittle and cracks.",
+      "• Eventually, the wires short out inside the metal casing.",
+      "Note:",
+      "LEDs have solved this. A '100W Equivalent' LED uses only 14 Watts. You can safely put a bright LED in almost any old fixture."
+    ],
+    faqs: []
   },
   {
     id: '16',
+    slug: 'inverter-battery-gas',
+    seoTitle: "Lead Acid Battery Safety: Hydrogen Gas Ventilation for Inverters",
     title: "Inverter Ignorance",
     excerpt: "Lead-acid batteries emit explosive gas. Is your backup system ventilated?",
     category: "Safety Systems",
     readTime: "4 min",
+    metaDescription: "Dangers of lead-acid batteries indoors. Hydrogen gas explosion risk and ventilation requirements.",
+    keywords: ["lead acid battery", "hydrogen gas", "inverter safety", "battery ventilation"],
+    standards: ["IEEE 484"],
     content: [
-      "Home inverters use large lead-acid batteries (like car batteries).",
+      "Many homes have backup power inverters with large tubular lead-acid batteries.",
       "The Chemistry:",
-      "• When charging, these batteries boil the electrolyte.",
+      "• When these batteries charge, they boil the electrolyte.",
       "• This releases **Hydrogen Gas**.",
-      "• Hydrogen is invisible, odorless, and extremely explosive (think Hindenburg).",
+      "• Hydrogen is extremely explosive (Remember the Hindenburg?).",
       "The Danger:",
-      "• People shove inverters into closed closets to hide them.",
-      "• The gas builds up.",
-      "• A single spark from the inverter relay ignites the closet.",
-      "Rule:",
-      "Batteries need airflow. Never put them in a sealed box or cupboard."
-    ]
+      "• People often put these batteries in a closet or under stairs to hide them.",
+      "• The gas accumulates in the enclosed space.",
+      "• A single spark from the inverter relay switching can ignite the room.",
+      "The Fix:",
+      "• Always keep lead-acid batteries in a well-ventilated area.",
+      "• Or switch to Sealed Lead Acid (SLA) or Lithium/LiFePO4 batteries which produce no gas."
+    ],
+    faqs: []
   },
   {
     id: '17',
+    slug: 'solar-dc-arc-fault',
+    seoTitle: "Solar Panel Fire Safety: DC Arc Faults & Firefighting Risks",
     title: "Solar Safety: The DC Arc",
     excerpt: "Solar panels create DC electricity. It behaves very differently from wall power.",
     category: "Modern Risks",
     readTime: "4 min",
+    metaDescription: "Solar panel safety risks. Understanding DC arc faults and why solar firefighting is different.",
+    keywords: ["solar panel fire", "DC arc", "photovoltaic safety", "solar isolation"],
+    standards: ["UL 1699B", "IEC 60364-7-712"],
     content: [
-      "AC (Wall power) flickers on and off 60 times a second. This helps extinguish sparks.",
-      "DC (Solar power) is a continuous river of fire.",
-      "The DC Arc:",
-      "• If you unplug a solar panel under load, the spark doesn't go out.",
-      "• It stretches. You can pull a 3-inch arc of plasma.",
-      "• This arc melts metal and starts roof fires.",
-      "Advice:",
-      "Never unplug solar cables while the sun is shining unless the system is shut down. Use specialized DC-rated breakers only."
-    ]
+      "Wall power (AC) flickers on and off 60 times a second (0 crossing). This makes it easy to extinguish a spark.",
+      "Solar power (DC) is continuous pressure. It does not stop.",
+      "The Arc:",
+      "• If a DC wire is cut or loose, the continuous current creates a sustained flame thrower (Plasma Arc).",
+      "• It is very hard to stop.",
+      "• Firefighters cannot just spray water on solar panels because the sun is still powering them—they are always LIVE during the day.",
+      "Safety:",
+      "• Ensure your installer used 'Rapid Shutdown' devices (Microinverters/Optimizers).",
+      "• Never try to disconnect solar wires yourself while the sun is shining."
+    ],
+    faqs: []
   },
   {
     id: '18',
+    slug: 'electric-blanket-burns',
+    seoTitle: "Electric Blanket Safety: Fire Risks from Folding & Overheating",
     title: "Electric Blanket Burns",
     excerpt: "They feel cozy, but they are grids of heating wire. Don't fold them.",
     category: "Habits",
     readTime: "3 min",
+    metaDescription: "Safety tips for electric blankets. Why folding causes fires and when to replace them.",
+    keywords: ["electric blanket fire", "heating pad safety", "folded blanket risk"],
+    standards: ["UL 964"],
     content: [
-      "Inside an electric blanket are tiny, thin heating wires.",
-      "The Failure:",
-      "• If you fold the blanket or bunch it up, the heat gets trapped.",
-      "• Or, the fold snaps the tiny wire inside.",
-      "• The broken wire creates a 'Hot Spot' that burns through the fabric.",
-      "Rules:",
-      "• Never tuck it under the mattress.",
-      "• Never pile heavy pillows or pets on top of it.",
-      "• Lay it flat. Always."
-    ]
+      "Inside the fabric are thin heating wires.",
+      "The Folding Risk:",
+      "• If you fold the blanket, you bring two heating wires close together.",
+      "• They share heat, creating a hotspot.",
+      "• Eventually, the fabric chars and ignites.",
+      "• Never run the cord between the mattress and box spring—the friction will strip the cord.",
+      "Check:",
+      "Look for brown spots on the blanket. That is where it has already overheated. Throw it away."
+    ],
+    faqs: []
   },
   {
     id: '19',
+    slug: 'cheap-charger-damage',
+    seoTitle: "Are Cheap Phone Chargers Safe? Electrocution Risk & Device Damage",
     title: "The Cheap Charger",
     excerpt: "Why a $2 gas station charger can destroy your $1000 iPhone.",
     category: "Modern Risks",
     readTime: "4 min",
+    metaDescription: "Why cheap chargers damage phones. Voltage ripple, lack of isolation, and electric shock risk.",
+    keywords: ["fake charger", "iphone damage", "voltage ripple", "cheap usb charger"],
+    standards: ["IEC 62368-1"],
     content: [
-      "A charger's job is to take 120V/240V AC and turn it into smooth 5V DC.",
-      "The Cheap Way:",
-      "• Remove the filters. Remove the surge protection. Remove the isolation transformer.",
-      "• The result is 'Dirty Power'. Voltage spikes leak through to your phone.",
-      "• This confuses the phone's touch screen (Ghost Touch) and fries the battery management chip.",
-      "The Risk:",
-      "Cheap chargers often lack galvanic isolation. If they fail, they send the full 240V mains power straight into your phone... and your hand."
-    ]
+      "A charger converts 120V/230V AC (Wall Danger) to 5V DC (Phone Safe).",
+      "The Gap:",
+      "• High quality chargers have a physical 'isolation gap' and quality transformers to keep the high voltage away from your phone.",
+      "• Cheap chargers bridge this gap with cheap components to save money.",
+      "Risks:",
+      "1. **Dirty Power:** Unstable voltage (ripple) confuses the phone's touch screen (Ghost Touch) and overheats the charging chip.",
+      "2. **Lethal Leakage:** If the cheap transformer fails, it can send full wall voltage straight into the phone chassis. Users have been electrocuted answering phones plugged into cheap chargers."
+    ],
+    faqs: []
   },
   {
     id: '20',
+    slug: 'holiday-lights-hazard',
+    seoTitle: "Christmas Light Safety: Preventing Dry Tree Fires & Overloads",
     title: "Holiday Hazards",
     excerpt: "Christmas lights and Diwali lamps are seasonal fire starters.",
     category: "Habits",
     readTime: "3 min",
+    metaDescription: "Holiday decoration safety. Christmas lights, Diwali lamps, and extension cord overload risks.",
+    keywords: ["christmas light fire", "holiday safety", "dry christmas tree", "decoration overload"],
+    standards: [],
     content: [
-      "We pull them out of a box once a year. They are tangled and old.",
+      "We stress our electrical system the most during holidays.",
       "The Risks:",
-      "• **Dry Trees:** A hot incandescent bulb touching a dry pine needle is instant fire.",
-      "• **Overloading:** Plugging 10 strands end-to-end blows the fuse in the plug (if it has one). If not, the wire melts.",
-      "• **Outdoor/Indoor:** Using indoor lights outside. Rain gets in, causes shorts.",
-      "Checklist:",
-      "Throw away any strand with frayed wires. Switch to LED (Cool touch). Unplug when you go to sleep."
-    ]
+      "• **Dry Trees:** A dry pine tree is explosive. One spark from a cheap light string acts like napalm.",
+      "• **Daisy Chaining:** People plug 10 strands of lights end-to-end. This melts the wire of the first strand.",
+      "• **Outdoor/Indoor:** Using indoor lights outside. Rain gets into the sockets and causes shorts.",
+      "Rule:",
+      "• Use LED lights (they run cool).",
+      "• Water the tree daily.",
+      "• Don't connect more than 3 strands together."
+    ],
+    faqs: []
   },
   {
     id: '21',
+    slug: '110v-vs-230v-danger',
+    seoTitle: "Is 110V Lethal? 110V vs 220V Shock Danger Explained",
     title: "The 'Safe' Voltage Myth",
     excerpt: "I'm in the USA, it's only 110V. It can't kill me, right? Wrong.",
     category: "Basics",
     readTime: "4 min",
+    metaDescription: "Is 110V safe? The difference between 110V and 230V shock risks. Why current (Amps) kills, not just voltage.",
+    keywords: ["110V vs 220V", "electric shock limit", "is 110V lethal", "amperage kills"],
+    standards: ["IEC 60479"],
     content: [
-      "People think 230V (Europe/Asia) is deadly and 110V (USA) is just a tickle.",
+      "There is a myth that 230V (Europe/Asia) kills, but 110V (USA) just tickles.",
       "The Truth:",
-      "• **It's not the Volts, it's the Amps.**",
-      "• It takes only 0.1 Amps to stop a human heart.",
-      "• A standard US outlet delivers 15 Amps. That is 150 times the lethal dose.",
-      "• In fact, 110V is sometimes more dangerous because it's harder to 'let go'. The muscle contraction locks your hand onto the wire.",
-      "Conclusion:",
-      "Treat every wire like a gun. Voltage doesn't matter. Current kills."
-    ]
+      "• It takes about **30mA (0.03 Amps)** across the heart to cause fibrillation (death).",
+      "• By Ohm's Law (I=V/R), 110V can push WAY more than 30mA through your body (which has a resistance of about 1000-2000 Ohms when wet).",
+      "• 110V / 1000 Ohms = 110mA. **This is 3x the lethal dose.**",
+      "Difference:",
+      "• 230V contracts muscles harder, making it impossible to let go ('The Grip').",
+      "• 110V is *slightly* more survivable, but still easily lethal, especially in wet conditions or if the path crosses the heart."
+    ],
+    faqs: []
   }
 ];
 
