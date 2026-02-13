@@ -587,11 +587,31 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
   };
 
   /* Restore necessary variable declarations */
-  const data = routeData[location.pathname] || routeData['/'];
-  const fullTitle = `${data.title} | ElectroSafe.homes`;
+  // Dynamic Metadata Lookup for Articles
+  const getDynamicData = () => {
+    if (location.pathname.startsWith('/articles/')) {
+      const parts = location.pathname.split('/').filter(p => p);
+      const slug = parts[parts.length - 1]; // Robustly get the last segment
+      const article = ARTICLES.find(a => a.slug === slug);
+      if (article) {
+        return {
+          title: article.seoTitle || article.title,
+          desc: article.metaDescription || article.excerpt,
+          type: 'Article',
+          keywords: article.keywords ? article.keywords.join(', ') : 'electrical safety, home wiring',
+          image: undefined
+        };
+      }
+    }
+    return null;
+  };
+
+  const dynamicData = getDynamicData();
+  const data = dynamicData || routeData[location.pathname] || routeData['/'];
+  const fullTitle = dynamicData ? `${data.title} | ElectroSafe.homes` : `${data.title} | ElectroSafe.homes`;
 
   // Canonical URL - Remove query parameters for SEO
-  const canonicalUrl = window.location.origin + location.pathname;
+  const canonicalUrl = `https://electrosafe.homes${location.pathname}`;
 
   const baseSchema = {
     "@context": "https://schema.org",
