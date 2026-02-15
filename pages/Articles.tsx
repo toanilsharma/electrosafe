@@ -17,8 +17,6 @@ export const Articles = () => {
       if (found) {
         setSelectedArticle(found);
       } else {
-        // Fallback or 404 handling. For now, we will just show the list if slug is invalid.
-        // In a real app, you might want a dedicated 404 component.
         setSelectedArticle(null);
       }
     } else {
@@ -26,6 +24,26 @@ export const Articles = () => {
     }
     window.scrollTo(0, 0);
   }, [slug]);
+
+  // If slug exists but article not found, show 404
+  if (slug && !selectedArticle) {
+    return (
+      <div className="max-w-4xl mx-auto px-4 py-12 text-center">
+        <Helmet>
+          <title>Article Not Found | ElectroSafe</title>
+          <meta name="robots" content="noindex" />
+        </Helmet>
+        <h1 className="text-3xl font-bold text-gray-900 mb-4">Article Not Found</h1>
+        <p className="text-gray-600 mb-8">The article you are looking for does not exist or has been moved.</p>
+        <button
+          onClick={() => navigate('/articles')}
+          className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          Back to Articles
+        </button>
+      </div>
+    );
+  }
 
   // Helper to parse bold text markers (**text**)
   const formatText = (text: string) => {

@@ -578,6 +578,12 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       type: 'ContactPage',
       keywords: 'contact us, support, feedback, get in touch'
     },
+    '/about': {
+      title: 'About ElectroSafe - Our Mission',
+      desc: 'Learn about ElectroSafe.homes and our mission to democratize electrical safety knowledge. Expert-led, standards-compliant, and free for everyone.',
+      type: 'AboutPage',
+      keywords: 'about us, mission, electrical safety, anil sharma, reliability'
+    },
     '/emergency': {
       title: 'Electrical Fire & Shock Emergency',
       desc: 'Emergency protocol for electrical fires and shocks. Immediate life-saving steps to isolate power and call for help during an electrical crisis.',
