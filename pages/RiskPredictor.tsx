@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { AlertTriangle, CheckCircle, RefreshCw, ShieldAlert, CheckSquare, Flame, Zap } from 'lucide-react';
+import { ShareableScoreCard } from '../components/ShareableScoreCard';
 
 export const RiskPredictor = () => {
   const [factors, setFactors] = useState<string[]>([]);
@@ -433,6 +434,16 @@ export const RiskPredictor = () => {
               <RefreshCw className="w-4 h-4" /> Start New Prediction
             </button>
           </div>
+
+          {/* Viral Share Feature */}
+          <ShareableScoreCard
+            score={score}
+            maxScore={25}
+            rating={result === 'low' ? '⭐⭐⭐⭐⭐ Safe Home' : result === 'medium' ? '⭐⭐⭐ Needs Attention' : '⭐ Critical Risk'}
+            riskLevel={result}
+            toolName="Risk Predictor"
+            toolPath="/risk-predictor"
+          />
         </div>
       )}
     </div>

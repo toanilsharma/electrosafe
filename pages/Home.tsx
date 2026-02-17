@@ -30,6 +30,8 @@ import {
 } from 'lucide-react';
 import { HAZARD_GALLERY } from '../data';
 import { SocialShare } from '../components/SocialShare';
+import { SafetyTipOfTheDay } from '../components/SafetyTipOfTheDay';
+import { SeasonalBanner } from '../components/SeasonalBanner';
 
 export const Home = () => {
   const [showRentModal, setShowRentModal] = useState(false);
@@ -71,7 +73,7 @@ export const Home = () => {
             The universal guide to electrical safety. We translate complex engineering codes into simple actions to <span className="text-white font-medium">prevent fires</span>, <span className="text-white font-medium">avoid shocks</span>, and <span className="text-white font-medium">lower your bills</span>.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-5 w-full sm:w-auto px-4 animate-slide-up delay-300 mb-16">
+          <div className="flex flex-col sm:flex-row gap-5 w-full sm:w-auto px-4 animate-slide-up delay-300 mb-6">
             <Link
               to="/assessment"
               className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-2xl text-lg transition-all transform hover:scale-105 shadow-xl shadow-blue-900/20 w-full sm:w-auto"
@@ -85,6 +87,15 @@ export const Home = () => {
             >
               <AlertTriangle className="w-5 h-5 text-yellow-400" />
               Analyze Symptoms
+            </Link>
+          </div>
+          {/* Quick Quiz CTA */}
+          <div className="animate-slide-up delay-300 mb-16">
+            <Link
+              to="/quick-quiz"
+              className="inline-flex items-center gap-2 px-6 py-2 bg-yellow-500/20 hover:bg-yellow-500/30 border border-yellow-500/30 text-yellow-200 font-bold rounded-full text-sm transition-all hover:scale-105"
+            >
+              ⚡ Take the 60-Second Quiz — Is Your Home Safe?
             </Link>
           </div>
 
@@ -447,6 +458,9 @@ export const Home = () => {
         </div>
       </section>
 
+      {/* SEASONAL SAFETY ALERT */}
+      <SeasonalBanner />
+
       {/* 4.5 NEW: FEATURED INSIGHT */}
       <section className="py-16 bg-white border-t border-gray-100">
         <div className="max-w-4xl mx-auto px-4 text-center">
@@ -473,6 +487,9 @@ export const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* DAILY SAFETY TIP */}
+      <SafetyTipOfTheDay />
 
       {/* 4.6 NEW: GLOBAL COMMUNITY STORIES (TESTIMONIALS) */}
       <section className="py-20 bg-gray-50 border-t border-gray-100">

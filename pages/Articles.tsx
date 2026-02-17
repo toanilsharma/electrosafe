@@ -102,6 +102,18 @@ export const Articles = () => {
           <meta name="description" content={selectedArticle.metaDescription || selectedArticle.excerpt} />
           <meta name="keywords" content={selectedArticle.keywords ? selectedArticle.keywords.join(', ') : ''} />
           <link rel="canonical" href={`https://electrosafe.homes/articles/${selectedArticle.slug}`} />
+          {/* Open Graph for rich social sharing */}
+          <meta property="og:type" content="article" />
+          <meta property="og:url" content={`https://electrosafe.homes/articles/${selectedArticle.slug}`} />
+          <meta property="og:title" content={selectedArticle.seoTitle || selectedArticle.title} />
+          <meta property="og:description" content={selectedArticle.metaDescription || selectedArticle.excerpt} />
+          <meta property="og:image" content="https://electrosafe.homes/android-chrome-512x512.png" />
+          <meta property="og:site_name" content="ElectroSafe.homes" />
+          {/* Twitter Card */}
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content={selectedArticle.seoTitle || selectedArticle.title} />
+          <meta name="twitter:description" content={selectedArticle.metaDescription || selectedArticle.excerpt} />
+          <meta name="twitter:image" content="https://electrosafe.homes/android-chrome-512x512.png" />
           <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
           {faqLd && <script type="application/ld+json">{JSON.stringify(faqLd)}</script>}
         </Helmet>

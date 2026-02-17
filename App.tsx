@@ -21,6 +21,9 @@ import { Legal } from './pages/Legal';
 import { ContactUs } from './pages/ContactUs';
 import { About } from './pages/About';
 import { Emergency } from './pages/Emergency';
+import Standards from './pages/Standards';
+import { QuickQuiz } from './pages/QuickQuiz';
+import { EmbeddableBadge } from './pages/EmbeddableBadge';
 
 function App() {
   return (
@@ -47,6 +50,9 @@ function App() {
             <Route path="/legal" element={<Legal />} />
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/emergency" element={<Emergency />} />
+            <Route path="/standards-and-sources" element={<Standards />} />
+            <Route path="/quick-quiz" element={<QuickQuiz />} />
+            <Route path="/badge" element={<EmbeddableBadge />} />
             <Route path="*" element={<Home />} />
           </Routes>
         </Layout>

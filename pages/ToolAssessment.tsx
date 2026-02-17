@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { QUESTIONS } from '../data';
 import { AlertCircle, ArrowRight, RotateCcw, Printer, Award, Info, X } from 'lucide-react';
+import { ShareableScoreCard } from '../components/ShareableScoreCard';
 
 export const ToolAssessment = () => {
   const [answers, setAnswers] = useState<Record<number, number>>({});
@@ -200,6 +201,16 @@ export const ToolAssessment = () => {
                 <RotateCcw className="w-4 h-4" /> Clear & Start Over
               </button>
             </div>
+
+            {/* Viral Share Feature */}
+            <ShareableScoreCard
+              score={totalScore}
+              maxScore={QUESTIONS.length * 5}
+              rating={resultData.rating}
+              riskLevel={percentage < 15 ? 'low' : percentage < 35 ? 'medium' : 'high'}
+              toolName="Safety Assessment"
+              toolPath="/assessment"
+            />
           </div>
 
           {/* Detailed Breakdown for Print Only */}
