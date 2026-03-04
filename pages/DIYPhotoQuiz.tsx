@@ -124,18 +124,18 @@ export const DIYPhotoQuiz: React.FC = () => {
           <meta name="description" content="Your home electrical hazard identification score." />
         </Helmet>
         
-        <div className="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-gray-100 text-center animate-fade-in relative overflow-hidden">
+        <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-3xl p-8 md:p-12 shadow-xl border border-gray-100 dark:border-gray-800 dark:border-gray-800 text-center animate-fade-in relative overflow-hidden">
           {/* Confetti background for perfect score */}
           {finalScore === 100 && (
             <div className="absolute inset-0 pointer-events-none opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCI+PGNpcmNsZSBjeD0iMjUiIGN5PSIyNSIgcj0iNSIgZmlsbD0iI2Y1OWMwYiIvPjwvc3ZnPg==')] " />
           )}
 
           <Trophy className={`w-20 h-20 mx-auto mb-6 ${finalScore >= 80 ? 'text-yellow-400' : 'text-gray-400'}`} />
-          <h1 className="text-4xl font-extrabold text-slate-900 mb-4">{msg.title}</h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-lg mx-auto">{msg.desc}</p>
+          <h1 className="text-4xl font-extrabold text-slate-900 dark:text-gray-100 dark:text-gray-100 mb-4">{msg.title}</h1>
+          <p className="text-xl text-gray-600 dark:text-gray-400 dark:text-gray-400 mb-8 max-w-lg mx-auto">{msg.desc}</p>
           
           <div className="inline-block p-1 bg-gradient-to-r from-blue-500 to-teal-400 rounded-3xl mb-8">
-            <div className="bg-white rounded-[22px] px-10 py-6">
+            <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-[22px] px-10 py-6">
               <div className="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500">
                 {score} / {QUIZ_QUESTIONS.length}
               </div>
@@ -154,7 +154,7 @@ export const DIYPhotoQuiz: React.FC = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button onClick={restartQuiz} className="inline-flex justify-center items-center gap-2 px-8 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold rounded-xl transition">
+            <button onClick={restartQuiz} className="inline-flex justify-center items-center gap-2 px-8 py-3 bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 hover:bg-gray-200 text-gray-700 dark:text-gray-300 dark:text-gray-300 font-bold rounded-xl transition">
               <RotateCcw className="w-5 h-5" /> Retake Quiz
             </button>
             <Link to="/home-buyer-scanner" className="inline-flex justify-center items-center gap-2 px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition shadow-lg shadow-blue-500/30">
@@ -180,7 +180,7 @@ export const DIYPhotoQuiz: React.FC = () => {
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-red-100 text-red-700 rounded-lg text-sm font-bold uppercase tracking-wide">
             <Camera className="w-4 h-4" /> DIY or Deadly?
           </div>
-          <div className="text-sm font-bold text-gray-500">
+          <div className="text-sm font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400">
             Question {currentQuestionIdx + 1} of {QUIZ_QUESTIONS.length}
           </div>
         </div>
@@ -202,7 +202,7 @@ export const DIYPhotoQuiz: React.FC = () => {
       </div>
 
       {/* Question Card */}
-      <div className="bg-white rounded-3xl overflow-hidden shadow-xl border border-gray-100 animate-slide-up">
+      <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-3xl overflow-hidden shadow-xl border border-gray-100 dark:border-gray-800 dark:border-gray-800 animate-slide-up">
          
          {/* Simulated Image Area - Using styled placeholder representing real photos */}
          <div className="bg-slate-900 aspect-video md:aspect-[21/9] relative flex items-center justify-center p-8 text-center border-b-4 border-slate-800">
@@ -215,7 +215,7 @@ export const DIYPhotoQuiz: React.FC = () => {
          </div>
 
          <div className="p-6 md:p-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 font-display">Is this setup Safe or Deadly?</h2>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-6 font-display">Is this setup Safe or Deadly?</h2>
             
             <div className="space-y-3 mb-8">
                {question.options.map((opt) => {
@@ -224,14 +224,14 @@ export const DIYPhotoQuiz: React.FC = () => {
                  const isWrongStatus = isSelected && !opt.isCorrect;
                  const showCorrectAnswer = selectedOption !== null && opt.isCorrect;
                  
-                 let btnStyle = "bg-white border-2 border-slate-200 text-slate-700 hover:border-blue-400 hover:bg-blue-50";
+                 let btnStyle = "bg-white dark:bg-gray-900 dark:bg-gray-900 border-2 border-slate-200 dark:border-gray-700 dark:border-gray-700 text-slate-700 dark:text-gray-300 dark:text-gray-300 hover:border-blue-400 hover:bg-blue-50";
                  
                  if (isCorrectStatus || showCorrectAnswer) {
                    btnStyle = "bg-green-50 border-2 border-green-500 text-green-800";
                  } else if (isWrongStatus) {
                    btnStyle = "bg-red-50 border-2 border-red-500 text-red-800";
                  } else if (selectedOption !== null) {
-                   btnStyle = "bg-slate-50 border-2 border-slate-100 text-slate-400 opacity-60";
+                   btnStyle = "bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border-2 border-slate-100 dark:border-gray-800 dark:border-gray-800 text-slate-400 opacity-60";
                  }
 
                  return (
@@ -256,11 +256,11 @@ export const DIYPhotoQuiz: React.FC = () => {
             {/* Explanation Area (Expands after selection) */}
             {selectedOption !== null && (
                <div className="animate-in fade-in slide-in-from-bottom-2 duration-500">
-                 <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 mb-6">
-                    <div className="flex items-center gap-2 text-slate-600 font-bold mb-2 uppercase tracking-wider text-xs">
+                 <div className="p-6 rounded-2xl bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 dark:border-gray-700 mb-6">
+                    <div className="flex items-center gap-2 text-slate-600 dark:text-gray-400 dark:text-gray-400 font-bold mb-2 uppercase tracking-wider text-xs">
                        <AlertCircle className="w-4 h-4" /> {question.hazardType}
                     </div>
-                    <p className="text-slate-800 leading-relaxed">
+                    <p className="text-slate-800 dark:text-gray-200 dark:text-gray-200 leading-relaxed">
                        {question.explanation}
                     </p>
                  </div>

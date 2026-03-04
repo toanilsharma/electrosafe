@@ -1,19 +1,58 @@
-# llms.txt
-# This file provides context for Large Language Models (LLMs) about this website.
+# ElectroSafe.homes
 
-Title: ElectroSafe.homes - Electrical Safety Guide
-Description: A comprehensive guide on home electrical safety, hazard prevention, and daily safety tools for homeowners worldwide.
-URL: https://electrosafe.homes
+> ElectroSafe.homes is the world's most comprehensive free home electrical safety platform. We provide 30+ interactive calculators, safety tools, risk assessors, and educational guides to help homeowners prevent electrical fires, reduce energy costs, and ensure code compliance. All tools follow international standards (IEC, NEC, BS, NFPA, IS) and are globally applicable with multi-currency and multi-unit support. Our mission is to make every home electrically safe through free, expert-grade tools.
 
-# Core Sections
-- /assessment: Home Electrical Safety Audit Tool
-- /load-calc: Electrical Load Calculator
-- /protection-guide: Circuit Protection & Breaker Guide
-- /risk-predictor: Electrical Hazard Risk Predictor
-- /tenant-request: Tenant Repair Request Generator
-- /appliances: Appliance Safety Guides
-- /rooms: Room Safety Checklists
-- /everyday-safety: Everyday Safety Toolkit
+## Core Safety Tools
+- [Home Electrical Safety Audit](https://electrosafe.homes/assessment): 25-point comprehensive home electrical safety assessment with risk scoring, room-by-room analysis, and actionable recommendations
+- [Electrical Load Calculator](https://electrosafe.homes/load-calc): Calculate total electrical load, circuit capacity, and electricity costs with a library of 50+ appliances. Multi-currency support.
+- [Fire Risk Predictor](https://electrosafe.homes/risk-predictor): Weighted algorithm-based fire risk assessment using 12 factors with compound risk amplifiers. Generates shareable risk score cards.
+- [Bill Spike Detector](https://electrosafe.homes/bill-detector): Analyze monthly electricity bills to detect anomalies, identify causes, and find hidden issues driving cost increases.
 
-# Content
-We provide expert advice, interactive tools, and checklists to help users identify and prevent electrical hazards. All content is for educational purposes. Always consult a certified professional for electrical work.
+## Financial & Energy Calculators
+- [Solar ROI & Ready Check Calculator](https://electrosafe.homes/solar-roi): Calculate solar panel payback period, annual savings, CO₂ reduction, and check if your electrical panel can safely handle solar back-feed. Based on IEC 62446 and NEC 690.
+- [EV Charging Cost Comparison](https://electrosafe.homes/ev-cost-compare): Compare home EV charging vs public charging vs petrol/gas costs with animated bar charts. Annual savings and CO₂ reduction calculator. Based on SAE J1772 and IEC 61851.
+- [Ghost Power Standby Cost Finder](https://electrosafe.homes/ghost-power): Discover how much your smart home devices cost in phantom standby power. 22-device library with IEC 62301 standby values.
+- [Appliance Life Expectancy Gauge](https://electrosafe.homes/appliance-life): Check if your appliance is past its lifespan, losing efficiency, or becoming a safety hazard. 20+ appliances with ENERGY STAR lifespan data.
+
+## Safety Assessment Tools
+- [Dryer Vent Fire Probability Meter](https://electrosafe.homes/dryer-vent-risk): 5-question lint fire risk assessment with compound risk multipliers. Based on NFPA 211 and CPSC fire data.
+- [Work-From-Home Load Auditor](https://electrosafe.homes/wfh-load-audit): Check if your home office is overloading your bedroom circuit. Live circuit gauge with 27-device library. Based on NEC 210.23 and IEC 60884.
+- [Lightning Strike Probability Calculator](https://electrosafe.homes/lightning-risk): Calculate the probability of lightning striking your home using the IEC 62305-2 collection area formula. Includes surge protector ROI analysis.
+- [Holiday Lights Safety Planner](https://electrosafe.homes/holiday-lights): Calculate how many holiday light strings your circuit can handle. LED vs incandescent comparison. Based on UL 588 and NEC 210.23.
+
+## Home Buyer & Renter Tools
+- [Home Buyer Electrical Scanner](https://electrosafe.homes/home-buyer-scanner): 15-minute open house electrical check for hidden money pits. Generates printable inspection report.
+- [Contractor BS Detector / Quote Analyzer](https://electrosafe.homes/quote-analyzer): Verify electrician quotes with price ranges for 40+ jobs. Includes vetting questions to ask contractors.
+- [EV Charger Wire Sizer](https://electrosafe.homes/ev-charger): Calculate proper wire gauge and breaker size for EV charger installation. Based on NEC continuous load rules.
+- [Tenant Repair Request Generator](https://electrosafe.homes/tenant-request): Generate formal letters to landlords about electrical hazards.
+- [Tenant Legal Demand Letter](https://electrosafe.homes/tenant-demand): Legal-sounding demand notice for hazardous rental electrical conditions.
+
+## Interactive Learning
+- [DIY or Deadly? Photo Quiz](https://electrosafe.homes/diy-quiz): Test your electrical hazard vision in 60 seconds with real-world electrical photos.
+- [Is It Safe? Q&A Database](https://electrosafe.homes/is-it-safe): 24+ common electrical safety questions answered instantly with expert explanations.
+- [Electrical Glossary](https://electrosafe.homes/glossary): Comprehensive glossary of electrical terms with visual explanations.
+- [Visual Breaker Mapper](https://electrosafe.homes/breaker-mapper): Map your electrical panel and print professional labels.
+
+## Specialized Safety
+- [Nursery Electrical Safety Check](https://electrosafe.homes/nursery-safety): Electrical safety checklist specifically designed for new parents and nursery rooms.
+- [Recall Radar & Alarm Calendar](https://electrosafe.homes/alarm-calendar): Track smoke alarm replacement dates and dangerous product recalls.
+- [Room Safety Checklists](https://electrosafe.homes/rooms): Room-by-room electrical safety checklists for kitchen, bathroom, bedroom, and more.
+- [Appliance Safety Guides](https://electrosafe.homes/appliances): Safety guidelines for 15+ common household appliances.
+
+## Safety Guides & Articles
+- [Circuit Protection Guide](https://electrosafe.homes/protection-guide): Complete guide to breakers, fuses, GFCI, AFCI, and surge protection.
+- [New Home Electrical Guide](https://electrosafe.homes/new-home): Essential electrical safety guide for new homeowners.
+- [Everyday Safety Toolkit](https://electrosafe.homes/everyday-safety): Daily safety tips and quick-reference guides.
+- [Hardware Guide](https://electrosafe.homes/hardware): Understanding electrical hardware, outlets, switches, panels.
+- [Standards & Sources](https://electrosafe.homes/standards-and-sources): All electrical standards and sources referenced by our tools.
+- [20+ Expert Articles](https://electrosafe.homes/articles): In-depth articles on electrical safety topics from outlet fires to lithium battery safety.
+
+## Country-Specific Guides
+- [India Electrical Safety Guide](https://electrosafe.homes/safety/india): IS 732, BIS standards, and Indian wiring practices.
+- [USA Electrical Safety Guide](https://electrosafe.homes/safety/usa): NEC 2023, UL standards, and American wiring practices.
+- [UK Electrical Safety Guide](https://electrosafe.homes/safety/uk): BS 7671, IET regulations, and British wiring practices.
+
+## Optional
+- [Emergency Electrical Guide](https://electrosafe.homes/emergency): What to do in electrical emergencies — shock, fire, sparking.
+- [My Home Dashboard](https://electrosafe.homes/my-home): Personal safety dashboard with badges and progress tracking.
+- [Hazard Photo Gallery](https://electrosafe.homes/gallery): Real-world electrical hazard photos for educational purposes.

@@ -95,10 +95,10 @@ export const XRaySlider: React.FC = () => {
 
         {/* Slider Handle */}
         <div 
-          className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize flex items-center justify-center pointer-events-none shadow-[0_0_15px_rgba(0,0,0,0.5)]"
+          className="absolute top-0 bottom-0 w-1 bg-white dark:bg-gray-900 dark:bg-gray-900 cursor-ew-resize flex items-center justify-center pointer-events-none shadow-[0_0_15px_rgba(0,0,0,0.5)]"
           style={{ left: `${sliderPosition}%`, transform: 'translateX(-50%)' }}
         >
-          <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg border-2 border-slate-200 pointer-events-none text-slate-400">
+          <div className="w-10 h-10 bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-full flex items-center justify-center shadow-lg border-2 border-slate-200 dark:border-gray-700 dark:border-gray-700 pointer-events-none text-slate-400">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="absolute -mr-3" style={{ opacity: 0 }}><path d="m9 18 6-6-6-6"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="-ml-1"><path d="m9 18 6-6-6-6"/></svg>
@@ -113,7 +113,7 @@ export const XRaySlider: React.FC = () => {
         </p>
         <button 
           onClick={() => navigate('/home-buyer-scanner')}
-          className="bg-white text-indigo-900 px-8 py-4 rounded-xl font-bold hover:bg-gray-100 transition flex items-center justify-center gap-2 shadow-xl hover:scale-105"
+          className="bg-white dark:bg-gray-900 dark:bg-gray-900 text-indigo-900 px-8 py-4 rounded-xl font-bold hover:bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 transition flex items-center justify-center gap-2 shadow-xl hover:scale-105"
         >
           <Eye className="w-5 h-5" /> Start the 15-Min X-Ray Scan
         </button>

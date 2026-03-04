@@ -67,7 +67,7 @@ export const ChallengePage: React.FC = () => {
       <div className="w-full max-w-md text-center">
         {/* Brand */}
         <div className="mb-6">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-sm font-bold mb-4 border border-white/20">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-900 dark:bg-gray-900/10 rounded-full text-sm font-bold mb-4 border border-white/20">
             <Zap className="w-4 h-4 text-yellow-400" />
             ElectroSafe.homes
           </div>
@@ -101,7 +101,7 @@ export const ChallengePage: React.FC = () => {
           {['You', 'Friend 1', 'Friend 2'].map((label, i) => (
             <div key={i} className="flex flex-col items-center gap-2">
               <div className={`w-14 h-14 rounded-full border-2 flex items-center justify-center text-sm font-bold
-                ${i === 0 ? 'bg-blue-600 border-blue-400 text-white' : 'bg-white/10 border-dashed border-white/30 text-white/40'}`}>
+                ${i === 0 ? 'bg-blue-600 border-blue-400 text-white' : 'bg-white dark:bg-gray-900 dark:bg-gray-900/10 border-dashed border-white/30 text-white/40'}`}>
                 {i === 0 ? '?' : <ShieldCheck className="w-6 h-6" />}
               </div>
               <span className="text-xs text-white/50">{label}</span>
@@ -112,7 +112,7 @@ export const ChallengePage: React.FC = () => {
         {/* CTA Button */}
         <Link to={path}
           className={`inline-flex items-center justify-center gap-3 w-full py-5 rounded-2xl font-bold text-xl transition-all shadow-xl
-            ${ready ? 'bg-blue-600 hover:bg-blue-500 text-white hover:scale-105 shadow-blue-900/40' : 'bg-white/20 text-white/60 cursor-not-allowed'}`}
+            ${ready ? 'bg-blue-600 hover:bg-blue-500 text-white hover:scale-105 shadow-blue-900/40' : 'bg-white dark:bg-gray-900 dark:bg-gray-900/20 text-white/60 cursor-not-allowed'}`}
           onClick={e => { if (!ready) e.preventDefault(); }}>
           {ready ? (
             <>Accept Challenge <ArrowRight className="w-6 h-6" /></>

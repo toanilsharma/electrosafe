@@ -92,7 +92,7 @@ const colorMap: Record<string, { bg: string; border: string; text: string; badge
   blue: { bg: 'bg-blue-50', border: 'border-blue-200', text: 'text-blue-700', badge: 'bg-blue-100 text-blue-700' },
   purple: { bg: 'bg-purple-50', border: 'border-purple-200', text: 'text-purple-700', badge: 'bg-purple-100 text-purple-700' },
   teal: { bg: 'bg-teal-50', border: 'border-teal-200', text: 'text-teal-700', badge: 'bg-teal-100 text-teal-700' },
-  gray: { bg: 'bg-gray-50', border: 'border-gray-200', text: 'text-gray-700', badge: 'bg-gray-100 text-gray-700' },
+  gray: { bg: 'bg-gray-50 dark:bg-gray-800 dark:bg-gray-800', border: 'border-gray-200 dark:border-gray-700 dark:border-gray-700', text: 'text-gray-700 dark:text-gray-300 dark:text-gray-300', badge: 'bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 dark:text-gray-300' },
   green: { bg: 'bg-green-50', border: 'border-green-200', text: 'text-green-700', badge: 'bg-green-100 text-green-700' },
 };
 
@@ -151,16 +151,16 @@ export const RoomAudit: React.FC = () => {
         <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-100 text-blue-700 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
           <Home className="w-3.5 h-3.5" /> Room Audit
         </div>
-        <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">Room-by-Room Safety Audit</h1>
-        <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-3">Room-by-Room Safety Audit</h1>
+        <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400 text-lg max-w-2xl mx-auto">
           Walk through each room and tick off each safety item. Your progress is saved automatically. Print or share when done.
         </p>
       </div>
 
       {/* Progress Bar */}
-      <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 mb-8 no-print">
+      <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 dark:border-gray-700 mb-8 no-print">
         <div className="flex justify-between items-center mb-3">
-          <span className="font-bold text-gray-700">{checkedItems} of {totalItems} items checked</span>
+          <span className="font-bold text-gray-700 dark:text-gray-300 dark:text-gray-300">{checkedItems} of {totalItems} items checked</span>
           <span className={`font-black text-2xl ${percent >= 80 ? 'text-green-600' : percent >= 40 ? 'text-yellow-600' : 'text-red-600'}`}>{percent}%</span>
         </div>
         <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
@@ -176,7 +176,7 @@ export const RoomAudit: React.FC = () => {
         <button onClick={() => window.print()} className="flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition shadow-sm">
           <Printer className="w-4 h-4" /> Print Audit
         </button>
-        <button onClick={copyShare} className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold transition shadow-sm ${copied ? 'bg-green-100 text-green-700 border border-green-200' : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200'}`}>
+        <button onClick={copyShare} className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold transition shadow-sm ${copied ? 'bg-green-100 text-green-700 border border-green-200' : 'bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 dark:text-gray-300 hover:bg-gray-200 border border-gray-200 dark:border-gray-700 dark:border-gray-700'}`}>
           <Share2 className="w-4 h-4" /> {copied ? 'Copied!' : `Share (${percent}% done)`}
         </button>
         <a href={`https://wa.me/?text=${encodeURIComponent(shareText)}`} target="_blank" rel="noopener noreferrer"
@@ -193,7 +193,7 @@ export const RoomAudit: React.FC = () => {
           const roomTotal = room.items.length;
           return (
             <div key={room.id} className={`${c.bg} rounded-2xl border ${c.border} overflow-hidden`}>
-              <div className="flex items-center justify-between p-5 border-b border-gray-200/60">
+              <div className="flex items-center justify-between p-5 border-b border-gray-200 dark:border-gray-700 dark:border-gray-700/60">
                 <h2 className={`text-lg font-bold ${c.text}`}>{room.name}</h2>
                 <span className={`text-xs font-bold px-3 py-1 rounded-full ${c.badge}`}>{roomChecked}/{roomTotal}</span>
               </div>
@@ -207,7 +207,7 @@ export const RoomAudit: React.FC = () => {
                           {checked
                             ? <CheckCircle2 className={`w-5 h-5 mt-0.5 flex-shrink-0 ${c.text}`} />
                             : <Circle className={`w-5 h-5 mt-0.5 flex-shrink-0 text-gray-400 group-hover:${c.text} transition-colors`} />}
-                          <span className={`text-sm font-medium ${checked ? 'line-through text-gray-400' : 'text-gray-700'}`}>{item}</span>
+                          <span className={`text-sm font-medium ${checked ? 'line-through text-gray-400' : 'text-gray-700 dark:text-gray-300 dark:text-gray-300'}`}>{item}</span>
                         </button>
                         
                         {/* FEATURE 5: "NAG YOUR PARTNER" WHATSAPP BUTTON */}

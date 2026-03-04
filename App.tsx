@@ -51,6 +51,16 @@ const EVChargerSizer = React.lazy(() => import('./pages/EVChargerSizer').then(mo
 const AlarmCalendar = React.lazy(() => import('./pages/AlarmCalendar').then(module => ({ default: module.AlarmCalendar })));
 const TenantDemand = React.lazy(() => import('./pages/TenantDemand').then(module => ({ default: module.TenantDemand })));
 
+// Phase 6 Global Calculators
+const SolarROI = React.lazy(() => import('./pages/SolarROI').then(module => ({ default: module.SolarROI })));
+const EVCostCompare = React.lazy(() => import('./pages/EVCostCompare').then(module => ({ default: module.EVCostCompare })));
+const GhostPower = React.lazy(() => import('./pages/GhostPower').then(module => ({ default: module.GhostPower })));
+const DryerVentRisk = React.lazy(() => import('./pages/DryerVentRisk').then(module => ({ default: module.DryerVentRisk })));
+const WFHLoadAudit = React.lazy(() => import('./pages/WFHLoadAudit').then(module => ({ default: module.WFHLoadAudit })));
+const ApplianceLife = React.lazy(() => import('./pages/ApplianceLife').then(module => ({ default: module.ApplianceLife })));
+const LightningRisk = React.lazy(() => import('./pages/LightningRisk').then(module => ({ default: module.LightningRisk })));
+const HolidayLights = React.lazy(() => import('./pages/HolidayLights').then(module => ({ default: module.HolidayLights })));
+
 function App() {
   return (
     <HelmetProvider>
@@ -103,6 +113,16 @@ function App() {
               <Route path="/ev-charger" element={<EVChargerSizer />} />
               <Route path="/alarm-calendar" element={<AlarmCalendar />} />
               <Route path="/tenant-demand" element={<TenantDemand />} />
+              
+              {/* Phase 6 Global Calculators */}
+              <Route path="/solar-roi" element={<SolarROI />} />
+              <Route path="/ev-cost-compare" element={<EVCostCompare />} />
+              <Route path="/ghost-power" element={<GhostPower />} />
+              <Route path="/dryer-vent-risk" element={<DryerVentRisk />} />
+              <Route path="/wfh-load-audit" element={<WFHLoadAudit />} />
+              <Route path="/appliance-life" element={<ApplianceLife />} />
+              <Route path="/lightning-risk" element={<LightningRisk />} />
+              <Route path="/holiday-lights" element={<HolidayLights />} />
               
               <Route path="*" element={<Home />} />
             </Routes>

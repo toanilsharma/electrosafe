@@ -1,4 +1,62 @@
+# robots.txt — ElectroSafe.homes
+# Updated 2026-03-04 — Comprehensive crawler directives
+
+# Default: Allow all crawlers
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /dist/
+Crawl-delay: 1
 
+# Google
+User-agent: Googlebot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# Bing
+User-agent: Bingbot
+Allow: /
+
+# AI Chatbot Crawlers — EXPLICITLY ALLOWED
+# These crawlers power ChatGPT, Gemini, Claude, Perplexity, etc.
+# We want maximum AI visibility.
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+# Sitemaps
 Sitemap: https://electrosafe.homes/sitemap.xml
+
+# LLM Context Files
+# See https://llmstxt.org for specification
+# llms.txt: https://electrosafe.homes/llms.txt
+# llms-full.txt: https://electrosafe.homes/llms-full.txt

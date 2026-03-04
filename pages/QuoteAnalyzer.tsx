@@ -88,10 +88,10 @@ export const QuoteAnalyzer = () => {
          <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 bg-indigo-50 text-indigo-700 rounded-full font-bold uppercase tracking-widest text-xs">
           <HardHat className="w-4 h-4" /> Hiring Tool
         </div>
-        <h1 className="text-3xl md:text-5xl font-black text-gray-900 leading-tight mb-4">
+        <h1 className="text-3xl md:text-5xl font-black text-gray-900 dark:text-gray-100 dark:text-gray-100 leading-tight mb-4">
           The Contractor <span className="text-indigo-600">B.S. Detector</span>
         </h1>
-        <p className="text-lg text-gray-600 mb-6 max-w-2xl mx-auto font-medium">
+        <p className="text-lg text-gray-600 dark:text-gray-400 dark:text-gray-400 mb-6 max-w-2xl mx-auto font-medium">
           Electricians know you don't know electrical code. Our Quote Analyzer gives you the fair price and the exact vetting questions you need to text them to weed out the scammers.
         </p>
       </div>
@@ -99,7 +99,7 @@ export const QuoteAnalyzer = () => {
       <div className="grid md:grid-cols-3 gap-8">
         {/* Job Selection Sidebar */}
         <div className="md:col-span-1 space-y-3">
-           <h3 className="font-bold text-gray-500 uppercase tracking-widest text-sm mb-4">Select Your Job</h3>
+           <h3 className="font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 uppercase tracking-widest text-sm mb-4">Select Your Job</h3>
            {jobKeys.map(job => (
              <button
                key={job}
@@ -107,7 +107,7 @@ export const QuoteAnalyzer = () => {
                className={`w-full text-left px-5 py-4 rounded-xl font-bold transition-all border-2 ${
                  selectedJob === job 
                  ? 'bg-indigo-600 text-white border-indigo-600 shadow-md shadow-indigo-200' 
-                 : 'bg-white text-gray-700 border-gray-100 hover:border-indigo-200 hover:bg-indigo-50'
+                 : 'bg-white dark:bg-gray-900 dark:bg-gray-900 text-gray-700 dark:text-gray-300 dark:text-gray-300 border-gray-100 dark:border-gray-800 dark:border-gray-800 hover:border-indigo-200 hover:bg-indigo-50'
                }`}
              >
                {job}
@@ -125,7 +125,7 @@ export const QuoteAnalyzer = () => {
         {/* Results Area */}
         <div className="md:col-span-2">
           {selectedJob ? (
-            <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden animate-in fade-in slide-in-from-right-8 duration-500">
+            <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-3xl shadow-xl border border-gray-100 dark:border-gray-800 dark:border-gray-800 overflow-hidden animate-in fade-in slide-in-from-right-8 duration-500">
               
               {/* Header Stats */}
               <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-8 text-white relative overflow-hidden">
@@ -152,22 +152,22 @@ export const QuoteAnalyzer = () => {
               <div className="p-8">
                  
                  <div className="mb-10">
-                    <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-6 flex items-center gap-2">
                       <AlertCircle className="w-6 h-6 text-indigo-600" />
                       The 3 Questions to Ask (Copy/Paste this)
                     </h3>
                     
                     <div className="space-y-6">
                       {JOBS_DATA[selectedJob].BSDetectorQuestions.map((q, i) => (
-                        <div key={i} className="bg-gray-50 rounded-xl p-5 border border-gray-100">
+                        <div key={i} className="bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-800 dark:border-gray-800">
                            <div className="flex gap-4">
                              <div className="flex-shrink-0 w-8 h-8 bg-indigo-100 text-indigo-700 rounded-full flex items-center justify-center font-black">
                                {i + 1}
                              </div>
                              <div>
-                               <p className="font-bold text-gray-900 text-lg mb-3">"{q.q}"</p>
-                               <div className="bg-white rounded-lg p-3 border border-gray-200 text-sm text-gray-600 relative">
-                                  <div className="absolute -top-3 left-4 bg-white px-2 text-xs font-bold text-indigo-500 uppercase">Why you ask this</div>
+                               <p className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 text-lg mb-3">"{q.q}"</p>
+                               <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-lg p-3 border border-gray-200 dark:border-gray-700 dark:border-gray-700 text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400 relative">
+                                  <div className="absolute -top-3 left-4 bg-white dark:bg-gray-900 dark:bg-gray-900 px-2 text-xs font-bold text-indigo-500 uppercase">Why you ask this</div>
                                   {q.why}
                                </div>
                              </div>
@@ -188,10 +188,10 @@ export const QuoteAnalyzer = () => {
 
             </div>
           ) : (
-            <div className="h-full min-h-[400px] border-2 border-dashed border-gray-200 rounded-3xl flex items-center justify-center bg-gray-50">
+            <div className="h-full min-h-[400px] border-2 border-dashed border-gray-200 dark:border-gray-700 dark:border-gray-700 rounded-3xl flex items-center justify-center bg-gray-50 dark:bg-gray-800 dark:bg-gray-800">
                <div className="text-center">
                  <DollarSign className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                 <p className="text-gray-500 font-medium text-lg">Select a job from the menu to analyze quotes.</p>
+                 <p className="text-gray-500 dark:text-gray-400 dark:text-gray-400 font-medium text-lg">Select a job from the menu to analyze quotes.</p>
                </div>
             </div>
           )}

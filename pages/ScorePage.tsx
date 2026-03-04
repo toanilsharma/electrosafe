@@ -71,7 +71,7 @@ export const ScorePage: React.FC = () => {
   const challengeUrl = `${siteUrl}/challenge#c=score:${score}:level:${level}:tool:${encodeURIComponent(tool)}:path:${encodeURIComponent(path)}`;
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center px-4 py-12">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 flex flex-col items-center justify-center px-4 py-12">
       <Helmet>
         <title>Home Safety Score: {score}% — {levelText} | ElectroSafe.homes</title>
         <meta name="description" content={`This home scored ${score}% on ElectroSafe's ${tool}. Check your own home's electrical safety for free.`} />
@@ -87,20 +87,20 @@ export const ScorePage: React.FC = () => {
       <div className="w-full max-w-md">
         {/* Brand Header */}
         <div className="text-center mb-6 animate-fade-in">
-          <Link to="/" className="inline-flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors mb-4">
+          <Link to="/" className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 dark:text-gray-400 hover:text-blue-600 transition-colors mb-4">
             <div className="bg-blue-600 p-1 rounded-md"><Zap className="w-4 h-4 text-white" /></div>
             <span className="font-bold text-lg">ElectroSafe<span className="text-blue-600">.homes</span></span>
           </Link>
-          <p className="text-sm text-gray-500 font-medium">Home Electrical Safety Score</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 dark:text-gray-400 font-medium">Home Electrical Safety Score</p>
         </div>
 
         {/* Score Card */}
         <div className={`relative overflow-hidden rounded-3xl bg-gradient-to-br ${gradientBg} text-white p-8 shadow-2xl mb-6 animate-slide-up`}>
-          <div className="absolute -top-16 -right-16 w-48 h-48 rounded-full bg-white/10" />
-          <div className="absolute -bottom-12 -left-12 w-40 h-40 rounded-full bg-white/10" />
+          <div className="absolute -top-16 -right-16 w-48 h-48 rounded-full bg-white dark:bg-gray-900 dark:bg-gray-900/10" />
+          <div className="absolute -bottom-12 -left-12 w-40 h-40 rounded-full bg-white dark:bg-gray-900 dark:bg-gray-900/10" />
           <div className="relative z-10 text-center">
             <p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-4">⚡ ElectroSafe.homes</p>
-            <div className={`inline-flex items-center justify-center w-36 h-36 rounded-full border-4 ${ringColor} bg-white/15 backdrop-blur-sm mb-4 shadow-inner`}>
+            <div className={`inline-flex items-center justify-center w-36 h-36 rounded-full border-4 ${ringColor} bg-white dark:bg-gray-900 dark:bg-gray-900/15 backdrop-blur-sm mb-4 shadow-inner`}>
               <div>
                 <span className="block text-5xl font-black">{score}%</span>
                 <span className="text-xs font-bold uppercase tracking-wider text-white/80">Safety</span>
@@ -116,8 +116,8 @@ export const ScorePage: React.FC = () => {
         </div>
 
         {/* Share Panel */}
-        <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 mb-4 animate-slide-up delay-100">
-          <p className="text-center text-xs font-bold text-gray-500 uppercase tracking-wider mb-5">🎯 Challenge friends to beat your score</p>
+        <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-800 dark:border-gray-800 mb-4 animate-slide-up delay-100">
+          <p className="text-center text-xs font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 uppercase tracking-wider mb-5">🎯 Challenge friends to beat your score</p>
 
           {/* WhatsApp Primary */}
           <a href={shareLinks[0].href} target="_blank" rel="noopener noreferrer"
@@ -138,7 +138,7 @@ export const ScorePage: React.FC = () => {
 
           {/* Copy Link */}
           <button onClick={copyLink}
-            className={`w-full py-3 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 mb-4 ${copied ? 'bg-green-100 text-green-700 border border-green-200' : 'bg-gray-100 text-gray-600 hover:bg-gray-200 border border-gray-200'}`}>
+            className={`w-full py-3 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 mb-4 ${copied ? 'bg-green-100 text-green-700 border border-green-200' : 'bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 text-gray-600 dark:text-gray-400 dark:text-gray-400 hover:bg-gray-200 border border-gray-200 dark:border-gray-700 dark:border-gray-700'}`}>
             {copied ? <><Check className="w-4 h-4" /> Copied!</> : <><LinkIcon className="w-4 h-4" /> Copy Score Link</>}
           </button>
 
@@ -155,7 +155,7 @@ export const ScorePage: React.FC = () => {
           <h2 className="font-bold text-lg mb-2">Haven't checked YOUR home yet?</h2>
           <p className="text-blue-100 text-sm mb-4">Take the free {tool} — it takes less than 60 seconds.</p>
           <Link to={path}
-            className="inline-flex items-center gap-2 bg-white text-blue-700 px-6 py-3 rounded-xl font-bold hover:bg-blue-50 transition shadow-md">
+            className="inline-flex items-center gap-2 bg-white dark:bg-gray-900 dark:bg-gray-900 text-blue-700 px-6 py-3 rounded-xl font-bold hover:bg-blue-50 transition shadow-md">
             Start Free Check <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

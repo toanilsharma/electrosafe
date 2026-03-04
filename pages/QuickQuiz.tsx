@@ -151,10 +151,10 @@ export const QuickQuiz = () => {
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-yellow-100 text-yellow-800 text-xs font-bold uppercase tracking-wider mb-4">
               <Zap className="w-3.5 h-3.5" /> 60-Second Quiz
             </div>
-            <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">
+            <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-3">
               Is Your Home Safe? ⚡
             </h1>
-            <p className="text-gray-600 text-lg">
+            <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400 text-lg">
               5 quick questions. No sign-up. Instant results.
             </p>
           </div>
@@ -174,12 +174,12 @@ export const QuickQuiz = () => {
           </div>
 
           {/* Question Card */}
-          <div className="bg-white p-8 rounded-3xl shadow-lg border border-gray-200 animate-in slide-in-from-right-4 duration-300" key={currentQ}>
+          <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-8 rounded-3xl shadow-lg border border-gray-200 dark:border-gray-700 dark:border-gray-700 animate-in slide-in-from-right-4 duration-300" key={currentQ}>
             <div className="flex items-start gap-4 mb-8">
               <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
                 <span className="text-blue-700 font-extrabold">{currentQ + 1}</span>
               </div>
-              <h2 className="text-xl font-bold text-gray-900 leading-snug">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 leading-snug">
                 {question.question}
               </h2>
             </div>
@@ -196,8 +196,8 @@ export const QuickQuiz = () => {
                         ? 'bg-green-50 border-green-400 text-green-800'
                         : 'bg-amber-50 border-amber-400 text-amber-800'
                       : selectedOption !== null
-                        ? 'opacity-50 cursor-not-allowed border-gray-200 text-gray-500'
-                        : 'border-gray-200 hover:border-blue-300 hover:bg-blue-50 text-gray-700 cursor-pointer'
+                        ? 'opacity-50 cursor-not-allowed border-gray-200 dark:border-gray-700 dark:border-gray-700 text-gray-500 dark:text-gray-400 dark:text-gray-400'
+                        : 'border-gray-200 dark:border-gray-700 dark:border-gray-700 hover:border-blue-300 hover:bg-blue-50 text-gray-700 dark:text-gray-300 dark:text-gray-300 cursor-pointer'
                   }`}
                 >
                   <div className="flex items-center gap-3">
@@ -235,7 +235,7 @@ export const QuickQuiz = () => {
               {getRiskLevel() === 'low' ? <CheckCircle2 className="w-4 h-4" /> : <AlertTriangle className="w-4 h-4" />}
               Quiz Complete
             </div>
-            <h2 className="text-3xl font-extrabold text-gray-900 mb-3">Your Home Safety Score</h2>
+            <h2 className="text-3xl font-extrabold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-3">Your Home Safety Score</h2>
           </div>
 
           {/* Score Display */}
@@ -251,13 +251,13 @@ export const QuickQuiz = () => {
             }`}>
               {safetyPercent}%
             </div>
-            <p className="text-lg font-bold text-gray-800 mb-2">{getRating()}</p>
-            <p className="text-gray-600 max-w-md mx-auto">{getResultMessage()}</p>
+            <p className="text-lg font-bold text-gray-800 dark:text-gray-200 dark:text-gray-200 mb-2">{getRating()}</p>
+            <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400 max-w-md mx-auto">{getResultMessage()}</p>
           </div>
 
           {/* CTA to full assessment */}
-          <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm mb-6 text-center">
-            <p className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-3">Want a detailed analysis?</p>
+          <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-6 rounded-2xl border border-gray-200 dark:border-gray-700 dark:border-gray-700 shadow-sm mb-6 text-center">
+            <p className="text-sm font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 uppercase tracking-wider mb-3">Want a detailed analysis?</p>
             <a
               href="/assessment"
               className="inline-flex items-center gap-2 px-8 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition shadow-md"
@@ -286,7 +286,7 @@ export const QuickQuiz = () => {
           <div className="text-center mt-6">
             <button
               onClick={resetQuiz}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 text-gray-700 rounded-xl font-bold hover:bg-gray-200 transition"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 dark:text-gray-300 rounded-xl font-bold hover:bg-gray-200 transition"
             >
               <RotateCcw className="w-4 h-4" /> Take Quiz Again
             </button>

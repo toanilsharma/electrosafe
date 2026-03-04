@@ -124,8 +124,8 @@ export const SeasonalBanner: React.FC = () => {
   return (
     <section className={`py-10 bg-gradient-to-r ${config.gradient} text-white relative overflow-hidden`}>
       {/* Background decoration */}
-      <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-white/5 -translate-y-1/2 translate-x-1/3"></div>
-      <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-white/5 translate-y-1/2 -translate-x-1/3"></div>
+      <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-white dark:bg-gray-900 dark:bg-gray-900/5 -translate-y-1/2 translate-x-1/3"></div>
+      <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-white dark:bg-gray-900 dark:bg-gray-900/5 translate-y-1/2 -translate-x-1/3"></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-8">
@@ -155,7 +155,7 @@ export const SeasonalBanner: React.FC = () => {
             </div>
             <Link
               to={config.cta.link}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-white text-gray-900 rounded-xl font-bold hover:bg-gray-100 transition shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-white dark:bg-gray-900 dark:bg-gray-900 text-gray-900 dark:text-gray-100 dark:text-gray-100 rounded-xl font-bold hover:bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 transition shadow-lg hover:shadow-xl hover:-translate-y-0.5"
             >
               {config.cta.text} <ArrowRight className="w-4 h-4" />
             </Link>
@@ -167,9 +167,9 @@ export const SeasonalBanner: React.FC = () => {
               {config.tips.map((tip, i) => (
                 <div 
                   key={i} 
-                  className="flex items-start gap-4 bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/10"
+                  className="flex items-start gap-4 bg-white dark:bg-gray-900 dark:bg-gray-900/10 backdrop-blur-md rounded-xl p-4 border border-white/10"
                 >
-                  <div className="p-2 bg-white/20 rounded-lg flex-shrink-0">
+                  <div className="p-2 bg-white dark:bg-gray-900 dark:bg-gray-900/20 rounded-lg flex-shrink-0">
                     <tip.icon className="w-5 h-5" />
                   </div>
                   <p className="text-sm font-medium text-white/90 leading-relaxed">

@@ -101,10 +101,10 @@ END:VCALENDAR`;
         <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-orange-100 text-orange-700 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
           <Bell className="w-4 h-4 text-orange-600 animate-wiggle" /> Time Bomb Check
         </div>
-        <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-gray-100 dark:text-gray-100 mb-6 tracking-tight">
           The 10-Year <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-500">Alarm Calendar</span>
         </h1>
-        <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-xl text-slate-600 dark:text-gray-400 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
           Sensors chemically degrade over time. Smoke alarms die at 10 years; Carbon Monoxide alarms die at 7. Put a reminder in your calendar today, so you don't burn tomorrow.
         </p>
       </div>
@@ -112,17 +112,17 @@ END:VCALENDAR`;
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
         
         {/* Input Panel */}
-        <div className="bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-slate-100 flex flex-col justify-center">
-          <h2 className="text-2xl font-bold text-slate-900 mb-6">Set Your Expiration Timer</h2>
+        <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-3xl p-6 md:p-8 shadow-xl border border-slate-100 dark:border-gray-800 dark:border-gray-800 flex flex-col justify-center">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-gray-100 dark:text-gray-100 mb-6">Set Your Expiration Timer</h2>
           
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-bold text-slate-700 mb-2">What type of alarm?</label>
+              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300 mb-2">What type of alarm?</label>
               <div className="flex gap-4">
                  <button 
                    onClick={() => setAlarmType('smoke')}
                    className={`flex-1 py-3 px-4 rounded-xl font-bold border-2 transition-all ${
-                     alarmType === 'smoke' ? 'bg-orange-50 border-orange-500 text-orange-700' : 'bg-white border-slate-200 text-slate-500 hover:border-orange-300'
+                     alarmType === 'smoke' ? 'bg-orange-50 border-orange-500 text-orange-700' : 'bg-white dark:bg-gray-900 dark:bg-gray-900 border-slate-200 dark:border-gray-700 dark:border-gray-700 text-slate-500 dark:text-gray-400 dark:text-gray-400 hover:border-orange-300'
                    }`}
                  >
                    Smoke (10 Yr)
@@ -130,7 +130,7 @@ END:VCALENDAR`;
                  <button 
                    onClick={() => setAlarmType('co')}
                    className={`flex-1 py-3 px-4 rounded-xl font-bold border-2 transition-all ${
-                     alarmType === 'co' ? 'bg-orange-50 border-orange-500 text-orange-700' : 'bg-white border-slate-200 text-slate-500 hover:border-orange-300'
+                     alarmType === 'co' ? 'bg-orange-50 border-orange-500 text-orange-700' : 'bg-white dark:bg-gray-900 dark:bg-gray-900 border-slate-200 dark:border-gray-700 dark:border-gray-700 text-slate-500 dark:text-gray-400 dark:text-gray-400 hover:border-orange-300'
                    }`}
                  >
                    Carbon Monoxide (7 Yr)
@@ -139,19 +139,19 @@ END:VCALENDAR`;
             </div>
 
             <div>
-              <label className="block text-sm font-bold text-slate-700 mb-2">Manufacture Date (Printed on Back)</label>
+              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300 mb-2">Manufacture Date (Printed on Back)</label>
               <input 
                 type="date"
-                className="w-full bg-slate-50 border border-slate-200 text-slate-900 rounded-xl px-4 py-3 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none font-medium text-lg"
+                className="w-full bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 dark:border-gray-700 text-slate-900 dark:text-gray-100 dark:text-gray-100 rounded-xl px-4 py-3 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none font-medium text-lg"
                 value={installDate}
                 onChange={(e) => setInstallDate(e.target.value)}
                 max={new Date().toISOString().split("T")[0]}
               />
             </div>
             
-            <div className="bg-slate-50 rounded-xl p-4 flex gap-3 items-start border border-slate-200">
+            <div className="bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 rounded-xl p-4 flex gap-3 items-start border border-slate-200 dark:border-gray-700 dark:border-gray-700">
                <AlertTriangle className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
-               <p className="text-sm text-slate-700">
+               <p className="text-sm text-slate-700 dark:text-gray-300 dark:text-gray-300">
                  You must un-mount the alarm from the ceiling to look at the sticker on the back. Do not guess.
                </p>
             </div>
@@ -177,7 +177,7 @@ END:VCALENDAR`;
                     </p>
                  </div>
                ) : (
-                 <div className="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center">
+                 <div className="bg-white dark:bg-gray-900 dark:bg-gray-900/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center">
                     <div className="text-4xl font-black text-white mb-2">{details.daysLeft}</div>
                     <div className="text-orange-300 font-bold uppercase tracking-wider text-sm mb-4">Days of Protection Left</div>
                     <p className="text-slate-300">
@@ -206,11 +206,11 @@ END:VCALENDAR`;
       </div>
 
       {/* Feature 9b: The Recall Radar */}
-      <div className="mt-16 bg-white rounded-3xl p-6 md:p-10 shadow-xl border border-slate-200">
+      <div className="mt-16 bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-3xl p-6 md:p-10 shadow-xl border border-slate-200 dark:border-gray-700 dark:border-gray-700">
          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
             <div>
-               <h2 className="text-3xl font-extrabold text-slate-900 mb-2">The Recall Radar</h2>
-               <p className="text-slate-600">Millions of dangerous electrical products are sitting in homes right now. Check if yours is one of them.</p>
+               <h2 className="text-3xl font-extrabold text-slate-900 dark:text-gray-100 dark:text-gray-100 mb-2">The Recall Radar</h2>
+               <p className="text-slate-600 dark:text-gray-400 dark:text-gray-400">Millions of dangerous electrical products are sitting in homes right now. Check if yours is one of them.</p>
             </div>
             
             <div className="relative w-full md:w-72">
@@ -218,7 +218,7 @@ END:VCALENDAR`;
                <input 
                  type="text"
                  placeholder="Search brands (e.g. Kidde, Eaton)"
-                 className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                 className="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                  value={searchTerm}
                  onChange={(e) => setSearchTerm(e.target.value)}
                />
@@ -228,23 +228,23 @@ END:VCALENDAR`;
          <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
                <thead>
-                  <tr className="bg-slate-50 border-b border-slate-200">
-                     <th className="py-4 px-4 font-bold text-slate-700">Brand / Type</th>
-                     <th className="py-4 px-4 font-bold text-slate-700 hidden md:table-cell">Model Data</th>
-                     <th className="py-4 px-4 font-bold text-slate-700">Deadly Defect</th>
+                  <tr className="bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border-b border-slate-200 dark:border-gray-700 dark:border-gray-700">
+                     <th className="py-4 px-4 font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300">Brand / Type</th>
+                     <th className="py-4 px-4 font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300 hidden md:table-cell">Model Data</th>
+                     <th className="py-4 px-4 font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300">Deadly Defect</th>
                   </tr>
                </thead>
                <tbody>
                   {filteredRecalls.length > 0 ? (
                     filteredRecalls.map(item => (
-                      <tr key={item.id} className="border-b border-slate-100 hover:bg-red-50/50 transition-colors">
+                      <tr key={item.id} className="border-b border-slate-100 dark:border-gray-800 dark:border-gray-800 hover:bg-red-50/50 transition-colors">
                          <td className="py-4 px-4">
-                            <div className="font-bold text-slate-900">{item.brand}</div>
-                            <div className="text-sm text-slate-500">{item.type}</div>
+                            <div className="font-bold text-slate-900 dark:text-gray-100 dark:text-gray-100">{item.brand}</div>
+                            <div className="text-sm text-slate-500 dark:text-gray-400 dark:text-gray-400">{item.type}</div>
                          </td>
                          <td className="py-4 px-4 hidden md:table-cell">
-                            <span className="inline-block px-2.5 py-1 bg-slate-100 text-slate-700 text-xs rounded-md font-mono mb-1">{item.model}</span>
-                            <div className="text-xs text-slate-500">Recalled: {item.year}</div>
+                            <span className="inline-block px-2.5 py-1 bg-slate-100 dark:bg-gray-800/50 dark:bg-gray-800/50 text-slate-700 dark:text-gray-300 dark:text-gray-300 text-xs rounded-md font-mono mb-1">{item.model}</span>
+                            <div className="text-xs text-slate-500 dark:text-gray-400 dark:text-gray-400">Recalled: {item.year}</div>
                          </td>
                          <td className="py-4 px-4">
                             <div className="flex items-start gap-2 text-red-700">
@@ -256,7 +256,7 @@ END:VCALENDAR`;
                     ))
                   ) : (
                     <tr>
-                      <td colSpan={3} className="py-8 text-center text-slate-500">
+                      <td colSpan={3} className="py-8 text-center text-slate-500 dark:text-gray-400 dark:text-gray-400">
                         No recalls found matching your search. Constantly check the CPSC website for updates.
                       </td>
                     </tr>

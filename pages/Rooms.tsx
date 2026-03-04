@@ -19,8 +19,8 @@ export const Rooms = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
       <div className="text-center mb-12">
-        <h1 className="text-3xl font-bold text-gray-900">Room-by-Room Safety</h1>
-        <p className="mt-2 text-gray-600">Select a room to view specific hazards and safety checklists.</p>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100">Room-by-Room Safety</h1>
+        <p className="mt-2 text-gray-600 dark:text-gray-400 dark:text-gray-400">Select a room to view specific hazards and safety checklists.</p>
       </div>
 
       <div className="flex flex-col md:flex-row gap-8">
@@ -33,7 +33,7 @@ export const Rooms = () => {
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-all ${
                 activeRoomId === room.id
                   ? 'bg-blue-600 text-white shadow-md'
-                  : 'bg-white text-gray-600 hover:bg-gray-100'
+                  : 'bg-white dark:bg-gray-900 dark:bg-gray-900 text-gray-600 dark:text-gray-400 dark:text-gray-400 hover:bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50'
               }`}
             >
               <room.icon className={`w-5 h-5 ${activeRoomId === room.id ? 'text-white' : 'text-gray-400'}`} />
@@ -43,12 +43,12 @@ export const Rooms = () => {
         </div>
 
         {/* Content Area */}
-        <div className="flex-1 bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+        <div className="flex-1 bg-white dark:bg-gray-900 dark:bg-gray-900 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 dark:border-gray-800">
           <div className="flex items-center gap-4 mb-8 border-b pb-6">
             <div className="p-3 bg-blue-50 rounded-full">
               <activeRoom.icon className="w-8 h-8 text-blue-600" />
             </div>
-            <h2 className="text-3xl font-bold text-gray-900">{activeRoom.name} Safety</h2>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100">{activeRoom.name} Safety</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
@@ -83,24 +83,24 @@ export const Rooms = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
             <div>
-              <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
+              <h3 className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-4 flex items-center gap-2">
                 <ThumbsUp className="w-5 h-5 text-green-500" /> DOs
               </h3>
               <ul className="space-y-3">
                 {activeRoom.dos.map((d, i) => (
-                  <li key={i} className="text-gray-600 text-sm pl-4 border-l-2 border-green-200">
+                  <li key={i} className="text-gray-600 dark:text-gray-400 dark:text-gray-400 text-sm pl-4 border-l-2 border-green-200">
                     {d}
                   </li>
                 ))}
               </ul>
             </div>
             <div>
-              <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
+              <h3 className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-4 flex items-center gap-2">
                 <XCircle className="w-5 h-5 text-red-500" /> DON'Ts
               </h3>
               <ul className="space-y-3">
                 {activeRoom.donts.map((d, i) => (
-                  <li key={i} className="text-gray-600 text-sm pl-4 border-l-2 border-red-200">
+                  <li key={i} className="text-gray-600 dark:text-gray-400 dark:text-gray-400 text-sm pl-4 border-l-2 border-red-200">
                     {d}
                   </li>
                 ))}
@@ -116,20 +116,20 @@ export const Rooms = () => {
               </h3>
               <ul className="space-y-2">
                 {activeRoom.homeownerFix.map((fix, i) => (
-                  <li key={i} className="flex items-start gap-2 text-gray-700 text-sm">
+                  <li key={i} className="flex items-start gap-2 text-gray-700 dark:text-gray-300 dark:text-gray-300 text-sm">
                     <span className="mt-1.5 w-1.5 h-1.5 bg-blue-400 rounded-full flex-shrink-0"></span>
                     {fix}
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="bg-gray-50 p-6 rounded-xl border border-gray-200">
-              <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <div className="bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 dark:border-gray-700">
+              <h3 className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-4 flex items-center gap-2">
                 <HardHat className="w-5 h-5 text-orange-600" /> Call a Certified Electrician
               </h3>
               <ul className="space-y-2">
                 {activeRoom.electricianFix.map((fix, i) => (
-                  <li key={i} className="flex items-start gap-2 text-gray-700 text-sm">
+                  <li key={i} className="flex items-start gap-2 text-gray-700 dark:text-gray-300 dark:text-gray-300 text-sm">
                     <span className="mt-1.5 w-1.5 h-1.5 bg-orange-400 rounded-full flex-shrink-0"></span>
                     {fix}
                   </li>

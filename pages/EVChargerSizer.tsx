@@ -94,10 +94,10 @@ export const EVChargerSizer: React.FC = () => {
         <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-green-100 text-green-700 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
           <BatteryCharging className="w-4 h-4" /> Garage Safety
         </div>
-        <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">
+        <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-gray-100 dark:text-gray-100 mb-6 tracking-tight">
           The EV Charger <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-emerald-400">"Wire Sizer"</span>
         </h1>
-        <p className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-lg text-slate-600 dark:text-gray-400 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
           EV chargers push your home's electrical panel to its absolute limit for 8+ hours a day. Find exactly what gauge wire and breaker your contractor <strong>should</strong> be using.
         </p>
       </div>
@@ -105,15 +105,15 @@ export const EVChargerSizer: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         
         {/* Input Panel */}
-        <div className="bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-slate-100 h-fit">
-          <h2 className="text-xl font-bold text-slate-900 mb-6">Enter Your Details</h2>
+        <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-3xl p-6 md:p-8 shadow-xl border border-slate-100 dark:border-gray-800 dark:border-gray-800 h-fit">
+          <h2 className="text-xl font-bold text-slate-900 dark:text-gray-100 dark:text-gray-100 mb-6">Enter Your Details</h2>
           
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-bold text-slate-700 mb-2">Charger Output Setting (Amps)</label>
+              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300 mb-2">Charger Output Setting (Amps)</label>
               <div className="relative">
                 <select 
-                  className="w-full bg-slate-50 border border-slate-200 text-slate-900 rounded-xl px-4 py-3 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none appearance-none font-medium"
+                  className="w-full bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 dark:border-gray-700 text-slate-900 dark:text-gray-100 dark:text-gray-100 rounded-xl px-4 py-3 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none appearance-none font-medium"
                   value={chargerAmps}
                   onChange={(e) => setChargerAmps(Number(e.target.value))}
                 >
@@ -130,16 +130,16 @@ export const EVChargerSizer: React.FC = () => {
                   <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
                 </div>
               </div>
-              <p className="text-xs text-slate-500 mt-2">Check the sticker on your Tesla/ChargePoint wall box.</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400 dark:text-gray-400 mt-2">Check the sticker on your Tesla/ChargePoint wall box.</p>
             </div>
 
             <div>
-              <label className="block text-sm font-bold text-slate-700 mb-2">Wire Distance (Feet)</label>
+              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300 mb-2">Wire Distance (Feet)</label>
               <div className="relative">
                 <input 
                   type="number"
                   placeholder="e.g. 50"
-                  className="w-full bg-slate-50 border border-slate-200 text-slate-900 rounded-xl px-4 py-3 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none font-medium"
+                  className="w-full bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 dark:border-gray-700 text-slate-900 dark:text-gray-100 dark:text-gray-100 rounded-xl px-4 py-3 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none font-medium"
                   value={distanceFt}
                   onChange={(e) => setDistanceFt(e.target.value === '' ? '' : Number(e.target.value))}
                 />
@@ -147,7 +147,7 @@ export const EVChargerSizer: React.FC = () => {
                   ft
                 </div>
               </div>
-              <p className="text-xs text-slate-500 mt-2">Distance from breaker panel to the charger location.</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400 dark:text-gray-400 mt-2">Distance from breaker panel to the charger location.</p>
             </div>
             
             <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 flex gap-3 items-start">
@@ -170,7 +170,7 @@ export const EVChargerSizer: React.FC = () => {
              <div className="space-y-6 relative z-10">
                
                {/* Breaker Output */}
-               <div className="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-5">
+               <div className="bg-white dark:bg-gray-900 dark:bg-gray-900/10 backdrop-blur-sm border border-white/10 rounded-2xl p-5">
                  <div className="text-green-400 text-sm font-bold uppercase tracking-wider mb-1">Required Breaker Size</div>
                  <div className="flex items-end gap-2">
                     <span className="text-4xl font-extrabold text-white">{results.breakerChoice}</span>
@@ -182,7 +182,7 @@ export const EVChargerSizer: React.FC = () => {
                </div>
 
                {/* Wire Output */}
-               <div className="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-5">
+               <div className="bg-white dark:bg-gray-900 dark:bg-gray-900/10 backdrop-blur-sm border border-white/10 rounded-2xl p-5">
                  <div className="text-green-400 text-sm font-bold uppercase tracking-wider mb-1">Minimum Copper Wire</div>
                  <div className="flex items-end gap-2">
                     <span className="text-4xl font-extrabold text-white">{results.finalGaugeAwg}</span>
@@ -202,7 +202,7 @@ export const EVChargerSizer: React.FC = () => {
              </div>
            ) : (
              <div className="h-full flex flex-col items-center justify-center py-10 opacity-50 relative z-10">
-               <BatteryCharging className="w-12 h-12 text-slate-500 mb-4 animate-pulse" />
+               <BatteryCharging className="w-12 h-12 text-slate-500 dark:text-gray-400 dark:text-gray-400 mb-4 animate-pulse" />
                <p className="text-slate-400 text-center font-medium">Enter your charger details<br/>to generate requirements.</p>
              </div>
            )}
@@ -210,23 +210,23 @@ export const EVChargerSizer: React.FC = () => {
       </div>
 
       {/* Critical NEMA 14-50 Warning */}
-      <div className="mt-12 bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-red-200">
+      <div className="mt-12 bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-3xl p-6 md:p-8 shadow-xl border border-red-200">
          <div className="flex flex-col md:flex-row gap-6 items-start">
             <div className="bg-red-50 p-4 rounded-full flex-shrink-0">
                <ShieldAlert className="w-10 h-10 text-red-600" />
             </div>
             <div>
-               <h3 className="text-2xl font-bold text-slate-900 mb-3">The "Cheap NEMA 14-50" Fire Trap</h3>
-               <p className="text-slate-600 leading-relaxed mb-4">
+               <h3 className="text-2xl font-bold text-slate-900 dark:text-gray-100 dark:text-gray-100 mb-3">The "Cheap NEMA 14-50" Fire Trap</h3>
+               <p className="text-slate-600 dark:text-gray-400 dark:text-gray-400 leading-relaxed mb-4">
                  If you are installing a plug-in EV charger using a NEMA 14-50 outlet (RV plug) instead of hardwiring, <strong>DO NOT</strong> let your electrician buy a $12 builder-grade receptacle from a hardware store (like Leviton).
                </p>
-               <p className="text-slate-600 leading-relaxed mb-4">
+               <p className="text-slate-600 dark:text-gray-400 dark:text-gray-400 leading-relaxed mb-4">
                  Cheap outlets are meant for ovens that cycle on and off. EV chargers pull maximum heat for 10 straight hours, literally melting cheap plastic outlets and causing garage fires.
                </p>
                
-               <div className="bg-slate-50 border border-slate-200 rounded-xl p-5 mb-4">
-                  <h4 className="font-bold text-slate-900 mb-2">You MUST specify an industrial-grade outlet:</h4>
-                  <ul className="list-disc pl-5 space-y-1 text-slate-700">
+               <div className="bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 dark:border-gray-700 rounded-xl p-5 mb-4">
+                  <h4 className="font-bold text-slate-900 dark:text-gray-100 dark:text-gray-100 mb-2">You MUST specify an industrial-grade outlet:</h4>
+                  <ul className="list-disc pl-5 space-y-1 text-slate-700 dark:text-gray-300 dark:text-gray-300">
                      <li><strong>Hubbell HBL9450A</strong> (approx. $80)</li>
                      <li><strong>Bryant 9450FR</strong> (approx. $60)</li>
                   </ul>

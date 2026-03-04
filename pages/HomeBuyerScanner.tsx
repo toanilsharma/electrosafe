@@ -163,7 +163,7 @@ export const HomeBuyerScanner = () => {
   const bgGlow = redFlags === 0 ? 'bg-emerald-500/10' : redFlags <= 2 ? 'bg-amber-500/10' : 'bg-rose-500/10';
 
   return (
-    <div className="min-h-screen bg-slate-50 overflow-hidden relative pb-32">
+    <div className="min-h-screen bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 overflow-hidden relative pb-32">
       {/* Dynamic Background Blurs */}
       <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-blue-300/30 rounded-full blur-[120px] mix-blend-multiply pointer-events-none -translate-x-1/2 -translate-y-1/2"></div>
       <div className="absolute top-40 right-0 w-[400px] h-[400px] bg-indigo-300/20 rounded-full blur-[100px] mix-blend-multiply pointer-events-none translate-x-1/2"></div>
@@ -177,20 +177,20 @@ export const HomeBuyerScanner = () => {
 
         {/* Premium Hero Section */}
         <div className="text-center mb-16 no-print">
-          <div className="inline-flex items-center gap-2 mb-6 px-5 py-2.5 bg-white shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-gray-100 rounded-full font-bold uppercase tracking-widest text-xs text-blue-600 animate-fade-in">
+          <div className="inline-flex items-center gap-2 mb-6 px-5 py-2.5 bg-white dark:bg-gray-900 dark:bg-gray-900 shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-gray-100 dark:border-gray-800 dark:border-gray-800 rounded-full font-bold uppercase tracking-widest text-xs text-blue-600 animate-fade-in">
             <Search className="w-4 h-4" /> Live Property Auditing Tool
           </div>
-          <h1 className="text-5xl md:text-6xl font-black text-gray-900 leading-tight mb-6 tracking-tight font-display drop-shadow-sm">
+          <h1 className="text-5xl md:text-6xl font-black text-gray-900 dark:text-gray-100 dark:text-gray-100 leading-tight mb-6 tracking-tight font-display drop-shadow-sm">
             The 15-Minute <br/>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
               Open House Scanner
             </span>
           </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed font-medium">
-            Don't buy a money pit. Keep this open on your phone as you walk through the house to instantly spot <strong className="text-gray-900">{currencyConfig.symbol}10,000+</strong> electrical red flags before making an offer.
+          <p className="text-xl text-gray-600 dark:text-gray-400 dark:text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed font-medium">
+            Don't buy a money pit. Keep this open on your phone as you walk through the house to instantly spot <strong className="text-gray-900 dark:text-gray-100 dark:text-gray-100">{currencyConfig.symbol}10,000+</strong> electrical red flags before making an offer.
           </p>
 
-          <div className="flex justify-center gap-6 text-sm font-bold text-gray-500">
+          <div className="flex justify-center gap-6 text-sm font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400">
             <span className="flex items-center gap-2"><div className={`w-2.5 h-2.5 rounded-full bg-red-500 ${isLivePulse ? 'shadow-[0_0_10px_rgba(239,68,68,0.8)]' : 'shadow-none'} transition-all duration-700`}></div> Live Threat Detection</span>
             <span className="flexItems-center gap-2 hidden md:flex"><CheckCircle className="w-4 h-4 text-green-500" /> Auto-Saving Progress</span>
             <span className="flex items-center gap-2 hidden sm:flex"><Globe className="w-4 h-4 text-blue-500" /> Universal Standards</span>
@@ -200,10 +200,10 @@ export const HomeBuyerScanner = () => {
         {!showScore ? (
           <div className="space-y-12">
             
-            <div className="bg-white p-6 md:p-8 rounded-3xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] animate-slide-up relative overflow-hidden">
+            <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-6 md:p-8 rounded-3xl border border-gray-100 dark:border-gray-800 dark:border-gray-800 shadow-[0_8px_30px_rgb(0,0,0,0.04)] animate-slide-up relative overflow-hidden">
                <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-               <h3 className="text-xl font-extrabold text-gray-900 mb-2 flex items-center gap-3 relative z-10"><Home className="w-6 h-6 text-indigo-500" /> Select Property Size</h3>
-               <p className="text-gray-500 mb-6 font-medium relative z-10">Electrical liability scales with the footprint of the home. Select the approximate size to calibrate the pricing engine accurately.</p>
+               <h3 className="text-xl font-extrabold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-2 flex items-center gap-3 relative z-10"><Home className="w-6 h-6 text-indigo-500" /> Select Property Size</h3>
+               <p className="text-gray-500 dark:text-gray-400 dark:text-gray-400 mb-6 font-medium relative z-10">Electrical liability scales with the footprint of the home. Select the approximate size to calibrate the pricing engine accurately.</p>
                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 relative z-10">
                   {PROPERTY_SIZES.map(size => (
                      <button
@@ -212,7 +212,7 @@ export const HomeBuyerScanner = () => {
                        className={`py-4 px-4 rounded-2xl font-bold transition-all border-2 text-sm flex flex-col items-center justify-center gap-1 ${
                          propertySize === size.id 
                          ? 'bg-indigo-50 text-indigo-700 border-indigo-500 shadow-md transform scale-[1.02]'
-                         : 'bg-white text-gray-500 border-gray-100 hover:border-indigo-200 hover:bg-indigo-50/50'
+                         : 'bg-white dark:bg-gray-900 dark:bg-gray-900 text-gray-500 dark:text-gray-400 dark:text-gray-400 border-gray-100 dark:border-gray-800 dark:border-gray-800 hover:border-indigo-200 hover:bg-indigo-50/50'
                        }`}
                      >
                        <span className="text-base">{size.label.split('(')[0].trim()}</span>
@@ -233,8 +233,8 @@ export const HomeBuyerScanner = () => {
 
             <div className="space-y-12">
               {SCAN_ITEMS.map((category, idx) => (
-                <div key={idx} className="bg-white/60 backdrop-blur-xl border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-3xl p-6 md:p-8 animate-slide-up" style={{animationDelay: `${idx * 100}ms`}}>
-                  <h2 className="text-2xl font-extrabold text-gray-900 mb-8 flex items-center gap-3">
+                <div key={idx} className="bg-white dark:bg-gray-900 dark:bg-gray-900/60 backdrop-blur-xl border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-3xl p-6 md:p-8 animate-slide-up" style={{animationDelay: `${idx * 100}ms`}}>
+                  <h2 className="text-2xl font-extrabold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-8 flex items-center gap-3">
                     <div className="p-2.5 bg-blue-50 text-blue-600 rounded-xl">
                       {category.icon}
                     </div>
@@ -243,7 +243,7 @@ export const HomeBuyerScanner = () => {
 
                   <div className="space-y-5">
                     {category.items.map((item: any) => (
-                      <div key={item.id} className="group relative bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:border-blue-100 transition-all duration-300">
+                      <div key={item.id} className="group relative bg-white dark:bg-gray-900 dark:bg-gray-900 p-6 rounded-2xl border border-gray-100 dark:border-gray-800 dark:border-gray-800 shadow-sm hover:shadow-md hover:border-blue-100 transition-all duration-300">
                         {/* Status Indicator */}
                         <div className="absolute right-4 top-4">
                            {answers[item.id] !== undefined && answers[item.id] !== null && (
@@ -252,7 +252,7 @@ export const HomeBuyerScanner = () => {
                         </div>
 
                         <div className="flex justify-between items-start mb-4 pr-6">
-                          <p className="font-bold text-gray-800 text-lg leading-snug">{item.question}</p>
+                          <p className="font-bold text-gray-800 dark:text-gray-200 dark:text-gray-200 text-lg leading-snug">{item.question}</p>
                         </div>
 
                         <button 
@@ -263,10 +263,10 @@ export const HomeBuyerScanner = () => {
                         </button>
 
                         {activeInfo === item.id && (
-                          <div className="bg-slate-50 border border-slate-200 p-5 mb-6 rounded-xl text-sm text-slate-700 animate-in fade-in slide-in-from-top-2 relative overflow-hidden">
+                          <div className="bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 dark:border-gray-700 p-5 mb-6 rounded-xl text-sm text-slate-700 dark:text-gray-300 dark:text-gray-300 animate-in fade-in slide-in-from-top-2 relative overflow-hidden">
                             <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500"></div>
                             <p className="mb-3 leading-relaxed"><strong>The Risk:</strong> {item.why}</p>
-                            <div className="inline-flex items-center gap-2 bg-white px-3 py-1.5 rounded-lg border border-slate-200 font-bold text-slate-900 shadow-sm">
+                            <div className="inline-flex items-center gap-2 bg-white dark:bg-gray-900 dark:bg-gray-900 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-gray-700 dark:border-gray-700 font-bold text-slate-900 dark:text-gray-100 dark:text-gray-100 shadow-sm">
                                <AlertTriangle className="w-4 h-4 text-amber-500" />
                                Est. Repair: {item.costVal ? <span className="text-red-600">{currencyConfig.symbol}{Math.round(item.costVal * currencyConfig.multiplier).toLocaleString()}+</span> : 'Variable'}
                             </div>
@@ -279,7 +279,7 @@ export const HomeBuyerScanner = () => {
                              className={`py-4 rounded-xl font-bold border-2 transition-all duration-300 flex items-center justify-center gap-2 ${
                                 answers[item.id] === true 
                                 ? 'bg-indigo-600 text-white border-indigo-600 shadow-lg shadow-indigo-200 shadow-[0_0_20px_rgba(79,70,229,0.3)] filter-none' 
-                                : 'bg-transparent text-gray-500 border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-700'
+                                : 'bg-transparent text-gray-500 dark:text-gray-400 dark:text-gray-400 border-gray-200 dark:border-gray-700 dark:border-gray-700 hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-700'
                              }`}
                           >
                              {answers[item.id] === true && <CheckCircle className="w-5 h-5" />}
@@ -290,7 +290,7 @@ export const HomeBuyerScanner = () => {
                              className={`py-4 rounded-xl font-bold border-2 transition-all duration-300 flex items-center justify-center gap-2 ${
                                 answers[item.id] === false 
                                 ? 'bg-indigo-600 text-white border-indigo-600 shadow-lg shadow-indigo-200 shadow-[0_0_20px_rgba(79,70,229,0.3)] filter-none' 
-                                : 'bg-transparent text-gray-500 border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-700'
+                                : 'bg-transparent text-gray-500 dark:text-gray-400 dark:text-gray-400 border-gray-200 dark:border-gray-700 dark:border-gray-700 hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-700'
                              }`}
                           >
                              {answers[item.id] === false && <CheckCircle className="w-5 h-5" />}
@@ -306,20 +306,20 @@ export const HomeBuyerScanner = () => {
 
             {/* Premium Floating Action Bar */}
             <div className="fixed bottom-0 left-0 w-full z-50 p-4 md:p-6 pointer-events-none fade-in slide-in-from-bottom-5">
-              <div className="max-w-4xl mx-auto bg-white/90 backdrop-blur-xl border border-gray-200 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] rounded-3xl p-4 md:px-8 md:py-5 flex flex-col md:flex-row justify-between items-center gap-4 pointer-events-auto transition-transform hover:-translate-y-1">
+              <div className="max-w-4xl mx-auto bg-white dark:bg-gray-900 dark:bg-gray-900/90 backdrop-blur-xl border border-gray-200 dark:border-gray-700 dark:border-gray-700 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] rounded-3xl p-4 md:px-8 md:py-5 flex flex-col md:flex-row justify-between items-center gap-4 pointer-events-auto transition-transform hover:-translate-y-1">
                  
                  <div className="flex items-center gap-5 w-full md:w-auto">
                    {/* Radial Progress visually */}
-                   <div className="relative flex shrink-0 items-center justify-center w-14 h-14 bg-gray-50 rounded-full border border-gray-100 shadow-inner">
+                   <div className="relative flex shrink-0 items-center justify-center w-14 h-14 bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 rounded-full border border-gray-100 dark:border-gray-800 dark:border-gray-800 shadow-inner">
                       <svg className="w-12 h-12 transform -rotate-90">
                         <circle cx="24" cy="24" r="20" stroke="currentColor" strokeWidth="4" fill="transparent" className="text-gray-200" />
                         <circle cx="24" cy="24" r="20" stroke="currentColor" strokeWidth="4" fill="transparent" strokeDasharray="125" strokeDashoffset={125 - (125 * progressPercent) / 100} className="text-blue-600 transition-all duration-1000 ease-out" />
                       </svg>
-                      <span className="absolute text-xs font-black text-gray-800">{progressPercent}%</span>
+                      <span className="absolute text-xs font-black text-gray-800 dark:text-gray-200 dark:text-gray-200">{progressPercent}%</span>
                    </div>
                    <div>
                      <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-0.5">Audit Progress</p>
-                     <p className="text-lg font-black text-gray-900 leading-none">{answeredCount} of {totalQuestions} Queries</p>
+                     <p className="text-lg font-black text-gray-900 dark:text-gray-100 dark:text-gray-100 leading-none">{answeredCount} of {totalQuestions} Queries</p>
                    </div>
                  </div>
 
@@ -329,7 +329,7 @@ export const HomeBuyerScanner = () => {
                    className={`w-full md:w-auto px-8 py-4 rounded-2xl font-black transition-all flex items-center justify-center gap-2 ${
                      isComplete 
                      ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-[0_0_20px_rgba(79,70,229,0.4)] hover:shadow-[0_0_30px_rgba(79,70,229,0.6)] hover:scale-105 group border border-transparent' 
-                     : 'bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200'
+                     : 'bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 text-gray-400 cursor-not-allowed border border-gray-200 dark:border-gray-700 dark:border-gray-700'
                    }`}
                  >
                    Generate Intelligence Report
@@ -346,46 +346,46 @@ export const HomeBuyerScanner = () => {
              
              {/* Certificate Style Report heading */}
              <div className="text-center mb-8">
-               <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white shadow-xl mb-6 relative">
-                 <div className="absolute inset-0 rounded-full border-4 border-slate-100"></div>
+               <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white dark:bg-gray-900 dark:bg-gray-900 shadow-xl mb-6 relative">
+                 <div className="absolute inset-0 rounded-full border-4 border-slate-100 dark:border-gray-800 dark:border-gray-800"></div>
                  {redFlags === 0 ? <ShieldCheck className="w-10 h-10 text-emerald-500" /> : <ShieldAlert className={`w-10 h-10 ${resultColor}`} />}
                </div>
-               <h1 className="text-4xl font-black text-gray-900 tracking-tight font-display mb-2">Final Diagnostic Report</h1>
-               <p className="text-gray-500 font-medium">Property Electrical Assessment Summary</p>
+               <h1 className="text-4xl font-black text-gray-900 dark:text-gray-100 dark:text-gray-100 tracking-tight font-display mb-2">Final Diagnostic Report</h1>
+               <p className="text-gray-500 dark:text-gray-400 dark:text-gray-400 font-medium">Property Electrical Assessment Summary</p>
              </div>
 
-             <div className={`relative overflow-hidden p-8 md:p-12 rounded-[2.5rem] bg-white border shadow-2xl mb-12 ${redFlags > 0 ? 'border-red-100 shadow-red-900/5' : 'border-emerald-100 shadow-emerald-900/5'}`}>
+             <div className={`relative overflow-hidden p-8 md:p-12 rounded-[2.5rem] bg-white dark:bg-gray-900 dark:bg-gray-900 border shadow-2xl mb-12 ${redFlags > 0 ? 'border-red-100 shadow-red-900/5' : 'border-emerald-100 shadow-emerald-900/5'}`}>
                 {/* Background glow in report */}
                 <div className={`absolute top-0 right-0 w-[600px] h-[600px] rounded-full blur-[100px] mix-blend-multiply opacity-50 pointer-events-none -translate-y-1/2 translate-x-1/3 ${bgGlow}`}></div>
 
-                <div className="relative z-10 text-center border-b border-gray-100 pb-10 mb-10">
+                <div className="relative z-10 text-center border-b border-gray-100 dark:border-gray-800 dark:border-gray-800 pb-10 mb-10">
                   <h2 className="text-xs font-black uppercase tracking-widest text-gray-400 mb-3">Threat Level Declaration</h2>
                   <h3 className={`text-4xl md:text-5xl font-black ${resultColor} drop-shadow-sm`}>{resultStatus}</h3>
                 </div>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 relative z-10 mb-8">
-                  <div className="bg-slate-50 p-8 rounded-3xl border border-slate-200 flex flex-col items-center justify-center text-center">
-                    <p className="text-slate-500 text-xs font-black uppercase tracking-widest mb-2">Identified Red Flags</p>
+                  <div className="bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 p-8 rounded-3xl border border-slate-200 dark:border-gray-700 dark:border-gray-700 flex flex-col items-center justify-center text-center">
+                    <p className="text-slate-500 dark:text-gray-400 dark:text-gray-400 text-xs font-black uppercase tracking-widest mb-2">Identified Red Flags</p>
                     <p className={`text-7xl font-black font-display tracking-tighter ${redFlags > 0 ? 'text-rose-500' : 'text-emerald-500'}`}>{redFlags}</p>
                     <p className="text-slate-400 text-sm font-bold mt-2">Out of {totalQuestions} checked areas</p>
                   </div>
-                  <div className="bg-slate-50 p-8 rounded-3xl border border-slate-200 flex flex-col items-center justify-center text-center">
-                    <p className="text-slate-500 text-xs font-black uppercase tracking-widest mb-2">Liability Estimation</p>
-                    <p className="text-5xl font-black text-slate-900 font-display tracking-tighter mt-2">{currencyConfig.symbol}{Math.round(estimatedCost * currencyConfig.multiplier).toLocaleString()}<span className="text-3xl text-slate-400">+</span></p>
+                  <div className="bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 p-8 rounded-3xl border border-slate-200 dark:border-gray-700 dark:border-gray-700 flex flex-col items-center justify-center text-center">
+                    <p className="text-slate-500 dark:text-gray-400 dark:text-gray-400 text-xs font-black uppercase tracking-widest mb-2">Liability Estimation</p>
+                    <p className="text-5xl font-black text-slate-900 dark:text-gray-100 dark:text-gray-100 font-display tracking-tighter mt-2">{currencyConfig.symbol}{Math.round(estimatedCost * currencyConfig.multiplier).toLocaleString()}<span className="text-3xl text-slate-400">+</span></p>
                     <p className="text-slate-400 text-sm font-bold mt-2">Hardware & Labor Minimums</p>
                   </div>
                 </div>
 
                 {itemizedCosts.length > 0 && (
-                  <div className="w-full text-left bg-slate-50/80 rounded-3xl p-6 md:p-8 border border-slate-200 shadow-inner relative z-10">
-                    <h4 className="text-lg font-black text-slate-800 mb-6 flex items-center gap-2">
+                  <div className="w-full text-left bg-slate-50 dark:bg-gray-800 dark:bg-gray-800/80 rounded-3xl p-6 md:p-8 border border-slate-200 dark:border-gray-700 dark:border-gray-700 shadow-inner relative z-10">
+                    <h4 className="text-lg font-black text-slate-800 dark:text-gray-200 dark:text-gray-200 mb-6 flex items-center gap-2">
                        <DollarSign className="w-6 h-6 text-slate-400" />
                        Itemized Liability Breakdown
                     </h4>
                     <ul className="space-y-4">
                       {itemizedCosts.map((item, idx) => (
-                        <li key={idx} className="flex flex-col sm:flex-row justify-between items-start gap-4 border-b border-slate-200 pb-4 last:border-0 last:pb-0">
-                           <span className="text-slate-700 text-sm font-medium leading-relaxed max-w-xl">{item.desc}</span>
+                        <li key={idx} className="flex flex-col sm:flex-row justify-between items-start gap-4 border-b border-slate-200 dark:border-gray-700 dark:border-gray-700 pb-4 last:border-0 last:pb-0">
+                           <span className="text-slate-700 dark:text-gray-300 dark:text-gray-300 text-sm font-medium leading-relaxed max-w-xl">{item.desc}</span>
                            <span className="font-black text-rose-600 text-lg shrink-0 sm:text-right">{currencyConfig.symbol}{Math.round(item.cost * currencyConfig.multiplier).toLocaleString()}</span>
                         </li>
                       ))}
@@ -399,17 +399,17 @@ export const HomeBuyerScanner = () => {
                       <AlertTriangle className="w-6 h-6 text-rose-600" />
                       Tactical Negotiation Strategy
                     </h4>
-                    <p className="text-gray-700 mb-6 leading-relaxed font-medium">
+                    <p className="text-gray-700 dark:text-gray-300 dark:text-gray-300 mb-6 leading-relaxed font-medium">
                       You have identified <strong>{redFlags} severe electrical hazards</strong>. Do not absorb this liability blindly. Provide this diagnostic directly to your real estate agent and enforce one of the following contingencies:
                     </p>
                     <div className="space-y-4">
-                      <div className="bg-white p-5 rounded-2xl shadow-sm border border-rose-50 flex gap-4 items-start">
+                      <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-5 rounded-2xl shadow-sm border border-rose-50 flex gap-4 items-start">
                         <div className="bg-rose-100 text-rose-700 w-8 h-8 rounded-full flex items-center justify-center font-black shrink-0 mt-0.5">1</div>
-                        <p className="text-gray-800 font-medium">Require the seller to hire a certified & licensed electrician to rectify these specific issues prior to closing.</p>
+                        <p className="text-gray-800 dark:text-gray-200 dark:text-gray-200 font-medium">Require the seller to hire a certified & licensed electrician to rectify these specific issues prior to closing.</p>
                       </div>
-                      <div className="bg-white p-5 rounded-2xl shadow-sm border border-rose-50 flex gap-4 items-start">
+                      <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-5 rounded-2xl shadow-sm border border-rose-50 flex gap-4 items-start">
                         <div className="bg-rose-100 text-rose-700 w-8 h-8 rounded-full flex items-center justify-center font-black shrink-0 mt-0.5">2</div>
-                        <p className="text-gray-800 font-medium">Demand a price deduction of <strong>{currencyConfig.symbol}{Math.round((estimatedCost + 1000) * currencyConfig.multiplier).toLocaleString()}</strong> as a contingency credit to commission the repairs yourself post-purchase.</p>
+                        <p className="text-gray-800 dark:text-gray-200 dark:text-gray-200 font-medium">Demand a price deduction of <strong>{currencyConfig.symbol}{Math.round((estimatedCost + 1000) * currencyConfig.multiplier).toLocaleString()}</strong> as a contingency credit to commission the repairs yourself post-purchase.</p>
                       </div>
                     </div>
                   </div>
@@ -427,7 +427,7 @@ export const HomeBuyerScanner = () => {
              </div>
 
              {/* Actions */}
-             <div className="flex flex-col gap-8 max-w-md mx-auto relative z-10 bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
+             <div className="flex flex-col gap-8 max-w-md mx-auto relative z-10 bg-white dark:bg-gray-900 dark:bg-gray-900 p-8 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-800 dark:border-gray-800">
                 <ShareableScoreCard 
                   score={totalQuestions - redFlags}
                   maxScore={totalQuestions}
@@ -437,7 +437,7 @@ export const HomeBuyerScanner = () => {
                   toolPath="/home-buyer-scanner"
                 />
                 
-                <div className="h-px w-full bg-gray-100"></div>
+                <div className="h-px w-full bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50"></div>
 
                 <button
                   onClick={() => navigate('/quote-analyzer')}
@@ -454,7 +454,7 @@ export const HomeBuyerScanner = () => {
                     setShowScore(false);
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }}
-                  className="font-bold text-gray-500 hover:text-gray-900 transition-colors flex items-center justify-center gap-2"
+                  className="font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 hover:text-gray-900 dark:text-gray-100 dark:text-gray-100 transition-colors flex items-center justify-center gap-2"
                 >
                   <Search className="w-4 h-4" /> Scan Another Property
                 </button>

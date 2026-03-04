@@ -6,17 +6,17 @@ export const Legal = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
       <div className="text-center mb-12">
-        <h1 className="text-3xl font-bold text-gray-900">Legal & Corporate Information</h1>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100">Legal & Corporate Information</h1>
       </div>
 
       <div className="space-y-12">
         {/* About Us */}
-        <section id="about" className="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
+        <section id="about" className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-8 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 dark:border-gray-700">
           <div className="flex items-center gap-3 mb-4">
             <Info className="w-6 h-6 text-blue-600" />
-            <h2 className="text-2xl font-bold text-gray-900">About Us</h2>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100">About Us</h2>
           </div>
-          <div className="prose text-gray-600">
+          <div className="prose text-gray-600 dark:text-gray-400 dark:text-gray-400">
             <p className="mb-4">
               ElectroSafe.homes is a dedicated independent resource focused exclusively on residential electrical safety. 
               Founded with a mission to reduce household electrical fires and shock incidents globally, we provide free, 
@@ -31,10 +31,10 @@ export const Legal = () => {
         </section>
 
         {/* Legal Policies */}
-        <section className="bg-white p-8 rounded-xl shadow-sm border border-gray-200 prose prose-blue max-w-none">
+        <section className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-8 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 dark:border-gray-700 prose prose-blue max-w-none">
           <div className="flex items-center gap-3 mb-4">
-            <Shield className="w-6 h-6 text-gray-600" />
-            <h2 className="text-2xl font-bold text-gray-900 m-0">Legal Policies</h2>
+            <Shield className="w-6 h-6 text-gray-600 dark:text-gray-400 dark:text-gray-400" />
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 m-0">Legal Policies</h2>
           </div>
           
           <h3>Disclaimer</h3>

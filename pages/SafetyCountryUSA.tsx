@@ -46,8 +46,8 @@ export const SafetyCountryUSA: React.FC = () => {
         <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-100 text-blue-700 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
           🇺🇸 USA — Electrical Safety Guide
         </div>
-        <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">Home Electrical Safety in the United States</h1>
-        <p className="text-gray-600 text-lg max-w-2xl mx-auto">NEC 2023 compliance, AFCI/GFCI requirements, panel safety, and 120V/240V guidelines for US homes.</p>
+        <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-3">Home Electrical Safety in the United States</h1>
+        <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400 text-lg max-w-2xl mx-auto">NEC 2023 compliance, AFCI/GFCI requirements, panel safety, and 120V/240V guidelines for US homes.</p>
       </div>
 
       <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6 mb-8 flex items-start gap-4">
@@ -58,13 +58,13 @@ export const SafetyCountryUSA: React.FC = () => {
         </div>
       </div>
 
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">🔑 USA-Specific Safety Tips</h2>
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-6">🔑 USA-Specific Safety Tips</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
         {USA_TIPS.map((tip, i) => (
-          <div key={i} className="bg-white rounded-2xl border border-gray-200 p-5 shadow-sm hover:shadow-md transition-shadow">
+          <div key={i} className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 dark:border-gray-700 p-5 shadow-sm hover:shadow-md transition-shadow">
             <div className="text-2xl mb-2">{tip.icon}</div>
-            <h3 className="font-bold text-gray-900 mb-1">{tip.title}</h3>
-            <p className="text-gray-600 text-sm leading-relaxed">{tip.desc}</p>
+            <h3 className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-1">{tip.title}</h3>
+            <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400 text-sm leading-relaxed">{tip.desc}</p>
           </div>
         ))}
       </div>
@@ -73,8 +73,8 @@ export const SafetyCountryUSA: React.FC = () => {
         <h2 className="flex items-center gap-2 font-bold text-red-900 text-lg mb-4"><Phone className="w-5 h-5" /> US Emergency Numbers</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {EMERGENCY_NUMBERS.map((e, i) => (
-            <div key={i} className="flex justify-between items-center bg-white rounded-xl px-4 py-2.5 border border-red-100">
-              <span className="text-gray-700 font-medium text-sm">{e.service}</span>
+            <div key={i} className="flex justify-between items-center bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-xl px-4 py-2.5 border border-red-100">
+              <span className="text-gray-700 dark:text-gray-300 dark:text-gray-300 font-medium text-sm">{e.service}</span>
               <span className="font-black text-red-600 text-lg">{e.number}</span>
             </div>
           ))}
@@ -82,11 +82,11 @@ export const SafetyCountryUSA: React.FC = () => {
       </div>
 
       <div className="space-y-4 mb-10">
-        <h2 className="text-2xl font-bold text-gray-900">❓ Frequently Asked Questions</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100">❓ Frequently Asked Questions</h2>
         {faqSchema.mainEntity.map((faq, i) => (
-          <div key={i} className="bg-white rounded-2xl border border-gray-200 p-5">
-            <h3 className="font-bold text-gray-900 mb-2">Q: {faq.name}</h3>
-            <p className="text-gray-700 text-sm">{faq.acceptedAnswer.text}</p>
+          <div key={i} className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 dark:border-gray-700 p-5">
+            <h3 className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-2">Q: {faq.name}</h3>
+            <p className="text-gray-700 dark:text-gray-300 dark:text-gray-300 text-sm">{faq.acceptedAnswer.text}</p>
           </div>
         ))}
       </div>
@@ -99,7 +99,7 @@ export const SafetyCountryUSA: React.FC = () => {
           <Link to="/assessment" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition">
             Free Safety Assessment <ArrowRight className="w-4 h-4" />
           </Link>
-          <Link to="/quick-quiz" className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 text-white rounded-xl font-bold hover:bg-white/20 transition border border-white/20">
+          <Link to="/quick-quiz" className="inline-flex items-center gap-2 px-6 py-3 bg-white dark:bg-gray-900 dark:bg-gray-900/10 text-white rounded-xl font-bold hover:bg-white dark:bg-gray-900 dark:bg-gray-900/20 transition border border-white/20">
             60-Second Quiz
           </Link>
         </div>

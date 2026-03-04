@@ -29,13 +29,13 @@ const formatText = (text: string) => {
   const parts = text.split(/(\*\*.*?\*\*|\*.*?\*|`.*?`|\[\[.*?\]\])/g);
   return parts.map((part, i) => {
     if (part.startsWith('**') && part.endsWith('**')) {
-      return <strong key={i} className="font-bold text-gray-900">{part.slice(2, -2)}</strong>;
+      return <strong key={i} className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100">{part.slice(2, -2)}</strong>;
     }
     if (part.startsWith('*') && part.endsWith('*') && !part.startsWith('**')) {
-      return <em key={i} className="italic text-gray-700">{part.slice(1, -1)}</em>;
+      return <em key={i} className="italic text-gray-700 dark:text-gray-300 dark:text-gray-300">{part.slice(1, -1)}</em>;
     }
     if (part.startsWith('`') && part.endsWith('`')) {
-      return <code key={i} className="bg-gray-100 text-red-600 px-1.5 py-0.5 rounded text-sm font-mono">{part.slice(1, -1)}</code>;
+      return <code key={i} className="bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 text-red-600 px-1.5 py-0.5 rounded text-sm font-mono">{part.slice(1, -1)}</code>;
     }
     // [[tool:/assessment|Take the Safety Assessment]]
     if (part.startsWith('[[') && part.endsWith(']]')) {
@@ -58,19 +58,19 @@ const RenderBlock: React.FC<{ block: RichContentBlock; index: number }> = ({ blo
   switch (block.type) {
     case 'paragraph':
       return (
-        <p className="text-lg text-gray-700 leading-8 mb-5 animate-in fade-in" style={{ animationDelay: animDelay }}>
+        <p className="text-lg text-gray-700 dark:text-gray-300 dark:text-gray-300 leading-8 mb-5 animate-in fade-in" style={{ animationDelay: animDelay }}>
           {formatText(block.text)}
         </p>
       );
 
     case 'heading':
       return block.level === 3 ? (
-        <h3 className="text-xl font-bold text-gray-900 mt-8 mb-3 flex items-center gap-2 animate-in slide-in-from-left-4" style={{ animationDelay: animDelay }}>
+        <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mt-8 mb-3 flex items-center gap-2 animate-in slide-in-from-left-4" style={{ animationDelay: animDelay }}>
           <div className="w-1 h-6 bg-blue-500 rounded-full"></div>
           {block.text}
         </h3>
       ) : (
-        <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 mt-12 mb-4 animate-in slide-in-from-left-4" style={{ animationDelay: animDelay }}>
+        <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-gray-100 dark:text-gray-100 mt-12 mb-4 animate-in slide-in-from-left-4" style={{ animationDelay: animDelay }}>
           {block.text}
           <div className="h-1 w-16 bg-gradient-to-r from-blue-500 to-purple-500 mt-3 rounded-full"></div>
         </h2>
@@ -109,12 +109,12 @@ const RenderBlock: React.FC<{ block: RichContentBlock; index: number }> = ({ blo
 
     case 'stat':
       return (
-        <div className="my-6 bg-white rounded-2xl border border-gray-200 p-6 text-center shadow-sm hover:shadow-md transition-shadow animate-in zoom-in-90" style={{ animationDelay: animDelay }}>
+        <div className="my-6 bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 dark:border-gray-700 p-6 text-center shadow-sm hover:shadow-md transition-shadow animate-in zoom-in-90" style={{ animationDelay: animDelay }}>
           <div className={`text-4xl md:text-5xl font-extrabold mb-1 ${block.color || 'text-blue-600'}`}>
             {block.value}
             {block.unit && <span className="text-lg font-normal text-gray-400 ml-1">{block.unit}</span>}
           </div>
-          <div className="text-sm font-medium text-gray-500 uppercase tracking-wider">{block.label}</div>
+          <div className="text-sm font-medium text-gray-500 dark:text-gray-400 dark:text-gray-400 uppercase tracking-wider">{block.label}</div>
         </div>
       );
 
@@ -122,9 +122,9 @@ const RenderBlock: React.FC<{ block: RichContentBlock; index: number }> = ({ blo
       return (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 my-8 animate-in slide-in-from-bottom-4" style={{ animationDelay: animDelay }}>
           {block.stats.map((s, i) => (
-            <div key={i} className="bg-white rounded-xl border border-gray-200 p-4 text-center shadow-sm hover:scale-105 transition-transform">
+            <div key={i} className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 dark:border-gray-700 p-4 text-center shadow-sm hover:scale-105 transition-transform">
               <div className={`text-2xl md:text-3xl font-extrabold ${s.color || 'text-blue-600'}`}>{s.value}</div>
-              <div className="text-xs text-gray-500 font-medium mt-1">{s.label}</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 font-medium mt-1">{s.label}</div>
             </div>
           ))}
         </div>
@@ -163,7 +163,7 @@ const RenderBlock: React.FC<{ block: RichContentBlock; index: number }> = ({ blo
     case 'steps':
       return (
         <div className="my-8 animate-in slide-in-from-bottom-4" style={{ animationDelay: animDelay }}>
-          {block.title && <h3 className="text-xl font-bold text-gray-900 mb-4">{block.title}</h3>}
+          {block.title && <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-4">{block.title}</h3>}
           <div className="space-y-0 relative">
             <div className="absolute left-5 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 to-purple-500"></div>
             {block.steps.map((step, i) => (
@@ -172,8 +172,8 @@ const RenderBlock: React.FC<{ block: RichContentBlock; index: number }> = ({ blo
                   {i + 1}
                 </div>
                 <div className="pb-6 pt-1">
-                  <h4 className="font-bold text-gray-900 text-base">{step.title}</h4>
-                  <p className="text-sm text-gray-600 leading-relaxed mt-1">{formatText(step.text)}</p>
+                  <h4 className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 text-base">{step.title}</h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400 leading-relaxed mt-1">{formatText(step.text)}</p>
                 </div>
               </div>
             ))}
@@ -185,7 +185,7 @@ const RenderBlock: React.FC<{ block: RichContentBlock; index: number }> = ({ blo
       return (
         <Link to={block.path} className="block my-6 group animate-in slide-in-from-bottom-4" style={{ animationDelay: animDelay }}>
           <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-5 text-white flex items-center gap-4 shadow-lg group-hover:shadow-xl group-hover:scale-[1.02] transition-all">
-            <div className="bg-white/20 rounded-xl p-3">
+            <div className="bg-white dark:bg-gray-900 dark:bg-gray-900/20 rounded-xl p-3">
               <Zap className="w-6 h-6" />
             </div>
             <div className="flex-1 min-w-0">
@@ -201,7 +201,7 @@ const RenderBlock: React.FC<{ block: RichContentBlock; index: number }> = ({ blo
     case 'diagram':
       return (
         <div className="my-8 animate-in zoom-in-95" style={{ animationDelay: animDelay }}>
-          <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm" dangerouslySetInnerHTML={{ __html: block.svg }}></div>
+          <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 dark:border-gray-700 p-6 shadow-sm" dangerouslySetInnerHTML={{ __html: block.svg }}></div>
           {block.caption && <p className="text-center text-xs text-gray-400 mt-2 italic">{block.caption}</p>}
         </div>
       );
@@ -209,8 +209,8 @@ const RenderBlock: React.FC<{ block: RichContentBlock; index: number }> = ({ blo
     case 'quote':
       return (
         <blockquote className="my-8 border-l-4 border-blue-500 pl-6 py-2 animate-in slide-in-from-left-4" style={{ animationDelay: animDelay }}>
-          <p className="text-xl italic text-gray-700 leading-relaxed">{formatText(block.text)}</p>
-          {block.author && <cite className="text-sm text-gray-500 mt-2 block not-italic">— {block.author}</cite>}
+          <p className="text-xl italic text-gray-700 dark:text-gray-300 dark:text-gray-300 leading-relaxed">{formatText(block.text)}</p>
+          {block.author && <cite className="text-sm text-gray-500 dark:text-gray-400 dark:text-gray-400 mt-2 block not-italic">— {block.author}</cite>}
         </blockquote>
       );
 
@@ -244,11 +244,11 @@ const RelatedArticleCard: React.FC<{ article: Article }> = ({ article }) => {
   return (
     <div
       onClick={() => navigate(`/articles/${article.slug}`)}
-      className="bg-white rounded-xl p-4 border border-gray-200 hover:shadow-md cursor-pointer transition-all group"
+      className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-xl p-4 border border-gray-200 dark:border-gray-700 dark:border-gray-700 hover:shadow-md cursor-pointer transition-all group"
     >
       <span className={`text-xs font-bold ${cat.text} ${cat.bg} px-2 py-0.5 rounded-full`}>{article.category}</span>
-      <h4 className="font-bold text-gray-900 mt-2 text-sm group-hover:text-blue-600 transition-colors leading-tight">{article.title}</h4>
-      <p className="text-xs text-gray-500 mt-1 line-clamp-2">{article.excerpt}</p>
+      <h4 className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mt-2 text-sm group-hover:text-blue-600 transition-colors leading-tight">{article.title}</h4>
+      <p className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 mt-1 line-clamp-2">{article.excerpt}</p>
     </div>
   );
 };
@@ -279,8 +279,8 @@ export const Articles = () => {
           <title>Article Not Found | ElectroSafe</title>
           <meta name="robots" content="noindex" />
         </Helmet>
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">Article Not Found</h1>
-        <p className="text-gray-600 mb-8">The article you are looking for does not exist or has been moved.</p>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-4">Article Not Found</h1>
+        <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400 mb-8">The article you are looking for does not exist or has been moved.</p>
         <button onClick={() => navigate('/articles')} className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
           Back to Articles
         </button>
@@ -349,14 +349,14 @@ export const Articles = () => {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.15),transparent)] pointer-events-none"></div>
             <div className="relative z-10">
               <div className="flex flex-wrap gap-3 items-center text-sm mb-6">
-                <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full font-bold flex items-center gap-1.5">
+                <span className="bg-white dark:bg-gray-900 dark:bg-gray-900/20 backdrop-blur-sm px-3 py-1 rounded-full font-bold flex items-center gap-1.5">
                   <Tag className="w-3 h-3" /> {selectedArticle.category}
                 </span>
                 <span className="flex items-center gap-1 text-white/70">
                   <Clock className="w-3.5 h-3.5" /> {selectedArticle.readTime} read
                 </span>
                 {selectedArticle.standards && selectedArticle.standards.length > 0 && (
-                  <span className="bg-white/10 backdrop-blur-sm px-3 py-1 rounded-full font-medium flex items-center gap-1.5 text-xs">
+                  <span className="bg-white dark:bg-gray-900 dark:bg-gray-900/10 backdrop-blur-sm px-3 py-1 rounded-full font-medium flex items-center gap-1.5 text-xs">
                     <BookOpen className="w-3 h-3" /> {selectedArticle.standards.join(' · ')}
                   </span>
                 )}
@@ -367,7 +367,7 @@ export const Articles = () => {
           </div>
 
           {/* Share bar */}
-          <div className="flex items-center justify-between mb-10 py-4 border-b border-gray-100">
+          <div className="flex items-center justify-between mb-10 py-4 border-b border-gray-100 dark:border-gray-800 dark:border-gray-800">
             <SocialShare url={window.location.href} title={`Must-read: ${selectedArticle.title}`} size="md" />
             <span className="text-xs text-gray-400 flex items-center gap-1">
               <Share2 className="w-3 h-3" /> Share to save a home
@@ -384,17 +384,17 @@ export const Articles = () => {
 
             {/* Inline Related Tools */}
             {selectedArticle.relatedTools && selectedArticle.relatedTools.length > 0 && (
-              <div className="mt-12 pt-8 border-t border-gray-100">
-                <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+              <div className="mt-12 pt-8 border-t border-gray-100 dark:border-gray-800 dark:border-gray-800">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-4 flex items-center gap-2">
                   <Zap className="w-5 h-5 text-blue-600" /> Related Tools on ElectroSafe
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {selectedArticle.relatedTools.map((tool, i) => (
-                    <Link key={i} to={tool.path} className="flex items-center gap-3 bg-gray-50 hover:bg-blue-50 p-4 rounded-xl border border-gray-200 hover:border-blue-200 transition-all group">
+                    <Link key={i} to={tool.path} className="flex items-center gap-3 bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 hover:bg-blue-50 p-4 rounded-xl border border-gray-200 dark:border-gray-700 dark:border-gray-700 hover:border-blue-200 transition-all group">
                       <div className="bg-blue-100 p-2 rounded-lg"><Zap className="w-4 h-4 text-blue-600" /></div>
                       <div className="min-w-0 flex-1">
-                        <div className="font-bold text-gray-900 text-sm group-hover:text-blue-600 transition-colors">{tool.name}</div>
-                        <div className="text-xs text-gray-500">{tool.why}</div>
+                        <div className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 text-sm group-hover:text-blue-600 transition-colors">{tool.name}</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400">{tool.why}</div>
                       </div>
                       <ChevronRight className="w-4 h-4 text-gray-300 group-hover:text-blue-500 transition-colors" />
                     </Link>
@@ -407,21 +407,21 @@ export const Articles = () => {
           {/* ─── FAQs with accordion ─────────────────────────── */}
           {selectedArticle.faqs && selectedArticle.faqs.length > 0 && (
             <div className="mb-16 animate-in slide-in-from-bottom-4">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-6 flex items-center gap-2">
                 <CheckCircle2 className="w-6 h-6 text-green-500" /> Frequently Asked Questions
               </h3>
               <div className="space-y-3">
                 {selectedArticle.faqs.map((faq, i) => (
-                  <div key={i} className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:border-blue-100 transition-colors shadow-sm">
+                  <div key={i} className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 dark:border-gray-700 overflow-hidden hover:border-blue-100 transition-colors shadow-sm">
                     <button
                       onClick={() => setFaqOpen(faqOpen === i ? null : i)}
-                      className="w-full text-left p-5 font-bold text-gray-900 flex items-center justify-between gap-4"
+                      className="w-full text-left p-5 font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 flex items-center justify-between gap-4"
                     >
                       <span>{faq.question}</span>
                       <ChevronRight className={`w-4 h-4 text-gray-400 flex-shrink-0 transition-transform ${faqOpen === i ? 'rotate-90' : ''}`} />
                     </button>
                     {faqOpen === i && (
-                      <div className="px-5 pb-5 text-gray-600 leading-relaxed text-sm animate-in slide-in-from-top-2 border-t border-gray-50 pt-3">
+                      <div className="px-5 pb-5 text-gray-600 dark:text-gray-400 dark:text-gray-400 leading-relaxed text-sm animate-in slide-in-from-top-2 border-t border-gray-50 pt-3">
                         {formatText(faq.answer)}
                       </div>
                     )}
@@ -434,7 +434,7 @@ export const Articles = () => {
           {/* ─── Related Articles ─────────────────────────────── */}
           {related.length > 0 && (
             <div className="mb-12">
-              <h3 className="text-lg font-bold text-gray-900 mb-4">Keep Reading</h3>
+              <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-4">Keep Reading</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {related.map(a => <RelatedArticleCard key={a.id} article={a} />)}
               </div>
@@ -442,18 +442,18 @@ export const Articles = () => {
           )}
 
           {/* ─── Author Card (E-E-A-T) ────────────────────────── */}
-          <div className="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm flex flex-col md:flex-row gap-6 items-center md:items-start mb-10 animate-in slide-in-from-bottom-8">
+          <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-8 rounded-3xl border border-gray-200 dark:border-gray-700 dark:border-gray-700 shadow-sm flex flex-col md:flex-row gap-6 items-center md:items-start mb-10 animate-in slide-in-from-bottom-8">
             <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg">
               <UserCheck className="w-10 h-10 text-white" />
             </div>
             <div>
-              <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Written & Verified By</p>
-              <h3 className="text-xl font-bold text-gray-900 mb-1">Anil Sharma</h3>
+              <p className="text-xs font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 uppercase tracking-widest mb-1">Written & Verified By</p>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-1">Anil Sharma</h3>
               <p className="text-blue-600 font-medium text-sm mb-3">Industrial Electrical Reliability Expert (25+ Years Exp)</p>
-              <p className="text-gray-600 text-sm leading-relaxed mb-4">
+              <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400 text-sm leading-relaxed mb-4">
                 With over two decades of experience in industrial electrical maintenance, instrumentation, and projects, Anil brings professional-grade reliability standards to home safety knowledge. No AI-generated fluff — just hard-earned field wisdom.
               </p>
-              <div className="flex gap-4 text-xs font-bold text-gray-500">
+              <div className="flex gap-4 text-xs font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400">
                 <span className="flex items-center gap-1"><ShieldCheck className="w-3 h-3 text-green-500" /> Field Expert</span>
                 <span className="flex items-center gap-1"><BookOpen className="w-3 h-3 text-blue-500" /> Reliability Engineer</span>
               </div>
@@ -487,8 +487,8 @@ export const Articles = () => {
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
           <BookOpen className="w-3.5 h-3.5" /> {ARTICLES.length} Expert Guides
         </div>
-        <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight">Electrical Knowledge Base</h1>
-        <p className="mt-4 text-xl text-gray-600 max-w-2xl mx-auto">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-gray-100 dark:text-gray-100 tracking-tight">Electrical Knowledge Base</h1>
+        <p className="mt-4 text-xl text-gray-600 dark:text-gray-400 dark:text-gray-400 max-w-2xl mx-auto">
           No boring textbooks. No AI fluff. Real-world electrical wisdom rewritten for non-engineers — with the math and physics that actually matter.
         </p>
       </div>
@@ -501,7 +501,7 @@ export const Articles = () => {
             <div
               key={article.id}
               onClick={() => navigate(`/articles/${article.slug}`)}
-              className="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-200 cursor-pointer group flex flex-col relative overflow-hidden"
+              className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700 dark:border-gray-700 cursor-pointer group flex flex-col relative overflow-hidden"
             >
               {/* Category Color Band */}
               <div className={`h-1.5 bg-gradient-to-r ${cat.gradient}`}></div>
@@ -515,10 +515,10 @@ export const Articles = () => {
                     <Clock className="w-3 h-3 mr-1" /> {article.readTime}
                   </span>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors leading-tight">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-3 group-hover:text-blue-600 transition-colors leading-tight">
                   {article.title}
                 </h3>
-                <p className="text-gray-600 text-sm line-clamp-3 leading-relaxed mb-6 flex-grow">
+                <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400 text-sm line-clamp-3 leading-relaxed mb-6 flex-grow">
                   {article.excerpt}
                 </p>
 
@@ -526,12 +526,12 @@ export const Articles = () => {
                 {article.standards && article.standards.length > 0 && (
                   <div className="flex flex-wrap gap-1.5 mb-4">
                     {article.standards.map((std, i) => (
-                      <span key={i} className="text-[10px] font-mono font-bold text-gray-400 bg-gray-50 px-2 py-0.5 rounded border border-gray-100">{std}</span>
+                      <span key={i} className="text-[10px] font-mono font-bold text-gray-400 bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 px-2 py-0.5 rounded border border-gray-100 dark:border-gray-800 dark:border-gray-800">{std}</span>
                     ))}
                   </div>
                 )}
 
-                <div className="pt-4 border-t border-gray-100 flex items-center justify-between">
+                <div className="pt-4 border-t border-gray-100 dark:border-gray-800 dark:border-gray-800 flex items-center justify-between">
                   <span className="text-blue-600 font-bold text-sm group-hover:translate-x-1 transition-transform flex items-center gap-1">
                     Read Article <ChevronRight className="w-4 h-4" />
                   </span>

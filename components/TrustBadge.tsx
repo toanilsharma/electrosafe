@@ -9,7 +9,7 @@ interface TrustBadgeProps {
 export const TrustBadge: React.FC<TrustBadgeProps> = ({ compact = false }) => {
   if (compact) {
     return (
-      <div className="flex items-center gap-2 text-xs text-gray-500 mt-2">
+      <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 mt-2">
         <ShieldCheck className="w-3.5 h-3.5 text-green-600" />
         <span>Results based on <strong>IEC 60364 · NEC 2023 · BS 7671</strong> — </span>
         <Link to="/standards-and-sources" className="text-blue-600 hover:underline font-medium">See sources</Link>

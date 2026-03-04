@@ -93,10 +93,10 @@ Tenant
         <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-red-100 text-red-800 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
           <Gavel className="w-4 h-4 text-red-600" /> Tenant Protection
         </div>
-        <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-gray-100 dark:text-gray-100 mb-6 tracking-tight">
           The Renters' <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-rose-500">Revenge</span> Generator
         </h1>
-        <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-xl text-slate-600 dark:text-gray-400 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
           Slumlords ignore texts. They don't ignore formal liability notices. Generate a legal-sounding "Notice of Electrical Hazard" to force your landlord to fix deadly code violations.
         </p>
       </div>
@@ -104,51 +104,51 @@ Tenant
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
         
         {/* Form Container */}
-        <div className="bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-slate-100 h-fit">
-           <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+        <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-3xl p-6 md:p-8 shadow-xl border border-slate-100 dark:border-gray-800 dark:border-gray-800 h-fit">
+           <h2 className="text-2xl font-bold text-slate-900 dark:text-gray-100 dark:text-gray-100 mb-6 flex items-center gap-2">
              <FileWarning className="w-6 h-6 text-red-500" /> Case Details
            </h2>
 
            <div className="space-y-5">
               <div>
-                 <label className="block text-sm font-bold text-slate-700 mb-1">Your Name</label>
+                 <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300 mb-1">Your Name</label>
                  <input 
                    type="text" 
                    placeholder="Jane Doe"
                    value={tenantName}
                    onChange={(e) => setTenantName(e.target.value)}
-                   className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none"
+                   className="w-full bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 dark:border-gray-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none"
                  />
               </div>
               
               <div>
-                 <label className="block text-sm font-bold text-slate-700 mb-1">Landlord / Management Co. Name</label>
+                 <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300 mb-1">Landlord / Management Co. Name</label>
                  <input 
                    type="text" 
                    placeholder="123 Property Management LLC"
                    value={landlordName}
                    onChange={(e) => setLandlordName(e.target.value)}
-                   className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none"
+                   className="w-full bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 dark:border-gray-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none"
                  />
               </div>
 
               <div>
-                 <label className="block text-sm font-bold text-slate-700 mb-1">Property Address</label>
+                 <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300 mb-1">Property Address</label>
                  <input 
                    type="text" 
                    placeholder="456 Danger Ave, Apt 4B"
                    value={propertyAddress}
                    onChange={(e) => setPropertyAddress(e.target.value)}
-                   className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none"
+                   className="w-full bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 dark:border-gray-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none"
                  />
               </div>
 
-              <div className="pt-4 border-t border-slate-100">
-                 <label className="block text-sm font-bold text-slate-700 mb-3">Select the Hazards Present:</label>
+              <div className="pt-4 border-t border-slate-100 dark:border-gray-800 dark:border-gray-800">
+                 <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300 mb-3">Select the Hazards Present:</label>
                  <div className="grid grid-cols-1 gap-2">
                     {COMMON_ISSUES.map(issue => (
                       <label key={issue} className={`flex items-start gap-3 p-3 rounded-lg border cursor-pointer transition-all ${
-                        selectedIssues.includes(issue) ? 'bg-red-50 border-red-200' : 'bg-white border-slate-200 hover:border-red-200 hover:bg-slate-50'
+                        selectedIssues.includes(issue) ? 'bg-red-50 border-red-200' : 'bg-white dark:bg-gray-900 dark:bg-gray-900 border-slate-200 dark:border-gray-700 dark:border-gray-700 hover:border-red-200 hover:bg-slate-50 dark:bg-gray-800 dark:bg-gray-800'
                       }`}>
                          <input 
                            type="checkbox" 
@@ -156,20 +156,20 @@ Tenant
                            onChange={() => toggleIssue(issue)}
                            className="mt-1 flex-shrink-0 w-4 h-4 text-red-600 rounded border-gray-300 focus:ring-red-500"
                          />
-                         <span className={`text-sm ${selectedIssues.includes(issue) ? 'font-bold text-red-900' : 'text-slate-700'}`}>{issue}</span>
+                         <span className={`text-sm ${selectedIssues.includes(issue) ? 'font-bold text-red-900' : 'text-slate-700 dark:text-gray-300 dark:text-gray-300'}`}>{issue}</span>
                       </label>
                     ))}
                  </div>
               </div>
 
               <div>
-                 <label className="block text-sm font-bold text-slate-700 mb-1">Other Custom Hazard (Optional)</label>
+                 <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300 mb-1">Other Custom Hazard (Optional)</label>
                  <input 
                    type="text" 
                    placeholder="e.g. Breaker panel makes buzzing noise"
                    value={customIssue}
                    onChange={(e) => setCustomIssue(e.target.value)}
-                   className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none"
+                   className="w-full bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 dark:border-gray-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none"
                  />
               </div>
 
@@ -178,10 +178,10 @@ Tenant
 
         {/* Live Preview Container */}
         <div className="flex flex-col">
-           <div className="bg-slate-50 rounded-t-3xl border border-slate-200 p-4 border-b-0 flex justify-between items-center">
+           <div className="bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 rounded-t-3xl border border-slate-200 dark:border-gray-700 dark:border-gray-700 p-4 border-b-0 flex justify-between items-center">
               <div className="flex items-center gap-2">
-                <FileText className="w-5 h-5 text-slate-500" />
-                <span className="font-bold text-slate-700">Document Preview</span>
+                <FileText className="w-5 h-5 text-slate-500 dark:text-gray-400 dark:text-gray-400" />
+                <span className="font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300">Document Preview</span>
               </div>
               <div className="flex gap-1.5">
                  <div className="w-3 h-3 rounded-full bg-red-400"></div>
@@ -190,9 +190,9 @@ Tenant
               </div>
            </div>
            
-           <div className="bg-white border border-slate-200 flex-1 shadow-inner relative">
+           <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 border border-slate-200 dark:border-gray-700 dark:border-gray-700 flex-1 shadow-inner relative">
               <div className="absolute top-0 left-0 w-8 h-full bg-red-50/50 border-r border-red-100 hidden sm:block"></div>
-              <pre className="p-6 sm:pl-14 text-sm font-serif text-slate-800 whitespace-pre-wrap leading-relaxed">
+              <pre className="p-6 sm:pl-14 text-sm font-serif text-slate-800 dark:text-gray-200 dark:text-gray-200 whitespace-pre-wrap leading-relaxed">
                  {generateLetterContent()}
               </pre>
            </div>

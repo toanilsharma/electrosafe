@@ -122,8 +122,8 @@ export const ShareableScoreCard: React.FC<ShareableScoreCardProps> = ({
           {/* Visual Score Card */}
           <div className={`relative overflow-hidden rounded-3xl bg-gradient-to-br ${gradientBg} text-white p-8 shadow-2xl mb-4`}>
             {/* Decorative circles */}
-            <div className="absolute -top-12 -right-12 w-40 h-40 rounded-full bg-white/10"></div>
-            <div className="absolute -bottom-8 -left-8 w-32 h-32 rounded-full bg-white/10"></div>
+            <div className="absolute -top-12 -right-12 w-40 h-40 rounded-full bg-white dark:bg-gray-900 dark:bg-gray-900/10"></div>
+            <div className="absolute -bottom-8 -left-8 w-32 h-32 rounded-full bg-white dark:bg-gray-900 dark:bg-gray-900/10"></div>
 
             <div className="relative z-10 text-center">
               <p className="text-sm font-bold uppercase tracking-widest text-white/80 mb-4">
@@ -132,7 +132,7 @@ export const ShareableScoreCard: React.FC<ShareableScoreCardProps> = ({
 
               {/* Score Circle */}
               <div className="inline-flex items-center justify-center">
-                <div className={`w-32 h-32 rounded-full border-4 ${ringColor} bg-white/15 backdrop-blur-sm flex flex-col items-center justify-center shadow-inner`}>
+                <div className={`w-32 h-32 rounded-full border-4 ${ringColor} bg-white dark:bg-gray-900 dark:bg-gray-900/15 backdrop-blur-sm flex flex-col items-center justify-center shadow-inner`}>
                   <span className="text-5xl font-black">{safetyPercent}%</span>
                   <span className="text-xs font-bold uppercase tracking-wider text-white/80">Safety</span>
                 </div>
@@ -151,8 +151,8 @@ export const ShareableScoreCard: React.FC<ShareableScoreCardProps> = ({
           </div>
 
           {/* Share Buttons */}
-          <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
-            <p className="text-center text-sm font-bold text-gray-500 uppercase tracking-wider mb-4">
+          <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-800 dark:border-gray-800">
+            <p className="text-center text-sm font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 uppercase tracking-wider mb-4">
               🎯 Challenge friends to beat your score
             </p>
 
@@ -189,7 +189,7 @@ export const ShareableScoreCard: React.FC<ShareableScoreCardProps> = ({
               className={`w-full py-3 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 mb-3 ${
                 copied
                   ? 'bg-green-100 text-green-700 border border-green-200'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200 border border-gray-200'
+                  : 'bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 text-gray-600 dark:text-gray-400 dark:text-gray-400 hover:bg-gray-200 border border-gray-200 dark:border-gray-700 dark:border-gray-700'
               }`}
             >
               {copied ? (

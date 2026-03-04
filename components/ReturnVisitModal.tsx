@@ -89,7 +89,7 @@ export const ReturnVisitModal: React.FC = () => {
 
   return (
     <div className="fixed bottom-24 right-6 z-40 max-w-sm w-full animate-in slide-in-from-bottom-4 duration-500 no-print">
-      <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
+      <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 dark:border-gray-700 overflow-hidden">
         {/* Header */}
         <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-4 flex justify-between items-start">
           <div className="flex items-center gap-2">
@@ -107,7 +107,7 @@ export const ReturnVisitModal: React.FC = () => {
         {/* Daily Tip */}
         <div className="p-4">
           <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">⚡ Today's Safety Tip</p>
-          <p className="text-gray-700 text-sm leading-relaxed font-medium">{tip}</p>
+          <p className="text-gray-700 dark:text-gray-300 dark:text-gray-300 text-sm leading-relaxed font-medium">{tip}</p>
         </div>
 
         {/* Quick Actions */}
@@ -117,10 +117,10 @@ export const ReturnVisitModal: React.FC = () => {
             Quiz <ArrowRight className="w-3 h-3" />
           </Link>
           <Link to="/my-home" onClick={dismiss}
-            className="flex-1 text-center px-3 py-2 bg-gray-100 text-gray-700 rounded-xl font-bold text-xs hover:bg-gray-200 transition">
+            className="flex-1 text-center px-3 py-2 bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 dark:text-gray-300 rounded-xl font-bold text-xs hover:bg-gray-200 transition">
             My Home
           </Link>
-          <button onClick={dismiss} className="px-3 py-2 text-gray-400 text-xs hover:text-gray-600 transition">Later</button>
+          <button onClick={dismiss} className="px-3 py-2 text-gray-400 text-xs hover:text-gray-600 dark:text-gray-300 dark:hover:text-gray-100 transition">Later</button>
         </div>
       </div>
     </div>

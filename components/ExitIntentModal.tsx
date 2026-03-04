@@ -49,7 +49,7 @@ export const ExitIntentModal: React.FC = () => {
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300">
-      <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl max-w-md w-full overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-4 duration-400">
+      <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 rounded-3xl shadow-2xl max-w-md w-full overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-4 duration-400">
         {/* Header */}
         <div className="bg-gradient-to-r from-red-600 to-red-700 p-6 text-white relative">
           <button
@@ -60,7 +60,7 @@ export const ExitIntentModal: React.FC = () => {
             <X className="w-5 h-5" />
           </button>
           <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 bg-white/20 rounded-xl">
+            <div className="p-2 bg-white dark:bg-gray-900 dark:bg-gray-900/20 rounded-xl">
               <AlertTriangle className="w-6 h-6" />
             </div>
             <div>
@@ -74,7 +74,7 @@ export const ExitIntentModal: React.FC = () => {
         {/* Tips */}
         <div className="p-5 space-y-2.5">
           {EMERGENCY_TIPS.map((tip, i) => (
-            <div key={i} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+            <div key={i} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300">
               <span className="leading-relaxed">{tip}</span>
             </div>
           ))}
@@ -92,12 +92,12 @@ export const ExitIntentModal: React.FC = () => {
           <Link
             to="/emergency"
             onClick={dismiss}
-            className="w-full flex items-center justify-center gap-2 py-3 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-xl font-bold hover:bg-gray-200 transition text-sm"
+            className="w-full flex items-center justify-center gap-2 py-3 bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 rounded-xl font-bold hover:bg-gray-200 transition text-sm"
           >
             <Zap className="w-4 h-4" />
             View Full Emergency Guide
           </Link>
-          <button onClick={dismiss} className="text-xs text-gray-400 hover:text-gray-600 transition text-center">
+          <button onClick={dismiss} className="text-xs text-gray-400 hover:text-gray-600 dark:text-gray-400 dark:text-gray-400 transition text-center">
             No thanks, I already know what to do
           </button>
         </div>

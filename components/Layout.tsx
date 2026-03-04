@@ -6,7 +6,8 @@ import {
   Menu, X, Zap, ShieldCheck, Search, ChevronRight, AlertOctagon,
   ChevronDown, Calculator, ClipboardCheck, AlertTriangle, UserCheck,
   Facebook, Linkedin, Twitter, Instagram, MessageCircle, DollarSign,
-  Hammer, LifeBuoy, BookOpen, PenTool, Image, Download, Mail, Globe, Map, Camera, Baby, BatteryCharging, Bell, Gavel
+  Hammer, LifeBuoy, BookOpen, PenTool, Image, Download, Mail, Globe, Map, Camera, Baby, BatteryCharging, Bell, Gavel,
+  Sun, Car, Ghost, Flame, Monitor, Clock, CloudLightning, Sparkles
 } from 'lucide-react';
 import { ARTICLES, APPLIANCES, ROOMS, HAZARD_GALLERY } from '../data';
 import { ReturnVisitModal } from './ReturnVisitModal';
@@ -37,7 +38,7 @@ const NavDropdown = ({ title, items, icon: Icon }: { title: string, items: any[]
       onMouseLeave={handleMouseLeave}
     >
       <button
-        className={`flex items-center gap-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${isOpen ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+        className={`flex items-center gap-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${isOpen ? 'text-blue-600 bg-blue-50' : 'text-gray-700 dark:text-gray-300 dark:text-gray-300 hover:text-blue-600 hover:bg-gray-50 dark:bg-gray-800 dark:bg-gray-800'
           }`}
       >
         <Icon className="w-4 h-4" />
@@ -46,21 +47,21 @@ const NavDropdown = ({ title, items, icon: Icon }: { title: string, items: any[]
       </button>
 
       {isOpen && (
-        <div className="absolute top-full left-0 w-80 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden z-50 animate-in fade-in slide-in-from-top-2">
+        <div className="absolute top-full left-0 w-80 bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-xl shadow-xl border border-gray-100 dark:border-gray-800 dark:border-gray-800 overflow-hidden z-50 animate-in fade-in slide-in-from-top-2">
           <div className="p-2 space-y-1">
             {items.map((item, idx) => (
               <Link
                 key={idx}
                 to={item.path}
                 onClick={() => setIsOpen(false)}
-                className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
+                className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 transition-colors group"
               >
                 <div className={`mt-1 p-2 rounded-lg ${item.colorBg} ${item.colorText}`}>
                   <item.icon className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="font-bold text-gray-900 text-sm group-hover:text-blue-600">{item.name}</div>
-                  <div className="text-xs text-gray-500 leading-tight mt-0.5">{item.desc}</div>
+                  <div className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 text-sm group-hover:text-blue-600">{item.name}</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 leading-tight mt-0.5">{item.desc}</div>
                 </div>
               </Link>
             ))}
@@ -110,6 +111,14 @@ const Navbar = () => {
       { type: 'Tool', title: 'EV Charger Sizer', path: '/ev-charger', sub: 'Calculator' },
       { type: 'Tool', title: 'Alarm Calendar', path: '/alarm-calendar', sub: 'Recall Radar' },
       { type: 'Tool', title: 'Renters Demand', path: '/tenant-demand', sub: 'Legal Generator' },
+      { type: 'Tool', title: 'Solar ROI Calculator', path: '/solar-roi', sub: 'Payback & CO₂' },
+      { type: 'Tool', title: 'EV Cost Comparison', path: '/ev-cost-compare', sub: 'Cost Savings' },
+      { type: 'Tool', title: 'Ghost Power Finder', path: '/ghost-power', sub: 'Standby Cost' },
+      { type: 'Tool', title: 'Dryer Vent Risk', path: '/dryer-vent-risk', sub: 'Fire Safety' },
+      { type: 'Tool', title: 'WFH Load Auditor', path: '/wfh-load-audit', sub: 'Circuit Check' },
+      { type: 'Tool', title: 'Appliance Life Gauge', path: '/appliance-life', sub: 'Efficiency' },
+      { type: 'Tool', title: 'Lightning Risk', path: '/lightning-risk', sub: 'IEC 62305' },
+      { type: 'Tool', title: 'Holiday Lights Planner', path: '/holiday-lights', sub: 'Circuit Safety' },
       { type: 'Guide', title: 'Hardware Encyclopedia', path: '/hardware', sub: 'MCB/Wire/Switch' },
       { type: 'Guide', title: 'New Home Master Plan', path: '/new-home', sub: 'Construction' },
     ];
@@ -122,6 +131,14 @@ const Navbar = () => {
 
   // Nav Data Structure
   const toolsMenu = [
+    { name: 'Solar ROI Calculator', path: '/solar-roi', icon: Sun, desc: 'Payback period & CO₂ savings', colorBg: 'bg-amber-100', colorText: 'text-amber-600' },
+    { name: 'EV Cost Comparison', path: '/ev-cost-compare', icon: Car, desc: 'Home vs public vs petrol', colorBg: 'bg-blue-100', colorText: 'text-blue-600' },
+    { name: 'Ghost Power Finder', path: '/ghost-power', icon: Ghost, desc: 'Phantom standby cost', colorBg: 'bg-purple-100', colorText: 'text-purple-600' },
+    { name: 'Dryer Vent Fire Risk', path: '/dryer-vent-risk', icon: Flame, desc: 'Lint fire probability', colorBg: 'bg-red-100', colorText: 'text-red-600' },
+    { name: 'WFH Load Auditor', path: '/wfh-load-audit', icon: Monitor, desc: 'Home office circuit check', colorBg: 'bg-indigo-100', colorText: 'text-indigo-600' },
+    { name: 'Appliance Life Gauge', path: '/appliance-life', icon: Clock, desc: 'Efficiency decay by age', colorBg: 'bg-teal-100', colorText: 'text-teal-600' },
+    { name: 'Lightning Risk', path: '/lightning-risk', icon: CloudLightning, desc: 'IEC 62305 strike odds', colorBg: 'bg-sky-100', colorText: 'text-sky-600' },
+    { name: 'Holiday Lights Planner', path: '/holiday-lights', icon: Sparkles, desc: 'Max string calculator', colorBg: 'bg-red-100', colorText: 'text-red-600' },
     { name: 'Renters Generator', path: '/tenant-demand', icon: Gavel, desc: 'Formal hazard notice', colorBg: 'bg-red-100', colorText: 'text-red-600' },
     { name: 'Alarm Calendar', path: '/alarm-calendar', icon: Bell, desc: '10-year smoke alarm timer', colorBg: 'bg-orange-100', colorText: 'text-orange-600' },
     { name: 'EV Charger Sizer', path: '/ev-charger', icon: BatteryCharging, desc: 'Avoid NEMA 14-50 fires', colorBg: 'bg-green-100', colorText: 'text-green-600' },
@@ -142,7 +159,7 @@ const Navbar = () => {
 
   const learnMenu = [
     { name: 'Everyday Toolkit', path: '/everyday-safety', icon: LifeBuoy, desc: 'Life hacks & easy guides', colorBg: 'bg-cyan-100', colorText: 'text-cyan-600' },
-    { name: 'Articles', path: '/articles', icon: BookOpen, desc: 'Expert knowledge base', colorBg: 'bg-gray-100', colorText: 'text-gray-600' },
+    { name: 'Articles', path: '/articles', icon: BookOpen, desc: 'Expert knowledge base', colorBg: 'bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50', colorText: 'text-gray-600 dark:text-gray-400 dark:text-gray-400' },
     { name: 'Appliances', path: '/appliances', icon: PenTool, desc: 'Specific device safety', colorBg: 'bg-pink-100', colorText: 'text-pink-600' },
     { name: 'Room Guides', path: '/rooms', icon: Map, desc: 'Kitchen, Bath, etc.', colorBg: 'bg-indigo-100', colorText: 'text-indigo-600' },
     { name: 'Hazard Gallery', path: '/gallery', icon: Image, desc: 'Visual examples', colorBg: 'bg-rose-100', colorText: 'text-rose-600' },
@@ -152,7 +169,7 @@ const Navbar = () => {
   if (location.pathname === '/emergency') return null;
 
   return (
-    <nav className="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50 no-print border-b border-gray-100">
+    <nav className="bg-white dark:bg-gray-900 dark:bg-gray-900/90 backdrop-blur-md shadow-sm sticky top-0 z-50 no-print border-b border-gray-100 dark:border-gray-800 dark:border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
@@ -160,7 +177,7 @@ const Navbar = () => {
               <div className="bg-blue-600 p-1.5 rounded-lg group-hover:bg-blue-700 transition-colors">
                 <Zap className="h-6 w-6 text-white" />
               </div>
-              <span className="font-bold text-xl tracking-tight text-gray-900">
+              <span className="font-bold text-xl tracking-tight text-gray-900 dark:text-gray-100 dark:text-gray-100">
                 ElectroSafe<span className="text-blue-600">.homes</span>
               </span>
             </Link>
@@ -172,7 +189,7 @@ const Navbar = () => {
             <NavDropdown title="Master Guides" items={guidesMenu} icon={Hammer} />
             <NavDropdown title="Knowledge Base" items={learnMenu} icon={BookOpen} />
 
-            <Link to="/downloads" className="flex items-center gap-1 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">
+            <Link to="/downloads" className="flex items-center gap-1 px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 dark:text-gray-300 hover:text-blue-600 hover:bg-gray-50 dark:bg-gray-800 dark:bg-gray-800">
               <Download className="w-4 h-4" /> Downloads
             </Link>
 
@@ -182,24 +199,31 @@ const Navbar = () => {
 
             <button
               onClick={() => setIsSearchOpen(!isSearchOpen)}
-              className="p-2 text-gray-500 hover:text-blue-600 hover:bg-gray-100 rounded-full transition"
+              className="p-2 text-gray-500 dark:text-gray-400 hover:text-blue-600 hover:bg-gray-100 dark:hover:bg-gray-800/50 rounded-full transition"
             >
               <Search className="w-5 h-5" />
             </button>
+
+            <Link to="/assessment" className="ml-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full text-sm shadow-lg hover:shadow-blue-500/30 transition-all flex items-center gap-2">
+              <ClipboardCheck className="w-4 h-4" /> Start Scan
+            </Link>
           </div>
 
           {/* MOBILE TOGGLE */}
-          <div className="flex items-center lg:hidden gap-3">
+          <div className="flex items-center lg:hidden gap-2 sm:gap-3">
+            <Link to="/assessment" className="px-3 py-1.5 bg-blue-600 text-white font-bold rounded-full text-xs shadow-md">
+               Scan
+            </Link>
             <DarkModeToggle dark={dark} onToggle={() => setDark(!dark)} />
             <button
               onClick={() => setIsSearchOpen(!isSearchOpen)}
-              className="p-2 text-gray-500"
+              className="p-2 text-gray-500 dark:text-gray-400 dark:text-gray-400"
             >
               <Search className="w-6 h-6" />
             </button>
             <button
               onClick={() => setIsMobileOpen(!isMobileOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 dark:text-gray-400 dark:text-gray-400 hover:bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 focus:outline-none"
             >
               {isMobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -209,7 +233,7 @@ const Navbar = () => {
 
       {/* Global Search Overlay */}
       {isSearchOpen && (
-        <div className="absolute top-16 left-0 w-full bg-white shadow-xl border-t border-gray-100 p-4 animate-in slide-in-from-top-2">
+        <div className="absolute top-16 left-0 w-full bg-white dark:bg-gray-900 dark:bg-gray-900 shadow-xl border-t border-gray-100 dark:border-gray-800 dark:border-gray-800 p-4 animate-in slide-in-from-top-2">
           <div className="max-w-3xl mx-auto">
             <div className="relative">
               <Search className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
@@ -223,16 +247,16 @@ const Navbar = () => {
               />
               <button
                 onClick={() => { setIsSearchOpen(false); setSearchQuery(''); }}
-                className="absolute right-3 top-2.5 px-2 py-1 text-xs bg-gray-100 rounded text-gray-500 hover:bg-gray-200"
+                className="absolute right-3 top-2.5 px-2 py-1 text-xs bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 rounded text-gray-500 dark:text-gray-400 dark:text-gray-400 hover:bg-gray-200"
               >
                 ESC
               </button>
             </div>
 
             {searchQuery && (
-              <div className="mt-4 max-h-64 overflow-y-auto bg-gray-50 rounded-lg border border-gray-200 custom-scrollbar">
+              <div className="mt-4 max-h-64 overflow-y-auto bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 dark:border-gray-700 custom-scrollbar">
                 {getSearchResults().length === 0 ? (
-                  <div className="p-4 text-gray-500 text-center">No results found for "{searchQuery}"</div>
+                  <div className="p-4 text-gray-500 dark:text-gray-400 dark:text-gray-400 text-center">No results found for "{searchQuery}"</div>
                 ) : (
                   getSearchResults().map((res, idx) => (
                     <button
@@ -247,11 +271,11 @@ const Navbar = () => {
                         setIsSearchOpen(false);
                         setSearchQuery('');
                       }}
-                      className="w-full text-left p-3 hover:bg-blue-50 border-b border-gray-100 last:border-0 flex justify-between items-center group"
+                      className="w-full text-left p-3 hover:bg-blue-50 border-b border-gray-100 dark:border-gray-800 dark:border-gray-800 last:border-0 flex justify-between items-center group"
                     >
                       <div>
-                        <div className="font-bold text-gray-800 group-hover:text-blue-700">{res.title}</div>
-                        <div className="text-xs text-gray-500">{res.type} • {res.sub}</div>
+                        <div className="font-bold text-gray-800 dark:text-gray-200 dark:text-gray-200 group-hover:text-blue-700">{res.title}</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400">{res.type} • {res.sub}</div>
                       </div>
                       <ChevronRight className="w-4 h-4 text-gray-300 group-hover:text-blue-500" />
                     </button>
@@ -265,7 +289,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isMobileOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-100 overflow-y-auto max-h-[80vh]">
+        <div className="lg:hidden bg-white dark:bg-gray-900 dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 dark:border-gray-800 overflow-y-auto max-h-[80vh]">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <div className="px-3 py-2 text-xs font-bold text-gray-400 uppercase tracking-wider">Tools</div>
             {toolsMenu.map((link) => (
@@ -273,7 +297,7 @@ const Navbar = () => {
                 key={link.name}
                 to={link.path}
                 onClick={() => setIsMobileOpen(false)}
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 dark:text-gray-300 hover:text-blue-600 hover:bg-gray-50 dark:bg-gray-800 dark:bg-gray-800"
               >
                 {link.name}
               </Link>
@@ -284,7 +308,7 @@ const Navbar = () => {
                 key={link.name}
                 to={link.path}
                 onClick={() => setIsMobileOpen(false)}
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 dark:text-gray-300 hover:text-blue-600 hover:bg-gray-50 dark:bg-gray-800 dark:bg-gray-800"
               >
                 {link.name}
               </Link>
@@ -295,7 +319,7 @@ const Navbar = () => {
                 key={link.name}
                 to={link.path}
                 onClick={() => setIsMobileOpen(false)}
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 dark:text-gray-300 hover:text-blue-600 hover:bg-gray-50 dark:bg-gray-800 dark:bg-gray-800"
               >
                 {link.name}
               </Link>
@@ -323,8 +347,8 @@ const Breadcrumbs = () => {
   const formatName = (str: string) => str.replace('-', ' ').replace(/\b\w/g, c => c.toUpperCase());
 
   return (
-    <div className="bg-gray-50 border-b border-gray-200 py-2 no-print">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-xs text-gray-500 flex items-center">
+    <div className="bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 dark:border-gray-700 py-2 no-print">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 flex items-center">
         <Link to="/" className="hover:text-blue-600">Home</Link>
         {pathnames.map((name, index) => {
           const routeTo = `/${pathnames.slice(0, index + 1).join('/')}`;
@@ -333,7 +357,7 @@ const Breadcrumbs = () => {
             <React.Fragment key={name}>
               <span className="mx-2 text-gray-300">/</span>
               {isLast ? (
-                <span className="text-gray-800 font-medium">{formatName(name)}</span>
+                <span className="text-gray-800 dark:text-gray-200 dark:text-gray-200 font-medium">{formatName(name)}</span>
               ) : (
                 <Link to={routeTo} className="hover:text-blue-600">{formatName(name)}</Link>
               )}
@@ -733,6 +757,55 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       type: 'WebPage',
       keywords: 'home electrical safety UK, BS 7671, EICR report, Part P, RCD protection, consumer unit'
     },
+    // Phase 6 Global Calculators
+    '/solar-roi': {
+      title: 'Solar ROI & Panel Ready Check Calculator',
+      desc: 'Calculate solar panel payback period, annual savings, CO₂ reduction, and check if your electrical panel can safely handle solar. IEC 62446 & NEC 690.',
+      type: 'SoftwareApplication',
+      keywords: 'solar ROI calculator, solar payback period, solar panel savings, CO2 reduction solar, panel ready check'
+    },
+    '/ev-cost-compare': {
+      title: 'EV Charging Cost Comparison — Home vs Public vs Petrol',
+      desc: 'Compare annual costs of home EV charging, public charging, and petrol/gas vehicles. Calculate CO₂ savings. Based on SAE J1772 & IEC 61851.',
+      type: 'SoftwareApplication',
+      keywords: 'EV charging cost, home charging vs public, EV vs petrol cost, electric vehicle savings'
+    },
+    '/ghost-power': {
+      title: 'Ghost Power Standby Cost Finder — IEC 62301',
+      desc: 'Discover how much your smart home devices cost in phantom standby power. 22-device library with IEC 62301-measured standby values.',
+      type: 'SoftwareApplication',
+      keywords: 'phantom load calculator, standby power cost, ghost electricity, vampire power, smart home standby'
+    },
+    '/dryer-vent-risk': {
+      title: 'Dryer Vent Fire Probability Meter — NFPA Data',
+      desc: '5-question lint fire risk assessment with compound multipliers. 34% of dryer fires caused by lint buildup. Based on NFPA 211.',
+      type: 'SoftwareApplication',
+      keywords: 'dryer vent fire risk, lint fire probability, dryer vent cleaning, NFPA dryer safety'
+    },
+    '/wfh-load-audit': {
+      title: 'Work-From-Home Circuit Load Auditor',
+      desc: 'Check if your home office overloads the bedroom circuit. Live gauge with 27-device library. Based on NEC 210.23 & IEC 60884.',
+      type: 'SoftwareApplication',
+      keywords: 'WFH circuit overload, home office electrical, bedroom circuit capacity, work from home power'
+    },
+    '/appliance-life': {
+      title: 'Appliance Life Expectancy & Efficiency Gauge',
+      desc: 'Check if your appliance is past its lifespan, losing efficiency, or becoming a safety hazard. 20+ appliances with ENERGY STAR data.',
+      type: 'SoftwareApplication',
+      keywords: 'appliance lifespan calculator, appliance efficiency, when to replace appliance, ENERGY STAR lifespan'
+    },
+    '/lightning-risk': {
+      title: 'Lightning Strike Probability Calculator — IEC 62305',
+      desc: 'Calculate lightning strike probability using IEC 62305-2 collection area formula. Includes surge protector ROI analysis.',
+      type: 'SoftwareApplication',
+      keywords: 'lightning strike probability, IEC 62305 calculator, surge protector ROI, lightning protection'
+    },
+    '/holiday-lights': {
+      title: 'Holiday Lights Safety Planner — Circuit Capacity Calculator',
+      desc: 'Calculate how many holiday light strings your circuit can handle. LED vs incandescent comparison. Based on UL 588 & NEC.',
+      type: 'SoftwareApplication',
+      keywords: 'holiday lights calculator, Christmas lights circuit, LED vs incandescent, max light strings'
+    },
   };
 
   /* Restore necessary variable declarations */
@@ -813,7 +886,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
   }, [location]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50 font-sans">
+    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 font-sans">
       <Helmet>
         <title>{fullTitle}</title>
         <meta name="description" content={data.desc} />

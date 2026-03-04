@@ -58,10 +58,10 @@ export const EmbeddableBadge = () => {
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-100 text-green-800 text-xs font-bold uppercase tracking-wider mb-4">
           <ShieldCheck className="w-3.5 h-3.5" /> Free to Use
         </div>
-        <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-4">
+        <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-4">
           Embed a Safety Badge
         </h1>
-        <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+        <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400 text-lg max-w-2xl mx-auto">
           Show tenants, buyers, and visitors that electrical safety is a priority.
           Add our free badge to your property listing, landlord website, or real estate page.
         </p>
@@ -69,7 +69,7 @@ export const EmbeddableBadge = () => {
 
       {/* Badge Style Selector */}
       <div className="mb-8">
-        <h2 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-4 flex items-center gap-2">
+        <h2 className="text-sm font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-2">
           <Palette className="w-4 h-4" /> Choose Style
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -80,14 +80,14 @@ export const EmbeddableBadge = () => {
               className={`p-4 rounded-xl border-2 transition-all text-left ${
                 selectedStyle === style.id
                   ? 'border-blue-500 bg-blue-50 ring-2 ring-blue-200'
-                  : 'border-gray-200 hover:border-gray-300 bg-white'
+                  : 'border-gray-200 dark:border-gray-700 dark:border-gray-700 hover:border-gray-300 bg-white dark:bg-gray-900 dark:bg-gray-900'
               }`}
             >
               <div 
                 className="w-full h-8 rounded-lg mb-2" 
                 style={{ background: style.preview.bg, border: `1px solid ${style.preview.bg === '#ffffff' ? '#e2e8f0' : 'transparent'}` }}
               ></div>
-              <span className="text-sm font-bold text-gray-900">{style.name}</span>
+              <span className="text-sm font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100">{style.name}</span>
             </button>
           ))}
         </div>
@@ -95,10 +95,10 @@ export const EmbeddableBadge = () => {
 
       {/* Preview */}
       <div className="mb-8">
-        <h2 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-4 flex items-center gap-2">
+        <h2 className="text-sm font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-2">
           <ExternalLink className="w-4 h-4" /> Preview
         </h2>
-        <div className="bg-gray-100 rounded-2xl p-8 flex items-center justify-center min-h-[120px] border border-gray-200">
+        <div className="bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 rounded-2xl p-8 flex items-center justify-center min-h-[120px] border border-gray-200 dark:border-gray-700 dark:border-gray-700">
           <div dangerouslySetInnerHTML={{ __html: currentBadge.html }} />
         </div>
       </div>
@@ -106,7 +106,7 @@ export const EmbeddableBadge = () => {
       {/* Code Block */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-sm font-bold text-gray-500 uppercase tracking-wider flex items-center gap-2">
+          <h2 className="text-sm font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 uppercase tracking-wider flex items-center gap-2">
             <Code className="w-4 h-4" /> Embed Code
           </h2>
           <button
@@ -129,27 +129,27 @@ export const EmbeddableBadge = () => {
 
       {/* How to Use */}
       <div className="bg-blue-50 rounded-2xl p-8 border border-blue-100">
-        <h2 className="text-xl font-bold text-gray-900 mb-6">How to Use</h2>
+        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-6">How to Use</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="flex gap-4 items-start">
             <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">1</div>
             <div>
-              <h3 className="font-bold text-gray-900 mb-1">Choose a Style</h3>
-              <p className="text-sm text-gray-600">Pick the badge that matches your site's design.</p>
+              <h3 className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-1">Choose a Style</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400">Pick the badge that matches your site's design.</p>
             </div>
           </div>
           <div className="flex gap-4 items-start">
             <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">2</div>
             <div>
-              <h3 className="font-bold text-gray-900 mb-1">Copy the Code</h3>
-              <p className="text-sm text-gray-600">Click "Copy Code" and paste it into your HTML.</p>
+              <h3 className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-1">Copy the Code</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400">Click "Copy Code" and paste it into your HTML.</p>
             </div>
           </div>
           <div className="flex gap-4 items-start">
             <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">3</div>
             <div>
-              <h3 className="font-bold text-gray-900 mb-1">Build Trust</h3>
-              <p className="text-sm text-gray-600">Show visitors you take electrical safety seriously.</p>
+              <h3 className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-1">Build Trust</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400">Show visitors you take electrical safety seriously.</p>
             </div>
           </div>
         </div>
@@ -157,21 +157,21 @@ export const EmbeddableBadge = () => {
 
       {/* Use Cases */}
       <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="bg-white rounded-xl p-6 border border-gray-200">
-          <h3 className="font-bold text-gray-900 mb-2">🏠 Landlords & Property Managers</h3>
-          <p className="text-sm text-gray-600">Add to rental listings to show tenants the property has been safety-assessed. Differentiates your listing.</p>
+        <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-xl p-6 border border-gray-200 dark:border-gray-700 dark:border-gray-700">
+          <h3 className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-2">🏠 Landlords & Property Managers</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400">Add to rental listings to show tenants the property has been safety-assessed. Differentiates your listing.</p>
         </div>
-        <div className="bg-white rounded-xl p-6 border border-gray-200">
-          <h3 className="font-bold text-gray-900 mb-2">🏗️ Electricians & Contractors</h3>
-          <p className="text-sm text-gray-600">Add to your business website to show you align with global safety standards.</p>
+        <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-xl p-6 border border-gray-200 dark:border-gray-700 dark:border-gray-700">
+          <h3 className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-2">🏗️ Electricians & Contractors</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400">Add to your business website to show you align with global safety standards.</p>
         </div>
-        <div className="bg-white rounded-xl p-6 border border-gray-200">
-          <h3 className="font-bold text-gray-900 mb-2">📝 Real Estate Agents</h3>
-          <p className="text-sm text-gray-600">Embed in property brochures and listings pages to add a credibility layer.</p>
+        <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-xl p-6 border border-gray-200 dark:border-gray-700 dark:border-gray-700">
+          <h3 className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-2">📝 Real Estate Agents</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400">Embed in property brochures and listings pages to add a credibility layer.</p>
         </div>
-        <div className="bg-white rounded-xl p-6 border border-gray-200">
-          <h3 className="font-bold text-gray-900 mb-2">🏫 Community & Safety Blogs</h3>
-          <p className="text-sm text-gray-600">Link your safety content to authoritative verification tools.</p>
+        <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-xl p-6 border border-gray-200 dark:border-gray-700 dark:border-gray-700">
+          <h3 className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-2">🏫 Community & Safety Blogs</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400">Link your safety content to authoritative verification tools.</p>
         </div>
       </div>
     </div>

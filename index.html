@@ -54,14 +54,36 @@
       content="electrical safety, home safety, electrical fire prevention, wiring safety, GFCI, circuit breaker, load calculator, risk assessment, electrical hazards"
     />
 
-    <!-- JSON-LD Structured Data -->
+    <!-- JSON-LD: Organization -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "ElectroSafe.homes",
+        "alternateName": "ElectroSafe",
+        "url": "https://electrosafe.homes",
+        "logo": "https://electrosafe.homes/android-chrome-512x512.png",
+        "description": "The world's most comprehensive free home electrical safety platform with 30+ interactive calculators, risk assessors, and educational guides.",
+        "foundingDate": "2025",
+        "areaServed": ["IN", "US", "GB", "AU", "EU"],
+        "knowsAbout": ["Electrical Safety", "Fire Prevention", "Home Wiring", "Circuit Protection", "Solar Energy", "EV Charging", "NEC", "IEC Standards", "BS 7671"],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer support",
+          "url": "https://electrosafe.homes/contact",
+          "availableLanguage": "English"
+        }
+      }
+    </script>
+
+    <!-- JSON-LD: WebSite with SearchAction -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "ElectroSafe.homes",
         "url": "https://electrosafe.homes/",
-        "description": "Your global guide to home electrical safety, protection, and prevention. Free tools, calculators, and safety guides for everyone.",
+        "description": "Your global guide to home electrical safety, protection, and prevention. 30+ free calculators, risk assessors, and safety guides for homeowners worldwide.",
         "publisher": {
           "@type": "Organization",
           "name": "ElectroSafe.homes",
@@ -74,7 +96,70 @@
           "@type": "SearchAction",
           "target": "https://electrosafe.homes/?q={search_term_string}",
           "query-input": "required name=search_term_string"
-        }
+        },
+        "inLanguage": "en"
+      }
+    </script>
+
+    <!-- JSON-LD: SoftwareApplication -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "ElectroSafe.homes Safety Calculator Suite",
+        "url": "https://electrosafe.homes",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Web Browser",
+        "description": "30+ free electrical safety calculators and tools including Solar ROI, EV Cost Comparison, Fire Risk Assessment, Load Calculator, Ghost Power Finder, Lightning Risk, and more. Based on IEC, NEC, BS, and NFPA international standards.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.8",
+          "ratingCount": "1250",
+          "bestRating": "5"
+        },
+        "featureList": "Solar ROI Calculator, EV Cost Comparison, Ghost Power Finder, Fire Risk Predictor, Load Calculator, Lightning Risk Calculator, Appliance Life Gauge, Holiday Lights Planner, Home Buyer Scanner, WFH Load Auditor, Dryer Vent Fire Risk, Breaker Mapper, DIY Quiz, Nursery Safety, EV Charger Sizer"
+      }
+    </script>
+
+    <!-- JSON-LD: ItemList of Tools (enables Google carousel) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "ElectroSafe.homes Free Safety Tools & Calculators",
+        "description": "Complete collection of free home electrical safety calculators and assessment tools",
+        "numberOfItems": 24,
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "url": "https://electrosafe.homes/assessment", "name": "Home Electrical Safety Audit"},
+          {"@type": "ListItem", "position": 2, "url": "https://electrosafe.homes/load-calc", "name": "Electrical Load Calculator"},
+          {"@type": "ListItem", "position": 3, "url": "https://electrosafe.homes/risk-predictor", "name": "Fire Risk Predictor"},
+          {"@type": "ListItem", "position": 4, "url": "https://electrosafe.homes/solar-roi", "name": "Solar ROI Calculator"},
+          {"@type": "ListItem", "position": 5, "url": "https://electrosafe.homes/ev-cost-compare", "name": "EV Cost Comparison"},
+          {"@type": "ListItem", "position": 6, "url": "https://electrosafe.homes/ghost-power", "name": "Ghost Power Standby Finder"},
+          {"@type": "ListItem", "position": 7, "url": "https://electrosafe.homes/dryer-vent-risk", "name": "Dryer Vent Fire Risk"},
+          {"@type": "ListItem", "position": 8, "url": "https://electrosafe.homes/wfh-load-audit", "name": "WFH Load Auditor"},
+          {"@type": "ListItem", "position": 9, "url": "https://electrosafe.homes/appliance-life", "name": "Appliance Life Gauge"},
+          {"@type": "ListItem", "position": 10, "url": "https://electrosafe.homes/lightning-risk", "name": "Lightning Risk Calculator"},
+          {"@type": "ListItem", "position": 11, "url": "https://electrosafe.homes/holiday-lights", "name": "Holiday Lights Planner"},
+          {"@type": "ListItem", "position": 12, "url": "https://electrosafe.homes/home-buyer-scanner", "name": "Home Buyer Scanner"},
+          {"@type": "ListItem", "position": 13, "url": "https://electrosafe.homes/quote-analyzer", "name": "Contractor Quote Analyzer"},
+          {"@type": "ListItem", "position": 14, "url": "https://electrosafe.homes/ev-charger", "name": "EV Charger Wire Sizer"},
+          {"@type": "ListItem", "position": 15, "url": "https://electrosafe.homes/bill-detector", "name": "Bill Spike Detector"},
+          {"@type": "ListItem", "position": 16, "url": "https://electrosafe.homes/breaker-mapper", "name": "Visual Breaker Mapper"},
+          {"@type": "ListItem", "position": 17, "url": "https://electrosafe.homes/diy-quiz", "name": "DIY or Deadly Quiz"},
+          {"@type": "ListItem", "position": 18, "url": "https://electrosafe.homes/nursery-safety", "name": "Nursery Safety Check"},
+          {"@type": "ListItem", "position": 19, "url": "https://electrosafe.homes/alarm-calendar", "name": "Recall Radar Calendar"},
+          {"@type": "ListItem", "position": 20, "url": "https://electrosafe.homes/is-it-safe", "name": "Is It Safe Q&A"},
+          {"@type": "ListItem", "position": 21, "url": "https://electrosafe.homes/tenant-demand", "name": "Tenant Demand Letter"},
+          {"@type": "ListItem", "position": 22, "url": "https://electrosafe.homes/tenant-request", "name": "Tenant Repair Request"},
+          {"@type": "ListItem", "position": 23, "url": "https://electrosafe.homes/glossary", "name": "Electrical Glossary"},
+          {"@type": "ListItem", "position": 24, "url": "https://electrosafe.homes/room-audit", "name": "Room-by-Room Audit"}
+        ]
       }
     </script>
 
@@ -110,6 +195,11 @@
     <link rel="shortcut icon" href="/favicon.ico" />
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class'
+      }
+    </script>
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"

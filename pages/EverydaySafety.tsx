@@ -19,8 +19,8 @@ export const EverydaySafety = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
       <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">Everyday Safety Toolkit</h1>
-        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+        <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-4">Everyday Safety Toolkit</h1>
+        <p className="text-xl text-gray-600 dark:text-gray-400 dark:text-gray-400 max-w-2xl mx-auto">
           Simple tools for non-experts. From choosing the right lightbulb to handling a power outage.
         </p>
       </div>
@@ -28,7 +28,7 @@ export const EverydaySafety = () => {
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Sidebar */}
         <div className="lg:w-1/4 flex-shrink-0">
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden sticky top-24">
+          <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 dark:border-gray-700 overflow-hidden sticky top-24">
             {[
               { id: 'lightbulb', label: 'Lightbulb Guide', icon: Lightbulb },
               { id: 'outage', label: 'Outage Detective', icon: HelpCircle },
@@ -41,7 +41,7 @@ export const EverydaySafety = () => {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`w-full flex items-center gap-3 px-4 py-4 text-left border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors ${activeTab === tab.id ? 'bg-blue-50 text-blue-700 font-bold border-l-4 border-l-blue-600' : 'text-gray-700'
+                className={`w-full flex items-center gap-3 px-4 py-4 text-left border-b border-gray-100 dark:border-gray-800 dark:border-gray-800 last:border-0 hover:bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 transition-colors ${activeTab === tab.id ? 'bg-blue-50 text-blue-700 font-bold border-l-4 border-l-blue-600' : 'text-gray-700 dark:text-gray-300 dark:text-gray-300'
                   }`}
               >
                 <tab.icon className={`w-5 h-5 ${activeTab === tab.id ? 'text-blue-600' : 'text-gray-400'}`} />
@@ -107,7 +107,7 @@ const LightbulbTool = () => {
   ];
 
   return (
-    <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+    <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-8 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 dark:border-gray-700">
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(schema)}</script>
       </Helmet>
@@ -124,12 +124,12 @@ const LightbulbTool = () => {
         </p>
       </div>
 
-      <div className="flex gap-2 mb-8 bg-gray-100 p-1 rounded-lg">
+      <div className="flex gap-2 mb-8 bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 p-1 rounded-lg">
         {['color', 'brightness', 'fitting'].map(m => (
           <button
             key={m}
             onClick={() => setMode(m as any)}
-            className={`flex-1 py-2 rounded-md text-sm font-bold capitalize transition-all ${mode === m ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
+            className={`flex-1 py-2 rounded-md text-sm font-bold capitalize transition-all ${mode === m ? 'bg-white dark:bg-gray-900 dark:bg-gray-900 text-blue-600 shadow-sm' : 'text-gray-500 dark:text-gray-400 dark:text-gray-400 hover:text-gray-700 dark:text-gray-300 dark:text-gray-300'}`}
           >
             {m}
           </button>
@@ -138,7 +138,7 @@ const LightbulbTool = () => {
 
       {mode === 'color' && (
         <div className="animate-in fade-in">
-          <p className="text-gray-600 mb-8">Stop guessing at the supermarket. Slide to find the perfect light mood.</p>
+          <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400 mb-8">Stop guessing at the supermarket. Slide to find the perfect light mood.</p>
           <div className="mb-12">
             <div className="flex justify-between text-xs font-bold text-gray-400 mb-2 uppercase">
               <span>Warm (Cozy)</span>
@@ -153,21 +153,21 @@ const LightbulbTool = () => {
               onChange={(e) => setKelvin(parseInt(e.target.value))}
               className="w-full h-4 bg-gradient-to-r from-orange-300 via-yellow-100 to-blue-200 rounded-lg appearance-none cursor-pointer"
             />
-            <div className="text-center mt-4 font-mono font-bold text-xl text-gray-800">{kelvin}K</div>
+            <div className="text-center mt-4 font-mono font-bold text-xl text-gray-800 dark:text-gray-200 dark:text-gray-200">{kelvin}K</div>
           </div>
 
-          <div className="bg-gray-50 p-6 rounded-xl text-center border border-gray-100">
-            <div className="text-sm text-gray-500 uppercase font-bold mb-1">Best For</div>
-            <div className="text-2xl font-bold text-gray-900 mb-4">{guide.use}</div>
+          <div className="bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 p-6 rounded-xl text-center border border-gray-100 dark:border-gray-800 dark:border-gray-800">
+            <div className="text-sm text-gray-500 dark:text-gray-400 dark:text-gray-400 uppercase font-bold mb-1">Best For</div>
+            <div className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-4">{guide.use}</div>
 
             <div className="grid grid-cols-2 gap-4 text-left">
-              <div className="bg-white p-4 rounded-lg shadow-sm">
+              <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-4 rounded-lg shadow-sm">
                 <div className="text-xs text-gray-400 font-bold uppercase">Mood</div>
-                <div className="font-medium text-gray-800">{guide.mood}</div>
+                <div className="font-medium text-gray-800 dark:text-gray-200 dark:text-gray-200">{guide.mood}</div>
               </div>
-              <div className="bg-white p-4 rounded-lg shadow-sm">
+              <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-4 rounded-lg shadow-sm">
                 <div className="text-xs text-gray-400 font-bold uppercase">Look for label</div>
-                <div className="font-medium text-gray-800">{guide.label}</div>
+                <div className="font-medium text-gray-800 dark:text-gray-200 dark:text-gray-200">{guide.label}</div>
               </div>
             </div>
           </div>
@@ -176,10 +176,10 @@ const LightbulbTool = () => {
 
       {mode === 'brightness' && (
         <div className="animate-in fade-in">
-          <p className="text-gray-600 mb-6">Watts used to measure brightness. Now, <strong>Lumens</strong> measure brightness. Use this to replace old bulbs.</p>
+          <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400 mb-6">Watts used to measure brightness. Now, <strong>Lumens</strong> measure brightness. Use this to replace old bulbs.</p>
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left">
-              <thead className="bg-gray-50 text-gray-600 uppercase text-xs">
+              <thead className="bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 text-gray-600 dark:text-gray-400 dark:text-gray-400 uppercase text-xs">
                 <tr>
                   <th className="p-3">Old Bulb</th>
                   <th className="p-3 text-green-600">Buy LED</th>
@@ -190,10 +190,10 @@ const LightbulbTool = () => {
               <tbody className="divide-y divide-gray-100">
                 {WATT_CONVERTER.map((row, i) => (
                   <tr key={i}>
-                    <td className="p-3 font-bold text-gray-500">{row.inc} Watts</td>
+                    <td className="p-3 font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400">{row.inc} Watts</td>
                     <td className="p-3 font-bold text-green-600 text-lg">{row.led}</td>
                     <td className="p-3 font-mono">{row.lumens} lm</td>
-                    <td className="p-3 text-gray-600">{row.room}</td>
+                    <td className="p-3 text-gray-600 dark:text-gray-400 dark:text-gray-400">{row.room}</td>
                   </tr>
                 ))}
               </tbody>
@@ -205,12 +205,12 @@ const LightbulbTool = () => {
       {mode === 'fitting' && (
         <div className="animate-in fade-in grid grid-cols-1 sm:grid-cols-2 gap-4">
           {FITTINGS.map((fit) => (
-            <div key={fit.id} className="bg-white border border-gray-200 p-4 rounded-xl hover:shadow-md transition">
-              <div className="bg-gray-100 w-12 h-12 rounded-full flex items-center justify-center mb-3 font-bold text-gray-500">
+            <div key={fit.id} className="bg-white dark:bg-gray-900 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 dark:border-gray-700 p-4 rounded-xl hover:shadow-md transition">
+              <div className="bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 w-12 h-12 rounded-full flex items-center justify-center mb-3 font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400">
                 {fit.id}
               </div>
-              <h3 className="font-bold text-gray-900">{fit.name}</h3>
-              <p className="text-sm text-gray-600 mt-1">{fit.desc}</p>
+              <h3 className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100">{fit.name}</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400 mt-1">{fit.desc}</p>
             </div>
           ))}
         </div>
@@ -226,7 +226,7 @@ const OutageTool = () => {
   const reset = () => setStep(0);
 
   return (
-    <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+    <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-8 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 dark:border-gray-700">
       <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
         <HelpCircle className="text-purple-500" /> Power Outage Detective
       </h2>
@@ -234,9 +234,9 @@ const OutageTool = () => {
       {step === 0 && (
         <div className="animate-in fade-in">
           <h3 className="text-xl font-bold mb-4">Question 1: Look out the window.</h3>
-          <p className="mb-6 text-gray-600">Are the neighbors' lights on?</p>
+          <p className="mb-6 text-gray-600 dark:text-gray-400 dark:text-gray-400">Are the neighbors' lights on?</p>
           <div className="flex gap-4">
-            <button onClick={() => setStep(1)} className="flex-1 bg-gray-100 p-4 rounded-xl hover:bg-gray-200 font-bold text-left">No, entire street is dark.</button>
+            <button onClick={() => setStep(1)} className="flex-1 bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 p-4 rounded-xl hover:bg-gray-200 font-bold text-left">No, entire street is dark.</button>
             <button onClick={() => setStep(2)} className="flex-1 bg-blue-50 p-4 rounded-xl hover:bg-blue-100 font-bold text-blue-800 text-left">Yes, neighbors have power.</button>
           </div>
         </div>
@@ -244,10 +244,10 @@ const OutageTool = () => {
 
       {step === 1 && (
         <div className="animate-in fade-in">
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 text-center mb-6">
+          <div className="bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 dark:border-gray-700 text-center mb-6">
             <div className="text-4xl mb-4">🏙️</div>
             <h3 className="text-xl font-bold mb-2">It's a Grid Failure.</h3>
-            <p className="text-gray-600">The problem is with the utility company, not you.</p>
+            <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400">The problem is with the utility company, not you.</p>
           </div>
 
           <div className="bg-orange-50 p-6 rounded-xl border border-orange-100">
@@ -279,9 +279,9 @@ const OutageTool = () => {
       {step === 2 && (
         <div className="animate-in fade-in">
           <h3 className="text-xl font-bold mb-4">Question 2: Check your home.</h3>
-          <p className="mb-6 text-gray-600">Is the power out in the whole house, or just some rooms?</p>
+          <p className="mb-6 text-gray-600 dark:text-gray-400 dark:text-gray-400">Is the power out in the whole house, or just some rooms?</p>
           <div className="flex gap-4">
-            <button onClick={() => setStep(3)} className="flex-1 bg-gray-100 p-4 rounded-xl hover:bg-gray-200 font-bold text-left">Whole House</button>
+            <button onClick={() => setStep(3)} className="flex-1 bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 p-4 rounded-xl hover:bg-gray-200 font-bold text-left">Whole House</button>
             <button onClick={() => setStep(4)} className="flex-1 bg-blue-50 p-4 rounded-xl hover:bg-blue-100 font-bold text-blue-800 text-left">Just One Room / Area</button>
           </div>
           <div className="mt-4 text-center"><button onClick={reset} className="text-sm text-gray-400">Back</button></div>
@@ -292,8 +292,8 @@ const OutageTool = () => {
         <div className="bg-red-50 p-6 rounded-xl border border-red-200 text-center animate-in fade-in">
           <div className="text-4xl mb-4">⚡</div>
           <h3 className="text-xl font-bold mb-2 text-red-900">Main Breaker Tripped</h3>
-          <p className="text-gray-700 mb-6">Your main safety switch has cut power to the whole house.</p>
-          <div className="text-left bg-white p-4 rounded-lg shadow-sm mb-6">
+          <p className="text-gray-700 dark:text-gray-300 dark:text-gray-300 mb-6">Your main safety switch has cut power to the whole house.</p>
+          <div className="text-left bg-white dark:bg-gray-900 dark:bg-gray-900 p-4 rounded-lg shadow-sm mb-6">
             <h4 className="font-bold text-sm mb-2">Steps:</h4>
             <ol className="list-decimal pl-4 text-sm space-y-1">
               <li>Go to your electrical panel.</li>
@@ -312,8 +312,8 @@ const OutageTool = () => {
         <div className="bg-yellow-50 p-6 rounded-xl border border-yellow-200 text-center animate-in fade-in">
           <div className="text-4xl mb-4">🔌</div>
           <h3 className="text-xl font-bold mb-2 text-yellow-900">Local Circuit Overload</h3>
-          <p className="text-gray-700 mb-6">You likely plugged in too many things in that room.</p>
-          <div className="text-left bg-white p-4 rounded-lg shadow-sm mb-6">
+          <p className="text-gray-700 dark:text-gray-300 dark:text-gray-300 mb-6">You likely plugged in too many things in that room.</p>
+          <div className="text-left bg-white dark:bg-gray-900 dark:bg-gray-900 p-4 rounded-lg shadow-sm mb-6">
             <h4 className="font-bold text-sm mb-2">Steps:</h4>
             <ol className="list-decimal pl-4 text-sm space-y-1">
               <li>Unplug the last thing you turned on (Hairdryer? Heater?).</li>
@@ -354,7 +354,7 @@ const FirstAidTool = () => {
   };
 
   return (
-    <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+    <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-8 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 dark:border-gray-700">
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(schema)}</script>
         <script type="application/ld+json">{JSON.stringify(medicalSchema)}</script>
@@ -379,15 +379,15 @@ const FirstAidTool = () => {
         <div className="flex gap-4 items-start">
           <div className="bg-blue-100 text-blue-800 font-bold px-3 py-1 rounded-full text-sm">1</div>
           <div>
-            <h3 className="font-bold text-gray-900">Do NOT touch them</h3>
-            <p className="text-sm text-gray-600">If they are still holding the appliance, you will get shocked too. Turn off the Main Breaker or use a wooden broom to knock the wire away.</p>
+            <h3 className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100">Do NOT touch them</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400">If they are still holding the appliance, you will get shocked too. Turn off the Main Breaker or use a wooden broom to knock the wire away.</p>
           </div>
         </div>
         <div className="flex gap-4 items-start">
           <div className="bg-blue-100 text-blue-800 font-bold px-3 py-1 rounded-full text-sm">2</div>
           <div>
-            <h3 className="font-bold text-gray-900">The "Feel Fine" Trap</h3>
-            <p className="text-sm text-gray-600 mb-3">Even a small shock can disrupt heart rhythm. Watch for these <strong>Red Flag Symptoms</strong>:</p>
+            <h3 className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100">The "Feel Fine" Trap</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400 mb-3">Even a small shock can disrupt heart rhythm. Watch for these <strong>Red Flag Symptoms</strong>:</p>
             <ul className="grid grid-cols-2 gap-2 text-sm text-red-700 bg-red-50 p-3 rounded">
               <li>• Irregular Heartbeat</li>
               <li>• Muscle Pain / Cramps</li>
@@ -399,8 +399,8 @@ const FirstAidTool = () => {
         <div className="flex gap-4 items-start">
           <div className="bg-blue-100 text-blue-800 font-bold px-3 py-1 rounded-full text-sm">3</div>
           <div>
-            <h3 className="font-bold text-gray-900">Check for Burns</h3>
-            <p className="text-sm text-gray-600">Look at the entry point (hand) and exit point (feet). Electric burns happen from the inside out and can be deeper than they look.</p>
+            <h3 className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100">Check for Burns</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400">Look at the entry point (hand) and exit point (feet). Electric burns happen from the inside out and can be deeper than they look.</p>
           </div>
         </div>
       </div>
@@ -423,7 +423,7 @@ const StormTool = () => {
   };
 
   return (
-    <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+    <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-8 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 dark:border-gray-700">
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(schema)}</script>
       </Helmet>
@@ -445,7 +445,7 @@ const StormTool = () => {
           <h3 className="font-bold text-red-600 mb-4 border-b border-red-100 pb-2">UNPLUG NOW</h3>
           <ul className="space-y-3">
             {['Desktop Computers', 'Game Consoles', 'Expensive TVs', 'Modem / Router'].map(i => (
-              <li key={i} className="flex items-center gap-2 text-gray-700 text-sm">
+              <li key={i} className="flex items-center gap-2 text-gray-700 dark:text-gray-300 dark:text-gray-300 text-sm">
                 <AlertCircle className="w-4 h-4 text-red-400" /> {i}
               </li>
             ))}
@@ -455,14 +455,14 @@ const StormTool = () => {
           <h3 className="font-bold text-green-600 mb-4 border-b border-green-100 pb-2">SAFE TO USE</h3>
           <ul className="space-y-3">
             {['Battery Laptops', 'Cell Phones (Not charging)', 'LED Lights', 'Battery Radio'].map(i => (
-              <li key={i} className="flex items-center gap-2 text-gray-700 text-sm">
+              <li key={i} className="flex items-center gap-2 text-gray-700 dark:text-gray-300 dark:text-gray-300 text-sm">
                 <CheckCircle2 className="w-4 h-4 text-green-400" /> {i}
               </li>
             ))}
           </ul>
         </div>
       </div>
-      <div className="mt-8 bg-gray-100 p-4 rounded-lg text-sm text-gray-700">
+      <div className="mt-8 bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 p-4 rounded-lg text-sm text-gray-700 dark:text-gray-300 dark:text-gray-300">
         <strong>The Shower Myth:</strong> It is TRUE. Do not shower during a severe lightning storm. Metal pipes conduct lightning from the ground up.
       </div>
     </div>
@@ -484,7 +484,7 @@ const SmartCheckTool = () => {
   };
 
   return (
-    <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+    <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-8 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 dark:border-gray-700">
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(schema)}</script>
       </Helmet>
@@ -500,7 +500,7 @@ const SmartCheckTool = () => {
           If missing, you need <strong>'No-Neutral'</strong> smart switches.
         </p>
       </div>
-      <p className="text-gray-600 mb-6">Before you buy smart switches, check if your house is compatible.</p>
+      <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400 mb-6">Before you buy smart switches, check if your house is compatible.</p>
 
       <div className="space-y-6">
         {/* Test 1: Neutral Wire */}
@@ -509,7 +509,7 @@ const SmartCheckTool = () => {
             <CheckCircle2 className="w-5 h-5" /> Test 1: The "Neutral Wire"
           </h3>
           <p className="text-sm text-blue-800 mb-4">Smart switches need power 24/7. Old light switches usually only have a Live wire.</p>
-          <div className="bg-white p-4 rounded-lg text-sm border border-blue-100">
+          <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-4 rounded-lg text-sm border border-blue-100">
             <strong>Check:</strong> Open the switchboard. Do you see a bundle of Black/White wires capped off in the back? <br />
             <span className="text-green-600 font-bold">Yes:</span> Compatible. <br />
             <span className="text-red-600 font-bold">No:</span> Buy "No-Neutral" switches.
@@ -522,7 +522,7 @@ const SmartCheckTool = () => {
             <Box className="w-5 h-5" /> Test 2: Wall Box Depth
           </h3>
           <p className="text-sm text-indigo-800 mb-4">Smart switches are much fatter than normal switches. They need space.</p>
-          <div className="flex items-center gap-4 bg-white p-4 rounded-lg border border-indigo-100">
+          <div className="flex items-center gap-4 bg-white dark:bg-gray-900 dark:bg-gray-900 p-4 rounded-lg border border-indigo-100">
             <Ruler className="w-8 h-8 text-indigo-400" />
             <div className="text-sm">
               <strong>Requirement:</strong> You need at least <strong>50mm (2 inches)</strong> depth inside the wall box. <br />
@@ -551,7 +551,7 @@ const BabyProofTool = () => {
   };
 
   return (
-    <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+    <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-8 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 dark:border-gray-700">
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(schema)}</script>
       </Helmet>
@@ -568,7 +568,7 @@ const BabyProofTool = () => {
         </p>
       </div>
 
-      <p className="text-gray-600 mb-6">Not all protection is created equal. Upgrade your strategy.</p>
+      <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400 mb-6">Not all protection is created equal. Upgrade your strategy.</p>
 
       <div className="space-y-4">
         {/* Level 1: Bad */}
@@ -607,7 +607,7 @@ const BabyProofTool = () => {
           </div>
         </div>
 
-        <div className="pt-6 mt-6 border-t border-gray-100 flex justify-center">
+        <div className="pt-6 mt-6 border-t border-gray-100 dark:border-gray-800 dark:border-gray-800 flex justify-center">
           <button 
             onClick={() => navigate('/nursery-safety')}
             className="inline-flex items-center gap-2 px-6 py-3 bg-pink-600 text-white rounded-xl font-bold hover:bg-pink-500 transition-all shadow-lg shadow-pink-200"
@@ -626,9 +626,9 @@ const GlossaryTool = () => {
   const filtered = GLOSSARY.filter(t => t.term.toLowerCase().includes(query.toLowerCase()));
 
   return (
-    <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+    <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-8 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 dark:border-gray-700">
       <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-        <Search className="text-gray-600" /> Speak "Electrician"
+        <Search className="text-gray-600 dark:text-gray-400 dark:text-gray-400" /> Speak "Electrician"
       </h2>
       <input
         type="text"
@@ -639,10 +639,10 @@ const GlossaryTool = () => {
       />
 
       <div className="space-y-4">
-        {filtered.length === 0 ? <p className="text-gray-500 text-center">No terms found.</p> : filtered.map((item, i) => (
-          <div key={i} className="border-b border-gray-100 last:border-0 pb-4 last:pb-0">
-            <h3 className="font-bold text-lg text-gray-900">{item.term}</h3>
-            <p className="text-gray-700 text-sm mt-1">{item.definition}</p>
+        {filtered.length === 0 ? <p className="text-gray-500 dark:text-gray-400 dark:text-gray-400 text-center">No terms found.</p> : filtered.map((item, i) => (
+          <div key={i} className="border-b border-gray-100 dark:border-gray-800 dark:border-gray-800 last:border-0 pb-4 last:pb-0">
+            <h3 className="font-bold text-lg text-gray-900 dark:text-gray-100 dark:text-gray-100">{item.term}</h3>
+            <p className="text-gray-700 dark:text-gray-300 dark:text-gray-300 text-sm mt-1">{item.definition}</p>
             <div className="mt-2 text-sm bg-blue-50 text-blue-800 p-2 rounded inline-block">
               <strong>Simple English:</strong> {item.simple}
             </div>

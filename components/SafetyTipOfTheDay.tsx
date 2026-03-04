@@ -199,7 +199,7 @@ export const SafetyTipOfTheDay: React.FC = () => {
         </div>
 
         <div className={`transition-all duration-200 ${isFlipping ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
-          <div className="bg-white rounded-3xl p-8 shadow-lg border border-amber-100 relative overflow-hidden">
+          <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-3xl p-8 shadow-lg border border-amber-100 relative overflow-hidden">
             {/* Category Badge */}
             <div className="flex items-center justify-between mb-4">
               <span className="inline-flex items-center gap-1 px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-bold uppercase tracking-wider">
@@ -211,7 +211,7 @@ export const SafetyTipOfTheDay: React.FC = () => {
             </div>
             
             {/* Tip Text */}
-            <p className="text-xl md:text-2xl font-bold text-gray-900 leading-snug mb-6">
+            <p className="text-xl md:text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 leading-snug mb-6">
               "{tip.tip}"
             </p>
 
@@ -221,25 +221,25 @@ export const SafetyTipOfTheDay: React.FC = () => {
               <div className="flex items-center gap-2">
                 <button 
                   onClick={prevTip}
-                  className="p-2 bg-gray-100 hover:bg-gray-200 rounded-full transition"
+                  className="p-2 bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 hover:bg-gray-200 rounded-full transition"
                   aria-label="Previous tip"
                 >
-                  <ChevronLeft className="w-4 h-4 text-gray-600" />
+                  <ChevronLeft className="w-4 h-4 text-gray-600 dark:text-gray-400 dark:text-gray-400" />
                 </button>
                 <button 
                   onClick={nextTip}
-                  className="p-2 bg-gray-100 hover:bg-gray-200 rounded-full transition"
+                  className="p-2 bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 hover:bg-gray-200 rounded-full transition"
                   aria-label="Next tip"
                 >
-                  <ChevronRight className="w-4 h-4 text-gray-600" />
+                  <ChevronRight className="w-4 h-4 text-gray-600 dark:text-gray-400 dark:text-gray-400" />
                 </button>
                 <button 
                   onClick={() => { setIsFlipping(true); setTimeout(() => { setTipIndex(getDailyTipIndex()); setIsFlipping(false); }, 200); }}
-                  className="p-2 bg-gray-100 hover:bg-gray-200 rounded-full transition"
+                  className="p-2 bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 hover:bg-gray-200 rounded-full transition"
                   aria-label="Today's tip"
                   title="Back to today's tip"
                 >
-                  <RefreshCw className="w-4 h-4 text-gray-600" />
+                  <RefreshCw className="w-4 h-4 text-gray-600 dark:text-gray-400 dark:text-gray-400" />
                 </button>
               </div>
 

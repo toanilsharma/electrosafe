@@ -26,16 +26,16 @@ export const About = () => {
 
             {/* Hero Section */}
             <div className="text-center mb-16 animate-in slide-in-from-bottom-4">
-                <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight mb-6">
+                <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-gray-100 dark:text-gray-100 tracking-tight mb-6">
                     Saving Lives Through <span className="text-blue-600">Engineering Truth</span>
                 </h1>
-                <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
                     In a world of bad DIY advice, we provide safety protocols backed by physics and 25 years of field experience.
                 </p>
             </div>
 
             {/* Expert Profile Card */}
-            <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden mb-16">
+            <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-3xl shadow-xl border border-gray-100 dark:border-gray-800 dark:border-gray-800 overflow-hidden mb-16">
                 <div className="bg-blue-900 h-32 relative">
                     <div className="absolute -bottom-16 left-8 md:left-12">
                         <div className="w-32 h-32 bg-gray-200 rounded-full border-4 border-white shadow-lg flex items-center justify-center overflow-hidden">
@@ -48,20 +48,20 @@ export const About = () => {
                 <div className="pt-20 px-8 md:px-12 pb-12">
                     <div className="flex flex-col md:flex-row justify-between items-start gap-4 mb-6">
                         <div>
-                            <h2 className="text-3xl font-bold text-gray-900">Anil Sharma</h2>
+                            <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100">Anil Sharma</h2>
                             <p className="text-blue-600 font-bold text-lg">Electrical Reliability Expert</p>
                         </div>
                         <div className="flex gap-3">
-                            <a href="#" className="p-2 bg-gray-100 rounded-full hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                            <a href="#" className="p-2 bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 rounded-full hover:bg-blue-50 hover:text-blue-600 transition-colors">
                                 <Linkedin className="w-5 h-5" />
                             </a>
-                            <a href="mailto:0808miracle@gmail.com" className="p-2 bg-gray-100 rounded-full hover:bg-yellow-50 hover:text-yellow-600 transition-colors">
+                            <a href="mailto:0808miracle@gmail.com" className="p-2 bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 rounded-full hover:bg-yellow-50 hover:text-yellow-600 transition-colors">
                                 <Mail className="w-5 h-5" />
                             </a>
                         </div>
                     </div>
 
-                    <div className="prose prose-lg text-gray-600 leading-relaxed mb-8">
+                    <div className="prose prose-lg text-gray-600 dark:text-gray-400 dark:text-gray-400 leading-relaxed mb-8">
                         <p>
                             Anil Sharma is a veteran Electrical Engineer with over 25 years of experience specializing in
                             <strong> Industrial Electrical Reliability</strong>, <strong>Maintenance</strong>, and <strong>Instrumentation Projects</strong>.
@@ -80,27 +80,27 @@ export const About = () => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
                         <div className="bg-blue-50 p-6 rounded-xl border border-blue-100">
                             <Award className="w-8 h-8 text-blue-600 mb-4" />
-                            <h3 className="font-bold text-gray-900 mb-2">25+ Years Experience</h3>
-                            <p className="text-sm text-gray-600">Deep expertise in industrial electrical projects, maintenance, and reliability engineering.</p>
+                            <h3 className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-2">25+ Years Experience</h3>
+                            <p className="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400">Deep expertise in industrial electrical projects, maintenance, and reliability engineering.</p>
                         </div>
                         <div className="bg-green-50 p-6 rounded-xl border border-green-100">
                             <ShieldCheck className="w-8 h-8 text-green-600 mb-4" />
-                            <h3 className="font-bold text-gray-900 mb-2">Safety Discipline</h3>
-                            <p className="text-sm text-gray-600">Applying rigorous industrial safety protocols to residential electrical systems.</p>
+                            <h3 className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-2">Safety Discipline</h3>
+                            <p className="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400">Applying rigorous industrial safety protocols to residential electrical systems.</p>
                         </div>
                         <div className="bg-purple-50 p-6 rounded-xl border border-purple-100">
                             <BookOpen className="w-8 h-8 text-purple-600 mb-4" />
-                            <h3 className="font-bold text-gray-900 mb-2">Instrumentation</h3>
-                            <p className="text-sm text-gray-600">Specialist in precision instrumentation and control systems maintenance.</p>
+                            <h3 className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-2">Instrumentation</h3>
+                            <p className="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400">Specialist in precision instrumentation and control systems maintenance.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
             {/* Editorial Standards */}
-            <div className="bg-gray-50 rounded-3xl p-8 md:p-12">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Our Editorial Promise (E-E-A-T)</h2>
-                <div className="space-y-6 text-gray-700">
+            <div className="bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 rounded-3xl p-8 md:p-12">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-6">Our Editorial Promise (E-E-A-T)</h2>
+                <div className="space-y-6 text-gray-700 dark:text-gray-300 dark:text-gray-300">
                     <p>
                         Electrical safety is "Your Money or Your Life" (YMYL) content. We take this responsibility seriously.
                     </p>

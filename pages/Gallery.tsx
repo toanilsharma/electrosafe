@@ -19,8 +19,8 @@ export const Gallery = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
       <div className="text-center mb-12">
-        <h1 className="text-3xl font-bold text-gray-900">Hazard Gallery</h1>
-        <p className="mt-2 text-gray-600">Visual examples of common electrical dangers. Learn to identify them before they cause harm.</p>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100">Hazard Gallery</h1>
+        <p className="mt-2 text-gray-600 dark:text-gray-400 dark:text-gray-400">Visual examples of common electrical dangers. Learn to identify them before they cause harm.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -49,12 +49,12 @@ export const Gallery = () => {
       {/* Modal */}
       {selectedImage && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in">
-          <div className="bg-white rounded-2xl max-w-2xl w-full overflow-hidden shadow-2xl relative animate-in zoom-in-95">
+          <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-2xl max-w-2xl w-full overflow-hidden shadow-2xl relative animate-in zoom-in-95">
             <button 
               onClick={() => setSelectedImage(null)}
-              className="absolute top-4 right-4 bg-white/50 hover:bg-white p-2 rounded-full transition z-10"
+              className="absolute top-4 right-4 bg-white dark:bg-gray-900 dark:bg-gray-900/50 hover:bg-white dark:bg-gray-900 dark:bg-gray-900 p-2 rounded-full transition z-10"
             >
-              <X className="w-6 h-6 text-gray-800" />
+              <X className="w-6 h-6 text-gray-800 dark:text-gray-200 dark:text-gray-200" />
             </button>
             
             <div className="flex flex-col md:flex-row">
@@ -66,8 +66,8 @@ export const Gallery = () => {
                 />
               </div>
               <div className="p-8 w-full md:w-1/2 flex flex-col justify-center">
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">{selectedImage.title}</h2>
-                <p className="text-gray-600 mb-6">{selectedImage.description}</p>
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-2">{selectedImage.title}</h2>
+                <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400 mb-6">{selectedImage.description}</p>
                 
                 <div className="space-y-4">
                   <div className="bg-red-50 p-4 rounded-lg border border-red-100">

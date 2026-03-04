@@ -73,7 +73,7 @@ export const FOMOCounter: React.FC = () => {
       {/* Toast Notification */}
       {notification && (
         <div
-          className={`fixed bottom-20 md:bottom-6 left-4 z-40 max-w-xs bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-100 dark:border-gray-700 p-3 flex items-center gap-3 transition-all duration-500 ${
+          className={`fixed bottom-20 md:bottom-6 left-4 z-40 max-w-xs bg-white dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-100 dark:border-gray-800 dark:border-gray-800 dark:border-gray-700 p-3 flex items-center gap-3 transition-all duration-500 ${
             notifVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
           }`}
         >
@@ -81,10 +81,10 @@ export const FOMOCounter: React.FC = () => {
             🏠
           </div>
           <div className="min-w-0">
-            <p className="text-xs font-bold text-gray-900 dark:text-gray-100 truncate">
+            <p className="text-xs font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 truncate">
               Someone in {notification.city}
             </p>
-            <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{notification.action}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 dark:text-gray-400 truncate">{notification.action}</p>
           </div>
         </div>
       )}

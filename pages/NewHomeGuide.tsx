@@ -82,33 +82,33 @@ export const NewHomeGuide = () => {
               <DollarSign className="w-7 h-7 md:w-10 md:h-10" />
             </div>
             <h2 className="text-sm font-bold text-green-600 uppercase tracking-widest pl-2 lg:pl-0">Phase 0</h2>
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 pl-2 lg:pl-0">Hiring & Money</h3>
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 pl-2 lg:pl-0">Hiring & Money</h3>
           </div>
 
           <div className="flex-grow space-y-8">
             {/* Quote Guide */}
-            <div className="bg-white rounded-[2rem] p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all border border-gray-100">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Understanding the Quote</h3>
-              <p className="text-gray-600 mb-8 text-lg">
+            <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-[2rem] p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all border border-gray-100 dark:border-gray-800 dark:border-gray-800">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-4">Understanding the Quote</h3>
+              <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400 mb-8 text-lg">
                 Electricians usually charge in two specific ways. Knowing the difference stops you from being cheated before work even begins.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="bg-gradient-to-br from-green-50 to-white p-6 rounded-2xl border border-green-100">
                   <div className="w-10 h-10 bg-green-100 text-green-700 rounded-lg flex items-center justify-center font-bold text-xl mb-4">1</div>
                   <h4 className="font-bold text-green-900 mb-2 text-lg">The "Point" Rate</h4>
-                  <p className="text-sm text-gray-600 mb-4 h-10">You pay per individual switch/socket box installed.</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400 mb-4 h-10">You pay per individual switch/socket box installed.</p>
                   <ul className="text-sm space-y-3">
-                    <li className="flex gap-2"><CheckCircle2 className="w-5 h-5 text-green-500 shrink-0" /> <span className="text-gray-700"><strong>Pros:</strong> Easy to calculate for small jobs.</span></li>
-                    <li className="flex gap-2"><AlertOctagon className="w-5 h-5 text-red-500 shrink-0" /> <span className="text-gray-700"><strong>The Trap:</strong> They might count one large switchboard as 10 separate "points". Clarify the definition first.</span></li>
+                    <li className="flex gap-2"><CheckCircle2 className="w-5 h-5 text-green-500 shrink-0" /> <span className="text-gray-700 dark:text-gray-300 dark:text-gray-300"><strong>Pros:</strong> Easy to calculate for small jobs.</span></li>
+                    <li className="flex gap-2"><AlertOctagon className="w-5 h-5 text-red-500 shrink-0" /> <span className="text-gray-700 dark:text-gray-300 dark:text-gray-300"><strong>The Trap:</strong> They might count one large switchboard as 10 separate "points". Clarify the definition first.</span></li>
                   </ul>
                 </div>
                 <div className="bg-gradient-to-br from-blue-50 to-white p-6 rounded-2xl border border-blue-100">
                   <div className="w-10 h-10 bg-blue-100 text-blue-700 rounded-lg flex items-center justify-center font-bold text-xl mb-4">2</div>
                   <h4 className="font-bold text-blue-900 mb-2 text-lg">The "Square Ft" Rate</h4>
-                  <p className="text-sm text-gray-600 mb-4 h-10">Flat fee based on the total area of the house.</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400 mb-4 h-10">Flat fee based on the total area of the house.</p>
                   <ul className="text-sm space-y-3">
-                    <li className="flex gap-2"><CheckCircle2 className="w-5 h-5 text-green-500 shrink-0" /> <span className="text-gray-700"><strong>Pros:</strong> Fixed budget with absolutely zero surprises.</span></li>
-                    <li className="flex gap-2"><AlertOctagon className="w-5 h-5 text-red-500 shrink-0" /> <span className="text-gray-700"><strong>The Trap:</strong> They might do minimum work to maximize profit. Agree on a minimum socket count upfront.</span></li>
+                    <li className="flex gap-2"><CheckCircle2 className="w-5 h-5 text-green-500 shrink-0" /> <span className="text-gray-700 dark:text-gray-300 dark:text-gray-300"><strong>Pros:</strong> Fixed budget with absolutely zero surprises.</span></li>
+                    <li className="flex gap-2"><AlertOctagon className="w-5 h-5 text-red-500 shrink-0" /> <span className="text-gray-700 dark:text-gray-300 dark:text-gray-300"><strong>The Trap:</strong> They might do minimum work to maximize profit. Agree on a minimum socket count upfront.</span></li>
                   </ul>
                 </div>
               </div>
@@ -123,32 +123,32 @@ export const NewHomeGuide = () => {
                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-red-100 text-red-800 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
                   Red Flags
                 </div>
-                <h3 className="text-2xl md:text-3xl font-extrabold text-gray-900 mb-4 flex items-center gap-2">
+                <h3 className="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-4 flex items-center gap-2">
                   The "Cut Corners" Scam Detector
                 </h3>
                 <p className="text-red-800/80 mb-8 text-lg">If you see these happening on site, your electrician is cheating you on life-saving safety features.</p>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="bg-white p-6 rounded-2xl shadow-sm border border-red-100 hover:-translate-y-1 transition-transform">
+                  <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-6 rounded-2xl shadow-sm border border-red-100 hover:-translate-y-1 transition-transform">
                      <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-600 mb-4"><Zap className="w-5 h-5" /></div>
-                     <div className="font-bold text-gray-900 mb-2">The "Half Neutral"</div>
-                     <p className="text-sm text-gray-600">
+                     <div className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-2">The "Half Neutral"</div>
+                     <p className="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400">
                        Using one thin neutral wire for 3-4 circuits to save copper. <br/><br/>
                        <strong className="text-red-600">Result:</strong> Voltage fluctuations and flickering lights across the house.
                      </p>
                   </div>
-                  <div className="bg-white p-6 rounded-2xl shadow-sm border border-red-100 hover:-translate-y-1 transition-transform delay-100">
+                  <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-6 rounded-2xl shadow-sm border border-red-100 hover:-translate-y-1 transition-transform delay-100">
                      <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-600 mb-4"><Activity className="w-5 h-5" /></div>
-                     <div className="font-bold text-gray-900 mb-2">The "Fake Ground"</div>
-                     <p className="text-sm text-gray-600">
+                     <div className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-2">The "Fake Ground"</div>
+                     <p className="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400">
                        Connecting the ground pin to the neutral pin inside the socket instead of running a real ground wire.<br/><br/>
                        <strong className="text-red-600">Result:</strong> Extremely deadly shock hazard.
                      </p>
                   </div>
-                  <div className="bg-white p-6 rounded-2xl shadow-sm border border-red-100 hover:-translate-y-1 transition-transform delay-200">
+                  <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-6 rounded-2xl shadow-sm border border-red-100 hover:-translate-y-1 transition-transform delay-200">
                      <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-600 mb-4"><ShoppingCart className="w-5 h-5" /></div>
-                     <div className="font-bold text-gray-900 mb-2">The "Brand Mix"</div>
-                     <p className="text-sm text-gray-600">
+                     <div className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-2">The "Brand Mix"</div>
+                     <p className="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400">
                        Showing you a roll of expensive wire but installing cheap generic wire inside the walls.<br/><br/>
                        <strong className="text-red-600">Result:</strong> Insulation melts, massive fire risk in 5 years.
                      </p>
@@ -169,52 +169,52 @@ export const NewHomeGuide = () => {
               <LayoutTemplate className="w-7 h-7 md:w-10 md:h-10" />
             </div>
             <h2 className="text-sm font-bold text-blue-600 uppercase tracking-widest pl-2 lg:pl-0">Phase 1</h2>
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 pl-2 lg:pl-0">Planning & Layout</h3>
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 pl-2 lg:pl-0">Planning & Layout</h3>
           </div>
 
           <div className="flex-grow space-y-8">
             
             {/* 1.1 SOCKET DENSITY RULES */}
-            <div className="bg-white rounded-[2rem] p-8 md:p-10 border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-shadow">
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
+            <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-[2rem] p-8 md:p-10 border border-gray-100 dark:border-gray-800 dark:border-gray-800 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-shadow">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 dark:text-gray-300 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
                 Golden Rules
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-4 flex items-center gap-2">
                 <Calculator className="w-6 h-6 text-blue-600" /> Socket Density Matrix
               </h3>
-              <p className="text-gray-600 mb-8 text-lg">
+              <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400 mb-8 text-lg">
                 Contractors install the bare minimum to finish fast. Use this matrix to ensure you never need a dangerous extension cord again.
               </p>
               
-              <div className="overflow-hidden rounded-2xl border border-gray-100">
+              <div className="overflow-hidden rounded-2xl border border-gray-100 dark:border-gray-800 dark:border-gray-800">
                 <table className="w-full text-left text-sm md:text-base">
-                  <thead className="bg-gray-50 border-b border-gray-200">
+                  <thead className="bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 dark:border-gray-700">
                     <tr>
-                      <th className="p-4 md:p-5 text-gray-900 font-bold w-1/4">Room</th>
-                      <th className="p-4 md:p-5 text-gray-900 font-bold w-1/4">Density Rule</th>
-                      <th className="p-4 md:p-5 text-gray-900 font-bold w-1/2">Critical Placements</th>
+                      <th className="p-4 md:p-5 text-gray-900 dark:text-gray-100 dark:text-gray-100 font-bold w-1/4">Room</th>
+                      <th className="p-4 md:p-5 text-gray-900 dark:text-gray-100 dark:text-gray-100 font-bold w-1/4">Density Rule</th>
+                      <th className="p-4 md:p-5 text-gray-900 dark:text-gray-100 dark:text-gray-100 font-bold w-1/2">Critical Placements</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-100 bg-white">
+                  <tbody className="divide-y divide-gray-100 bg-white dark:bg-gray-900 dark:bg-gray-900">
                     <tr className="hover:bg-blue-50/50 transition-colors">
                       <td className="p-4 md:p-5 font-bold text-blue-900 flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-blue-500"></div>Kitchen</td>
-                      <td className="p-4 md:p-5 font-mono text-sm text-gray-600 bg-gray-50/50">1 socket / 6 sq ft</td>
-                      <td className="p-4 md:p-5 text-gray-600">Countertop (every 4ft), Island, Fridge, Micro, Chimney, RO</td>
+                      <td className="p-4 md:p-5 font-mono text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400 bg-gray-50 dark:bg-gray-800 dark:bg-gray-800/50">1 socket / 6 sq ft</td>
+                      <td className="p-4 md:p-5 text-gray-600 dark:text-gray-400 dark:text-gray-400">Countertop (every 4ft), Island, Fridge, Micro, Chimney, RO</td>
                     </tr>
                     <tr className="hover:bg-blue-50/50 transition-colors">
                       <td className="p-4 md:p-5 font-bold text-blue-900 flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-blue-500"></div>Living Room</td>
-                      <td className="p-4 md:p-5 font-mono text-sm text-gray-600 bg-gray-50/50">1 socket / 10 sq ft</td>
-                      <td className="p-4 md:p-5 text-gray-600">Near every corner, Behind TV (x4), Beside sofas (charging)</td>
+                      <td className="p-4 md:p-5 font-mono text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400 bg-gray-50 dark:bg-gray-800 dark:bg-gray-800/50">1 socket / 10 sq ft</td>
+                      <td className="p-4 md:p-5 text-gray-600 dark:text-gray-400 dark:text-gray-400">Near every corner, Behind TV (x4), Beside sofas (charging)</td>
                     </tr>
                     <tr className="hover:bg-blue-50/50 transition-colors">
                       <td className="p-4 md:p-5 font-bold text-blue-900 flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-blue-500"></div>Bedroom</td>
-                      <td className="p-4 md:p-5 font-mono text-sm text-gray-600 bg-gray-50/50">1 socket / 12 sq ft</td>
-                      <td className="p-4 md:p-5 text-gray-600">Bedside (both sides), Desk area (x4), AC point</td>
+                      <td className="p-4 md:p-5 font-mono text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400 bg-gray-50 dark:bg-gray-800 dark:bg-gray-800/50">1 socket / 12 sq ft</td>
+                      <td className="p-4 md:p-5 text-gray-600 dark:text-gray-400 dark:text-gray-400">Bedside (both sides), Desk area (x4), AC point</td>
                     </tr>
                     <tr className="hover:bg-blue-50/50 transition-colors">
                       <td className="p-4 md:p-5 font-bold text-blue-900 flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-blue-500"></div>Hallways</td>
-                      <td className="p-4 md:p-5 font-mono text-sm text-gray-600 bg-gray-50/50">1 per 15 ft</td>
-                      <td className="p-4 md:p-5 text-gray-600">For vacuum cleaners and motion night lights</td>
+                      <td className="p-4 md:p-5 font-mono text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400 bg-gray-50 dark:bg-gray-800 dark:bg-gray-800/50">1 per 15 ft</td>
+                      <td className="p-4 md:p-5 text-gray-600 dark:text-gray-400 dark:text-gray-400">For vacuum cleaners and motion night lights</td>
                     </tr>
                   </tbody>
                 </table>
@@ -228,7 +228,7 @@ export const NewHomeGuide = () => {
               </div>
               
               <div className="relative z-10">
-                <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 text-yellow-300 rounded-full text-xs font-bold uppercase tracking-wider mb-4 border border-white/10 backdrop-blur-md">
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-white dark:bg-gray-900 dark:bg-gray-900/10 text-yellow-300 rounded-full text-xs font-bold uppercase tracking-wider mb-4 border border-white/10 backdrop-blur-md">
                   10-Year Horizon
                 </div>
                 <h3 className="text-2xl md:text-3xl font-extrabold mb-4 flex items-center gap-2">
@@ -268,33 +268,33 @@ export const NewHomeGuide = () => {
 
             {/* 1.3 Standard Heights BENTO */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-white rounded-[2rem] p-8 border border-gray-100 shadow-sm hover:-translate-y-1 transition-transform">
+              <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-[2rem] p-8 border border-gray-100 dark:border-gray-800 dark:border-gray-800 shadow-sm hover:-translate-y-1 transition-transform">
                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
                    Ergonomics
                  </div>
-                 <h3 className="text-2xl font-bold text-gray-900 mb-8 max-w-[200px]">
+                 <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-8 max-w-[200px]">
                    The "Golden Numbers"
                  </h3>
                  <div className="grid grid-cols-2 gap-4">
-                   <div className="p-4 bg-gray-50 rounded-2xl border border-gray-100">
+                   <div className="p-4 bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-800 dark:border-gray-800">
                      <div className="text-4xl font-extrabold text-blue-600 tracking-tighter mb-1">50"</div>
-                     <div className="text-sm font-bold text-gray-900">Light Switches</div>
-                     <div className="text-xs text-gray-500">(from floor)</div>
+                     <div className="text-sm font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100">Light Switches</div>
+                     <div className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400">(from floor)</div>
                    </div>
-                   <div className="p-4 bg-gray-50 rounded-2xl border border-gray-100">
+                   <div className="p-4 bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-800 dark:border-gray-800">
                      <div className="text-4xl font-extrabold text-indigo-600 tracking-tighter mb-1">12"</div>
-                     <div className="text-sm font-bold text-gray-900">Power Sockets</div>
-                     <div className="text-xs text-gray-500">(General Use)</div>
+                     <div className="text-sm font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100">Power Sockets</div>
+                     <div className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400">(General Use)</div>
                    </div>
-                   <div className="p-4 bg-gray-50 rounded-2xl border border-gray-100">
+                   <div className="p-4 bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-800 dark:border-gray-800">
                      <div className="text-4xl font-extrabold text-purple-600 tracking-tighter mb-1">42"</div>
-                     <div className="text-sm font-bold text-gray-900">Kitchen Counters</div>
-                     <div className="text-xs text-gray-500">(Above slab)</div>
+                     <div className="text-sm font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100">Kitchen Counters</div>
+                     <div className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400">(Above slab)</div>
                    </div>
-                   <div className="p-4 bg-gray-50 rounded-2xl border border-gray-100">
-                     <div className="text-4xl font-extrabold text-slate-800 tracking-tighter mb-1">60"</div>
-                     <div className="text-sm font-bold text-gray-900">Wall TV Center</div>
-                     <div className="text-xs text-gray-500">(Mount center)</div>
+                   <div className="p-4 bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-800 dark:border-gray-800">
+                     <div className="text-4xl font-extrabold text-slate-800 dark:text-gray-200 dark:text-gray-200 tracking-tighter mb-1">60"</div>
+                     <div className="text-sm font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100">Wall TV Center</div>
+                     <div className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400">(Mount center)</div>
                    </div>
                  </div>
               </div>
@@ -313,7 +313,7 @@ export const NewHomeGuide = () => {
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {['Doorbell (Chime & Mux)', 'Central Ceiling WiFi Nodes', 'CCTV Corner Pre-Wires', 'Battery Inverter Prep', 'RO Water Purifier', 'Under-Sink Dishwasher', 'Smart Curtain Pelmets', 'Bathroom Vanity Mirrors'].map(item => (
-                      <span key={item} className="px-3 py-1.5 bg-white text-yellow-800 border-b-2 border-yellow-200 rounded-lg text-sm font-bold shadow-sm whitespace-nowrap hover:bg-yellow-100 transition-colors">
+                      <span key={item} className="px-3 py-1.5 bg-white dark:bg-gray-900 dark:bg-gray-900 text-yellow-800 border-b-2 border-yellow-200 rounded-lg text-sm font-bold shadow-sm whitespace-nowrap hover:bg-yellow-100 transition-colors">
                         {item}
                       </span>
                     ))}
@@ -335,63 +335,63 @@ export const NewHomeGuide = () => {
               <ShoppingCart className="w-7 h-7 md:w-10 md:h-10" />
             </div>
             <h2 className="text-sm font-bold text-purple-600 uppercase tracking-widest pl-2 lg:pl-0">Phase 2</h2>
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 pl-2 lg:pl-0">Smart Shopping</h3>
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 pl-2 lg:pl-0">Smart Shopping</h3>
           </div>
 
           <div className="flex-grow space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                
                {/* Wire Quality Test */}
-               <div className="bg-white p-8 md:p-10 rounded-[2rem] border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all group overflow-hidden relative">
+               <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-8 md:p-10 rounded-[2rem] border border-gray-100 dark:border-gray-800 dark:border-gray-800 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all group overflow-hidden relative">
                   <div className="absolute -top-4 -right-4 w-24 h-24 bg-purple-100 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
                   <div className="relative z-10">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-4 flex items-center gap-3">
                       <div className="p-2 bg-purple-100 rounded-lg"><Flame className="w-6 h-6 text-purple-600" /></div> 
                       The "Lighter Test"
                     </h3>
-                    <p className="text-base text-gray-600 mb-6">
+                    <p className="text-base text-gray-600 dark:text-gray-400 dark:text-gray-400 mb-6">
                       Cheap insulation catches fire. Good insulation melts but self-extinguishes. Don't build a fuse into your walls.
                     </p>
                     <div className="space-y-4">
                       <div className="flex gap-4 items-start">
-                        <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center font-bold text-gray-500 shrink-0">1</div>
-                        <p className="text-sm text-gray-700 pt-1">Take a 2-inch scrap piece of wire from the bulk roll.</p>
+                        <div className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 flex items-center justify-center font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 shrink-0">1</div>
+                        <p className="text-sm text-gray-700 dark:text-gray-300 dark:text-gray-300 pt-1">Take a 2-inch scrap piece of wire from the bulk roll.</p>
                       </div>
                       <div className="flex gap-4 items-start">
-                        <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center font-bold text-gray-500 shrink-0">2</div>
-                        <p className="text-sm text-gray-700 pt-1">Hold a lighter flame to it directly for exactly 10 seconds.</p>
+                        <div className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 flex items-center justify-center font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 shrink-0">2</div>
+                        <p className="text-sm text-gray-700 dark:text-gray-300 dark:text-gray-300 pt-1">Hold a lighter flame to it directly for exactly 10 seconds.</p>
                       </div>
                       <div className="flex gap-4 items-start">
                         <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center font-bold text-red-500 shrink-0">3</div>
-                        <p className="text-sm text-gray-700 pt-1"><strong>Result:</strong> If it keeps burning with a large flame after removing the lighter, <strong>REJECT IT</strong>. It must stop burning instantly (FR/FRLS Grade).</p>
+                        <p className="text-sm text-gray-700 dark:text-gray-300 dark:text-gray-300 pt-1"><strong>Result:</strong> If it keeps burning with a large flame after removing the lighter, <strong>REJECT IT</strong>. It must stop burning instantly (FR/FRLS Grade).</p>
                       </div>
                     </div>
                   </div>
                </div>
 
                {/* Switch Quality Test */}
-               <div className="bg-white p-8 md:p-10 rounded-[2rem] border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all group overflow-hidden relative">
+               <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-8 md:p-10 rounded-[2rem] border border-gray-100 dark:border-gray-800 dark:border-gray-800 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all group overflow-hidden relative">
                   <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-blue-100 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
                   <div className="relative z-10">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-4 flex items-center gap-3">
                       <div className="p-2 bg-blue-100 rounded-lg"><CheckCircle2 className="w-6 h-6 text-blue-600" /></div> 
                       The "Heavy Box" Test
                     </h3>
-                    <p className="text-base text-gray-600 mb-6">
+                    <p className="text-base text-gray-600 dark:text-gray-400 dark:text-gray-400 mb-6">
                       Copper and Brass are dense and heavy. Cheap alloys are light. Your hands can feel the difference.
                     </p>
                     <ul className="space-y-5">
                       <li className="flex gap-3 items-start border-b border-gray-50 pb-4">
                         <span className="text-blue-500 mt-1">•</span>
-                        <div className="text-sm text-gray-700">Pick up a retail box of 10 switches. It should feel <strong>surprisingly heavy</strong>. If it feels light like plastic toys, reject the brand.</div>
+                        <div className="text-sm text-gray-700 dark:text-gray-300 dark:text-gray-300">Pick up a retail box of 10 switches. It should feel <strong>surprisingly heavy</strong>. If it feels light like plastic toys, reject the brand.</div>
                       </li>
                       <li className="flex gap-3 items-start border-b border-gray-50 pb-4">
                         <span className="text-blue-500 mt-1">•</span>
-                        <div className="text-sm text-gray-700">Look at the back terminal screws. You want to see thick <strong>Brass (Yellowing)</strong>, never thin Steel (Silver). Steel rusts and generates massive heat.</div>
+                        <div className="text-sm text-gray-700 dark:text-gray-300 dark:text-gray-300">Look at the back terminal screws. You want to see thick <strong>Brass (Yellowing)</strong>, never thin Steel (Silver). Steel rusts and generates massive heat.</div>
                       </li>
                       <li className="flex gap-3 items-start">
                         <span className="text-blue-500 mt-1">•</span>
-                        <div className="text-sm text-gray-700">Click the rocker mechanism. It should be a <strong>crisp, loud snap</strong>, not a mushy slow slide which causes electrical arcing.</div>
+                        <div className="text-sm text-gray-700 dark:text-gray-300 dark:text-gray-300">Click the rocker mechanism. It should be a <strong>crisp, loud snap</strong>, not a mushy slow slide which causes electrical arcing.</div>
                       </li>
                     </ul>
                   </div>
@@ -411,15 +411,15 @@ export const NewHomeGuide = () => {
               <Eye className="w-7 h-7 md:w-10 md:h-10" />
             </div>
             <h2 className="text-sm font-bold text-orange-600 uppercase tracking-widest pl-2 lg:pl-0">Phase 3</h2>
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 pl-2 lg:pl-0">Supervision</h3>
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 pl-2 lg:pl-0">Supervision</h3>
           </div>
 
           <div className="flex-grow space-y-8">
             
             {/* The Pre-Plaster Checklist */}
-            <div className="bg-white rounded-[2rem] p-8 md:p-10 border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all">
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">The "Pre-Plaster" Checklist</h3>
-              <p className="text-gray-600 mb-8 text-lg">Once they cement the walls, it's too late. Force your contractor to show you these 5 things before the drywall goes up.</p>
+            <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-[2rem] p-8 md:p-10 border border-gray-100 dark:border-gray-800 dark:border-gray-800 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-2">The "Pre-Plaster" Checklist</h3>
+              <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400 mb-8 text-lg">Once they cement the walls, it's too late. Force your contractor to show you these 5 things before the drywall goes up.</p>
               
               <div className="space-y-4">
                  {[
@@ -430,10 +430,10 @@ export const NewHomeGuide = () => {
                    { icon: <Camera className="w-5 h-5 text-orange-500" />, text: 'Photos taken of ALL wall runs (saves you from drilling into a wire later).' }
                  ].map((item, i) => (
                    <div key={i} className="flex items-center gap-4 p-4 bg-orange-50/50 rounded-2xl border border-orange-100/50 hover:bg-orange-50 transition-colors">
-                      <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm flex-shrink-0">
+                      <div className="w-10 h-10 rounded-full bg-white dark:bg-gray-900 dark:bg-gray-900 flex items-center justify-center shadow-sm flex-shrink-0">
                         {item.icon}
                       </div>
-                      <span className="text-gray-800 font-medium">{item.text}</span>
+                      <span className="text-gray-800 dark:text-gray-200 dark:text-gray-200 font-medium">{item.text}</span>
                    </div>
                  ))}
               </div>
@@ -441,27 +441,27 @@ export const NewHomeGuide = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* Wire Color Code */}
-              <div className="bg-white rounded-[2rem] p-8 border border-gray-100 shadow-sm hover:-translate-y-1 transition-transform">
-                 <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+              <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-[2rem] p-8 border border-gray-100 dark:border-gray-800 dark:border-gray-800 shadow-sm hover:-translate-y-1 transition-transform">
+                 <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-4 flex items-center gap-2">
                    <PenTool className="w-6 h-6 text-orange-500" /> Color Enforcement
                  </h3>
-                 <p className="text-sm text-gray-600 mb-6">
+                 <p className="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400 mb-6">
                    Contractors love using one color (Red) for everything to save money on bulk rolls. <strong>Do not allow this.</strong> It makes future repairs a nightmare.
                  </p>
                  <div className="space-y-3">
                     <div className="flex items-center justify-between p-3 bg-red-50 rounded-xl border border-red-100">
                       <div className="w-4 h-4 rounded-full bg-red-600"></div>
-                      <span className="font-bold text-gray-900">Phase (Live)</span>
+                      <span className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100">Phase (Live)</span>
                       <span className="text-xs text-red-600 font-bold uppercase tracking-wider">Red / Brown</span>
                     </div>
-                    <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-200">
+                    <div className="flex items-center justify-between p-3 bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 rounded-xl border border-slate-200 dark:border-gray-700 dark:border-gray-700">
                       <div className="w-4 h-4 rounded-full bg-slate-800"></div>
-                      <span className="font-bold text-gray-900">Neutral</span>
-                      <span className="text-xs text-slate-600 font-bold uppercase tracking-wider">Black / Blue</span>
+                      <span className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100">Neutral</span>
+                      <span className="text-xs text-slate-600 dark:text-gray-400 dark:text-gray-400 font-bold uppercase tracking-wider">Black / Blue</span>
                     </div>
                     <div className="flex items-center justify-between p-3 bg-green-50 rounded-xl border border-green-200">
                       <div className="w-4 h-4 rounded-full bg-green-600"></div>
-                      <span className="font-bold text-gray-900">Earth</span>
+                      <span className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100">Earth</span>
                       <span className="text-xs text-green-700 font-bold uppercase tracking-wider">Green / Y-G</span>
                     </div>
                  </div>
@@ -477,7 +477,7 @@ export const NewHomeGuide = () => {
                    <p className="text-base text-orange-900/80 leading-relaxed mb-4">
                      Force your electrician to run a separate <strong>White or Yellow</strong> wire to exactly ONE fan and ONE light in every room.
                    </p>
-                   <div className="bg-white/60 p-4 rounded-xl backdrop-blur-sm border border-orange-200 text-sm text-orange-900 font-medium">
+                   <div className="bg-white dark:bg-gray-900 dark:bg-gray-900/60 p-4 rounded-xl backdrop-blur-sm border border-orange-200 text-sm text-orange-900 font-medium">
                      This "Inverter Return" wire lets you power ONLY essential items during a blackout, keeping your expensive battery running 4x longer.
                    </div>
                  </div>
@@ -497,30 +497,30 @@ export const NewHomeGuide = () => {
               <Maximize className="w-7 h-7 md:w-10 md:h-10" />
             </div>
             <h2 className="text-sm font-bold text-indigo-600 uppercase tracking-widest pl-2 lg:pl-0">Phase 4</h2>
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 pl-2 lg:pl-0">Automation</h3>
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 pl-2 lg:pl-0">Automation</h3>
           </div>
 
           <div className="flex-grow space-y-8">
              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="bg-white p-6 rounded-[2rem] border border-gray-100 shadow-sm flex flex-col items-center text-center group hover:-translate-y-2 transition-transform duration-300">
+                <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-6 rounded-[2rem] border border-gray-100 dark:border-gray-800 dark:border-gray-800 shadow-sm flex flex-col items-center text-center group hover:-translate-y-2 transition-transform duration-300">
                    <div className="bg-indigo-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"><Sun className="w-8 h-8 text-indigo-600" /></div>
-                   <h4 className="font-bold text-xl text-gray-900 mb-2">Solar Conduit</h4>
-                   <p className="text-sm text-gray-500">Run an empty 1-inch pipe from the Roof to the Main Panel. Saves thousands on ugly external piping later when you go solar.</p>
+                   <h4 className="font-bold text-xl text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-2">Solar Conduit</h4>
+                   <p className="text-sm text-gray-500 dark:text-gray-400 dark:text-gray-400">Run an empty 1-inch pipe from the Roof to the Main Panel. Saves thousands on ugly external piping later when you go solar.</p>
                 </div>
-                <div className="bg-white p-6 rounded-[2rem] border border-gray-100 shadow-sm flex flex-col items-center text-center group hover:-translate-y-2 transition-transform duration-300 delay-75">
+                <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-6 rounded-[2rem] border border-gray-100 dark:border-gray-800 dark:border-gray-800 shadow-sm flex flex-col items-center text-center group hover:-translate-y-2 transition-transform duration-300 delay-75">
                    <div className="bg-indigo-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"><Wifi className="w-8 h-8 text-indigo-600" /></div>
-                   <h4 className="font-bold text-xl text-gray-900 mb-2">Ceiling WiFi Nodes</h4>
-                   <p className="text-sm text-gray-500">Provide power points directly on the ceiling of central hallways for seamless commercial-grade mesh WiFi coverage.</p>
+                   <h4 className="font-bold text-xl text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-2">Ceiling WiFi Nodes</h4>
+                   <p className="text-sm text-gray-500 dark:text-gray-400 dark:text-gray-400">Provide power points directly on the ceiling of central hallways for seamless commercial-grade mesh WiFi coverage.</p>
                 </div>
-                <div className="bg-white p-6 rounded-[2rem] border border-gray-100 shadow-sm flex flex-col items-center text-center group hover:-translate-y-2 transition-transform duration-300 delay-100">
+                <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-6 rounded-[2rem] border border-gray-100 dark:border-gray-800 dark:border-gray-800 shadow-sm flex flex-col items-center text-center group hover:-translate-y-2 transition-transform duration-300 delay-100">
                    <div className="bg-indigo-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"><Video className="w-8 h-8 text-indigo-600" /></div>
-                   <h4 className="font-bold text-xl text-gray-900 mb-2">Smart Curtains</h4>
-                   <p className="text-sm text-gray-500">Hide a power point near the top corners of your windows (inside the pelmet) for future automated motorized blinds.</p>
+                   <h4 className="font-bold text-xl text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-2">Smart Curtains</h4>
+                   <p className="text-sm text-gray-500 dark:text-gray-400 dark:text-gray-400">Hide a power point near the top corners of your windows (inside the pelmet) for future automated motorized blinds.</p>
                 </div>
-                <div className="bg-white p-6 rounded-[2rem] border border-gray-100 shadow-sm flex flex-col items-center text-center group hover:-translate-y-2 transition-transform duration-300 delay-150">
+                <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-6 rounded-[2rem] border border-gray-100 dark:border-gray-800 dark:border-gray-800 shadow-sm flex flex-col items-center text-center group hover:-translate-y-2 transition-transform duration-300 delay-150">
                    <div className="bg-indigo-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"><Cpu className="w-8 h-8 text-indigo-600" /></div>
-                   <h4 className="font-bold text-xl text-gray-900 mb-2">Smart Neutral</h4>
-                   <p className="text-sm text-gray-500">Ensure a 'Neutral' wire is looped to every single light switch box. Essential for 99% of modern smart-home dimmer switches.</p>
+                   <h4 className="font-bold text-xl text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-2">Smart Neutral</h4>
+                   <p className="text-sm text-gray-500 dark:text-gray-400 dark:text-gray-400">Ensure a 'Neutral' wire is looped to every single light switch box. Essential for 99% of modern smart-home dimmer switches.</p>
                 </div>
              </div>
           </div>
@@ -534,8 +534,8 @@ export const NewHomeGuide = () => {
             <div className="w-14 h-14 md:w-20 md:h-20 bg-gradient-to-br from-slate-700 to-slate-900 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-slate-900/20 -rotate-3 mb-4 z-10 relative group-hover:rotate-0 transition-transform">
               <ShieldCheck className="w-7 h-7 md:w-10 md:h-10" />
             </div>
-            <h2 className="text-sm font-bold text-slate-500 uppercase tracking-widest pl-2 lg:pl-0">Phase 5</h2>
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 pl-2 lg:pl-0">The Handover</h3>
+            <h2 className="text-sm font-bold text-slate-500 dark:text-gray-400 dark:text-gray-400 uppercase tracking-widest pl-2 lg:pl-0">Phase 5</h2>
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 pl-2 lg:pl-0">The Handover</h3>
           </div>
 
           <div className="flex-grow">
@@ -550,19 +550,19 @@ export const NewHomeGuide = () => {
                  </p>
 
                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                   <div className="bg-white/5 p-6 rounded-2xl border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors">
+                   <div className="bg-white dark:bg-gray-900 dark:bg-gray-900/5 p-6 rounded-2xl border border-white/10 backdrop-blur-sm hover:bg-white dark:bg-gray-900 dark:bg-gray-900/10 transition-colors">
                      <div className="bg-green-500/20 w-12 h-12 rounded-xl flex items-center justify-center mb-4"><FileText className="w-6 h-6 text-green-400" /></div>
                      <h4 className="font-bold text-xl mb-2">1. The "As-Built" Diagram</h4>
                      <p className="text-sm text-slate-300">A drawing showing exactly where pipes run in the walls. Essential so you don't drill into a live wire while hanging a painting.</p>
                    </div>
                    
-                   <div className="bg-white/5 p-6 rounded-2xl border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors">
+                   <div className="bg-white dark:bg-gray-900 dark:bg-gray-900/5 p-6 rounded-2xl border border-white/10 backdrop-blur-sm hover:bg-white dark:bg-gray-900 dark:bg-gray-900/10 transition-colors">
                      <div className="bg-blue-500/20 w-12 h-12 rounded-xl flex items-center justify-center mb-4"><Activity className="w-6 h-6 text-blue-400" /></div>
                      <h4 className="font-bold text-xl mb-2">2. Megger Test Report</h4>
                      <p className="text-sm text-slate-300">Insulation Resistance test proof. Guarantees there are no nicks, cuts, or copper exposed in the wire insulation hidden inside the pipes.</p>
                    </div>
                    
-                   <div className="bg-white/5 p-6 rounded-2xl border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors">
+                   <div className="bg-white dark:bg-gray-900 dark:bg-gray-900/5 p-6 rounded-2xl border border-white/10 backdrop-blur-sm hover:bg-white dark:bg-gray-900 dark:bg-gray-900/10 transition-colors">
                      <div className="bg-orange-500/20 w-12 h-12 rounded-xl flex items-center justify-center mb-4"><Camera className="w-6 h-6 text-orange-400" /></div>
                      <h4 className="font-bold text-xl mb-2">3. Panel Directory</h4>
                      <p className="text-sm text-slate-300">Every single breaker must be accurately labeled. "Master Bed AC", not just a meaningless "Switch 1".</p>
@@ -575,11 +575,11 @@ export const NewHomeGuide = () => {
       </section>
 
       {/* GLOBAL STANDARDS FOOTER */}
-      <div className="mt-20 pt-10 border-t border-gray-200 text-center">
-        <h3 className="text-lg font-bold text-gray-900 flex items-center justify-center gap-2 mb-4">
+      <div className="mt-20 pt-10 border-t border-gray-200 dark:border-gray-700 dark:border-gray-700 text-center">
+        <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 flex items-center justify-center gap-2 mb-4">
           <Globe className="w-5 h-5 text-blue-600" /> Global Standards Compliance
         </h3>
-        <p className="text-sm text-gray-500 max-w-2xl mx-auto">
+        <p className="text-sm text-gray-500 dark:text-gray-400 dark:text-gray-400 max-w-2xl mx-auto">
           This guide aligns with best practices from <strong>IEC 60364</strong> (Electrical Installations for Buildings) and 
           <strong> NEC</strong> (National Electrical Code) principles for safety, capacity planning, and future-proofing.
         </p>

@@ -270,23 +270,23 @@ export const RiskPredictor = () => {
             })}
           </script>
         </Helmet>
-        <h1 className="text-3xl font-bold text-gray-900 flex items-center justify-center gap-3">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 flex items-center justify-center gap-3">
           <Zap className="text-yellow-500" /> Shock & Fire Risk Predictor
         </h1>
-        <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
+        <p className="mt-4 text-gray-600 dark:text-gray-400 dark:text-gray-400 max-w-2xl mx-auto">
           Identify potential electrical hazards using our weighted risk algorithm. We analyze combinations of symptoms to predict failure points.
         </p>
       </div>
 
       {!result ? (
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-            <h3 className="font-bold text-lg text-gray-800 mb-4 flex items-center gap-2">
+          <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 dark:border-gray-700">
+            <h3 className="font-bold text-lg text-gray-800 dark:text-gray-200 dark:text-gray-200 mb-4 flex items-center gap-2">
               <AlertTriangle className="w-5 h-5 text-blue-600" /> Select all that apply:
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {riskFactors.map(f => (
-                <div key={f.id} className={`p-4 border rounded-lg transition-all ${factors.includes(f.id) ? 'bg-blue-50 border-blue-300 ring-1 ring-blue-300' : 'hover:bg-gray-50 border-gray-200'}`}>
+                <div key={f.id} className={`p-4 border rounded-lg transition-all ${factors.includes(f.id) ? 'bg-blue-50 border-blue-300 ring-1 ring-blue-300' : 'hover:bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 border-gray-200 dark:border-gray-700 dark:border-gray-700'}`}>
                   <label className="flex items-start cursor-pointer">
                     <input
                       type="checkbox"
@@ -295,8 +295,8 @@ export const RiskPredictor = () => {
                       onChange={() => toggleFactor(f.id)}
                     />
                     <div className="ml-3">
-                      <span className="block text-gray-800 font-medium">{f.label}</span>
-                      <span className="block text-xs text-gray-500 mt-1 leading-snug">{f.description}</span>
+                      <span className="block text-gray-800 dark:text-gray-200 dark:text-gray-200 font-medium">{f.label}</span>
+                      <span className="block text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 mt-1 leading-snug">{f.description}</span>
                       {f.isCritical && <span className="inline-block mt-1 text-[10px] bg-red-100 text-red-700 px-1.5 py-0.5 rounded font-bold uppercase tracking-wide">Critical Indicator</span>}
                     </div>
                   </label>
@@ -320,7 +320,7 @@ export const RiskPredictor = () => {
                               onChange={(e) => handleSubAnswer('smell', e.target.value)}
                               className="w-4 h-4 text-red-600 focus:ring-red-500 border-gray-300"
                             />
-                            <span className="text-sm text-gray-800">{opt.text}</span>
+                            <span className="text-sm text-gray-800 dark:text-gray-200 dark:text-gray-200">{opt.text}</span>
                           </label>
                         ))}
                       </div>
@@ -361,7 +361,7 @@ export const RiskPredictor = () => {
 
             {/* Visual Gauge */}
             <div className="max-w-md mx-auto mt-6 mb-8">
-              <div className="flex justify-between text-xs font-bold text-gray-500 mb-1 uppercase">
+              <div className="flex justify-between text-xs font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 mb-1 uppercase">
                 <span>Safe</span>
                 <span>Warning</span>
                 <span>Critical</span>
@@ -377,7 +377,7 @@ export const RiskPredictor = () => {
               <p className="text-xs text-gray-400 mt-1 text-right">Risk Score: {score}</p>
             </div>
 
-            <p className="text-gray-700 text-lg font-medium max-w-xl mx-auto mb-4">
+            <p className="text-gray-700 dark:text-gray-300 dark:text-gray-300 text-lg font-medium max-w-xl mx-auto mb-4">
               {result === 'low' && "Your home shows minimal signs of electrical stress. Maintain your safety habits."}
               {result === 'medium' && "There are clear warning signs. Preventative maintenance is needed soon to avoid failure."}
               {result === 'high' && "CRITICAL DANGER DETECTED. The combination of factors indicates a high probability of fire or shock hazard."}
@@ -385,8 +385,8 @@ export const RiskPredictor = () => {
 
             {/* Risk Details / Why is it high? */}
             {riskDetails.length > 0 && (
-              <div className="bg-white/60 p-4 rounded-lg text-left max-w-lg mx-auto border border-black/5">
-                <h4 className="text-sm font-bold text-gray-800 mb-2 uppercase tracking-wide">Analysis Breakdown:</h4>
+              <div className="bg-white dark:bg-gray-900 dark:bg-gray-900/60 p-4 rounded-lg text-left max-w-lg mx-auto border border-black/5">
+                <h4 className="text-sm font-bold text-gray-800 dark:text-gray-200 dark:text-gray-200 mb-2 uppercase tracking-wide">Analysis Breakdown:</h4>
                 <ul className="list-disc pl-4 space-y-1">
                   {riskDetails.map((detail, idx) => (
                     <li key={idx} className="text-sm text-red-700 font-medium">{detail}</li>
@@ -397,13 +397,13 @@ export const RiskPredictor = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-              <h3 className="font-bold text-lg text-gray-900 mb-4 flex items-center gap-2">
+            <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 dark:border-gray-700">
+              <h3 className="font-bold text-lg text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-4 flex items-center gap-2">
                 <ShieldAlert className="w-5 h-5 text-red-600" /> Immediate Actions
               </h3>
               <ul className="space-y-3">
                 {getActionPlan().map((action, i) => (
-                  <li key={i} className="flex items-start gap-3 text-gray-700 text-sm">
+                  <li key={i} className="flex items-start gap-3 text-gray-700 dark:text-gray-300 dark:text-gray-300 text-sm">
                     <span className="mt-0.5 w-1.5 h-1.5 bg-red-500 rounded-full flex-shrink-0"></span>
                     {action}
                   </li>
@@ -411,13 +411,13 @@ export const RiskPredictor = () => {
               </ul>
             </div>
 
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-              <h3 className="font-bold text-lg text-gray-900 mb-4 flex items-center gap-2">
+            <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 dark:border-gray-700">
+              <h3 className="font-bold text-lg text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-4 flex items-center gap-2">
                 <CheckSquare className="w-5 h-5 text-green-600" /> Detailed Prevention Checklist
               </h3>
               <ul className="space-y-3">
                 {getPreventionChecklist().map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-gray-700 text-sm">
+                  <li key={i} className="flex items-start gap-3 text-gray-700 dark:text-gray-300 dark:text-gray-300 text-sm">
                     <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
                     {item}
                   </li>

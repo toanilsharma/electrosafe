@@ -62,31 +62,31 @@ export const BillDetector: React.FC = () => {
         <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-100 text-green-700 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
           <DollarSign className="w-3.5 h-3.5" /> Bill Spike Detector
         </div>
-        <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">Why Is My Bill So High?</h1>
-        <p className="text-gray-600 text-lg max-w-xl mx-auto">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-3">Why Is My Bill So High?</h1>
+        <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400 text-lg max-w-xl mx-auto">
           Enter your last 3 months of electricity bills. We'll instantly tell you if there's a spike — and explain the likely electrical cause.
         </p>
       </div>
 
       {/* Input Form */}
-      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 mb-6">
-        <h2 className="font-bold text-gray-900 mb-4 flex items-center gap-2"><Zap className="w-5 h-5 text-yellow-500" /> Enter Your Bills</h2>
+      <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 dark:border-gray-700 shadow-sm p-6 mb-6">
+        <h2 className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-4 flex items-center gap-2"><Zap className="w-5 h-5 text-yellow-500" /> Enter Your Bills</h2>
         <div className="space-y-4">
           {months.map((m, i) => (
             <div key={i} className="grid grid-cols-1 sm:grid-cols-3 gap-3 items-end">
               <div className="sm:col-span-1">
-                <label className="text-xs font-bold text-gray-500 uppercase tracking-wider block mb-1">{m.label}</label>
+                <label className="text-xs font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 uppercase tracking-wider block mb-1">{m.label}</label>
               </div>
               <div>
-                <label className="text-xs text-gray-500 mb-1 block">Bill Amount (₹/$/-)</label>
+                <label className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 mb-1 block">Bill Amount (₹/$/-)</label>
                 <input type="number" placeholder="e.g. 1500" min="0"
-                  className="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-gray-900 focus:ring-2 focus:ring-blue-500 outline-none"
+                  className="w-full px-3 py-2.5 border border-gray-200 dark:border-gray-700 dark:border-gray-700 rounded-xl text-gray-900 dark:text-gray-100 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 outline-none"
                   value={m.amount} onChange={e => update(i, 'amount', e.target.value)} />
               </div>
               <div>
-                <label className="text-xs text-gray-500 mb-1 block">Units used (kWh)</label>
+                <label className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 mb-1 block">Units used (kWh)</label>
                 <input type="number" placeholder="e.g. 280" min="0"
-                  className="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-gray-900 focus:ring-2 focus:ring-blue-500 outline-none"
+                  className="w-full px-3 py-2.5 border border-gray-200 dark:border-gray-700 dark:border-gray-700 rounded-xl text-gray-900 dark:text-gray-100 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 outline-none"
                   value={m.units} onChange={e => update(i, 'units', e.target.value)} />
               </div>
             </div>
@@ -110,14 +110,14 @@ export const BillDetector: React.FC = () => {
 
           {result === 'spike' && (
             <div>
-              <h3 className="font-bold text-gray-900 mb-3 flex items-center gap-2"><AlertTriangle className="w-4 h-4 text-amber-500" /> Likely Causes to Investigate:</h3>
+              <h3 className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-3 flex items-center gap-2"><AlertTriangle className="w-4 h-4 text-amber-500" /> Likely Causes to Investigate:</h3>
               <div className="space-y-3">
                 {CAUSES.filter(c => c.pct <= Math.abs(spikePercent) + 10).map((c, i) => (
-                  <div key={i} className="flex items-start gap-3 bg-white rounded-xl p-4 border border-gray-100">
+                  <div key={i} className="flex items-start gap-3 bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-xl p-4 border border-gray-100 dark:border-gray-800 dark:border-gray-800">
                     <div className="w-2 h-2 rounded-full bg-red-400 mt-2 flex-shrink-0" />
                     <div className="flex-1">
-                      <p className="font-bold text-gray-900 text-sm">{c.title}</p>
-                      <p className="text-gray-600 text-xs mt-0.5">{c.desc}</p>
+                      <p className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 text-sm">{c.title}</p>
+                      <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400 text-xs mt-0.5">{c.desc}</p>
                     </div>
                     <Link to={c.link} className="text-blue-600 hover:text-blue-800 flex-shrink-0"><ArrowRight className="w-4 h-4" /></Link>
                   </div>

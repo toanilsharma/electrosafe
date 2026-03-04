@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ShieldCheck, Zap, ClipboardList, HelpCircle, Home, FileText, Globe, Search, DollarSign, Layout, Baby, BatteryCharging, Calendar, Gavel, Camera } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Zap, ClipboardList, HelpCircle, Home, FileText, Globe, Search, DollarSign, Layout, Baby, BatteryCharging, Calendar, Gavel, Camera, Sun, Car, Ghost, Flame, Monitor, Clock, CloudLightning, Sparkles } from 'lucide-react';
 
 interface RelatedTool {
   title: string;
@@ -28,6 +28,15 @@ const ALL_TOOLS: RelatedTool[] = [
   { title: 'Tenant Safety Letter', desc: 'Generate a formal letter to your landlord', to: '/tenant-request', icon: FileText, color: 'rose' },
   { title: 'Risk Predictor', desc: 'Predict your fire risk from warning signs', to: '/risk-predictor', icon: ShieldCheck, color: 'emerald' },
   { title: 'Country Safety Guide', desc: 'Global electrical standards for India, USA, UK', to: '/safety/india', icon: Globe, color: 'sky' },
+  // Phase 6 Global Calculators
+  { title: 'Solar ROI Calculator', desc: 'Payback period, CO₂ savings & panel ready check', to: '/solar-roi', icon: Sun, badge: 'New', color: 'amber' },
+  { title: 'EV Cost Comparison', desc: 'Home vs public vs petrol annual cost comparison', to: '/ev-cost-compare', icon: Car, badge: 'New', color: 'blue' },
+  { title: 'Ghost Power Finder', desc: 'Phantom standby cost from smart home devices', to: '/ghost-power', icon: Ghost, badge: 'New', color: 'purple' },
+  { title: 'Dryer Vent Fire Risk', desc: 'Lint fire probability meter — 5 quick questions', to: '/dryer-vent-risk', icon: Flame, color: 'red' },
+  { title: 'WFH Load Auditor', desc: 'Check if your home office overloads the circuit', to: '/wfh-load-audit', icon: Monitor, badge: 'New', color: 'indigo' },
+  { title: 'Appliance Life Gauge', desc: 'Efficiency decay & safety risk by age', to: '/appliance-life', icon: Clock, color: 'teal' },
+  { title: 'Lightning Risk Calculator', desc: 'IEC 62305 strike probability & SPD ROI', to: '/lightning-risk', icon: CloudLightning, color: 'sky' },
+  { title: 'Holiday Lights Planner', desc: 'Max string calculator for your outdoor circuit', to: '/holiday-lights', icon: Sparkles, color: 'red' },
 ];
 
 const COLOR_MAP: Record<string, string> = {
@@ -41,7 +50,7 @@ const COLOR_MAP: Record<string, string> = {
   pink: 'bg-pink-50 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300 border-pink-100 dark:border-pink-800',
   red: 'bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border-red-100 dark:border-red-800',
   cyan: 'bg-cyan-50 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300 border-cyan-100 dark:border-cyan-800',
-  slate: 'bg-slate-50 dark:bg-slate-900/30 text-slate-700 dark:text-slate-300 border-slate-100 dark:border-slate-800',
+  slate: 'bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 dark:bg-slate-900/30 text-slate-700 dark:text-gray-300 dark:text-gray-300 dark:text-slate-300 border-slate-100 dark:border-gray-800 dark:border-gray-800 dark:border-slate-800',
   violet: 'bg-violet-50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 border-violet-100 dark:border-violet-800',
   amber: 'bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-100 dark:border-amber-800',
   rose: 'bg-rose-50 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300 border-rose-100 dark:border-rose-800',
@@ -61,7 +70,7 @@ export const RelatedTools: React.FC<Props> = ({ currentPath, count = 3 }) => {
     <div className="mt-10 no-print">
       <div className="flex items-center gap-3 mb-4">
         <div className="h-px flex-1 bg-gray-200 dark:bg-gray-700" />
-        <span className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 whitespace-nowrap">You might also need</span>
+        <span className="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 dark:text-gray-400 dark:text-gray-400 whitespace-nowrap">You might also need</span>
         <div className="h-px flex-1 bg-gray-200 dark:bg-gray-700" />
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -74,14 +83,14 @@ export const RelatedTools: React.FC<Props> = ({ currentPath, count = 3 }) => {
               to={tool.to}
               className={`flex items-start gap-3 p-4 rounded-2xl border transition-all hover:shadow-md hover:-translate-y-0.5 group ${colorClass}`}
             >
-              <div className="mt-0.5 p-2 bg-white/60 dark:bg-black/20 rounded-xl flex-shrink-0">
+              <div className="mt-0.5 p-2 bg-white dark:bg-gray-900 dark:bg-gray-900/60 dark:bg-black/20 rounded-xl flex-shrink-0">
                 <Icon className="w-4 h-4" />
               </div>
               <div className="min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
                   <p className="font-bold text-sm leading-tight">{tool.title}</p>
                   {tool.badge && (
-                    <span className="text-[10px] font-bold px-1.5 py-0.5 bg-white/60 dark:bg-black/20 rounded-full whitespace-nowrap">{tool.badge}</span>
+                    <span className="text-[10px] font-bold px-1.5 py-0.5 bg-white dark:bg-gray-900 dark:bg-gray-900/60 dark:bg-black/20 rounded-full whitespace-nowrap">{tool.badge}</span>
                   )}
                 </div>
                 <p className="text-xs opacity-75 mt-0.5 leading-snug">{tool.desc}</p>

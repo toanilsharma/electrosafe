@@ -232,7 +232,7 @@ export const ToolLoadCalc = () => {
           
           <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
             {/* Currency Selector */}
-            <div className="bg-white/10 backdrop-blur-sm p-3 rounded-xl border border-white/20 flex-1 min-w-[140px]">
+            <div className="bg-white dark:bg-gray-900 dark:bg-gray-900/10 backdrop-blur-sm p-3 rounded-xl border border-white/20 flex-1 min-w-[140px]">
               <label className="text-[10px] font-bold uppercase tracking-wider text-blue-200 mb-1 flex items-center gap-1">
                 <Globe className="w-3 h-3" /> Currency
               </label>
@@ -245,13 +245,13 @@ export const ToolLoadCalc = () => {
                 className="w-full bg-transparent text-white font-bold text-lg border-none focus:ring-0 cursor-pointer p-0"
               >
                 {CURRENCIES.map(c => (
-                  <option key={c.code} value={c.code} className="text-gray-900">{c.label}</option>
+                  <option key={c.code} value={c.code} className="text-gray-900 dark:text-gray-100 dark:text-gray-100">{c.label}</option>
                 ))}
               </select>
             </div>
 
             {/* Rate Input */}
-            <div className="bg-white/10 backdrop-blur-sm p-3 rounded-xl border border-white/20 flex-1 relative group min-w-[160px]">
+            <div className="bg-white dark:bg-gray-900 dark:bg-gray-900/10 backdrop-blur-sm p-3 rounded-xl border border-white/20 flex-1 relative group min-w-[160px]">
               <label className="text-[10px] font-bold uppercase tracking-wider text-blue-200 mb-1 flex items-center gap-1">
                 Rate per kWh <Info className="w-3 h-3 text-blue-300 cursor-help" />
               </label>
@@ -282,7 +282,7 @@ export const ToolLoadCalc = () => {
         <div className="lg:col-span-7 space-y-6">
           
           {/* Search & Filter */}
-          <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-200 sticky top-20 z-10">
+          <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-4 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 dark:border-gray-700 sticky top-20 z-10">
             <div className="relative mb-4">
               <Search className="absolute left-3 top-3 text-gray-400 w-5 h-5" />
               <input 
@@ -296,7 +296,7 @@ export const ToolLoadCalc = () => {
             <div className="flex gap-2 overflow-x-auto pb-2 custom-scrollbar">
               <button 
                 onClick={() => setSelectedCategory('All')}
-                className={`px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${selectedCategory === 'All' ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+                className={`px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${selectedCategory === 'All' ? 'bg-gray-900 text-white' : 'bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 text-gray-600 dark:text-gray-400 dark:text-gray-400 hover:bg-gray-200'}`}
               >
                 All
               </button>
@@ -304,7 +304,7 @@ export const ToolLoadCalc = () => {
                 <button 
                   key={cat}
                   onClick={() => setSelectedCategory(cat)}
-                  className={`px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${selectedCategory === cat ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+                  className={`px-4 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${selectedCategory === cat ? 'bg-gray-900 text-white' : 'bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 text-gray-600 dark:text-gray-400 dark:text-gray-400 hover:bg-gray-200'}`}
                 >
                   {cat}
                 </button>
@@ -326,7 +326,7 @@ export const ToolLoadCalc = () => {
                   className={`relative p-4 rounded-xl border text-left transition-all duration-200 group ${
                     inListCount > 0 
                     ? 'bg-blue-50 border-blue-500 shadow-md transform scale-[1.02]' 
-                    : 'bg-white border-gray-200 hover:border-blue-300 hover:shadow-md'
+                    : 'bg-white dark:bg-gray-900 dark:bg-gray-900 border-gray-200 dark:border-gray-700 dark:border-gray-700 hover:border-blue-300 hover:shadow-md'
                   }`}
                 >
                   {inListCount > 0 && (
@@ -334,11 +334,11 @@ export const ToolLoadCalc = () => {
                       {inListCount}
                     </div>
                   )}
-                  <div className={`p-2 rounded-lg w-fit mb-3 ${inListCount > 0 ? 'bg-blue-200 text-blue-800' : 'bg-gray-100 text-gray-600 group-hover:bg-blue-50 group-hover:text-blue-600'}`}>
+                  <div className={`p-2 rounded-lg w-fit mb-3 ${inListCount > 0 ? 'bg-blue-200 text-blue-800' : 'bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 text-gray-600 dark:text-gray-400 dark:text-gray-400 group-hover:bg-blue-50 group-hover:text-blue-600'}`}>
                     <Icon className="w-6 h-6" />
                   </div>
-                  <div className="font-bold text-gray-900 leading-tight mb-1">{app.name}</div>
-                  <div className="text-xs text-gray-500 font-mono">{app.watts} Watts</div>
+                  <div className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 leading-tight mb-1">{app.name}</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 font-mono">{app.watts} Watts</div>
                 </button>
               );
             })}
@@ -349,9 +349,9 @@ export const ToolLoadCalc = () => {
         <div className="lg:col-span-5 space-y-8">
           
           {/* Bill Summary */}
-          <div className="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden sticky top-24">
-            <div className="bg-gray-50 px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-              <h2 className="font-bold text-gray-800 text-lg">Your List ({items.length})</h2>
+          <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 dark:border-gray-700 overflow-hidden sticky top-24">
+            <div className="bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 px-6 py-4 border-b border-gray-200 dark:border-gray-700 dark:border-gray-700 flex justify-between items-center">
+              <h2 className="font-bold text-gray-800 dark:text-gray-200 dark:text-gray-200 text-lg">Your List ({items.length})</h2>
               {items.length > 0 && (
                 <button onClick={() => setItems([])} className="text-xs text-red-500 hover:text-red-700 font-medium">
                   Clear All
@@ -360,10 +360,10 @@ export const ToolLoadCalc = () => {
             </div>
 
             {/* List Items */}
-            <div className="max-h-[300px] overflow-y-auto p-4 space-y-4 bg-gray-50/50 custom-scrollbar">
+            <div className="max-h-[300px] overflow-y-auto p-4 space-y-4 bg-gray-50 dark:bg-gray-800 dark:bg-gray-800/50 custom-scrollbar">
               {items.length === 0 ? (
                 <div className="text-center py-12 text-gray-400">
-                  <div className="bg-gray-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <div className="bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
                     <Plus className="w-8 h-8 text-gray-300" />
                   </div>
                   <p>List is empty.</p>
@@ -371,25 +371,25 @@ export const ToolLoadCalc = () => {
                 </div>
               ) : (
                 items.map((item, idx) => (
-                  <div key={idx} className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col gap-3 animate-in slide-in-from-bottom-2">
+                  <div key={idx} className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 dark:border-gray-800 flex flex-col gap-3 animate-in slide-in-from-bottom-2">
                     <div className="flex justify-between items-start">
-                      <span className="font-bold text-gray-900">{item.name}</span>
+                      <span className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100">{item.name}</span>
                       <button onClick={() => removeItem(idx)} className="text-gray-400 hover:text-red-500">
                         <X className="w-4 h-4" />
                       </button>
                     </div>
                     
-                    <div className="flex items-center gap-4 text-sm bg-gray-50 p-2 rounded-lg">
+                    <div className="flex items-center gap-4 text-sm bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 p-2 rounded-lg">
                       <div className="flex-1">
-                        <label className="text-[10px] uppercase font-bold text-gray-500 block mb-1">Quantity</label>
+                        <label className="text-[10px] uppercase font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 block mb-1">Quantity</label>
                         <div className="flex items-center gap-3">
-                          <button onClick={() => updateItem(idx, 'qty', Math.max(1, item.qty - 1))} className="w-6 h-6 bg-white border rounded hover:bg-gray-100">-</button>
+                          <button onClick={() => updateItem(idx, 'qty', Math.max(1, item.qty - 1))} className="w-6 h-6 bg-white dark:bg-gray-900 dark:bg-gray-900 border rounded hover:bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50">-</button>
                           <span className="font-mono font-bold w-4 text-center">{item.qty}</span>
-                          <button onClick={() => updateItem(idx, 'qty', item.qty + 1)} className="w-6 h-6 bg-white border rounded hover:bg-gray-100">+</button>
+                          <button onClick={() => updateItem(idx, 'qty', item.qty + 1)} className="w-6 h-6 bg-white dark:bg-gray-900 dark:bg-gray-900 border rounded hover:bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50">+</button>
                         </div>
                       </div>
-                      <div className="flex-1 border-l pl-4 border-gray-200">
-                        <label className="text-[10px] uppercase font-bold text-gray-500 block mb-1">Hours / Day</label>
+                      <div className="flex-1 border-l pl-4 border-gray-200 dark:border-gray-700 dark:border-gray-700">
+                        <label className="text-[10px] uppercase font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 block mb-1">Hours / Day</label>
                         <input 
                           type="number" 
                           value={item.hoursPerDay || 1}
@@ -413,7 +413,7 @@ export const ToolLoadCalc = () => {
                   {monthlyCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </span>
               </div>
-              <div className="flex justify-between text-xs text-gray-500 border-t border-gray-800 pt-3 mt-2">
+              <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 border-t border-gray-800 pt-3 mt-2">
                 <span>Total Load: <span className="text-white">{totalKW} kW</span></span>
                 <span>Daily Usage: <span className="text-white">{dailyKWh.toFixed(1)} Units</span></span>
               </div>
@@ -439,7 +439,7 @@ export const ToolLoadCalc = () => {
                     <button 
                       key={h} 
                       onClick={() => setBackupHours(h)}
-                      className={`flex-1 py-2 rounded-lg text-sm font-bold border ${backupHours === h ? 'bg-white text-indigo-900 border-white' : 'bg-indigo-800 text-indigo-300 border-indigo-700 hover:bg-indigo-700'}`}
+                      className={`flex-1 py-2 rounded-lg text-sm font-bold border ${backupHours === h ? 'bg-white dark:bg-gray-900 dark:bg-gray-900 text-indigo-900 border-white' : 'bg-indigo-800 text-indigo-300 border-indigo-700 hover:bg-indigo-700'}`}
                     >
                       {h} hrs
                     </button>
@@ -476,7 +476,7 @@ export const ToolLoadCalc = () => {
                   <div className="pt-4 mt-4 border-t border-indigo-800">
                     <button 
                       onClick={() => navigate('/ev-charger')}
-                      className="w-full py-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl text-blue-200 text-sm font-bold flex items-center justify-center gap-2 transition-all"
+                      className="w-full py-3 bg-white dark:bg-gray-900 dark:bg-gray-900/10 hover:bg-white dark:bg-gray-900 dark:bg-gray-900/20 border border-white/20 rounded-xl text-blue-200 text-sm font-bold flex items-center justify-center gap-2 transition-all"
                     >
                       <BatteryCharging className="w-4 h-4" /> Adding an EV? Open Wire Sizer
                     </button>

@@ -103,30 +103,30 @@ export const MyHome: React.FC = () => {
         <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-100 text-blue-700 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
           <Home className="w-3.5 h-3.5" /> My Home Dashboard
         </div>
-        <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">Your Personal Safety Hub</h1>
-        <p className="text-gray-600 text-lg max-w-2xl mx-auto">Track every electrical safety item across your home. Progress saves automatically.</p>
+        <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-3">Your Personal Safety Hub</h1>
+        <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400 text-lg max-w-2xl mx-auto">Track every electrical safety item across your home. Progress saves automatically.</p>
       </div>
 
       {/* Stats Row */}
       <div className="grid grid-cols-3 gap-4 mb-8">
-        <div className="bg-white rounded-2xl p-4 text-center border border-gray-200 shadow-sm">
+        <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-2xl p-4 text-center border border-gray-200 dark:border-gray-700 dark:border-gray-700 shadow-sm">
           <div className="text-3xl font-black text-blue-600">{percent}%</div>
-          <div className="text-xs text-gray-500 font-medium mt-1">Complete</div>
+          <div className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 font-medium mt-1">Complete</div>
         </div>
-        <div className="bg-white rounded-2xl p-4 text-center border border-gray-200 shadow-sm">
+        <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-2xl p-4 text-center border border-gray-200 dark:border-gray-700 dark:border-gray-700 shadow-sm">
           <div className="text-3xl font-black text-orange-500">{streak}</div>
-          <div className="text-xs text-gray-500 font-medium mt-1">Day Streak 🔥</div>
+          <div className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 font-medium mt-1">Day Streak 🔥</div>
         </div>
-        <div className="bg-white rounded-2xl p-4 text-center border border-gray-200 shadow-sm">
+        <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-2xl p-4 text-center border border-gray-200 dark:border-gray-700 dark:border-gray-700 shadow-sm">
           <div className="text-3xl font-black text-purple-600">{earnedBadges.length}</div>
-          <div className="text-xs text-gray-500 font-medium mt-1">Badges Earned</div>
+          <div className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 font-medium mt-1">Badges Earned</div>
         </div>
       </div>
 
       {/* Progress Bar */}
-      <div className="bg-white rounded-2xl p-5 border border-gray-200 shadow-sm mb-6">
+      <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-2xl p-5 border border-gray-200 dark:border-gray-700 dark:border-gray-700 shadow-sm mb-6">
         <div className="flex justify-between items-center mb-2">
-          <span className="font-bold text-gray-700 text-sm">{checkedCount} of {total} safety items</span>
+          <span className="font-bold text-gray-700 dark:text-gray-300 dark:text-gray-300 text-sm">{checkedCount} of {total} safety items</span>
           <span className={`font-black text-lg ${percent >= 80 ? 'text-green-600' : percent >= 40 ? 'text-yellow-600' : 'text-red-600'}`}>{percent}%</span>
         </div>
         <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
@@ -138,15 +138,15 @@ export const MyHome: React.FC = () => {
       </div>
 
       {/* Badges */}
-      <div className="bg-white rounded-2xl p-5 border border-gray-200 shadow-sm mb-6">
-        <h2 className="font-bold text-gray-900 mb-4 flex items-center gap-2"><Trophy className="w-5 h-5 text-yellow-500" /> Safety Badges</h2>
+      <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-2xl p-5 border border-gray-200 dark:border-gray-700 dark:border-gray-700 shadow-sm mb-6">
+        <h2 className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-4 flex items-center gap-2"><Trophy className="w-5 h-5 text-yellow-500" /> Safety Badges</h2>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {BADGES.map(badge => {
             const earned = checkedCount >= badge.threshold;
             return (
-              <div key={badge.id} className={`rounded-xl p-3 text-center transition-all ${earned ? 'bg-yellow-50 border border-yellow-200' : 'bg-gray-50 border border-gray-100 opacity-40'}`}>
+              <div key={badge.id} className={`rounded-xl p-3 text-center transition-all ${earned ? 'bg-yellow-50 border border-yellow-200' : 'bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 border border-gray-100 dark:border-gray-800 dark:border-gray-800 opacity-40'}`}>
                 <div className="text-2xl mb-1">{badge.icon}</div>
-                <div className={`text-xs font-bold ${earned ? 'text-yellow-700' : 'text-gray-500'}`}>{badge.name}</div>
+                <div className={`text-xs font-bold ${earned ? 'text-yellow-700' : 'text-gray-500 dark:text-gray-400 dark:text-gray-400'}`}>{badge.name}</div>
                 <div className="text-xs text-gray-400 mt-0.5">{badge.desc}</div>
               </div>
             );
@@ -159,7 +159,7 @@ export const MyHome: React.FC = () => {
         <button onClick={shareWA} className="flex-1 flex items-center justify-center gap-2 py-3 bg-green-500 hover:bg-green-600 text-white rounded-xl font-bold transition">
           <MessageCircle className="w-4 h-4" /> Share Progress
         </button>
-        <button onClick={() => { setChecks({}); localStorage.removeItem(STORAGE_KEY); }} className="flex items-center gap-2 px-4 py-3 bg-gray-100 text-gray-600 rounded-xl font-bold hover:bg-gray-200 transition text-sm">
+        <button onClick={() => { setChecks({}); localStorage.removeItem(STORAGE_KEY); }} className="flex items-center gap-2 px-4 py-3 bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 text-gray-600 dark:text-gray-400 dark:text-gray-400 rounded-xl font-bold hover:bg-gray-200 transition text-sm">
           <RefreshCw className="w-4 h-4" /> Reset
         </button>
       </div>
@@ -170,19 +170,19 @@ export const MyHome: React.FC = () => {
           const roomItems = CHECKLIST.filter(c => c.room === room);
           const roomDone = roomItems.filter(c => checks[c.id]).length;
           return (
-            <div key={room} className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm">
-              <div className="flex items-center justify-between p-4 border-b border-gray-100">
-                <h2 className="font-bold text-gray-900">{room}</h2>
+            <div key={room} className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 dark:border-gray-700 overflow-hidden shadow-sm">
+              <div className="flex items-center justify-between p-4 border-b border-gray-100 dark:border-gray-800 dark:border-gray-800">
+                <h2 className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100">{room}</h2>
                 <span className="text-xs font-bold bg-blue-100 text-blue-700 px-2.5 py-1 rounded-full">{roomDone}/{roomItems.length}</span>
               </div>
               <div className="p-4 space-y-2">
                 {roomItems.map(ci => (
                   <button key={ci.id} onClick={() => toggle(ci.id)}
-                    className={`w-full flex items-center gap-3 p-3 rounded-xl text-left transition-all ${checks[ci.id] ? 'bg-green-50 border border-green-100' : 'hover:bg-gray-50 border border-transparent'}`}>
+                    className={`w-full flex items-center gap-3 p-3 rounded-xl text-left transition-all ${checks[ci.id] ? 'bg-green-50 border border-green-100' : 'hover:bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 border border-transparent'}`}>
                     {checks[ci.id]
                       ? <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0" />
                       : <Circle className="w-5 h-5 text-gray-300 flex-shrink-0" />}
-                    <span className={`text-sm font-medium ${checks[ci.id] ? 'line-through text-gray-400' : 'text-gray-700'}`}>{ci.item}</span>
+                    <span className={`text-sm font-medium ${checks[ci.id] ? 'line-through text-gray-400' : 'text-gray-700 dark:text-gray-300 dark:text-gray-300'}`}>{ci.item}</span>
                   </button>
                 ))}
               </div>

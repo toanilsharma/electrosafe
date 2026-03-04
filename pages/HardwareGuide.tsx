@@ -342,7 +342,7 @@ export const HardwareGuide = () => {
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600 mb-6 font-display tracking-tight">
           Electrical Hardware Encyclopedia
         </h1>
-        <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto font-medium leading-relaxed">
+        <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 dark:text-gray-400 max-w-2xl mx-auto font-medium leading-relaxed">
           Don't just buy what the electrician asks for. Understand what you're paying for, how to verify true quality, and what the global safety ratings mean.
         </p>
       </div>
@@ -353,7 +353,7 @@ export const HardwareGuide = () => {
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-[100px] pointer-events-none"></div>
         
         <div className="relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 text-blue-300 rounded-full text-xs font-bold uppercase tracking-wider mb-6 border border-white/10 backdrop-blur-md">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-white dark:bg-gray-900 dark:bg-gray-900/10 text-blue-300 rounded-full text-xs font-bold uppercase tracking-wider mb-6 border border-white/10 backdrop-blur-md">
             Interactive Tool
           </div>
           <h2 className="text-3xl md:text-4xl font-extrabold mb-8 flex items-center gap-3">
@@ -409,7 +409,7 @@ export const HardwareGuide = () => {
                 className={`px-4 py-2.5 rounded-xl font-medium transition-all duration-300 text-sm md:text-base border ${
                   selectedLoad === type.id 
                     ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-[0_0_20px_rgba(59,130,246,0.5)] border-blue-400 scale-105' 
-                    : 'bg-white/5 hover:bg-white/10 text-slate-300 border-white/10 hover:border-white/20'
+                    : 'bg-white dark:bg-gray-900 dark:bg-gray-900/5 hover:bg-white dark:bg-gray-900 dark:bg-gray-900/10 text-slate-300 border-white/10 hover:border-white/20'
                 }`}
               >
                 {type.label}
@@ -464,7 +464,7 @@ export const HardwareGuide = () => {
               className={`mt-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm transition-all ${
                 shoppingList.some(i => i.device === rec.device)
                   ? 'bg-green-500 text-white cursor-default'
-                  : 'bg-yellow-400 hover:bg-yellow-300 text-gray-900 hover:scale-105'
+                  : 'bg-yellow-400 hover:bg-yellow-300 text-gray-900 dark:text-gray-100 dark:text-gray-100 hover:scale-105'
               }`}
             >
               {shoppingList.some(i => i.device === rec.device) ? (
@@ -475,37 +475,37 @@ export const HardwareGuide = () => {
             </button>
           )}
 
-          <p className="text-xs text-gray-500 mt-4">* General recommendations only. Always consult a certified electrician for cable lengths over 20 meters.</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 mt-4">* General recommendations only. Always consult a certified electrician for cable lengths over 20 meters.</p>
         </div>
       </div>
 
       {/* 2. COMPONENT CARDS */}
       <div id="hw-components" className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20 animate-slide-up delay-200">
         {HARDWARE_DATA.map((item) => (
-          <div key={item.id} className="bg-white rounded-[2rem] p-8 border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all group overflow-hidden relative">
+          <div key={item.id} className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-[2rem] p-8 border border-gray-100 dark:border-gray-800 dark:border-gray-800 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all group overflow-hidden relative">
             <div className="absolute -top-10 -right-10 w-32 h-32 bg-blue-50 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700"></div>
             
             <div className="relative z-10">
               <div className="flex justify-between items-start mb-6">
                 <div>
-                  <h3 className="text-2xl font-bold text-gray-900 font-display">{item.name}</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 font-display">{item.name}</h3>
                   <span className="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1.5 rounded-full mt-2 inline-block border border-blue-100">
                     AKA: {item.aka}
                   </span>
                 </div>
-                <div className="bg-gradient-to-br from-gray-50 to-gray-100 p-4 rounded-2xl shadow-sm border border-gray-200 group-hover:scale-110 group-hover:rotate-3 transition-transform">
+                <div className="bg-gradient-to-br from-gray-50 to-gray-100 p-4 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 dark:border-gray-700 group-hover:scale-110 group-hover:rotate-3 transition-transform">
                   <Zap className="w-8 h-8 text-gray-400" />
                 </div>
               </div>
               
-              <p className="text-gray-600 mb-8 min-h-[48px] text-lg leading-relaxed">{item.description}</p>
+              <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400 mb-8 min-h-[48px] text-lg leading-relaxed">{item.description}</p>
               
               <div className="space-y-6">
-                <div className="bg-slate-50 p-5 rounded-2xl border border-slate-100">
-                  <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Common Ratings</div>
+                <div className="bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 p-5 rounded-2xl border border-slate-100 dark:border-gray-800 dark:border-gray-800">
+                  <div className="text-xs font-bold text-slate-500 dark:text-gray-400 dark:text-gray-400 uppercase tracking-wider mb-3">Common Ratings</div>
                   <div className="flex flex-wrap gap-2">
                     {item.ratings.map((r, i) => (
-                      <span key={i} className="px-3 py-1.5 bg-white border border-slate-200 text-sm font-bold shadow-sm rounded-lg text-slate-700">
+                      <span key={i} className="px-3 py-1.5 bg-white dark:bg-gray-900 dark:bg-gray-900 border border-slate-200 dark:border-gray-700 dark:border-gray-700 text-sm font-bold shadow-sm rounded-lg text-slate-700 dark:text-gray-300 dark:text-gray-300">
                         {r}
                       </span>
                     ))}
@@ -518,7 +518,7 @@ export const HardwareGuide = () => {
                       <BookOpen className="w-5 h-5 text-indigo-600" />
                     </div>
                     <div>
-                      <div className="text-sm font-bold text-gray-900 mb-1">Applicable Standards</div>
+                      <div className="text-sm font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-1">Applicable Standards</div>
                       <div className="text-sm text-indigo-700 font-mono font-bold">
                         {item.standards.join(', ')}
                       </div>
@@ -526,13 +526,13 @@ export const HardwareGuide = () => {
                   </div>
                 )}
 
-                <div className="flex items-start gap-4 pb-4 border-b border-gray-100">
+                <div className="flex items-start gap-4 pb-4 border-b border-gray-100 dark:border-gray-800 dark:border-gray-800">
                    <div className="bg-emerald-50 p-2 rounded-xl flex-shrink-0">
                      <CheckCircle2 className="w-5 h-5 text-emerald-600" />
                    </div>
                    <div>
-                     <div className="text-sm font-bold text-gray-900 mb-1">Selection Rule</div>
-                     <div className="text-sm text-gray-600 leading-relaxed">{item.selectionRule}</div>
+                     <div className="text-sm font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-1">Selection Rule</div>
+                     <div className="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400 leading-relaxed">{item.selectionRule}</div>
                    </div>
                 </div>
 
@@ -541,8 +541,8 @@ export const HardwareGuide = () => {
                      <AlertTriangle className="w-5 h-5 text-orange-600" />
                    </div>
                    <div>
-                     <div className="text-sm font-bold text-gray-900 mb-1">Expert Pro Tip</div>
-                     <div className="text-sm text-gray-600 leading-relaxed">{item.tip}</div>
+                     <div className="text-sm font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-1">Expert Pro Tip</div>
+                     <div className="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400 leading-relaxed">{item.tip}</div>
                    </div>
                 </div>
               </div>
@@ -558,19 +558,19 @@ export const HardwareGuide = () => {
           <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
             Global Compliance
           </div>
-          <h2 className="text-3xl font-extrabold text-gray-900 mb-10 flex items-center gap-3">
+          <h2 className="text-3xl font-extrabold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-10 flex items-center gap-3">
             <BookOpen className="text-indigo-600 w-8 h-8" /> Decoding Global Standards
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {STANDARDS_GUIDE.map((std, i) => (
-              <div key={i} className="bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-gray-100 hover:shadow-lg transition-shadow relative overflow-hidden group">
+              <div key={i} className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-6 rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-gray-100 dark:border-gray-800 dark:border-gray-800 hover:shadow-lg transition-shadow relative overflow-hidden group">
                 <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
                   <Globe className="w-16 h-16 text-indigo-900" />
                 </div>
                 <div className="relative z-10">
                   <div className="inline-block bg-indigo-50 px-3 py-1 rounded-lg font-mono text-lg font-bold text-indigo-700 mb-3 border border-indigo-100">{std.code}</div>
-                  <div className="font-bold text-gray-900 text-lg mb-2">{std.title}</div>
-                  <p className="text-sm text-gray-600 leading-relaxed">{std.desc}</p>
+                  <div className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 text-lg mb-2">{std.title}</div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400 leading-relaxed">{std.desc}</p>
                 </div>
               </div>
             ))}
@@ -587,7 +587,7 @@ export const HardwareGuide = () => {
           {/* Toggle Button */}
           <button
             onClick={() => setShowCart(!showCart)}
-            className="fixed bottom-20 md:bottom-6 right-16 md:right-6 z-40 bg-yellow-400 hover:bg-yellow-300 text-gray-900 p-3.5 rounded-full shadow-xl transition-all hover:scale-110"
+            className="fixed bottom-20 md:bottom-6 right-16 md:right-6 z-40 bg-yellow-400 hover:bg-yellow-300 text-gray-900 dark:text-gray-100 dark:text-gray-100 p-3.5 rounded-full shadow-xl transition-all hover:scale-110"
             title="Project Materials List"
           >
             <ShoppingCart className="w-5 h-5" />
@@ -598,19 +598,19 @@ export const HardwareGuide = () => {
 
           {/* Cart Panel */}
           {showCart && (
-            <div className="fixed bottom-36 md:bottom-20 right-4 z-50 w-80 bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden animate-in slide-in-from-bottom-4 zoom-in-95 duration-200">
+            <div className="fixed bottom-36 md:bottom-20 right-4 z-50 w-80 bg-white dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 dark:border-gray-700 dark:border-gray-700 overflow-hidden animate-in slide-in-from-bottom-4 zoom-in-95 duration-200">
               <div className="bg-gray-900 dark:bg-gray-800 text-white p-4 flex items-center justify-between">
                 <h3 className="font-bold flex items-center gap-2"><ShoppingCart className="w-4 h-4" /> Project Materials</h3>
-                <span className="text-xs bg-yellow-400 text-gray-900 px-2 py-0.5 rounded-full font-bold">{shoppingList.length} items</span>
+                <span className="text-xs bg-yellow-400 text-gray-900 dark:text-gray-100 dark:text-gray-100 px-2 py-0.5 rounded-full font-bold">{shoppingList.length} items</span>
               </div>
               <div className="max-h-60 overflow-y-auto p-3 space-y-2 custom-scrollbar">
                 {shoppingList.map((item, i) => (
-                  <div key={i} className="bg-gray-50 dark:bg-gray-800 rounded-xl p-3 text-xs flex items-start gap-2">
+                  <div key={i} className="bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 dark:bg-gray-800 rounded-xl p-3 text-xs flex items-start gap-2">
                     <div className="flex-1 min-w-0">
-                      <p className="font-bold text-gray-900 dark:text-gray-100 truncate">{item.device}</p>
-                      <p className="text-gray-500 dark:text-gray-400">Wire: {item.wire}</p>
-                      <p className="text-gray-500 dark:text-gray-400">MCB: {item.breaker}</p>
-                      <p className="text-gray-500 dark:text-gray-400">Socket: {item.socket}</p>
+                      <p className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100 truncate">{item.device}</p>
+                      <p className="text-gray-500 dark:text-gray-400 dark:text-gray-400 dark:text-gray-400">Wire: {item.wire}</p>
+                      <p className="text-gray-500 dark:text-gray-400 dark:text-gray-400 dark:text-gray-400">MCB: {item.breaker}</p>
+                      <p className="text-gray-500 dark:text-gray-400 dark:text-gray-400 dark:text-gray-400">Socket: {item.socket}</p>
                     </div>
                     <button onClick={() => removeFromList(item.device)} className="text-gray-400 hover:text-red-500 mt-0.5">
                       <Trash2 className="w-3.5 h-3.5" />
@@ -618,11 +618,11 @@ export const HardwareGuide = () => {
                   </div>
                 ))}
               </div>
-              <div className="p-3 border-t border-gray-200 dark:border-gray-700 flex gap-2">
+              <div className="p-3 border-t border-gray-200 dark:border-gray-700 dark:border-gray-700 dark:border-gray-700 flex gap-2">
                 <button onClick={copyList} className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg font-bold text-xs transition ${listCopied ? 'bg-green-600 text-white' : 'bg-blue-600 text-white hover:bg-blue-700'}`}>
                   {listCopied ? <><CheckCircle className="w-3.5 h-3.5" /> Copied!</> : <><Copy className="w-3.5 h-3.5" /> Copy List</>}
                 </button>
-                <button onClick={() => window.print()} className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg font-bold text-xs hover:bg-gray-200 transition">
+                <button onClick={() => window.print()} className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 rounded-lg font-bold text-xs hover:bg-gray-200 transition">
                   <Printer className="w-3.5 h-3.5" /> Print
                 </button>
               </div>

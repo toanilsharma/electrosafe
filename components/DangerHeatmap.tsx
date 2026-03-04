@@ -60,7 +60,7 @@ export const DangerHeatmap = () => {
                    <form onSubmit={submitZip} className="flex gap-2 max-w-md mx-auto md:mx-0">
                       <div className="relative flex-1">
                          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <MapPin className="text-slate-500 w-5 h-5" />
+                            <MapPin className="text-slate-500 dark:text-gray-400 dark:text-gray-400 w-5 h-5" />
                          </div>
                          <input 
                            type="text" 
@@ -125,10 +125,10 @@ export const DangerHeatmap = () => {
                        <div className="w-full h-1.5 bg-slate-700 rounded-full overflow-hidden">
                           <div className="h-full bg-yellow-500" style={{ width: `${stats.oldPanels}%` }}></div>
                        </div>
-                       <p className="text-[10px] text-slate-500 mt-2 leading-tight">These figures are probabilistic estimates based on aggregated housing-tract age profiles and historical failure rates.</p>
+                       <p className="text-[10px] text-slate-500 dark:text-gray-400 dark:text-gray-400 mt-2 leading-tight">These figures are probabilistic estimates based on aggregated housing-tract age profiles and historical failure rates.</p>
                     </div>
 
-                    <a href="/assessment" className="block w-full text-center py-3 bg-white text-slate-900 font-bold rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all mt-4">
+                    <a href="/assessment" className="block w-full text-center py-3 bg-white dark:bg-gray-900 dark:bg-gray-900 text-slate-900 dark:text-gray-100 dark:text-gray-100 font-bold rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all mt-4">
                         Check My House Now →
                     </a>
                 </div>

@@ -48,8 +48,8 @@ export const StickyTOC: React.FC<Props> = ({ items }) => {
     <>
       {/* Desktop: Sticky Sidebar */}
       <div className="hidden xl:block fixed top-24 right-4 z-30 w-56">
-        <div className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-md rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-4 max-h-[70vh] overflow-y-auto custom-scrollbar">
-          <div className="flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+        <div className="bg-white dark:bg-gray-900 dark:bg-gray-900/95 dark:bg-gray-900/95 backdrop-blur-md rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 dark:border-gray-700 dark:border-gray-700 p-4 max-h-[70vh] overflow-y-auto custom-scrollbar">
+          <div className="flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 dark:text-gray-400 dark:text-gray-400">
             <List className="w-3.5 h-3.5" />
             On this page
           </div>
@@ -63,7 +63,7 @@ export const StickyTOC: React.FC<Props> = ({ items }) => {
                 } ${
                   activeId === item.id
                     ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 font-bold'
-                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800'
+                    : 'text-gray-600 dark:text-gray-400 dark:text-gray-400 dark:text-gray-400 hover:text-gray-900 dark:text-gray-100 dark:text-gray-100 dark:hover:text-gray-200 hover:bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 dark:hover:bg-gray-800'
                 }`}
               >
                 {item.label}
@@ -84,7 +84,7 @@ export const StickyTOC: React.FC<Props> = ({ items }) => {
         </button>
 
         {isOpen && (
-          <div className="absolute bottom-14 right-0 w-64 bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 p-4 max-h-[50vh] overflow-y-auto animate-in slide-in-from-bottom-4 zoom-in-95 duration-200">
+          <div className="absolute bottom-14 right-0 w-64 bg-white dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 dark:border-gray-700 dark:border-gray-700 p-4 max-h-[50vh] overflow-y-auto animate-in slide-in-from-bottom-4 zoom-in-95 duration-200">
             <div className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">Jump to</div>
             <nav className="space-y-0.5">
               {items.map((item) => (
@@ -94,7 +94,7 @@ export const StickyTOC: React.FC<Props> = ({ items }) => {
                   className={`flex items-center gap-2 w-full text-left text-sm py-2 px-3 rounded-lg transition ${
                     activeId === item.id
                       ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 font-bold'
-                      : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
+                      : 'text-gray-600 dark:text-gray-400 dark:text-gray-400 dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 dark:hover:bg-gray-800'
                   }`}
                 >
                   <ChevronRight className={`w-3 h-3 flex-shrink-0 ${activeId === item.id ? 'text-blue-500' : 'text-gray-300'}`} />

@@ -136,26 +136,26 @@ export const GuideProtection = () => {
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600 mb-6 font-display tracking-tight flex items-center justify-center gap-4">
           <Shield className="w-12 h-12 md:w-16 md:h-16 text-blue-600" /> Universal Protection Index
         </h1>
-        <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto font-medium leading-relaxed">
+        <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 dark:text-gray-400 max-w-2xl mx-auto font-medium leading-relaxed">
           Determine the exact safety devices required for your home's profile. We use globally neutral engineering terms applicable to any standard (NEC, IEC, BS).
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-20 animate-slide-up">
         {/* Inputs */}
-        <div className="lg:col-span-5 bg-white p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 relative overflow-hidden group">
+        <div className="lg:col-span-5 bg-white dark:bg-gray-900 dark:bg-gray-900 p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 dark:border-gray-800 dark:border-gray-800 relative overflow-hidden group">
           <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50/50 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700 pointer-events-none"></div>
           
-          <h2 className="text-2xl font-bold text-gray-900 mb-8 flex items-center gap-3">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-8 flex items-center gap-3">
             <Settings className="w-6 h-6 text-blue-500" /> Home Profile
           </h2>
           
           <div className="space-y-6 relative z-10">
             <div>
-              <label className="block text-sm font-bold text-gray-700 uppercase tracking-wider mb-2">Home Size</label>
+              <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 dark:text-gray-300 uppercase tracking-wider mb-2">Home Size</label>
               <div className="relative">
                 <select
-                  className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl p-3.5 appearance-none font-medium focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  className="w-full bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 dark:border-gray-700 text-gray-900 dark:text-gray-100 dark:text-gray-100 rounded-xl p-3.5 appearance-none font-medium focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                   value={inputs.homeSize}
                   onChange={(e) => setInputs({ ...inputs, homeSize: e.target.value })}
                 >
@@ -170,7 +170,7 @@ export const GuideProtection = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-bold text-gray-700 uppercase tracking-wider mb-2 flex justify-between">
+              <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 dark:text-gray-300 uppercase tracking-wider mb-2 flex justify-between">
                 <span>Existing Circuits</span>
                 <span className="text-gray-400 font-normal normal-case text-xs">(Count your breakers)</span>
               </label>
@@ -178,17 +178,17 @@ export const GuideProtection = () => {
                 type="number"
                 min="1"
                 max="50"
-                className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl p-3.5 font-medium focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                className="w-full bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 dark:border-gray-700 text-gray-900 dark:text-gray-100 dark:text-gray-100 rounded-xl p-3.5 font-medium focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                 value={inputs.circuitCount}
                 onChange={(e) => setInputs({ ...inputs, circuitCount: parseInt(e.target.value) || 0 })}
               />
             </div>
 
             <div>
-              <label className="block text-sm font-bold text-gray-700 uppercase tracking-wider mb-2">Sensitivity Class</label>
+              <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 dark:text-gray-300 uppercase tracking-wider mb-2">Sensitivity Class</label>
               <div className="relative">
                 <select
-                  className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl p-3.5 appearance-none font-medium focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  className="w-full bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 dark:border-gray-700 text-gray-900 dark:text-gray-100 dark:text-gray-100 rounded-xl p-3.5 appearance-none font-medium focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                   value={inputs.sensitivity}
                   onChange={(e) => setInputs({ ...inputs, sensitivity: e.target.value })}
                 >
@@ -201,8 +201,8 @@ export const GuideProtection = () => {
               </div>
             </div>
 
-            <div className="space-y-4 pt-4 border-t border-gray-100">
-              <label className="flex items-center gap-4 p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition-colors border border-transparent hover:border-gray-200">
+            <div className="space-y-4 pt-4 border-t border-gray-100 dark:border-gray-800 dark:border-gray-800">
+              <label className="flex items-center gap-4 p-3 bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 rounded-xl cursor-pointer hover:bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 transition-colors border border-transparent hover:border-gray-200 dark:border-gray-700 dark:border-gray-700">
                 <div className="relative flex items-center">
                   <input
                     type="checkbox"
@@ -212,12 +212,12 @@ export const GuideProtection = () => {
                   />
                 </div>
                 <div>
-                  <span className="text-gray-900 font-bold block">Wet Areas Present</span>
-                  <span className="text-gray-500 text-xs">Garden, pool, open balcony, basement</span>
+                  <span className="text-gray-900 dark:text-gray-100 dark:text-gray-100 font-bold block">Wet Areas Present</span>
+                  <span className="text-gray-500 dark:text-gray-400 dark:text-gray-400 text-xs">Garden, pool, open balcony, basement</span>
                 </div>
               </label>
 
-              <label className="flex items-center gap-4 p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition-colors border border-transparent hover:border-gray-200">
+              <label className="flex items-center gap-4 p-3 bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 rounded-xl cursor-pointer hover:bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 transition-colors border border-transparent hover:border-gray-200 dark:border-gray-700 dark:border-gray-700">
                 <div className="relative flex items-center">
                   <input
                     type="checkbox"
@@ -227,12 +227,12 @@ export const GuideProtection = () => {
                   />
                 </div>
                 <div>
-                  <span className="text-gray-900 font-bold block">Heavy Loads</span>
-                  <span className="text-gray-500 text-xs">EV Chargers, Induction stoves, multiple ACs</span>
+                  <span className="text-gray-900 dark:text-gray-100 dark:text-gray-100 font-bold block">Heavy Loads</span>
+                  <span className="text-gray-500 dark:text-gray-400 dark:text-gray-400 text-xs">EV Chargers, Induction stoves, multiple ACs</span>
                 </div>
               </label>
 
-              <label className="flex items-center gap-4 p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition-colors border border-transparent hover:border-gray-200">
+              <label className="flex items-center gap-4 p-3 bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 rounded-xl cursor-pointer hover:bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 transition-colors border border-transparent hover:border-gray-200 dark:border-gray-700 dark:border-gray-700">
                 <div className="relative flex items-center">
                   <input
                     type="checkbox"
@@ -242,8 +242,8 @@ export const GuideProtection = () => {
                   />
                 </div>
                 <div>
-                  <span className="text-gray-900 font-bold block">Child Safety</span>
-                  <span className="text-gray-500 text-xs">Toddlers or infants present in the home</span>
+                  <span className="text-gray-900 dark:text-gray-100 dark:text-gray-100 font-bold block">Child Safety</span>
+                  <span className="text-gray-500 dark:text-gray-400 dark:text-gray-400 text-xs">Toddlers or infants present in the home</span>
                 </div>
               </label>
             </div>
@@ -258,42 +258,42 @@ export const GuideProtection = () => {
         </div>
 
         {/* Results */}
-        <div className="lg:col-span-7 bg-gradient-to-br from-slate-50 to-gray-100 p-8 rounded-[2rem] border border-gray-200 shadow-inner flex flex-col">
+        <div className="lg:col-span-7 bg-gradient-to-br from-slate-50 to-gray-100 p-8 rounded-[2rem] border border-gray-200 dark:border-gray-700 dark:border-gray-700 shadow-inner flex flex-col">
           {!result ? (
             <div className="h-full flex flex-col items-center justify-center text-gray-400 min-h-[400px]">
               <div className="w-24 h-24 bg-gray-200/50 rounded-full flex items-center justify-center mb-6">
                 <ShieldCheck className="w-12 h-12 text-gray-400 opacity-50" />
               </div>
-              <h3 className="text-xl font-bold text-gray-500 mb-2">Awaiting Blueprint</h3>
+              <h3 className="text-xl font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 mb-2">Awaiting Blueprint</h3>
               <p className="max-w-xs text-center">Configure your home profile on the left to generate an engineering-grade protection plan.</p>
             </div>
           ) : (
             <div className="space-y-8 animate-in fade-in zoom-in-95 duration-500 flex-1">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-gray-200 pb-6">
-                <div className="flex items-center gap-4 bg-white p-3 pr-6 border border-gray-100 shadow-sm rounded-2xl">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-gray-200 dark:border-gray-700 dark:border-gray-700 pb-6">
+                <div className="flex items-center gap-4 bg-white dark:bg-gray-900 dark:bg-gray-900 p-3 pr-6 border border-gray-100 dark:border-gray-800 dark:border-gray-800 shadow-sm rounded-2xl">
                   <div className="bg-emerald-100 w-12 h-12 rounded-xl flex items-center justify-center">
                     <ShieldCheck className="w-6 h-6 text-emerald-600" />
                   </div>
                   <div>
-                    <h3 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Protection Tier</h3>
-                    <div className="font-extrabold text-xl text-gray-900">{result.level}</div>
+                    <h3 className="text-xs font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 uppercase tracking-widest mb-1">Protection Tier</h3>
+                    <div className="font-extrabold text-xl text-gray-900 dark:text-gray-100 dark:text-gray-100">{result.level}</div>
                   </div>
                 </div>
                 <button
                   onClick={() => setResult(null)}
-                  className="bg-white border border-gray-200 hover:bg-gray-50 text-gray-600 px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-colors shadow-sm"
+                  className="bg-white dark:bg-gray-900 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 dark:border-gray-700 hover:bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 text-gray-600 dark:text-gray-400 dark:text-gray-400 px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 transition-colors shadow-sm"
                 >
                   <RefreshCw className="w-4 h-4" /> Reset Profile
                 </button>
               </div>
 
               <div>
-                <h4 className="font-extrabold text-gray-900 text-xl mb-6 flex items-center gap-3">
+                <h4 className="font-extrabold text-gray-900 dark:text-gray-100 dark:text-gray-100 text-xl mb-6 flex items-center gap-3">
                   <Sliders className="w-6 h-6 text-blue-500" /> Mandatory Switchgear:
                 </h4>
                 <ul className="space-y-4">
                   {result.devices.map((dev: string, idx: number) => (
-                    <li key={idx} className="flex items-start gap-4 text-gray-800 bg-white p-5 rounded-2xl shadow-sm border border-gray-100 group hover:border-blue-100 transition-colors">
+                    <li key={idx} className="flex items-start gap-4 text-gray-800 dark:text-gray-200 dark:text-gray-200 bg-white dark:bg-gray-900 dark:bg-gray-900 p-5 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 dark:border-gray-800 group hover:border-blue-100 transition-colors">
                       <div className="min-w-[8px] h-[8px] rounded-full bg-blue-500 mt-2 flex-shrink-0 group-hover:scale-150 transition-transform"></div>
                       <span className="font-medium text-lg leading-snug">{dev}</span>
                     </li>
@@ -311,7 +311,7 @@ export const GuideProtection = () => {
                   </h4>
                   <ul className="space-y-3 relative z-10">
                     {result.warnings.map((warn: string, idx: number) => (
-                      <li key={idx} className="text-sm md:text-base text-amber-900 flex items-start gap-3 bg-white/50 p-3 rounded-xl">
+                      <li key={idx} className="text-sm md:text-base text-amber-900 flex items-start gap-3 bg-white dark:bg-gray-900 dark:bg-gray-900/50 p-3 rounded-xl">
                         <span className="text-amber-600 mt-0.5">•</span> <span className="font-medium">{warn}</span>
                       </li>
                     ))}
@@ -328,25 +328,25 @@ export const GuideProtection = () => {
         <div className="absolute top-0 right-0 w-96 h-96 bg-green-500/20 rounded-full blur-[100px] pointer-events-none"></div>
         
         <div className="relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 text-green-300 rounded-full text-xs font-bold uppercase tracking-wider mb-6 border border-white/10 backdrop-blur-md">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-white dark:bg-gray-900 dark:bg-gray-900/10 text-green-300 rounded-full text-xs font-bold uppercase tracking-wider mb-6 border border-white/10 backdrop-blur-md">
             Decryption Tool
           </div>
           <h2 className="text-3xl md:text-4xl font-extrabold mb-6 flex items-center gap-3">
             <Search className="w-8 h-8 text-green-400" /> Breaker Code Decoder
           </h2>
           <p className="text-slate-300 mb-10 max-w-2xl text-lg">
-            Breakers have codes printed on them like <code className="bg-white/10 px-2 py-1 rounded text-green-300">C16</code> or <code className="bg-white/10 px-2 py-1 rounded text-green-300">6000</code>. These specify how and when the breaker trips. Select your codes below to reveal their meaning.
+            Breakers have codes printed on them like <code className="bg-white dark:bg-gray-900 dark:bg-gray-900/10 px-2 py-1 rounded text-green-300">C16</code> or <code className="bg-white dark:bg-gray-900 dark:bg-gray-900/10 px-2 py-1 rounded text-green-300">6000</code>. These specify how and when the breaker trips. Select your codes below to reveal their meaning.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 p-6 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-md">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 p-6 bg-white dark:bg-gray-900 dark:bg-gray-900/5 rounded-2xl border border-white/10 backdrop-blur-md">
             <div>
               <label className="text-xs font-extrabold text-slate-400 uppercase tracking-widest mb-3 block">Trigger Curve (Letter)</label>
-              <div className="flex gap-2 p-1 bg-white/5 rounded-xl border border-white/10">
+              <div className="flex gap-2 p-1 bg-white dark:bg-gray-900 dark:bg-gray-900/5 rounded-xl border border-white/10">
                 {['B', 'C', 'D'].map(type => (
                   <button
                     key={type}
                     onClick={() => setBreakerType(type)}
-                    className={`flex-1 py-3 rounded-lg font-bold transition-all ${breakerType === type ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg' : 'bg-transparent text-slate-300 hover:bg-white/10'}`}
+                    className={`flex-1 py-3 rounded-lg font-bold transition-all ${breakerType === type ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg' : 'bg-transparent text-slate-300 hover:bg-white dark:bg-gray-900 dark:bg-gray-900/10'}`}
                   >
                     Type {type}
                   </button>
@@ -358,7 +358,7 @@ export const GuideProtection = () => {
               <label className="text-xs font-extrabold text-slate-400 uppercase tracking-widest mb-3 block">Current Limit (Number)</label>
               <div className="relative">
                 <select
-                  className="w-full bg-white/10 border border-white/20 rounded-xl p-4 text-white font-bold appearance-none focus:ring-2 focus:ring-green-500 transition-all outline-none"
+                  className="w-full bg-white dark:bg-gray-900 dark:bg-gray-900/10 border border-white/20 rounded-xl p-4 text-white font-bold appearance-none focus:ring-2 focus:ring-green-500 transition-all outline-none"
                   value={breakerAmps}
                   onChange={(e) => setBreakerAmps(e.target.value)}
                 >
@@ -377,7 +377,7 @@ export const GuideProtection = () => {
               <label className="text-xs font-extrabold text-slate-400 uppercase tracking-widest mb-3 block">Fault Capacity (Box)</label>
               <div className="relative">
                 <select
-                  className="w-full bg-white/10 border border-white/20 rounded-xl p-4 text-white font-bold appearance-none focus:ring-2 focus:ring-green-500 transition-all outline-none"
+                  className="w-full bg-white dark:bg-gray-900 dark:bg-gray-900/10 border border-white/20 rounded-xl p-4 text-white font-bold appearance-none focus:ring-2 focus:ring-green-500 transition-all outline-none"
                   value={breakerCap}
                   onChange={(e) => setBreakerCap(e.target.value)}
                 >
@@ -425,26 +425,26 @@ export const GuideProtection = () => {
       </div>
 
       {/* NEW SECTION: Voltage Drop Calculator */}
-      <div className="bg-white rounded-[2.5rem] p-8 md:p-12 border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.06)] mb-20 relative overflow-hidden">
+      <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-[2.5rem] p-8 md:p-12 border border-gray-100 dark:border-gray-800 dark:border-gray-800 shadow-[0_8px_30px_rgb(0,0,0,0.06)] mb-20 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-blue-100 rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/2"></div>
-        <h2 className="text-3xl font-extrabold text-gray-900 mb-6 flex items-center gap-3 relative z-10">
+        <h2 className="text-3xl font-extrabold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-6 flex items-center gap-3 relative z-10">
           <Calculator className="w-8 h-8 text-blue-600" /> Circuit Distance Analyzer
         </h2>
-        <p className="text-gray-600 text-lg mb-12 max-w-3xl relative z-10 leading-relaxed font-medium">
+        <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400 text-lg mb-12 max-w-3xl relative z-10 leading-relaxed font-medium">
           Long wires behave like resistors, causing <strong>Voltage Drop</strong>. If the drop is too high, appliances stall, overheat, and breakers might fail to trip during a short circuit. Use this calculator for outdoor sheds, garden lights, or EV chargers located far from the main panel.
         </p>
 
         <div className="grid grid-cols-1 xl:grid-cols-12 gap-10 relative z-10">
           {/* Inputs */}
-          <div className="xl:col-span-5 space-y-5 bg-gray-50/80 p-6 md:p-8 rounded-3xl border border-gray-100 shadow-inner">
-            <h3 className="text-sm font-extrabold text-gray-900 uppercase tracking-widest mb-6 flex items-center gap-2">
+          <div className="xl:col-span-5 space-y-5 bg-gray-50 dark:bg-gray-800 dark:bg-gray-800/80 p-6 md:p-8 rounded-3xl border border-gray-100 dark:border-gray-800 dark:border-gray-800 shadow-inner">
+            <h3 className="text-sm font-extrabold text-gray-900 dark:text-gray-100 dark:text-gray-100 uppercase tracking-widest mb-6 flex items-center gap-2">
               <Sliders className="w-4 h-4 text-blue-500" /> Circuit Parameters
             </h3>
             
-            <div className="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm focus-within:ring-2 focus-within:ring-blue-500 transition-all">
+            <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-4 rounded-2xl border border-gray-100 dark:border-gray-800 dark:border-gray-800 shadow-sm focus-within:ring-2 focus-within:ring-blue-500 transition-all">
               <label className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1 block">System Voltage</label>
               <select
-                className="w-full bg-transparent border-none outline-none text-gray-900 font-bold appearance-none cursor-pointer"
+                className="w-full bg-transparent border-none outline-none text-gray-900 dark:text-gray-100 dark:text-gray-100 font-bold appearance-none cursor-pointer"
                 value={calc.voltage}
                 onChange={(e) => setCalc({ ...calc, voltage: parseInt(e.target.value) })}
               >
@@ -453,25 +453,25 @@ export const GuideProtection = () => {
               </select>
             </div>
             
-            <div className="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm focus-within:ring-2 focus-within:ring-blue-500 transition-all">
+            <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-4 rounded-2xl border border-gray-100 dark:border-gray-800 dark:border-gray-800 shadow-sm focus-within:ring-2 focus-within:ring-blue-500 transition-all">
               <label className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1 block flex justify-between">
                 <span>Load Current (Amps)</span>
                 <span className="text-gray-400 font-normal normal-case text-xs">e.g. 16A heater</span>
               </label>
               <input
                 type="number"
-                className="w-full bg-transparent border-none outline-none text-gray-900 font-bold"
+                className="w-full bg-transparent border-none outline-none text-gray-900 dark:text-gray-100 dark:text-gray-100 font-bold"
                 value={calc.amps}
                 onChange={(e) => setCalc({ ...calc, amps: parseFloat(e.target.value) || 0 })}
               />
             </div>
             
-            <div className="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm focus-within:ring-2 focus-within:ring-blue-500 transition-all">
+            <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-4 rounded-2xl border border-gray-100 dark:border-gray-800 dark:border-gray-800 shadow-sm focus-within:ring-2 focus-within:ring-blue-500 transition-all">
               <label className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1 block">One-Way Distance (Meters)</label>
               <div className="flex items-center gap-2">
                 <input
                   type="number"
-                  className="w-full bg-transparent border-none outline-none text-gray-900 font-bold flex-1"
+                  className="w-full bg-transparent border-none outline-none text-gray-900 dark:text-gray-100 dark:text-gray-100 font-bold flex-1"
                   value={calc.length}
                   onChange={(e) => setCalc({ ...calc, length: parseFloat(e.target.value) || 0 })}
                 />
@@ -479,10 +479,10 @@ export const GuideProtection = () => {
               </div>
             </div>
             
-            <div className="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm focus-within:ring-2 focus-within:ring-blue-500 transition-all">
+            <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-4 rounded-2xl border border-gray-100 dark:border-gray-800 dark:border-gray-800 shadow-sm focus-within:ring-2 focus-within:ring-blue-500 transition-all">
               <label className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1 block">Wire Cross-Section (mm²)</label>
               <select
-                className="w-full bg-transparent border-none outline-none text-gray-900 font-bold appearance-none cursor-pointer"
+                className="w-full bg-transparent border-none outline-none text-gray-900 dark:text-gray-100 dark:text-gray-100 font-bold appearance-none cursor-pointer"
                 value={calc.wireSize}
                 onChange={(e) => setCalc({ ...calc, wireSize: parseFloat(e.target.value) })}
               >
@@ -498,7 +498,7 @@ export const GuideProtection = () => {
           {/* Visualization */}
           <div className="xl:col-span-7 flex flex-col justify-center">
             <div className="bg-gradient-to-br from-slate-900 to-gray-900 text-white rounded-3xl p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl relative overflow-hidden">
-              <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/5 rounded-full blur-2xl"></div>
+              <div className="absolute -top-10 -right-10 w-40 h-40 bg-white dark:bg-gray-900 dark:bg-gray-900/5 rounded-full blur-2xl"></div>
               
               <div className="text-center md:text-left relative z-10 w-full md:w-auto">
                 <div className="text-xs text-gray-400 font-bold uppercase tracking-widest mb-2 flex justify-center md:justify-start items-center gap-2"><Zap className="w-4 h-4" /> Voltage Loss</div>
@@ -538,9 +538,9 @@ export const GuideProtection = () => {
                 <ShieldCheck className="w-6 h-6 text-blue-600" />
               </div>
               <div>
-                <strong className="text-gray-900 text-lg block mb-1 font-bold">Breaker Behavior & Safety</strong>
-                <p className="text-gray-700 text-sm font-medium mb-2 bg-white inline-block px-3 py-1 rounded-lg border border-blue-50 shadow-sm">{dropResult.breakerRec}</p>
-                <p className="text-xs text-gray-500 leading-relaxed">
+                <strong className="text-gray-900 dark:text-gray-100 dark:text-gray-100 text-lg block mb-1 font-bold">Breaker Behavior & Safety</strong>
+                <p className="text-gray-700 dark:text-gray-300 dark:text-gray-300 text-sm font-medium mb-2 bg-white dark:bg-gray-900 dark:bg-gray-900 inline-block px-3 py-1 rounded-lg border border-blue-50 shadow-sm">{dropResult.breakerRec}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 leading-relaxed">
                   <strong>The Hidden Danger:</strong> Very long wire runs increase electrical resistance (impedance). If a short circuit happens 50 meters away, the resistance limits the fault current. It might limit it so much that a standard C-Curve breaker <em>doesn't realize it's a short circuit</em>, and takes a full minute to trip instead of 0.1 seconds, sparking a fire.
                 </p>
               </div>
@@ -573,7 +573,7 @@ export const GuideProtection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
           {/* Card 1: Terminology */}
-          <div className="bg-white/10 p-8 rounded-3xl backdrop-blur-xl border border-white/10 hover:border-indigo-400/50 transition-colors group">
+          <div className="bg-white dark:bg-gray-900 dark:bg-gray-900/10 p-8 rounded-3xl backdrop-blur-xl border border-white/10 hover:border-indigo-400/50 transition-colors group">
             <div className="bg-blue-500/20 w-14 h-14 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
               <Globe className="w-7 h-7 text-blue-400" />
             </div>
@@ -595,7 +595,7 @@ export const GuideProtection = () => {
           </div>
 
           {/* Card 2: Mechanism */}
-          <div className="bg-white/10 p-8 rounded-3xl backdrop-blur-xl border border-white/10 hover:border-green-400/50 transition-colors group">
+          <div className="bg-white dark:bg-gray-900 dark:bg-gray-900/10 p-8 rounded-3xl backdrop-blur-xl border border-white/10 hover:border-green-400/50 transition-colors group">
             <div className="bg-green-500/20 w-14 h-14 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
               <Zap className="w-7 h-7 text-green-400" />
             </div>
@@ -607,7 +607,7 @@ export const GuideProtection = () => {
           </div>
 
           {/* Card 3: Ratings */}
-          <div className="bg-white/10 p-8 rounded-3xl backdrop-blur-xl border border-white/10 hover:border-amber-400/50 transition-colors group">
+          <div className="bg-white dark:bg-gray-900 dark:bg-gray-900/10 p-8 rounded-3xl backdrop-blur-xl border border-white/10 hover:border-amber-400/50 transition-colors group">
             <div className="bg-amber-500/20 w-14 h-14 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
               <Activity className="w-7 h-7 text-amber-400" />
             </div>
@@ -628,7 +628,7 @@ export const GuideProtection = () => {
           </div>
 
           {/* Card 4: Action */}
-          <div className="bg-white/10 p-8 rounded-3xl backdrop-blur-xl border border-red-500/30 hover:border-red-500/80 transition-colors group relative overflow-hidden">
+          <div className="bg-white dark:bg-gray-900 dark:bg-gray-900/10 p-8 rounded-3xl backdrop-blur-xl border border-red-500/30 hover:border-red-500/80 transition-colors group relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-b from-red-500/10 to-transparent pointer-events-none"></div>
             <div className="relative z-10">
               <div className="bg-red-500/20 w-14 h-14 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">

@@ -6,16 +6,16 @@ export const ContactUs = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
       <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">Contact Us</h1>
-        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+        <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-4">Contact Us</h1>
+        <p className="text-xl text-gray-600 dark:text-gray-400 dark:text-gray-400 max-w-2xl mx-auto">
           We value feedback from our global community. Whether you have a suggestion for a new tool, found a bug, or want to share a safety story, please reach out.
         </p>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
          {/* Direct Contact Info */}
-         <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
-            <h2 className="text-2xl font-bold text-gray-900 mb-8">Get in Touch</h2>
+         <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-8 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 dark:border-gray-700">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-8">Get in Touch</h2>
             
             {/* Email */}
             <div className="flex items-start gap-4 mb-8">
@@ -23,8 +23,8 @@ export const ContactUs = () => {
                  <Mail className="w-6 h-6 text-blue-600" />
                </div>
                <div>
-                 <h3 className="font-bold text-gray-900 text-lg">Email Us</h3>
-                 <p className="text-gray-600 text-sm mb-3">For general inquiries, feedback, or partnerships.</p>
+                 <h3 className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 text-lg">Email Us</h3>
+                 <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400 text-sm mb-3">For general inquiries, feedback, or partnerships.</p>
                  <a href="mailto:0808miracle@gmail.com" className="text-blue-600 font-bold hover:underline text-xl break-all">
                    0808miracle@gmail.com
                  </a>
@@ -32,13 +32,13 @@ export const ContactUs = () => {
             </div>
             
             {/* Creator Info */}
-            <div className="flex items-start gap-4 pt-8 border-t border-gray-100">
+            <div className="flex items-start gap-4 pt-8 border-t border-gray-100 dark:border-gray-800 dark:border-gray-800">
                <div className="bg-green-100 p-3 rounded-full flex-shrink-0">
                  <Globe className="w-6 h-6 text-green-600" />
                </div>
                <div>
-                 <h3 className="font-bold text-gray-900 text-lg">About the Creator</h3>
-                 <p className="text-gray-600 text-sm">
+                 <h3 className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 text-lg">About the Creator</h3>
+                 <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400 text-sm">
                    ElectroSafe.homes is an independent safety project created by <strong>Anil Sharma</strong>.
                  </p>
                </div>

@@ -56,7 +56,7 @@ export const LiveActivityTicker: React.FC = () => {
             </div>
             <item.action.icon className={`w-4 h-4 ${item.action.color}`} />
             <span className="text-white font-medium">{item.action.text}</span>
-            <span className="mx-4 text-slate-700 font-bold">•</span>
+            <span className="mx-4 text-slate-700 dark:text-gray-300 dark:text-gray-300 font-bold">•</span>
           </div>
         ))}
         {/* Duplicate set for seamless looping */}
@@ -68,7 +68,7 @@ export const LiveActivityTicker: React.FC = () => {
             </div>
             <item.action.icon className={`w-4 h-4 ${item.action.color}`} />
             <span className="text-white font-medium">{item.action.text}</span>
-            <span className="mx-4 text-slate-700 font-bold">•</span>
+            <span className="mx-4 text-slate-700 dark:text-gray-300 dark:text-gray-300 font-bold">•</span>
           </div>
         ))}
       </div>

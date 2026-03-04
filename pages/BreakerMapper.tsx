@@ -101,19 +101,19 @@ export const BreakerMapper = () => {
           <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 bg-purple-50 text-purple-700 rounded-full font-bold uppercase tracking-widest text-xs">
             <Map className="w-4 h-4" /> Organization Tool
           </div>
-          <h1 className="text-3xl md:text-5xl font-black text-gray-900 leading-tight mb-4">
+          <h1 className="text-3xl md:text-5xl font-black text-gray-900 dark:text-gray-100 dark:text-gray-100 leading-tight mb-4">
             Visual <span className="text-purple-600">Breaker Mapper</span>
           </h1>
-          <p className="text-lg text-gray-600 mb-6 max-w-2xl mx-auto font-medium">
+          <p className="text-lg text-gray-600 dark:text-gray-400 dark:text-gray-400 mb-6 max-w-2xl mx-auto font-medium">
             Stop guessing which breaker turns off the kitchen. Map your circuits here and print a perfectly formatted label sheet to tape inside your panel door.
           </p>
         </div>
 
-        <div className="bg-white rounded-3xl shadow-xl border border-gray-100 p-8 mb-8">
-            <div className="flex justify-between items-center mb-8 pb-4 border-b border-gray-100">
+        <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-3xl shadow-xl border border-gray-100 dark:border-gray-800 dark:border-gray-800 p-8 mb-8">
+            <div className="flex justify-between items-center mb-8 pb-4 border-b border-gray-100 dark:border-gray-800 dark:border-gray-800">
                <div>
-                 <h2 className="text-xl font-bold text-gray-900">Map Your Circuits</h2>
-                 <p className="text-sm text-gray-500">Edit the labels below. Add breakers to match your real panel.</p>
+                 <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100">Map Your Circuits</h2>
+                 <p className="text-sm text-gray-500 dark:text-gray-400 dark:text-gray-400">Edit the labels below. Add breakers to match your real panel.</p>
                </div>
                <button
                   onClick={handlePrint}
@@ -125,8 +125,8 @@ export const BreakerMapper = () => {
 
             <div className="space-y-3">
               {breakers.map((breaker, index) => (
-                <div key={breaker.id} className="flex gap-4 items-center bg-gray-50 p-4 rounded-xl border border-gray-200 hover:border-purple-300 transition-colors">
-                  <div className="w-12 h-12 bg-gray-200 rounded-lg flex items-center justify-center font-black text-gray-600 shrink-0 shadow-inner">
+                <div key={breaker.id} className="flex gap-4 items-center bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700 dark:border-gray-700 hover:border-purple-300 transition-colors">
+                  <div className="w-12 h-12 bg-gray-200 rounded-lg flex items-center justify-center font-black text-gray-600 dark:text-gray-400 dark:text-gray-400 shrink-0 shadow-inner">
                     {breaker.number}
                   </div>
                   
@@ -137,7 +137,7 @@ export const BreakerMapper = () => {
                            type="text" 
                            value={breaker.label}
                            onChange={(e) => updateBreaker(breaker.id, 'label', e.target.value)}
-                           className="w-full bg-white border border-gray-300 px-3 py-2 rounded-lg font-medium text-gray-800 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                           className="w-full bg-white dark:bg-gray-900 dark:bg-gray-900 border border-gray-300 px-3 py-2 rounded-lg font-medium text-gray-800 dark:text-gray-200 dark:text-gray-200 focus:ring-2 focus:ring-purple-500 focus:outline-none"
                         />
                      </div>
                      <div className="col-span-4">
@@ -145,7 +145,7 @@ export const BreakerMapper = () => {
                         <select
                            value={breaker.amps}
                            onChange={(e) => updateBreaker(breaker.id, 'amps', Number(e.target.value))}
-                           className="w-full bg-white border border-gray-300 px-3 py-2 rounded-lg font-medium text-gray-800 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                           className="w-full bg-white dark:bg-gray-900 dark:bg-gray-900 border border-gray-300 px-3 py-2 rounded-lg font-medium text-gray-800 dark:text-gray-200 dark:text-gray-200 focus:ring-2 focus:ring-purple-500 focus:outline-none"
                         >
                            <option value={15}>15A</option>
                            <option value={20}>20A</option>
@@ -161,7 +161,7 @@ export const BreakerMapper = () => {
                   <div className="flex items-center gap-2 shrink-0">
                      <button
                         onClick={() => handleDoubleCircuit(breaker.id)}
-                        className={`px-3 py-2 rounded-lg text-xs font-bold border transition-colors ${breaker.type === 'Double (240V)' ? 'bg-purple-100 text-purple-700 border-purple-200' : 'bg-white text-gray-500 hover:bg-gray-100 border-gray-200'}`}
+                        className={`px-3 py-2 rounded-lg text-xs font-bold border transition-colors ${breaker.type === 'Double (240V)' ? 'bg-purple-100 text-purple-700 border-purple-200' : 'bg-white dark:bg-gray-900 dark:bg-gray-900 text-gray-500 dark:text-gray-400 dark:text-gray-400 hover:bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 dark:border-gray-700'}`}
                         title="Toggle 240V Double Breaker"
                      >
                         {breaker.type === 'Double (240V)' ? '240V' : '120V'}
@@ -180,13 +180,13 @@ export const BreakerMapper = () => {
 
             <button
                onClick={addBreaker}
-               className="mt-6 w-full py-4 border-2 border-dashed border-gray-300 rounded-xl text-gray-500 font-bold hover:text-purple-600 hover:border-purple-300 hover:bg-purple-50 transition-all flex items-center justify-center gap-2"
+               className="mt-6 w-full py-4 border-2 border-dashed border-gray-300 rounded-xl text-gray-500 dark:text-gray-400 dark:text-gray-400 font-bold hover:text-purple-600 hover:border-purple-300 hover:bg-purple-50 transition-all flex items-center justify-center gap-2"
             >
                <Plus className="w-5 h-5" /> Add Breaker
             </button>
         </div>
 
-        <div className="mt-12 text-center text-gray-500 text-sm">
+        <div className="mt-12 text-center text-gray-500 dark:text-gray-400 dark:text-gray-400 text-sm">
            <Zap className="w-6 h-6 text-yellow-500 mx-auto mb-2" />
            <p className="max-w-md mx-auto">Safety tip: If you don't know what a breaker controls, turn it off and walk around with a lamp to see what died. Update the label here immediately.</p>
         </div>
@@ -219,13 +219,13 @@ export const BreakerMapper = () => {
                     const right = breakers[i+1];
                     rows.push(
                         <React.Fragment key={i}>
-                            <div className="flex border border-gray-300 p-2 items-center bg-gray-50 bg-opacity-50 !bg-white">
-                                <span className="w-8 font-black text-gray-500">{left?.number || ''}</span>
+                            <div className="flex border border-gray-300 p-2 items-center bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 bg-opacity-50 !bg-white dark:bg-gray-900 dark:bg-gray-900">
+                                <span className="w-8 font-black text-gray-500 dark:text-gray-400 dark:text-gray-400">{left?.number || ''}</span>
                                 <span className="flex-grow font-bold truncate pr-2">{left?.label || ''}</span>
                                 <span className="text-xs font-mono font-bold">{left?.amps ? `${left.amps}A` : ''}</span>
                             </div>
-                            <div className="flex border border-gray-300 p-2 items-center bg-gray-50 bg-opacity-50 !bg-white">
-                                <span className="w-8 font-black text-gray-500">{right?.number || ''}</span>
+                            <div className="flex border border-gray-300 p-2 items-center bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 bg-opacity-50 !bg-white dark:bg-gray-900 dark:bg-gray-900">
+                                <span className="w-8 font-black text-gray-500 dark:text-gray-400 dark:text-gray-400">{right?.number || ''}</span>
                                 <span className="flex-grow font-bold truncate pr-2">{right?.label || ''}</span>
                                 <span className="text-xs font-mono font-bold">{right?.amps ? `${right.amps}A` : ''}</span>
                             </div>
@@ -236,7 +236,7 @@ export const BreakerMapper = () => {
             })()}
          </div>
          
-         <div className="mt-12 text-center text-xs text-gray-500">
+         <div className="mt-12 text-center text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400">
             --- Cut along the line and tape inside your metal breaker box door ---
             <div className="border-t border-dashed border-gray-400 mt-2"></div>
          </div>

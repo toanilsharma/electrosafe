@@ -70,7 +70,7 @@ export const SocialShare: React.FC<SocialShareProps> = ({
 
   return (
     <div className={`flex ${layout === 'column' ? 'flex-col' : 'flex-row'} items-center gap-2 ${className}`}>
-      <span className="text-xs font-bold text-gray-500 uppercase tracking-wider mr-2">Share:</span>
+      <span className="text-xs font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 uppercase tracking-wider mr-2">Share:</span>
       
       {shareLinks.map((link) => (
         <a
@@ -88,7 +88,7 @@ export const SocialShare: React.FC<SocialShareProps> = ({
       
       <button
         onClick={copyToClipboard}
-        className={`bg-gray-100 hover:bg-gray-200 text-gray-600 ${sizeClasses[size]} rounded-full transition-transform hover:scale-110 shadow-sm flex items-center justify-center`}
+        className={`bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 hover:bg-gray-200 text-gray-600 dark:text-gray-400 dark:text-gray-400 ${sizeClasses[size]} rounded-full transition-transform hover:scale-110 shadow-sm flex items-center justify-center`}
         title="Copy Link"
       >
         <LinkIcon className={iconSizes[size]} />

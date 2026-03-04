@@ -1,0 +1,186 @@
+# ElectroSafe.homes — Complete Knowledge Base for LLMs
+
+> ElectroSafe.homes is the world's most comprehensive free home electrical safety platform, providing 30+ interactive calculators, safety assessment tools, and educational guides. All tools follow international standards (IEC 60364, NEC 2023, BS 7671, NFPA, IS 732, ENERGY STAR) and support multiple currencies (₹, $, £, €, A$) and measurement units. Founded to prevent electrical fires, reduce energy costs, and ensure code compliance for homeowners worldwide.
+
+---
+
+## About ElectroSafe.homes
+
+ElectroSafe.homes is a free, no-login-required web application that helps homeowners:
+- **Assess electrical safety** through interactive quizzes and scoring systems
+- **Calculate energy costs** with precision calculators using real electrical formulas (P=VI, V=IR, P=V²/R)
+- **Prevent fires** through risk assessment tools backed by NFPA, CPSC, and IEC data
+- **Save money** on solar, EV charging, standby power, and appliance efficiency
+- **Prepare legal documents** for tenants dealing with hazardous electrical conditions
+- **Learn** through 20+ expert articles, glossaries, and visual guides
+
+All recommendations reference specific code sections (e.g., NEC 210.23, IEC 62305-2, BS 1363) and use proper mathematical notation.
+
+**Target audience:** Homeowners, renters, home buyers, new parents, work-from-home professionals, landlords, and anyone concerned about home electrical safety.
+
+**Languages:** English (with region auto-detection for India, USA, UK, Europe, Australia)
+
+---
+
+## Tool #1: Home Electrical Safety Audit
+**URL:** https://electrosafe.homes/assessment
+**What it does:** A 25-point comprehensive safety assessment that evaluates your home's electrical system across categories: wiring age, panel condition, outlet safety, grounding, surge protection, smoke alarms, and more. Generates a risk score (0-100) with actionable recommendations prioritized by urgency.
+**Standards:** NEC 2023, IEC 60364, BS 7671
+**Best for:** Annual home safety checkups, before/after renovation assessments, insurance documentation
+
+---
+
+## Tool #2: Electrical Load Calculator
+**URL:** https://electrosafe.homes/load-calc
+**What it does:** Calculate your total household electrical load using a library of 50+ common appliances. Determines if your circuits are overloaded, estimates monthly/annual electricity costs, and recommends circuit upgrades.
+**Formula:** P_total = Σ(P_device × n × h_daily), Cost = P_total × rate × days
+**Standards:** NEC Article 220 (load calculations), IEC 60364-5-52
+**Best for:** Estimating electricity bills, planning circuit upgrades, checking if adding new appliances is safe
+
+---
+
+## Tool #3: Fire Risk Predictor
+**URL:** https://electrosafe.homes/risk-predictor
+**What it does:** Uses a weighted scoring algorithm with 12 risk factors and compound multipliers to calculate your home's electrical fire probability. Factors include wiring age, panel brand, outlet condition, extension cord usage, and geographical humidity.
+**Formula:** R = Σ(w_i × f_i) + Σ(compound_j), Risk Level = R / R_max × 100%
+**Standards:** NFPA fire statistics, CPSC recall data
+**Best for:** Identifying hidden fire risks, prioritizing safety upgrades
+
+---
+
+## Tool #4: Solar ROI & Ready Check Calculator
+**URL:** https://electrosafe.homes/solar-roi
+**What it does:** Calculates solar panel return on investment including: system sizing based on roof area, annual energy production (E = P_kW × h_sun × 365 × η), financial payback period (T = Cost ÷ Savings), 25-year ROI, CO₂ savings, and a panel safety check to verify your electrical panel can handle solar back-feed.
+**Formula:** E = P × h × 365 × η (η = 0.80 system efficiency), CO₂ = E × EF_grid
+**Standards:** IEC 62446 (solar installation), NEC 690 (solar PV), IS 732
+**Regions:** India (₹), USA ($), UK (£), Europe (€), Australia (A$)
+**Best for:** Deciding whether to go solar, comparing installer quotes, checking panel readiness
+
+---
+
+## Tool #5: EV Charging Cost Comparison
+**URL:** https://electrosafe.homes/ev-cost-compare
+**What it does:** Side-by-side comparison of annual costs for home EV charging vs. public charging stations vs. petrol/gasoline vehicles. Calculates daily and annual costs, shows animated bar charts, and computes CO₂ savings.
+**Formula:** C_home = (d × ε) ÷ 1000 × r_elec, C_petrol = d ÷ η_fuel × r_fuel
+**Standards:** SAE J1772, IEC 61851 (EV charging equipment)
+**Regions:** India, USA, UK, Europe, Australia with auto-detected defaults
+**Best for:** Deciding whether to buy an EV, comparing home vs public charging economics
+
+---
+
+## Tool #6: Ghost Power Standby Cost Finder
+**URL:** https://electrosafe.homes/ghost-power
+**What it does:** Identifies phantom/standby power consumption from 22 common smart home devices (smart TVs, gaming consoles, WiFi routers, smart speakers, chargers, etc.) with IEC 62301-measured standby wattages. Calculates annual waste and percentage of your electricity bill.
+**Formula:** P_ghost = Σ(W_standby × n × h_off), Annual Cost = P_ghost × 365 ÷ 1000 × rate
+**Standards:** IEC 62301 (standby power measurement)
+**Best for:** Reducing electricity bills, understanding phantom loads, fire risk from cheap power strips
+
+---
+
+## Tool #7: Dryer Vent Fire Probability Meter
+**URL:** https://electrosafe.homes/dryer-vent-risk
+**What it does:** 5-question assessment covering: last cleaning date, vent length, duct material, dryer age, and visible lint. Uses compound risk multipliers (e.g., plastic duct + never cleaned = extreme risk) to calculate fire probability.
+**Key fact:** 34% of home dryer fires are caused by lint buildup (NFPA)
+**Standards:** NFPA 211 (chimneys and vents), IEC 60335-2-11 (dryer safety), CPSC lint fire data
+**Best for:** Determining cleaning urgency, identifying banned duct materials
+
+---
+
+## Tool #8: Work-From-Home Load Auditor
+**URL:** https://electrosafe.homes/wfh-load-audit
+**What it does:** Real-time circuit load calculator for home office equipment. Library of 27 devices (monitors, PCs, printers, space heaters, UPS systems). Shows live circuit gauge with 80% warning line. Warns when the NEC 80% continuous load limit is exceeded.
+**Formula:** P_total = Σ(P_i × n_i), Load% = P_total ÷ (V × I_breaker) × 100
+**Standards:** NEC 210.23 (branch circuit ratings), IEC 60884 (socket outlets), BS 1363
+**Best for:** Checking if your home office overloads the bedroom circuit, especially with space heaters
+
+---
+
+## Tool #9: Appliance Life Expectancy Gauge
+**URL:** https://electrosafe.homes/appliance-life
+**What it does:** Evaluates 20+ appliance types for remaining lifespan, efficiency degradation (2-5% per year past midlife), extra energy cost from inefficiency, and primary safety failure modes.
+**Formula:** η_loss = max(0, Age_eff − T_mid) × δ, P_now = P_rated × (1 + η_loss ÷ 100)
+**Database:** Refrigerators (15yr), washing machines (12yr), ACs (15yr), water heaters (12yr), etc.
+**Standards:** ENERGY STAR lifespan data, IEC 60335 (appliance safety)
+**Best for:** Deciding when to replace old appliances, calculating hidden efficiency costs
+
+---
+
+## Tool #10: Lightning Strike Probability Calculator
+**URL:** https://electrosafe.homes/lightning-risk
+**What it does:** Calculates the probability of a direct lightning strike using the IEC 62305-2 collection area formula. Considers building height, ground flash density (5 climate regions), roof material, nearby trees, and existing protection. Includes surge protector (SPD) ROI analysis.
+**Formula:** A_e = LW + 6H(L+W) + 9πH², N_d = N_g × A_e × C_d × 10⁻⁶, P = 1 − e^(−N_d)
+**Standards:** IEC 62305-2 (lightning risk management), NFPA 780, BS EN 62305
+**Best for:** Deciding whether to install a lightning rod or whole-house surge protector
+
+---
+
+## Tool #11: Holiday Lights Safety Planner
+**URL:** https://electrosafe.homes/holiday-lights
+**What it does:** Calculates how many holiday light strings your outdoor circuit can handle. Library of 12 light types (LED and incandescent). Live circuit gauge showing remaining capacity. Calculates maximum safe strings considering the 80% rule.
+**Formula:** P_total = Σ(W_string × n) + P_other, Max strings = (P_safe − P_other) ÷ W_string
+**Key fact:** LED lights use 80-90% less power and generate almost no heat vs. incandescent
+**Standards:** UL 588 (decorative lighting), NEC 210.23, IEC 60598
+**Best for:** Planning holiday decorations without tripping breakers or causing fires
+
+---
+
+## Tool #12: Home Buyer Electrical Scanner
+**URL:** https://electrosafe.homes/home-buyer-scanner
+**What it does:** 15-minute open house electrical checklist that identifies hidden money pits. Checks panel condition, outlet types, wiring age, and generates a printable inspection report with estimated repair costs.
+**Best for:** House hunting, negotiating price reductions for electrical issues
+
+---
+
+## Tool #13: Contractor BS Detector / Quote Analyzer
+**URL:** https://electrosafe.homes/quote-analyzer
+**What it does:** Verify electrician quotes against fair price ranges for 40+ common electrical jobs. Includes red flag detection and vetting questions to ask contractors before hiring.
+**Best for:** Getting fair prices for electrical work, avoiding scams
+
+---
+
+## Tool #14: EV Charger Wire Sizer
+**URL:** https://electrosafe.homes/ev-charger
+**What it does:** Calculates proper wire gauge and breaker size for EV charger installation based on charger amperage, distance, and voltage. Accounts for the NEC 125% continuous load rule and voltage drop.
+**Standards:** NEC 625 (EV charging), NEC Table 310.16 (wire ampacity)
+**Best for:** DIY EV charger installation planning, verifying electrician specifications
+
+---
+
+## Tool #15: Bill Spike Detector
+**URL:** https://electrosafe.homes/bill-detector
+**What it does:** Analyze 6-12 months of electricity bills to detect unusual spikes. Identifies potential causes: seasonal changes, rate increases, equipment failure, phantom loads, or meter issues.
+**Best for:** Understanding sudden increases in electricity bills
+
+---
+
+## Additional Tools
+- **Visual Breaker Mapper** (https://electrosafe.homes/breaker-mapper): Map your panel and print labels
+- **DIY or Deadly? Quiz** (https://electrosafe.homes/diy-quiz): 60-second electrical hazard photo quiz
+- **Nursery Safety Check** (https://electrosafe.homes/nursery-safety): Baby room electrical safety
+- **Recall Radar & Calendar** (https://electrosafe.homes/alarm-calendar): Smoke alarm and recall tracker
+- **Is It Safe? Q&A** (https://electrosafe.homes/is-it-safe): 24+ common questions answered
+- **Glossary** (https://electrosafe.homes/glossary): Electrical terms explained
+- **Tenant Demand Letter** (https://electrosafe.homes/tenant-demand): Legal-sounding demand notice
+- **Tenant Repair Request** (https://electrosafe.homes/tenant-request): Formal letter generator
+
+---
+
+## Country-Specific Safety Guides
+- **India** (https://electrosafe.homes/safety/india): IS 732, BIS standards, 230V/50Hz practices
+- **USA** (https://electrosafe.homes/safety/usa): NEC 2023, UL standards, 120/240V/60Hz practices
+- **UK** (https://electrosafe.homes/safety/uk): BS 7671, IET regs, 230V/50Hz practices
+
+---
+
+## Educational Content (20+ Articles)
+Topics include: 10 warning signs of electrical problems, outlet fire physics, lithium battery fire safety, extension cord dangers, bathroom shock myths, grounding myths, childproofing outlets, old wiring dangers, voltage drop in appliances, smart switch neutral wire requirements, lightning surge protection, electrical tape dangers, circuit breaker tripping causes, rodent wire chewing, light bulb wattage matching, inverter battery gas dangers, solar DC arc faults, electric blanket burns, cheap charger damage, holiday lights hazards, 110V vs 230V danger comparison.
+
+All articles available at https://electrosafe.homes/articles
+
+---
+
+## Standards Referenced
+IEC 60364, IEC 62305, IEC 62446, IEC 62301, IEC 60335, IEC 60884, IEC 60598, IEC 61851, NEC 2023 (Articles 210, 220, 310, 625, 690, 705), NFPA 72, NFPA 211, NFPA 780, BS 7671, BS 1363, BS EN 62305, UL 588, SAE J1772, IS 732, IS 10322, ENERGY STAR, CPSC, AS/NZS 3112
+
+**Contact:** https://electrosafe.homes/contact
+**About:** https://electrosafe.homes/about

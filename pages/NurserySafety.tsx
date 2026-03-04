@@ -60,7 +60,7 @@ export const NurserySafety: React.FC = () => {
       case 'Critical': return 'bg-red-100 text-red-700 border-red-200';
       case 'High': return 'bg-orange-100 text-orange-700 border-orange-200';
       case 'Important': return 'bg-yellow-100 text-yellow-700 border-yellow-200';
-      default: return 'bg-gray-100 text-gray-700 border-gray-200';
+      default: return 'bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 dark:text-gray-300 border-gray-200 dark:border-gray-700 dark:border-gray-700';
     }
   };
 
@@ -77,26 +77,26 @@ export const NurserySafety: React.FC = () => {
         <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-rose-100 text-rose-700 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
           <Baby className="w-4 h-4" /> Nursery Teardown
         </div>
-        <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-gray-100 dark:text-gray-100 mb-6 tracking-tight">
           The New Parent <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-orange-400">"Shock-Proofing"</span> Guide
         </h1>
-        <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-xl text-slate-600 dark:text-gray-400 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
           Babies explore the world with their hands and mouths. This ruthless checklist ensures their sanctuary is completely free of hidden electrical threats.
         </p>
       </div>
 
       {/* Progress & Share Bar */}
-      <div className="bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-slate-100 mb-8 overflow-hidden relative">
+      <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-3xl p-6 md:p-8 shadow-xl border border-slate-100 dark:border-gray-800 dark:border-gray-800 mb-8 overflow-hidden relative">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
           <div className="flex-1 w-full text-center md:text-left">
             <h3 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">Completion Status</h3>
             <div className="flex items-end justify-center md:justify-start gap-3 mb-2">
-              <span className={`text-5xl font-black tracking-tighter ${percentComplete === 100 ? 'text-green-500' : 'text-slate-900'}`}>
+              <span className={`text-5xl font-black tracking-tighter ${percentComplete === 100 ? 'text-green-500' : 'text-slate-900 dark:text-gray-100 dark:text-gray-100'}`}>
                 {percentComplete}%
               </span>
-              <span className="text-slate-500 font-medium pb-1.5">Safe</span>
+              <span className="text-slate-500 dark:text-gray-400 dark:text-gray-400 font-medium pb-1.5">Safe</span>
             </div>
-            <div className="w-full h-3 rounded-full bg-slate-100 overflow-hidden">
+            <div className="w-full h-3 rounded-full bg-slate-100 dark:bg-gray-800/50 dark:bg-gray-800/50 overflow-hidden">
                <div 
                   className={`h-full transition-all duration-700 ease-out ${percentComplete === 100 ? 'bg-green-500' : 'bg-gradient-to-r from-rose-400 to-orange-400'}`}
                   style={{ width: `${percentComplete}%` }}
@@ -129,13 +129,13 @@ export const NurserySafety: React.FC = () => {
       {/* Checklist Sections */}
       <div className="space-y-8">
         {NURSERY_CHECKLIST.map((category, idx) => (
-          <div key={idx} className="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+          <div key={idx} className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-3xl shadow-sm border border-slate-200 dark:border-gray-700 dark:border-gray-700 overflow-hidden">
              
-             <div className="bg-slate-50 px-6 py-4 flex items-center gap-3 border-b border-slate-200">
-                <div className="p-2 bg-white rounded-lg shadow-sm text-slate-700">
+             <div className="bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 px-6 py-4 flex items-center gap-3 border-b border-slate-200 dark:border-gray-700 dark:border-gray-700">
+                <div className="p-2 bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-lg shadow-sm text-slate-700 dark:text-gray-300 dark:text-gray-300">
                    {category.icon}
                 </div>
-                <h2 className="text-xl font-bold text-slate-800">{category.category}</h2>
+                <h2 className="text-xl font-bold text-slate-800 dark:text-gray-200 dark:text-gray-200">{category.category}</h2>
              </div>
 
              <div className="p-2 sm:p-4">
@@ -148,7 +148,7 @@ export const NurserySafety: React.FC = () => {
                      className={`group relative flex flex-col sm:flex-row gap-4 p-4 m-2 rounded-2xl cursor-pointer transition-all duration-300 ${
                        isChecked 
                          ? 'bg-green-50 border-green-200' 
-                         : 'bg-white hover:bg-slate-50 border-slate-100 hover:border-blue-200 shadow-sm'
+                         : 'bg-white dark:bg-gray-900 dark:bg-gray-900 hover:bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border-slate-100 dark:border-gray-800 dark:border-gray-800 hover:border-blue-200 shadow-sm'
                      } border`}
                    >
                       <div className="flex-shrink-0 mt-1">
@@ -160,7 +160,7 @@ export const NurserySafety: React.FC = () => {
                       </div>
                       
                       <div className="flex-1">
-                        <p className={`text-lg font-medium transition-colors ${isChecked ? 'text-green-800 line-through opacity-70' : 'text-slate-700'}`}>
+                        <p className={`text-lg font-medium transition-colors ${isChecked ? 'text-green-800 line-through opacity-70' : 'text-slate-700 dark:text-gray-300 dark:text-gray-300'}`}>
                           {item.text}
                         </p>
                         

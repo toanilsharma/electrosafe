@@ -48,7 +48,7 @@ export const TrustBadgeModal: React.FC<BadgeProps> = ({ compact = false }) => {
     <>
       {/* Badges Row */}
       <div className={`flex flex-wrap gap-2 ${compact ? '' : 'mt-6'}`}>
-        <div className="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 font-medium mr-1">
+        <div className="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 dark:text-gray-400 font-medium mr-1">
           <ShieldCheck className="w-3.5 h-3.5 text-green-600" />
           Verified against:
         </div>
@@ -56,7 +56,7 @@ export const TrustBadgeModal: React.FC<BadgeProps> = ({ compact = false }) => {
           <button
             key={s.code}
             onClick={() => setOpenStd(s.code)}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-blue-900/30 border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 rounded-full text-xs font-bold text-gray-700 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-300 transition-all cursor-pointer group"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-blue-900/30 border border-gray-200 dark:border-gray-700 dark:border-gray-700 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 rounded-full text-xs font-bold text-gray-700 dark:text-gray-300 dark:text-gray-300 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-300 transition-all cursor-pointer group"
             title={`Learn about ${s.code}`}
           >
             <span>{s.flag}</span>
@@ -72,28 +72,28 @@ export const TrustBadgeModal: React.FC<BadgeProps> = ({ compact = false }) => {
           onClick={() => setOpenStd(null)}
         >
           <div
-            className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-md w-full p-6 animate-in zoom-in-95 duration-200"
+            className="bg-white dark:bg-gray-900 dark:bg-gray-900 dark:bg-gray-900 rounded-2xl shadow-2xl max-w-md w-full p-6 animate-in zoom-in-95 duration-200"
             onClick={e => e.stopPropagation()}
           >
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center gap-3">
                 <div className="text-3xl">{active.flag}</div>
                 <div>
-                  <h2 className="font-black text-xl text-gray-900 dark:text-gray-100">{active.code}</h2>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">{active.applies}</p>
+                  <h2 className="font-black text-xl text-gray-900 dark:text-gray-100 dark:text-gray-100 dark:text-gray-100">{active.code}</h2>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 dark:text-gray-400">{active.applies}</p>
                 </div>
               </div>
               <button
                 onClick={() => setOpenStd(null)}
-                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition"
+                className="text-gray-400 hover:text-gray-600 dark:text-gray-400 dark:text-gray-400 dark:hover:text-gray-200 transition"
                 aria-label="Close"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <h3 className="font-bold text-gray-800 dark:text-gray-200 text-sm mb-2">{active.full}</h3>
-            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-5">{active.desc}</p>
+            <h3 className="font-bold text-gray-800 dark:text-gray-200 dark:text-gray-200 dark:text-gray-200 text-sm mb-2">{active.full}</h3>
+            <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400 dark:text-gray-400 text-sm leading-relaxed mb-5">{active.desc}</p>
 
             <a
               href={active.url}

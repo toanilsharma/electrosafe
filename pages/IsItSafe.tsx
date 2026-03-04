@@ -85,8 +85,8 @@ export const IsItSafe: React.FC = () => {
         <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-yellow-100 text-yellow-700 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
           <Zap className="w-3.5 h-3.5" /> Quick Answers
         </div>
-        <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">Is It Safe To...?</h1>
-        <p className="text-gray-600 text-lg max-w-xl mx-auto">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-3">Is It Safe To...?</h1>
+        <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400 text-lg max-w-xl mx-auto">
           Instant answers to {ENTRIES.length}+ common home electrical questions — from charging habits to storm safety.
         </p>
       </div>
@@ -102,24 +102,24 @@ export const IsItSafe: React.FC = () => {
       <div className="relative mb-6">
         <Search className="absolute left-4 top-3.5 w-5 h-5 text-gray-400" />
         <input type="text" placeholder="Search: extension cord, heater, phone, charging..."
-          className="w-full pl-12 pr-12 py-3.5 bg-white border-2 border-gray-200 rounded-2xl text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-lg"
+          className="w-full pl-12 pr-12 py-3.5 bg-white dark:bg-gray-900 dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 dark:border-gray-700 rounded-2xl text-gray-900 dark:text-gray-100 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-lg"
           value={query} onChange={e => setQuery(e.target.value)} />
-        {query && <button onClick={() => setQuery('')} className="absolute right-4 top-3.5 text-gray-400 hover:text-gray-600 font-bold">✕</button>}
+        {query && <button onClick={() => setQuery('')} className="absolute right-4 top-3.5 text-gray-400 hover:text-gray-600 dark:text-gray-400 dark:text-gray-400 font-bold">✕</button>}
       </div>
 
       {/* Entries */}
       <div className="space-y-4">
         {filtered.map((e, i) => (
-          <div key={i} className="bg-white rounded-2xl border border-gray-200 p-5 shadow-sm hover:shadow-md transition-shadow">
+          <div key={i} className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 dark:border-gray-700 p-5 shadow-sm hover:shadow-md transition-shadow">
             <div className="flex items-start gap-3 mb-2">
               {safeIcon[e.safe]}
               <div className="flex-1">
                 <div className="flex flex-wrap items-center gap-2 mb-1">
-                  <h2 className="font-bold text-gray-900 text-base">Is it safe to <span className="text-blue-700">{e.q}</span>?</h2>
+                  <h2 className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 text-base">Is it safe to <span className="text-blue-700">{e.q}</span>?</h2>
                   <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${safeBadge[e.safe]}`}>{safeLabel[e.safe]}</span>
                 </div>
-                <p className="font-semibold text-gray-700 text-sm mb-1">{e.summary}</p>
-                <p className="text-gray-600 text-sm leading-relaxed">{e.detail}</p>
+                <p className="font-semibold text-gray-700 dark:text-gray-300 dark:text-gray-300 text-sm mb-1">{e.summary}</p>
+                <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400 text-sm leading-relaxed">{e.detail}</p>
                 {e.link && <Link to={e.link} className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-xs font-bold mt-2"><ArrowRight className="w-3 h-3" />{e.linkLabel || 'Learn more'}</Link>}
               </div>
             </div>

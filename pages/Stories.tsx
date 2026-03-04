@@ -49,8 +49,8 @@ export const Stories: React.FC = () => {
         <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-rose-100 text-rose-700 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
           💬 Real Stories
         </div>
-        <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">Near-Miss Electrical Stories</h1>
-        <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-3">Near-Miss Electrical Stories</h1>
+        <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400 text-lg max-w-2xl mx-auto">
           Home residents from {STORIES.length}+ countries share how they identified and fixed dangerous electrical hazards before disaster struck.
         </p>
         <div className="flex flex-wrap justify-center gap-3 mt-6">
@@ -67,19 +67,19 @@ export const Stories: React.FC = () => {
       {/* Stories Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {STORIES.map((s, i) => (
-          <div key={i} className="bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow p-6 relative">
+          <div key={i} className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow p-6 relative">
             <div className="absolute top-4 right-4 text-2xl opacity-30">❝</div>
             <div className="flex items-center gap-3 mb-4">
               <div className={`w-10 h-10 rounded-full ${s.color} flex items-center justify-center font-black text-lg`}>{s.name[0]}</div>
               <div>
-                <div className="font-bold text-gray-900 text-sm">{s.name}</div>
-                <div className="text-xs text-gray-500">{s.icon} {s.location}</div>
+                <div className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 text-sm">{s.name}</div>
+                <div className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400">{s.icon} {s.location}</div>
               </div>
               <span className="ml-auto text-xs font-bold bg-green-100 text-green-700 px-2 py-1 rounded-full whitespace-nowrap">{s.outcome}</span>
             </div>
-            <p className="text-gray-700 text-sm leading-relaxed italic mb-4">"{s.quote}"</p>
-            <div className="flex items-center gap-2 text-xs text-gray-400 border-t border-gray-100 pt-3">
-              <ShieldCheck className="w-3 h-3" /> Used: <span className="font-bold text-gray-600">{s.tool}</span>
+            <p className="text-gray-700 dark:text-gray-300 dark:text-gray-300 text-sm leading-relaxed italic mb-4">"{s.quote}"</p>
+            <div className="flex items-center gap-2 text-xs text-gray-400 border-t border-gray-100 dark:border-gray-800 dark:border-gray-800 pt-3">
+              <ShieldCheck className="w-3 h-3" /> Used: <span className="font-bold text-gray-600 dark:text-gray-400 dark:text-gray-400">{s.tool}</span>
             </div>
           </div>
         ))}
@@ -95,7 +95,7 @@ export const Stories: React.FC = () => {
             className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition">
             Share My Story <ArrowRight className="w-4 h-4" />
           </a>
-          <Link to="/assessment" className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 text-white rounded-xl font-bold hover:bg-white/20 transition border border-white/20">
+          <Link to="/assessment" className="inline-flex items-center gap-2 px-6 py-3 bg-white dark:bg-gray-900 dark:bg-gray-900/10 text-white rounded-xl font-bold hover:bg-white dark:bg-gray-900 dark:bg-gray-900/20 transition border border-white/20">
             Check My Home First
           </Link>
         </div>
