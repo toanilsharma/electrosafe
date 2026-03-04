@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { TENANT_ISSUES } from '../data';
-import { Copy, CheckCircle, MessageSquare, AlertTriangle, Send, Printer } from 'lucide-react';
+import { Copy, CheckCircle, MessageSquare, AlertTriangle, Send, Printer, Gavel, ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { RelatedTools } from '../components/RelatedTools';
 
 
 export const ToolTenantRequest = () => {
+  const navigate = useNavigate();
   const [selectedIssueId, setSelectedIssueId] = useState(() => localStorage.getItem('tenant_issue') || TENANT_ISSUES[0].id);
   const [location, setLocation] = useState(() => localStorage.getItem('tenant_location') || '');
   const [recipient, setRecipient] = useState(() => localStorage.getItem('tenant_recipient') || 'Landlord');
@@ -149,12 +152,22 @@ Thank you,
         </div>
       </div>
 
-      <div className="mt-12 bg-blue-50 p-6 rounded-xl border border-blue-100">
-        <h3 className="font-bold text-blue-900 mb-2">Why use this tool?</h3>
-        <p className="text-sm text-blue-800">
-          Landlords and Wardens are legally responsible for electrical safety in most countries. By using specific technical terms (like "Arcing" or "Ground Fault") and citing safety risks in writing, you create a documented request that is much harder for them to ignore than a casual verbal complaint.
-        </p>
+      <div className="mt-12 bg-blue-50 p-6 rounded-xl border border-blue-100 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="flex-1">
+          <h3 className="font-bold text-blue-900 mb-2">Why use this tool?</h3>
+          <p className="text-sm text-blue-800">
+            Landlords and Wardens are legally responsible for electrical safety in most countries. By using specific technical terms (like "Arcing" or "Ground Fault") and citing safety risks in writing, you create a documented request that is much harder for them to ignore than a casual verbal complaint.
+          </p>
+        </div>
+        <button 
+          onClick={() => navigate('/tenant-demand')}
+          className="bg-slate-900 text-white px-6 py-4 rounded-xl font-bold flex items-center gap-2 hover:bg-slate-800 transition-colors shadow-lg whitespace-nowrap"
+        >
+          Need a Formal Legal Notice? <ArrowRight className="w-5 h-5" />
+        </button>
       </div>
+
+      <RelatedTools currentPath="/tenant-request" count={3} />
     </div>
   );
 };

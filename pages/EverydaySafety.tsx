@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
 import { GLOSSARY, LIGHTBULB_GUIDE } from '../data';
-import { Lightbulb, CloudLightning, Activity, HelpCircle, Baby, Wifi, Search, AlertCircle, ArrowRight, CheckCircle2, Thermometer, Box, Ruler, Info } from 'lucide-react';
+import { Lightbulb, CloudLightning, Activity, HelpCircle, Baby, Wifi, Search, AlertCircle, ArrowRight, CheckCircle2, Thermometer, Box, Ruler, Info, Calendar, Layout, BellRing, Settings, Zap, AlertTriangle, BookOpen, ShoppingCart, Plus, Trash2, Copy, Printer, CheckCircle, Globe, BatteryCharging } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { RelatedTools } from '../components/RelatedTools';
 
 export const EverydaySafety = () => {
   const [activeTab, setActiveTab] = useState('lightbulb');
@@ -60,6 +62,7 @@ export const EverydaySafety = () => {
           {activeTab === 'glossary' && <GlossaryTool />}
         </div>
       </div>
+      <RelatedTools />
     </div>
   );
 };
@@ -218,6 +221,7 @@ const LightbulbTool = () => {
 
 const OutageTool = () => {
   const [step, setStep] = useState(0);
+  const navigate = useNavigate();
 
   const reset = () => setStep(0);
 
@@ -297,7 +301,10 @@ const OutageTool = () => {
               <li>If it's in the middle/off position, flip it OFF, then firmly ON.</li>
             </ol>
           </div>
-          <button onClick={reset} className="text-blue-600 underline">Start Over</button>
+          <button onClick={() => navigate('/breaker-mapper')} className="flex items-center justify-center gap-2 text-blue-600 hover:underline mt-4 mx-auto">
+            <Layout className="w-4 h-4" /> Open Visual Breaker Mapper
+          </button>
+          <button onClick={reset} className="text-blue-600 underline mt-4 block text-center">Start Over</button>
         </div>
       )}
 
@@ -314,7 +321,10 @@ const OutageTool = () => {
               <li>Flip it OFF, then ON.</li>
             </ol>
           </div>
-          <button onClick={reset} className="text-blue-600 underline">Start Over</button>
+          <button onClick={() => navigate('/breaker-mapper')} className="flex items-center justify-center gap-2 text-blue-600 hover:underline mt-4 mx-auto">
+            <Layout className="w-4 h-4" /> Open Visual Breaker Mapper
+          </button>
+          <button onClick={reset} className="text-blue-600 underline mt-4 block text-center">Start Over</button>
         </div>
       )}
     </div>
@@ -526,6 +536,7 @@ const SmartCheckTool = () => {
 };
 
 const BabyProofTool = () => {
+  const navigate = useNavigate();
   const schema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -594,6 +605,15 @@ const BabyProofTool = () => {
               "Tamper Resistant Receptacles" have built-in internal shutters. They look like normal outlets but physically block anything unless two prongs enter simultaneously.
             </p>
           </div>
+        </div>
+
+        <div className="pt-6 mt-6 border-t border-gray-100 flex justify-center">
+          <button 
+            onClick={() => navigate('/nursery-safety')}
+            className="inline-flex items-center gap-2 px-6 py-3 bg-pink-600 text-white rounded-xl font-bold hover:bg-pink-500 transition-all shadow-lg shadow-pink-200"
+          >
+            <Baby className="w-5 h-5" /> Open Detailed Nursery Shock-Proofing Guide
+          </button>
         </div>
       </div>
     </div>

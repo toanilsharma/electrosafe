@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ShieldCheck, Zap, ClipboardList, HelpCircle, Home, FileText, Globe } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Zap, ClipboardList, HelpCircle, Home, FileText, Globe, Search, DollarSign, Layout, Baby, BatteryCharging, Calendar, Gavel, Camera } from 'lucide-react';
 
 interface RelatedTool {
   title: string;
@@ -13,15 +13,21 @@ interface RelatedTool {
 
 const ALL_TOOLS: RelatedTool[] = [
   { title: 'Full Safety Assessment', desc: '25-point home electrical audit with risk score', to: '/assessment', icon: ShieldCheck, badge: 'Most Popular', color: 'blue' },
-  { title: '60-Second Quiz', desc: 'Quick safety check — get your score instantly', to: '/quick-quiz', icon: HelpCircle, color: 'indigo' },
-  { title: 'Load Calculator', desc: 'Estimate your electricity bill and circuit loads', to: '/load-calc', icon: Zap, badge: 'Free Tool', color: 'green' },
-  { title: 'Room-by-Room Audit', desc: 'Printable checklist for every room in your home', to: '/room-audit', icon: ClipboardList, color: 'orange' },
-  { title: 'My Home Dashboard', desc: 'Save progress, earn badges, track your safety streak', to: '/my-home', icon: Home, color: 'purple' },
+  { title: 'Home Buyer Scanner', desc: '15-min open house check for hidden money pits', to: '/home-buyer-scanner', icon: Search, badge: 'New', color: 'indigo' },
+  { title: 'Contractor BS Detector', desc: 'Price ranges & vetting questions for electricians', to: '/quote-analyzer', icon: DollarSign, color: 'green' },
+  { title: 'Load Calculator', desc: 'Estimate your electricity bill and circuit loads', to: '/load-calc', icon: Zap, color: 'yellow' },
+  { title: 'Visual Breaker Mapper', desc: 'Map your panel & print beautiful labels', to: '/breaker-mapper', icon: Layout, color: 'purple' },
+  { title: 'DIY or Deadly? Quiz', desc: 'Test your hazard vision in 60 seconds', to: '/diy-quiz', icon: Camera, color: 'red' },
+  { title: 'EV Charger Wire Sizer', desc: 'Proper wire & breaker sizing for EV safety', to: '/ev-charger', icon: BatteryCharging, color: 'cyan' },
+  { title: 'Nursery Safety Check', desc: 'Electrical safety specifically for new parents', to: '/nursery-safety', icon: Baby, color: 'pink' },
+  { title: 'Recall Radar & Calendar', desc: 'Track smoke alarms & dangerous recalls', to: '/alarm-calendar', icon: Calendar, color: 'orange' },
+  { title: 'Renters Revenge Demand', desc: 'Legal-sounding notice for hazardous rentals', to: '/tenant-demand', icon: Gavel, color: 'slate' },
+  { title: 'My Home Dashboard', desc: 'Save progress, earn badges, track your safety streak', to: '/my-home', icon: Home, color: 'violet' },
   { title: 'Is It Safe?', desc: '24+ common electrical Q&A answered instantly', to: '/is-it-safe', icon: HelpCircle, color: 'teal' },
-  { title: 'Bill Spike Detector', desc: 'Find out why your electricity bill jumped', to: '/bill-detector', icon: Zap, color: 'yellow' },
-  { title: 'Tenant Safety Letter', desc: 'Generate a formal letter to your landlord', to: '/tenant-request', icon: FileText, color: 'pink' },
-  { title: 'Risk Predictor', desc: 'Predict your fire risk from warning signs', to: '/risk-predictor', icon: ShieldCheck, color: 'red' },
-  { title: 'Country Safety Guide', desc: 'India, USA, UK specific electrical standards', to: '/safety/india', icon: Globe, color: 'cyan' },
+  { title: 'Bill Spike Detector', desc: 'Find out why your electricity bill jumped', to: '/bill-detector', icon: Zap, color: 'amber' },
+  { title: 'Tenant Safety Letter', desc: 'Generate a formal letter to your landlord', to: '/tenant-request', icon: FileText, color: 'rose' },
+  { title: 'Risk Predictor', desc: 'Predict your fire risk from warning signs', to: '/risk-predictor', icon: ShieldCheck, color: 'emerald' },
+  { title: 'Country Safety Guide', desc: 'Global electrical standards for India, USA, UK', to: '/safety/india', icon: Globe, color: 'sky' },
 ];
 
 const COLOR_MAP: Record<string, string> = {
@@ -35,6 +41,12 @@ const COLOR_MAP: Record<string, string> = {
   pink: 'bg-pink-50 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300 border-pink-100 dark:border-pink-800',
   red: 'bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border-red-100 dark:border-red-800',
   cyan: 'bg-cyan-50 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300 border-cyan-100 dark:border-cyan-800',
+  slate: 'bg-slate-50 dark:bg-slate-900/30 text-slate-700 dark:text-slate-300 border-slate-100 dark:border-slate-800',
+  violet: 'bg-violet-50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 border-violet-100 dark:border-violet-800',
+  amber: 'bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-100 dark:border-amber-800',
+  rose: 'bg-rose-50 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300 border-rose-100 dark:border-rose-800',
+  emerald: 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border-emerald-100 dark:border-emerald-800',
+  sky: 'bg-sky-50 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300 border-sky-100 dark:border-sky-800',
 };
 
 interface Props {

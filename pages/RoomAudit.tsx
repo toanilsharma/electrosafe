@@ -202,13 +202,27 @@ export const RoomAudit: React.FC = () => {
                   const key = `${room.id}-${i}`;
                   const checked = !!checks[key];
                   return (
-                    <button key={i} onClick={() => toggle(key)}
-                      className={`w-full flex items-start gap-3 p-3 rounded-xl text-left transition-all ${checked ? 'bg-white/80 shadow-sm' : 'hover:bg-white/50'}`}>
-                      {checked
-                        ? <CheckCircle2 className={`w-5 h-5 mt-0.5 flex-shrink-0 ${c.text}`} />
-                        : <Circle className="w-5 h-5 mt-0.5 flex-shrink-0 text-gray-400" />}
-                      <span className={`text-sm font-medium ${checked ? 'line-through text-gray-400' : 'text-gray-700'}`}>{item}</span>
-                    </button>
+                      <div className="flex flex-col sm:flex-row w-full gap-3 sm:items-center justify-between">
+                        <button onClick={() => toggle(key)} className="flex items-start text-left gap-3 flex-1 group">
+                          {checked
+                            ? <CheckCircle2 className={`w-5 h-5 mt-0.5 flex-shrink-0 ${c.text}`} />
+                            : <Circle className={`w-5 h-5 mt-0.5 flex-shrink-0 text-gray-400 group-hover:${c.text} transition-colors`} />}
+                          <span className={`text-sm font-medium ${checked ? 'line-through text-gray-400' : 'text-gray-700'}`}>{item}</span>
+                        </button>
+                        
+                        {/* FEATURE 5: "NAG YOUR PARTNER" WHATSAPP BUTTON */}
+                        {!checked && (
+                           <a 
+                             href={`https://wa.me/?text=${encodeURIComponent(`Hey! I was doing a home safety electrical check on ElectroSafe.homes and noticed we haven't done this yet in the ${room.name.replace(/[^a-zA-Z\s]/g, '').trim()}:\n\n⚠️ "${item}"\n\nCan we fix this soon? Check it out here: https://electrosafe.homes/room-audit`)}`} 
+                             target="_blank" 
+                             rel="noopener noreferrer"
+                             className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#25D366]/10 text-[#25D366] hover:bg-[#25D366]/20 border border-[#25D366]/30 rounded-lg text-xs font-bold transition-colors w-fit sm:w-auto mt-2 sm:mt-0"
+                             onClick={(e) => e.stopPropagation()}
+                           >
+                              <MessageCircle className="w-3.5 h-3.5" /> Nag Partner
+                           </a>
+                        )}
+                      </div>
                   );
                 })}
               </div>

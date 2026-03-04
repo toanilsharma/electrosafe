@@ -46,90 +46,113 @@ export const NewHomeGuide = () => {
     <div className="max-w-7xl mx-auto px-4 py-8 md:py-12">
       <StickyTOC items={TOC_ITEMS} />
 
-      {/* HERO SECTION */}
-      <div className="text-center mb-12 md:mb-16">
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
-          For Homeowners & Builders
+      {/* PREMIUM HERO SECTION */}
+      <div className="relative rounded-3xl overflow-hidden mb-16 md:mb-24 shadow-2xl animate-fade-in group">
+        <div className="absolute inset-0">
+          <img 
+            src="https://images.unsplash.com/photo-1541888086225-b4618a8b16fa?auto=format&fit=crop&q=80&w=2000" 
+            alt="New home blueprint" 
+            className="w-full h-full object-cover opacity-30 group-hover:scale-105 transition-transform duration-1000"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 via-slate-900/80 to-slate-900/90 mix-blend-multiply"></div>
         </div>
-        <h1 className="text-3xl md:text-6xl font-extrabold text-gray-900 mb-6 leading-tight">
-          The Non-Expert’s Guide to a <br className="hidden md:block"/> <span className="text-blue-600">Perfect Electrical Setup</span>
-        </h1>
-        <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-2">
-          Building your dream home? Don't just trust the contractor blindly. 
-          Use this <strong>Master Plan</strong> to manage budget, spot scams, and ensure your home is ready for the next 50 years.
-        </p>
+        
+        <div className="relative z-10 px-8 py-16 md:py-24 max-w-4xl mx-auto text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 text-blue-300 border border-blue-400/30 rounded-full text-xs font-bold uppercase tracking-wider mb-6 animate-slide-up backdrop-blur-md">
+            <LayoutTemplate className="w-4 h-4" /> For Homeowners & Builders
+          </div>
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-tight animate-slide-up delay-100">
+            The Master Plan for a <br className="hidden md:block"/> 
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-400">
+              Flawless Electrical Setup
+            </span>
+          </h1>
+          <p className="text-lg md:text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed animate-slide-up delay-200">
+            Don't trust the contractor blindly. Use this guide to manage budget, spot common scams, and ensure your dream home is ready for the next 50 years.
+          </p>
+        </div>
       </div>
 
       {/* PHASE 0: MONEY & HIRING */}
-      <section id="phase-0" className="mb-16 md:mb-24 relative">
-        <div className="absolute left-8 top-16 bottom-0 w-0.5 bg-gray-200 hidden lg:block"></div>
+      <section id="phase-0" className="mb-20 md:mb-32 relative animate-slide-up delay-300">
+        <div className="absolute left-8 top-16 bottom-0 w-0.5 bg-gradient-to-b from-green-500 to-transparent hidden lg:block opacity-30"></div>
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
           <div className="flex-shrink-0 flex flex-col items-center lg:items-center items-start">
-            <div className="w-14 h-14 md:w-16 md:h-16 bg-green-600 rounded-2xl flex items-center justify-center text-white shadow-xl -rotate-3 mb-4 z-10 relative">
-              <DollarSign className="w-7 h-7 md:w-8 md:h-8" />
+            <div className="w-14 h-14 md:w-20 md:h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-green-600/20 -rotate-3 mb-4 z-10 relative group-hover:rotate-0 transition-transform">
+              <DollarSign className="w-7 h-7 md:w-10 md:h-10" />
             </div>
-            <h2 className="text-base md:text-lg font-bold text-green-900 uppercase tracking-widest pl-2 lg:pl-0">Phase 0</h2>
+            <h2 className="text-sm font-bold text-green-600 uppercase tracking-widest pl-2 lg:pl-0">Phase 0</h2>
             <h3 className="text-2xl md:text-3xl font-bold text-gray-900 pl-2 lg:pl-0">Hiring & Money</h3>
           </div>
 
           <div className="flex-grow space-y-8">
             {/* Quote Guide */}
-            <div className="bg-white rounded-3xl p-6 md:p-8 border border-gray-200 shadow-sm">
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">Understanding the Quote</h3>
-              <p className="text-gray-600 mb-6">
-                Electricians usually charge in two ways. Know the difference so you don't get cheated.
+            <div className="bg-white rounded-[2rem] p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all border border-gray-100">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Understanding the Quote</h3>
+              <p className="text-gray-600 mb-8 text-lg">
+                Electricians usually charge in two specific ways. Knowing the difference stops you from being cheated before work even begins.
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-green-50 p-5 md:p-6 rounded-xl border border-green-100">
-                  <h4 className="font-bold text-green-900 mb-2 text-lg">1. The "Point" Rate</h4>
-                  <p className="text-sm text-gray-700 mb-3">
-                    You pay per switch/socket box.
-                  </p>
-                  <ul className="text-sm space-y-2 text-gray-600">
-                    <li><span className="text-green-600 font-bold">Pros:</span> Easy to calculate for small jobs.</li>
-                    <li><span className="text-red-600 font-bold">The Trap:</span> They might count one switchboard as 10 separate "points". <strong>Clarify definition of a 'Point' first.</strong></li>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="bg-gradient-to-br from-green-50 to-white p-6 rounded-2xl border border-green-100">
+                  <div className="w-10 h-10 bg-green-100 text-green-700 rounded-lg flex items-center justify-center font-bold text-xl mb-4">1</div>
+                  <h4 className="font-bold text-green-900 mb-2 text-lg">The "Point" Rate</h4>
+                  <p className="text-sm text-gray-600 mb-4 h-10">You pay per individual switch/socket box installed.</p>
+                  <ul className="text-sm space-y-3">
+                    <li className="flex gap-2"><CheckCircle2 className="w-5 h-5 text-green-500 shrink-0" /> <span className="text-gray-700"><strong>Pros:</strong> Easy to calculate for small jobs.</span></li>
+                    <li className="flex gap-2"><AlertOctagon className="w-5 h-5 text-red-500 shrink-0" /> <span className="text-gray-700"><strong>The Trap:</strong> They might count one large switchboard as 10 separate "points". Clarify the definition first.</span></li>
                   </ul>
                 </div>
-                <div className="bg-blue-50 p-5 md:p-6 rounded-xl border border-blue-100">
-                  <h4 className="font-bold text-blue-900 mb-2 text-lg">2. The "Square Ft" Rate</h4>
-                  <p className="text-sm text-gray-700 mb-3">
-                    Flat fee based on house size.
-                  </p>
-                  <ul className="text-sm space-y-2 text-gray-600">
-                    <li><span className="text-green-600 font-bold">Pros:</span> Fixed budget. No surprises.</li>
-                    <li><span className="text-red-600 font-bold">The Trap:</span> They might do minimum work to save time. <strong>Agree on minimum socket count upfront.</strong></li>
+                <div className="bg-gradient-to-br from-blue-50 to-white p-6 rounded-2xl border border-blue-100">
+                  <div className="w-10 h-10 bg-blue-100 text-blue-700 rounded-lg flex items-center justify-center font-bold text-xl mb-4">2</div>
+                  <h4 className="font-bold text-blue-900 mb-2 text-lg">The "Square Ft" Rate</h4>
+                  <p className="text-sm text-gray-600 mb-4 h-10">Flat fee based on the total area of the house.</p>
+                  <ul className="text-sm space-y-3">
+                    <li className="flex gap-2"><CheckCircle2 className="w-5 h-5 text-green-500 shrink-0" /> <span className="text-gray-700"><strong>Pros:</strong> Fixed budget with absolutely zero surprises.</span></li>
+                    <li className="flex gap-2"><AlertOctagon className="w-5 h-5 text-red-500 shrink-0" /> <span className="text-gray-700"><strong>The Trap:</strong> They might do minimum work to maximize profit. Agree on a minimum socket count upfront.</span></li>
                   </ul>
                 </div>
               </div>
             </div>
 
             {/* The Scam Detector */}
-            <div className="bg-red-50 rounded-3xl p-6 md:p-8 border border-red-100">
-              <h3 className="text-xl font-bold text-red-900 mb-4 flex items-center gap-2">
-                <Scissors className="w-6 h-6" /> The "Cut Corners" Scam Detector
-              </h3>
-              <p className="text-red-800 mb-6 text-sm md:text-base">If you see these happening, your electrician is cheating you on safety.</p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-white p-5 rounded-xl shadow-sm border border-red-100">
-                   <div className="font-bold text-gray-900 mb-2">The "Half Neutral"</div>
-                   <p className="text-xs md:text-sm text-gray-600">
-                     Using one thin neutral wire for 3-4 circuits to save copper. <br/>
-                     <strong>Result:</strong> Voltage fluctuations and flickering lights.
-                   </p>
+            <div className="bg-gradient-to-r from-red-50 to-orange-50 rounded-[2rem] p-8 md:p-10 border border-red-100 relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-8 opacity-5">
+                <Scissors className="w-48 h-48 text-red-900" />
+              </div>
+              <div className="relative z-10">
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-red-100 text-red-800 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
+                  Red Flags
                 </div>
-                <div className="bg-white p-5 rounded-xl shadow-sm border border-red-100">
-                   <div className="font-bold text-gray-900 mb-2">The "Fake Ground"</div>
-                   <p className="text-xs md:text-sm text-gray-600">
-                     Connecting the ground pin to the neutral pin inside the socket instead of running a real ground wire.<br/>
-                     <strong>Result:</strong> Deadly shock hazard.
-                   </p>
-                </div>
-                <div className="bg-white p-5 rounded-xl shadow-sm border border-red-100">
-                   <div className="font-bold text-gray-900 mb-2">The "Brand Mix"</div>
-                   <p className="text-xs md:text-sm text-gray-600">
-                     Showing you a roll of expensive wire (e.g., Finolex/Polycab) but installing cheap generic wire inside the walls.<br/>
-                     <strong>Result:</strong> Fire risk in 5 years.
-                   </p>
+                <h3 className="text-2xl md:text-3xl font-extrabold text-gray-900 mb-4 flex items-center gap-2">
+                  The "Cut Corners" Scam Detector
+                </h3>
+                <p className="text-red-800/80 mb-8 text-lg">If you see these happening on site, your electrician is cheating you on life-saving safety features.</p>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="bg-white p-6 rounded-2xl shadow-sm border border-red-100 hover:-translate-y-1 transition-transform">
+                     <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-600 mb-4"><Zap className="w-5 h-5" /></div>
+                     <div className="font-bold text-gray-900 mb-2">The "Half Neutral"</div>
+                     <p className="text-sm text-gray-600">
+                       Using one thin neutral wire for 3-4 circuits to save copper. <br/><br/>
+                       <strong className="text-red-600">Result:</strong> Voltage fluctuations and flickering lights across the house.
+                     </p>
+                  </div>
+                  <div className="bg-white p-6 rounded-2xl shadow-sm border border-red-100 hover:-translate-y-1 transition-transform delay-100">
+                     <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-600 mb-4"><Activity className="w-5 h-5" /></div>
+                     <div className="font-bold text-gray-900 mb-2">The "Fake Ground"</div>
+                     <p className="text-sm text-gray-600">
+                       Connecting the ground pin to the neutral pin inside the socket instead of running a real ground wire.<br/><br/>
+                       <strong className="text-red-600">Result:</strong> Extremely deadly shock hazard.
+                     </p>
+                  </div>
+                  <div className="bg-white p-6 rounded-2xl shadow-sm border border-red-100 hover:-translate-y-1 transition-transform delay-200">
+                     <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-600 mb-4"><ShoppingCart className="w-5 h-5" /></div>
+                     <div className="font-bold text-gray-900 mb-2">The "Brand Mix"</div>
+                     <p className="text-sm text-gray-600">
+                       Showing you a roll of expensive wire but installing cheap generic wire inside the walls.<br/><br/>
+                       <strong className="text-red-600">Result:</strong> Insulation melts, massive fire risk in 5 years.
+                     </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -138,57 +161,60 @@ export const NewHomeGuide = () => {
       </section>
 
       {/* PHASE 1: PLANNING & LAYOUT */}
-      <section id="phase-1" className="mb-16 md:mb-24 relative">
-        <div className="absolute left-8 top-16 bottom-0 w-0.5 bg-gray-200 hidden lg:block"></div>
+      <section id="phase-1" className="mb-20 md:mb-32 relative animate-slide-up delay-400">
+        <div className="absolute left-8 top-16 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 to-transparent hidden lg:block opacity-30"></div>
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
           <div className="flex-shrink-0 flex flex-col items-center lg:items-center items-start">
-            <div className="w-14 h-14 md:w-16 md:h-16 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-xl -rotate-3 mb-4 z-10 relative">
-              <LayoutTemplate className="w-7 h-7 md:w-8 md:h-8" />
+            <div className="w-14 h-14 md:w-20 md:h-20 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-blue-500/20 -rotate-3 mb-4 z-10 relative group-hover:rotate-0 transition-transform">
+              <LayoutTemplate className="w-7 h-7 md:w-10 md:h-10" />
             </div>
-            <h2 className="text-base md:text-lg font-bold text-blue-900 uppercase tracking-widest pl-2 lg:pl-0">Phase 1</h2>
+            <h2 className="text-sm font-bold text-blue-600 uppercase tracking-widest pl-2 lg:pl-0">Phase 1</h2>
             <h3 className="text-2xl md:text-3xl font-bold text-gray-900 pl-2 lg:pl-0">Planning & Layout</h3>
           </div>
 
           <div className="flex-grow space-y-8">
             
             {/* 1.1 SOCKET DENSITY RULES */}
-            <div className="bg-white rounded-3xl p-6 md:p-8 border border-gray-200 shadow-sm">
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <Calculator className="w-6 h-6 text-blue-600" /> Socket Density Rules
+            <div className="bg-white rounded-[2rem] p-8 md:p-10 border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-shadow">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
+                Golden Rules
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <Calculator className="w-6 h-6 text-blue-600" /> Socket Density Matrix
               </h3>
-              <p className="text-gray-600 mb-6">
-                Contractors often install the bare minimum to finish quickly. Use these "Golden Rules" to ensure you never need an extension cord.
+              <p className="text-gray-600 mb-8 text-lg">
+                Contractors install the bare minimum to finish fast. Use this matrix to ensure you never need a dangerous extension cord again.
               </p>
               
-              <div className="overflow-x-auto">
+              <div className="overflow-hidden rounded-2xl border border-gray-100">
                 <table className="w-full text-left text-sm md:text-base">
                   <thead className="bg-gray-50 border-b border-gray-200">
                     <tr>
-                      <th className="p-4 text-gray-900 font-bold">Room</th>
-                      <th className="p-4 text-gray-900 font-bold">Density Rule</th>
-                      <th className="p-4 text-gray-900 font-bold">Critical Placements</th>
+                      <th className="p-4 md:p-5 text-gray-900 font-bold w-1/4">Room</th>
+                      <th className="p-4 md:p-5 text-gray-900 font-bold w-1/4">Density Rule</th>
+                      <th className="p-4 md:p-5 text-gray-900 font-bold w-1/2">Critical Placements</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-100">
-                    <tr>
-                      <td className="p-4 font-bold text-blue-800">Kitchen</td>
-                      <td className="p-4 font-mono">1 socket per 6 sq ft</td>
-                      <td className="p-4 text-gray-600">Countertop (every 4ft), Island, Fridge, Micro, Chimney, RO</td>
+                  <tbody className="divide-y divide-gray-100 bg-white">
+                    <tr className="hover:bg-blue-50/50 transition-colors">
+                      <td className="p-4 md:p-5 font-bold text-blue-900 flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-blue-500"></div>Kitchen</td>
+                      <td className="p-4 md:p-5 font-mono text-sm text-gray-600 bg-gray-50/50">1 socket / 6 sq ft</td>
+                      <td className="p-4 md:p-5 text-gray-600">Countertop (every 4ft), Island, Fridge, Micro, Chimney, RO</td>
                     </tr>
-                    <tr>
-                      <td className="p-4 font-bold text-blue-800">Living Room</td>
-                      <td className="p-4 font-mono">1 socket per 10 sq ft</td>
-                      <td className="p-4 text-gray-600">Near every corner, Behind TV (x4), Beside sofas (charging)</td>
+                    <tr className="hover:bg-blue-50/50 transition-colors">
+                      <td className="p-4 md:p-5 font-bold text-blue-900 flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-blue-500"></div>Living Room</td>
+                      <td className="p-4 md:p-5 font-mono text-sm text-gray-600 bg-gray-50/50">1 socket / 10 sq ft</td>
+                      <td className="p-4 md:p-5 text-gray-600">Near every corner, Behind TV (x4), Beside sofas (charging)</td>
                     </tr>
-                    <tr>
-                      <td className="p-4 font-bold text-blue-800">Bedroom</td>
-                      <td className="p-4 font-mono">1 socket per 12 sq ft</td>
-                      <td className="p-4 text-gray-600">Bedside (both sides), Desk area (x4), AC point</td>
+                    <tr className="hover:bg-blue-50/50 transition-colors">
+                      <td className="p-4 md:p-5 font-bold text-blue-900 flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-blue-500"></div>Bedroom</td>
+                      <td className="p-4 md:p-5 font-mono text-sm text-gray-600 bg-gray-50/50">1 socket / 12 sq ft</td>
+                      <td className="p-4 md:p-5 text-gray-600">Bedside (both sides), Desk area (x4), AC point</td>
                     </tr>
-                    <tr>
-                      <td className="p-4 font-bold text-blue-800">Hallways</td>
-                      <td className="p-4 font-mono">1 socket every 15 ft</td>
-                      <td className="p-4 text-gray-600">For vacuum cleaners and night lights</td>
+                    <tr className="hover:bg-blue-50/50 transition-colors">
+                      <td className="p-4 md:p-5 font-bold text-blue-900 flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-blue-500"></div>Hallways</td>
+                      <td className="p-4 md:p-5 font-mono text-sm text-gray-600 bg-gray-50/50">1 per 15 ft</td>
+                      <td className="p-4 md:p-5 text-gray-600">For vacuum cleaners and motion night lights</td>
                     </tr>
                   </tbody>
                 </table>
@@ -196,79 +222,103 @@ export const NewHomeGuide = () => {
             </div>
 
             {/* 1.2 HIGH POWER FUTURE PROOFING */}
-            <div className="bg-gradient-to-br from-indigo-900 to-slate-800 text-white rounded-3xl p-6 md:p-8 shadow-xl">
-              <h3 className="text-xl md:text-2xl font-bold mb-4 flex items-center gap-2">
-                <Zap className="w-6 h-6 text-yellow-400" /> Future-Proofing: High Power
-              </h3>
-              <p className="text-indigo-200 mb-8 max-w-3xl">
-                Homes are becoming "All Electric". Gas stoves and petrol cars are disappearing. Your wiring must be ready for heavy loads 10 years from now.
-              </p>
+            <div className="bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-indigo-900 via-slate-900 to-black text-white rounded-[2rem] p-8 md:p-10 shadow-2xl relative overflow-hidden">
+              <div className="absolute -left-10 -bottom-10 opacity-10 blur-2xl">
+                <Zap className="w-64 h-64 text-yellow-400" />
+              </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-white/10 p-6 rounded-2xl backdrop-blur-md border border-white/10">
-                  <h4 className="font-bold text-lg mb-2 flex items-center gap-2">
-                    <Car className="w-5 h-5 text-green-400" /> EV Charging Prep
-                  </h4>
-                  <ul className="space-y-3 text-sm text-gray-300">
-                    <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 text-green-400 shrink-0" /> Install a <strong>40A or 63A dedicated circuit</strong> to the garage/driveway.</li>
-                    <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 text-green-400 shrink-0" /> Use <strong>6.0mm² or 10.0mm²</strong> armored cable.</li>
-                    <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 text-green-400 shrink-0" /> Even if you don't have an EV yet, run the conduit now.</li>
-                  </ul>
+              <div className="relative z-10">
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 text-yellow-300 rounded-full text-xs font-bold uppercase tracking-wider mb-4 border border-white/10 backdrop-blur-md">
+                  10-Year Horizon
                 </div>
+                <h3 className="text-2xl md:text-3xl font-extrabold mb-4 flex items-center gap-2">
+                   Future-Proofing: High Power
+                </h3>
+                <p className="text-indigo-200 mb-8 max-w-3xl text-lg">
+                  Homes are becoming "All Electric". Your wiring must be ready for heavy persistent loads 10 years from now.
+                </p>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="bg-gradient-to-br from-white/10 to-transparent p-6 rounded-2xl backdrop-blur-xl border border-white/10 hover:border-white/20 transition-colors">
+                    <h4 className="font-bold text-xl mb-4 flex items-center gap-2">
+                      <span className="w-10 h-10 bg-green-500/20 text-green-400 rounded-xl flex items-center justify-center"><Car className="w-5 h-5" /></span>
+                      Level 2 EV Charging
+                    </h4>
+                    <ul className="space-y-3 text-sm text-gray-300">
+                      <li className="flex gap-3"><span className="text-green-400 mt-0.5">•</span> Install a <strong>40A or 63A dedicated circuit</strong> to the garage/driveway.</li>
+                      <li className="flex gap-3"><span className="text-green-400 mt-0.5">•</span> Use heavy <strong>6.0mm² or 10.0mm²</strong> copper armored cable.</li>
+                      <li className="flex gap-3"><span className="text-green-400 mt-0.5">•</span> No EV yet? Run the empty conduit now to save $1k later.</li>
+                    </ul>
+                  </div>
 
-                <div className="bg-white/10 p-6 rounded-2xl backdrop-blur-md border border-white/10">
-                  <h4 className="font-bold text-lg mb-2 flex items-center gap-2">
-                    <Flame className="w-5 h-5 text-orange-400" /> Induction Cooking
-                  </h4>
-                  <ul className="space-y-3 text-sm text-gray-300">
-                    <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 text-orange-400 shrink-0" /> Induction cooktops draw massive power (up to 7kW).</li>
-                    <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 text-orange-400 shrink-0" /> Run an empty <strong>1-inch conduit</strong> to the kitchen island/stove area.</li>
-                    <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 text-orange-400 shrink-0" /> Plan for a <strong>32A or 40A</strong> breaker space in your panel.</li>
-                  </ul>
+                  <div className="bg-gradient-to-br from-white/10 to-transparent p-6 rounded-2xl backdrop-blur-xl border border-white/10 hover:border-white/20 transition-colors">
+                    <h4 className="font-bold text-xl mb-4 flex items-center gap-2">
+                      <span className="w-10 h-10 bg-orange-500/20 text-orange-400 rounded-xl flex items-center justify-center"><Flame className="w-5 h-5" /></span>
+                      Induction Mastery
+                    </h4>
+                    <ul className="space-y-3 text-sm text-gray-300">
+                      <li className="flex gap-3"><span className="text-orange-400 mt-0.5">•</span> Induction ranges draw massive continuous power (up to 7kW).</li>
+                      <li className="flex gap-3"><span className="text-orange-400 mt-0.5">•</span> Run a dedicated <strong>1-inch conduit</strong> straight to the island/stove area.</li>
+                      <li className="flex gap-3"><span className="text-orange-400 mt-0.5">•</span> Reserve a <strong>32A or 40A</strong> double-pole breaker space in the panel.</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* 1.3 Standard Heights */}
-            <div className="bg-white rounded-3xl p-6 md:p-8 border border-gray-200 shadow-sm">
-               <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-                 <Ruler className="w-6 h-6 text-orange-500" /> The "Golden Numbers" (Heights)
-               </h3>
-               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                 <div className="p-4 bg-gray-50 rounded-xl">
-                   <div className="text-3xl font-extrabold text-gray-900 mb-1">50"</div>
-                   <div className="text-xs uppercase font-bold text-gray-500">Light Switches</div>
-                   <div className="text-xs text-gray-400">(from floor)</div>
+            {/* 1.3 Standard Heights BENTO */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="bg-white rounded-[2rem] p-8 border border-gray-100 shadow-sm hover:-translate-y-1 transition-transform">
+                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
+                   Ergonomics
                  </div>
-                 <div className="p-4 bg-gray-50 rounded-xl">
-                   <div className="text-3xl font-extrabold text-gray-900 mb-1">12"</div>
-                   <div className="text-xs uppercase font-bold text-gray-500">Power Sockets</div>
-                   <div className="text-xs text-gray-400">(General Use)</div>
+                 <h3 className="text-2xl font-bold text-gray-900 mb-8 max-w-[200px]">
+                   The "Golden Numbers"
+                 </h3>
+                 <div className="grid grid-cols-2 gap-4">
+                   <div className="p-4 bg-gray-50 rounded-2xl border border-gray-100">
+                     <div className="text-4xl font-extrabold text-blue-600 tracking-tighter mb-1">50"</div>
+                     <div className="text-sm font-bold text-gray-900">Light Switches</div>
+                     <div className="text-xs text-gray-500">(from floor)</div>
+                   </div>
+                   <div className="p-4 bg-gray-50 rounded-2xl border border-gray-100">
+                     <div className="text-4xl font-extrabold text-indigo-600 tracking-tighter mb-1">12"</div>
+                     <div className="text-sm font-bold text-gray-900">Power Sockets</div>
+                     <div className="text-xs text-gray-500">(General Use)</div>
+                   </div>
+                   <div className="p-4 bg-gray-50 rounded-2xl border border-gray-100">
+                     <div className="text-4xl font-extrabold text-purple-600 tracking-tighter mb-1">42"</div>
+                     <div className="text-sm font-bold text-gray-900">Kitchen Counters</div>
+                     <div className="text-xs text-gray-500">(Above slab)</div>
+                   </div>
+                   <div className="p-4 bg-gray-50 rounded-2xl border border-gray-100">
+                     <div className="text-4xl font-extrabold text-slate-800 tracking-tighter mb-1">60"</div>
+                     <div className="text-sm font-bold text-gray-900">Wall TV Center</div>
+                     <div className="text-xs text-gray-500">(Mount center)</div>
+                   </div>
                  </div>
-                 <div className="p-4 bg-gray-50 rounded-xl">
-                   <div className="text-3xl font-extrabold text-gray-900 mb-1">42"</div>
-                   <div className="text-xs uppercase font-bold text-gray-500">Kitchen Counter</div>
-                   <div className="text-xs text-gray-400">(Above slab)</div>
-                 </div>
-                 <div className="p-4 bg-gray-50 rounded-xl">
-                   <div className="text-3xl font-extrabold text-gray-900 mb-1">60"</div>
-                   <div className="text-xs uppercase font-bold text-gray-500">Wall TV</div>
-                   <div className="text-xs text-gray-400">(Center point)</div>
-                 </div>
-               </div>
-            </div>
+              </div>
 
-            {/* 1.4 The "Forgot-Me-Nots" */}
-            <div className="bg-yellow-50 rounded-3xl p-6 md:p-8 border border-yellow-100">
-              <h3 className="text-lg font-bold text-yellow-900 mb-4 flex items-center gap-2">
-                <AlertOctagon className="w-5 h-5" /> Don't Forget These Points!
-              </h3>
-              <div className="flex flex-wrap gap-3">
-                {['Doorbell (Chime & Button)', 'WiFi Router (Central ceiling point)', 'CCTV Cameras (Corners)', 'Inverter/Battery location', 'Water Purifier (RO)', 'Dishwasher (Under sink)', 'Curtain Motors', 'Mirror Lights'].map(item => (
-                  <span key={item} className="px-3 py-1.5 bg-white text-yellow-800 border border-yellow-200 rounded-lg text-sm font-medium shadow-sm">
-                    {item}
-                  </span>
-                ))}
+              {/* 1.4 The "Forgot-Me-Nots" */}
+              <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-[2rem] p-8 border border-yellow-200 shadow-sm relative overflow-hidden flex flex-col justify-center hover:-translate-y-1 transition-transform">
+                <div className="absolute -right-8 -top-8 text-yellow-500/10">
+                  <AlertOctagon className="w-48 h-48" />
+                </div>
+                <div className="relative z-10">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-yellow-200 text-yellow-800 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
+                    Common Mistakes
+                  </div>
+                  <h3 className="text-2xl font-bold text-yellow-900 mb-6">
+                    Don't Forget These Points
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {['Doorbell (Chime & Mux)', 'Central Ceiling WiFi Nodes', 'CCTV Corner Pre-Wires', 'Battery Inverter Prep', 'RO Water Purifier', 'Under-Sink Dishwasher', 'Smart Curtain Pelmets', 'Bathroom Vanity Mirrors'].map(item => (
+                      <span key={item} className="px-3 py-1.5 bg-white text-yellow-800 border-b-2 border-yellow-200 rounded-lg text-sm font-bold shadow-sm whitespace-nowrap hover:bg-yellow-100 transition-colors">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -277,14 +327,14 @@ export const NewHomeGuide = () => {
       </section>
 
       {/* PHASE 2: SHOPPING (Procurement) */}
-      <section id="phase-2" className="mb-16 md:mb-24 relative">
-        <div className="absolute left-8 top-16 bottom-0 w-0.5 bg-gray-200 hidden lg:block"></div>
+      <section id="phase-2" className="mb-20 md:mb-32 relative animate-slide-up delay-500">
+        <div className="absolute left-8 top-16 bottom-0 w-0.5 bg-gradient-to-b from-purple-500 to-transparent hidden lg:block opacity-30"></div>
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
           <div className="flex-shrink-0 flex flex-col items-center lg:items-center items-start">
-            <div className="w-14 h-14 md:w-16 md:h-16 bg-purple-600 rounded-2xl flex items-center justify-center text-white shadow-xl -rotate-3 mb-4 z-10 relative">
-              <ShoppingCart className="w-7 h-7 md:w-8 md:h-8" />
+            <div className="w-14 h-14 md:w-20 md:h-20 bg-gradient-to-br from-purple-500 to-purple-700 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-purple-500/20 -rotate-3 mb-4 z-10 relative group-hover:rotate-0 transition-transform">
+              <ShoppingCart className="w-7 h-7 md:w-10 md:h-10" />
             </div>
-            <h2 className="text-base md:text-lg font-bold text-purple-900 uppercase tracking-widest pl-2 lg:pl-0">Phase 2</h2>
+            <h2 className="text-sm font-bold text-purple-600 uppercase tracking-widest pl-2 lg:pl-0">Phase 2</h2>
             <h3 className="text-2xl md:text-3xl font-bold text-gray-900 pl-2 lg:pl-0">Smart Shopping</h3>
           </div>
 
@@ -292,34 +342,59 @@ export const NewHomeGuide = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                
                {/* Wire Quality Test */}
-               <div className="bg-white p-6 md:p-8 rounded-3xl border border-gray-200 shadow-sm">
-                  <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-purple-600" /> The "Lighter Test" for Wires
-                  </h3>
-                  <p className="text-sm text-gray-600 mb-4">
-                    Cheap insulation catches fire. Good insulation melts but self-extinguishes.
-                  </p>
-                  <ol className="list-decimal pl-5 space-y-2 text-sm text-gray-700">
-                    <li>Take a scrap piece of wire.</li>
-                    <li>Hold a lighter flame to it for 10 seconds.</li>
-                    <li>Remove flame.</li>
-                    <li><strong>Result:</strong> If it keeps burning with a large flame, <strong>REJECT IT</strong>. It must stop burning instantly (FR/FRLS Grade).</li>
-                  </ol>
+               <div className="bg-white p-8 md:p-10 rounded-[2rem] border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all group overflow-hidden relative">
+                  <div className="absolute -top-4 -right-4 w-24 h-24 bg-purple-100 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+                  <div className="relative z-10">
+                    <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                      <div className="p-2 bg-purple-100 rounded-lg"><Flame className="w-6 h-6 text-purple-600" /></div> 
+                      The "Lighter Test"
+                    </h3>
+                    <p className="text-base text-gray-600 mb-6">
+                      Cheap insulation catches fire. Good insulation melts but self-extinguishes. Don't build a fuse into your walls.
+                    </p>
+                    <div className="space-y-4">
+                      <div className="flex gap-4 items-start">
+                        <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center font-bold text-gray-500 shrink-0">1</div>
+                        <p className="text-sm text-gray-700 pt-1">Take a 2-inch scrap piece of wire from the bulk roll.</p>
+                      </div>
+                      <div className="flex gap-4 items-start">
+                        <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center font-bold text-gray-500 shrink-0">2</div>
+                        <p className="text-sm text-gray-700 pt-1">Hold a lighter flame to it directly for exactly 10 seconds.</p>
+                      </div>
+                      <div className="flex gap-4 items-start">
+                        <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center font-bold text-red-500 shrink-0">3</div>
+                        <p className="text-sm text-gray-700 pt-1"><strong>Result:</strong> If it keeps burning with a large flame after removing the lighter, <strong>REJECT IT</strong>. It must stop burning instantly (FR/FRLS Grade).</p>
+                      </div>
+                    </div>
+                  </div>
                </div>
 
                {/* Switch Quality Test */}
-               <div className="bg-white p-6 md:p-8 rounded-3xl border border-gray-200 shadow-sm">
-                  <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-purple-600" /> The "Heavy Box" Test
-                  </h3>
-                  <p className="text-sm text-gray-600 mb-4">
-                    Copper and Brass are heavy. Cheap alloys are light.
-                  </p>
-                  <ul className="list-disc pl-5 space-y-2 text-sm text-gray-700">
-                    <li>Pick up a box of switches/sockets. It should feel surprisingly heavy.</li>
-                    <li>Look at the back terminals. You want to see <strong>Brass (Yellow)</strong>, not Steel (Silver). Steel rusts and causes fires.</li>
-                    <li>Click the switch. It should be a crisp snap, not a mushy slide.</li>
-                  </ul>
+               <div className="bg-white p-8 md:p-10 rounded-[2rem] border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all group overflow-hidden relative">
+                  <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-blue-100 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+                  <div className="relative z-10">
+                    <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+                      <div className="p-2 bg-blue-100 rounded-lg"><CheckCircle2 className="w-6 h-6 text-blue-600" /></div> 
+                      The "Heavy Box" Test
+                    </h3>
+                    <p className="text-base text-gray-600 mb-6">
+                      Copper and Brass are dense and heavy. Cheap alloys are light. Your hands can feel the difference.
+                    </p>
+                    <ul className="space-y-5">
+                      <li className="flex gap-3 items-start border-b border-gray-50 pb-4">
+                        <span className="text-blue-500 mt-1">•</span>
+                        <div className="text-sm text-gray-700">Pick up a retail box of 10 switches. It should feel <strong>surprisingly heavy</strong>. If it feels light like plastic toys, reject the brand.</div>
+                      </li>
+                      <li className="flex gap-3 items-start border-b border-gray-50 pb-4">
+                        <span className="text-blue-500 mt-1">•</span>
+                        <div className="text-sm text-gray-700">Look at the back terminal screws. You want to see thick <strong>Brass (Yellowing)</strong>, never thin Steel (Silver). Steel rusts and generates massive heat.</div>
+                      </li>
+                      <li className="flex gap-3 items-start">
+                        <span className="text-blue-500 mt-1">•</span>
+                        <div className="text-sm text-gray-700">Click the rocker mechanism. It should be a <strong>crisp, loud snap</strong>, not a mushy slow slide which causes electrical arcing.</div>
+                      </li>
+                    </ul>
+                  </div>
                </div>
 
             </div>
@@ -328,110 +403,124 @@ export const NewHomeGuide = () => {
       </section>
 
       {/* PHASE 3: EXECUTION (Supervision) */}
-      <section id="phase-3" className="mb-16 md:mb-24 relative">
-        <div className="absolute left-8 top-16 bottom-0 w-0.5 bg-gray-200 hidden lg:block"></div>
+      <section id="phase-3" className="mb-20 md:mb-32 relative animate-slide-up delay-[600ms]">
+        <div className="absolute left-8 top-16 bottom-0 w-0.5 bg-gradient-to-b from-orange-500 to-transparent hidden lg:block opacity-30"></div>
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
            <div className="flex-shrink-0 flex flex-col items-center lg:items-center items-start">
-            <div className="w-14 h-14 md:w-16 md:h-16 bg-orange-500 rounded-2xl flex items-center justify-center text-white shadow-xl -rotate-3 mb-4 z-10 relative">
-              <Eye className="w-7 h-7 md:w-8 md:h-8" />
+            <div className="w-14 h-14 md:w-20 md:h-20 bg-gradient-to-br from-orange-400 to-orange-600 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-orange-500/20 -rotate-3 mb-4 z-10 relative group-hover:rotate-0 transition-transform">
+              <Eye className="w-7 h-7 md:w-10 md:h-10" />
             </div>
-            <h2 className="text-base md:text-lg font-bold text-orange-900 uppercase tracking-widest pl-2 lg:pl-0">Phase 3</h2>
+            <h2 className="text-sm font-bold text-orange-600 uppercase tracking-widest pl-2 lg:pl-0">Phase 3</h2>
             <h3 className="text-2xl md:text-3xl font-bold text-gray-900 pl-2 lg:pl-0">Supervision</h3>
           </div>
 
           <div className="flex-grow space-y-8">
             
             {/* The Pre-Plaster Checklist */}
-            <div className="bg-white rounded-3xl p-6 md:p-8 border border-gray-200 shadow-sm">
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">The "Pre-Plaster" Checklist</h3>
-              <p className="text-gray-600 mb-6">Once they cement the walls, it's too late. Check these before the plaster/drywall goes up.</p>
+            <div className="bg-white rounded-[2rem] p-8 md:p-10 border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all">
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">The "Pre-Plaster" Checklist</h3>
+              <p className="text-gray-600 mb-8 text-lg">Once they cement the walls, it's too late. Force your contractor to show you these 5 things before the drywall goes up.</p>
               
-              <div className="space-y-3">
+              <div className="space-y-4">
                  {[
-                   'Conduits are straight (diagonal pipes crack walls).',
-                   'Conduits have a "Pull Wire" (GI wire) inside them for pulling cables later.',
-                   'Wall boxes are level (use a spirit level).',
-                   'Separate pipes for Power and Data (WiFi/TV). Keeping them 1ft apart prevents interference.',
-                   'Photos taken of all wall runs (for future drilling reference).'
+                   { icon: <Ruler className="w-5 h-5 text-orange-500" />, text: 'Conduits are strictly horizontal/vertical (diagonal pipes crack walls).' },
+                   { icon: <Zap className="w-5 h-5 text-orange-500" />, text: 'Conduits have a "Pull Wire" (GI wire) inside them for pulling cables later.' },
+                   { icon: <LayoutTemplate className="w-5 h-5 text-orange-500" />, text: 'Wall boxes are perfectly level (verify with a spirit level tool).' },
+                   { icon: <ShieldCheck className="w-5 h-5 text-orange-500" />, text: 'Separate pipes for Power and Data (WiFi/TV). 1ft gap prevents interference.' },
+                   { icon: <Camera className="w-5 h-5 text-orange-500" />, text: 'Photos taken of ALL wall runs (saves you from drilling into a wire later).' }
                  ].map((item, i) => (
-                   <div key={i} className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl">
-                      <div className="mt-1 w-5 h-5 rounded-full border-2 border-orange-400 flex-shrink-0"></div>
-                      <span className="text-gray-800 font-medium text-sm">{item}</span>
+                   <div key={i} className="flex items-center gap-4 p-4 bg-orange-50/50 rounded-2xl border border-orange-100/50 hover:bg-orange-50 transition-colors">
+                      <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm flex-shrink-0">
+                        {item.icon}
+                      </div>
+                      <span className="text-gray-800 font-medium">{item.text}</span>
                    </div>
                  ))}
               </div>
             </div>
 
-            {/* Wire Color Code */}
-            <div className="bg-white rounded-3xl p-6 md:p-8 border border-gray-200 shadow-sm">
-               <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                 <PenTool className="w-5 h-5 text-orange-500" /> Color Code Enforcement
-               </h3>
-               <p className="text-sm text-gray-600 mb-4">
-                 Contractors love using one color (Red) for everything to save money on buying rolls. <strong>Do not allow this.</strong> It makes future repairs a nightmare.
-               </p>
-               <div className="grid grid-cols-3 gap-2 text-center text-xs md:text-sm font-bold text-white">
-                  <div className="bg-red-600 py-3 rounded-lg">RED / BROWN<br/><span className="font-normal opacity-80">Phase (Live)</span></div>
-                  <div className="bg-black py-3 rounded-lg">BLACK / BLUE<br/><span className="font-normal opacity-80">Neutral</span></div>
-                  <div className="bg-green-600 py-3 rounded-lg">GREEN<br/><span className="font-normal opacity-80">Earth/Ground</span></div>
-               </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Wire Color Code */}
+              <div className="bg-white rounded-[2rem] p-8 border border-gray-100 shadow-sm hover:-translate-y-1 transition-transform">
+                 <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                   <PenTool className="w-6 h-6 text-orange-500" /> Color Enforcement
+                 </h3>
+                 <p className="text-sm text-gray-600 mb-6">
+                   Contractors love using one color (Red) for everything to save money on bulk rolls. <strong>Do not allow this.</strong> It makes future repairs a nightmare.
+                 </p>
+                 <div className="space-y-3">
+                    <div className="flex items-center justify-between p-3 bg-red-50 rounded-xl border border-red-100">
+                      <div className="w-4 h-4 rounded-full bg-red-600"></div>
+                      <span className="font-bold text-gray-900">Phase (Live)</span>
+                      <span className="text-xs text-red-600 font-bold uppercase tracking-wider">Red / Brown</span>
+                    </div>
+                    <div className="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-200">
+                      <div className="w-4 h-4 rounded-full bg-slate-800"></div>
+                      <span className="font-bold text-gray-900">Neutral</span>
+                      <span className="text-xs text-slate-600 font-bold uppercase tracking-wider">Black / Blue</span>
+                    </div>
+                    <div className="flex items-center justify-between p-3 bg-green-50 rounded-xl border border-green-200">
+                      <div className="w-4 h-4 rounded-full bg-green-600"></div>
+                      <span className="font-bold text-gray-900">Earth</span>
+                      <span className="text-xs text-green-700 font-bold uppercase tracking-wider">Green / Y-G</span>
+                    </div>
+                 </div>
+              </div>
+
+              {/* Inverter Logic */}
+              <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-[2rem] p-8 border border-orange-200 shadow-sm relative overflow-hidden group">
+                 <div className="absolute -right-4 -bottom-4 bg-orange-200/50 w-32 h-32 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700"></div>
+                 <div className="relative z-10">
+                   <h3 className="text-xl font-bold text-orange-900 mb-4 flex items-center gap-2">
+                     <BatteryCharging className="w-6 h-6" /> The "Inverter Wire"
+                   </h3>
+                   <p className="text-base text-orange-900/80 leading-relaxed mb-4">
+                     Force your electrician to run a separate <strong>White or Yellow</strong> wire to exactly ONE fan and ONE light in every room.
+                   </p>
+                   <div className="bg-white/60 p-4 rounded-xl backdrop-blur-sm border border-orange-200 text-sm text-orange-900 font-medium">
+                     This "Inverter Return" wire lets you power ONLY essential items during a blackout, keeping your expensive battery running 4x longer.
+                   </div>
+                 </div>
+              </div>
             </div>
 
-            {/* Inverter Logic */}
-            <div className="bg-orange-50 rounded-3xl p-6 md:p-8 border border-orange-100">
-               <h3 className="text-xl font-bold text-orange-900 mb-4 flex items-center gap-2">
-                 <BatteryCharging className="w-5 h-5" /> The "Inverter Wire"
-               </h3>
-               <p className="text-sm text-orange-800">
-                 Ask your electrician to run a separate <strong>White or Yellow</strong> wire to every room's fan and one light. <br/><br/>
-                 This "Inverter Return" wire lets you power ONLY essential items during a blackout, keeping your battery running longer. Without this, you have to power the whole house or nothing.
-               </p>
-            </div>
           </div>
         </div>
       </section>
 
       {/* PHASE 4: FUTURE PROOFING */}
-      <section id="phase-4" className="mb-16 md:mb-24 relative">
-        <div className="absolute left-8 top-16 bottom-0 w-0.5 bg-gray-200 hidden lg:block"></div>
+      <section id="phase-4" className="mb-20 md:mb-32 relative animate-slide-up delay-[700ms]">
+        <div className="absolute left-8 top-16 bottom-0 w-0.5 bg-gradient-to-b from-indigo-500 to-transparent hidden lg:block opacity-30"></div>
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
           <div className="flex-shrink-0 flex flex-col items-center lg:items-center items-start">
-            <div className="w-14 h-14 md:w-16 md:h-16 bg-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-xl -rotate-3 mb-4 z-10 relative">
-              <Maximize className="w-7 h-7 md:w-8 md:h-8" />
+            <div className="w-14 h-14 md:w-20 md:h-20 bg-gradient-to-br from-indigo-500 to-indigo-700 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-indigo-500/20 -rotate-3 mb-4 z-10 relative group-hover:rotate-0 transition-transform">
+              <Maximize className="w-7 h-7 md:w-10 md:h-10" />
             </div>
-            <h2 className="text-base md:text-lg font-bold text-indigo-900 uppercase tracking-widest pl-2 lg:pl-0">Phase 4</h2>
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 pl-2 lg:pl-0">Future Proofing</h3>
+            <h2 className="text-sm font-bold text-indigo-600 uppercase tracking-widest pl-2 lg:pl-0">Phase 4</h2>
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 pl-2 lg:pl-0">Automation</h3>
           </div>
 
           <div className="flex-grow space-y-8">
-             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm flex items-start gap-4">
-                   <div className="bg-indigo-50 p-3 rounded-full"><Sun className="w-6 h-6 text-indigo-600" /></div>
-                   <div>
-                     <h4 className="font-bold text-gray-900">Solar Conduit</h4>
-                     <p className="text-xs text-gray-500 mt-1">Run an empty 1-inch pipe from the Roof to the Main Panel. Saves ugly external piping later.</p>
-                   </div>
+             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="bg-white p-6 rounded-[2rem] border border-gray-100 shadow-sm flex flex-col items-center text-center group hover:-translate-y-2 transition-transform duration-300">
+                   <div className="bg-indigo-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"><Sun className="w-8 h-8 text-indigo-600" /></div>
+                   <h4 className="font-bold text-xl text-gray-900 mb-2">Solar Conduit</h4>
+                   <p className="text-sm text-gray-500">Run an empty 1-inch pipe from the Roof to the Main Panel. Saves thousands on ugly external piping later when you go solar.</p>
                 </div>
-                <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm flex items-start gap-4">
-                   <div className="bg-indigo-50 p-3 rounded-full"><Wifi className="w-6 h-6 text-indigo-600" /></div>
-                   <div>
-                     <h4 className="font-bold text-gray-900">Ceiling WiFi</h4>
-                     <p className="text-xs text-gray-500 mt-1">Power points on the ceiling of central hallways for mesh WiFi nodes.</p>
-                   </div>
+                <div className="bg-white p-6 rounded-[2rem] border border-gray-100 shadow-sm flex flex-col items-center text-center group hover:-translate-y-2 transition-transform duration-300 delay-75">
+                   <div className="bg-indigo-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"><Wifi className="w-8 h-8 text-indigo-600" /></div>
+                   <h4 className="font-bold text-xl text-gray-900 mb-2">Ceiling WiFi Nodes</h4>
+                   <p className="text-sm text-gray-500">Provide power points directly on the ceiling of central hallways for seamless commercial-grade mesh WiFi coverage.</p>
                 </div>
-                <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm flex items-start gap-4">
-                   <div className="bg-indigo-50 p-3 rounded-full"><Video className="w-6 h-6 text-indigo-600" /></div>
-                   <div>
-                     <h4 className="font-bold text-gray-900">Smart Curtains</h4>
-                     <p className="text-xs text-gray-500 mt-1">Power point near the curtain rod box (pelmet) for future motorized blinds.</p>
-                   </div>
+                <div className="bg-white p-6 rounded-[2rem] border border-gray-100 shadow-sm flex flex-col items-center text-center group hover:-translate-y-2 transition-transform duration-300 delay-100">
+                   <div className="bg-indigo-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"><Video className="w-8 h-8 text-indigo-600" /></div>
+                   <h4 className="font-bold text-xl text-gray-900 mb-2">Smart Curtains</h4>
+                   <p className="text-sm text-gray-500">Hide a power point near the top corners of your windows (inside the pelmet) for future automated motorized blinds.</p>
                 </div>
-                <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm flex items-start gap-4">
-                   <div className="bg-indigo-50 p-3 rounded-full"><Cpu className="w-6 h-6 text-indigo-600" /></div>
-                   <div>
-                     <h4 className="font-bold text-gray-900">Neutral at Switch</h4>
-                     <p className="text-xs text-gray-500 mt-1">Ensure Neutral wire is available at every switchboard for Smart Home automation.</p>
-                   </div>
+                <div className="bg-white p-6 rounded-[2rem] border border-gray-100 shadow-sm flex flex-col items-center text-center group hover:-translate-y-2 transition-transform duration-300 delay-150">
+                   <div className="bg-indigo-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"><Cpu className="w-8 h-8 text-indigo-600" /></div>
+                   <h4 className="font-bold text-xl text-gray-900 mb-2">Smart Neutral</h4>
+                   <p className="text-sm text-gray-500">Ensure a 'Neutral' wire is looped to every single light switch box. Essential for 99% of modern smart-home dimmer switches.</p>
                 </div>
              </div>
           </div>
@@ -439,43 +528,44 @@ export const NewHomeGuide = () => {
       </section>
 
       {/* PHASE 5: THE HANDOVER */}
-      <section id="phase-5" className="relative">
+      <section id="phase-5" className="relative mb-20">
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
           <div className="flex-shrink-0 flex flex-col items-center lg:items-center items-start">
-            <div className="w-14 h-14 md:w-16 md:h-16 bg-slate-800 rounded-2xl flex items-center justify-center text-white shadow-xl -rotate-3 mb-4 z-10 relative">
-              <ShieldCheck className="w-7 h-7 md:w-8 md:h-8" />
+            <div className="w-14 h-14 md:w-20 md:h-20 bg-gradient-to-br from-slate-700 to-slate-900 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-slate-900/20 -rotate-3 mb-4 z-10 relative group-hover:rotate-0 transition-transform">
+              <ShieldCheck className="w-7 h-7 md:w-10 md:h-10" />
             </div>
-            <h2 className="text-base md:text-lg font-bold text-slate-800 uppercase tracking-widest pl-2 lg:pl-0">Phase 5</h2>
+            <h2 className="text-sm font-bold text-slate-500 uppercase tracking-widest pl-2 lg:pl-0">Phase 5</h2>
             <h3 className="text-2xl md:text-3xl font-bold text-gray-900 pl-2 lg:pl-0">The Handover</h3>
           </div>
 
           <div className="flex-grow">
-            <div className="bg-slate-900 text-white rounded-3xl p-6 md:p-10 shadow-2xl">
-               <h3 className="text-2xl font-bold mb-4">Before You Pay the Final Bill...</h3>
-               <p className="text-slate-300 mb-8">
-                 Ask for these three things. If they hesitate, something is wrong.
-               </p>
+            <div className="bg-slate-900 text-white rounded-[2rem] p-8 md:p-12 shadow-2xl relative overflow-hidden">
+               <div className="absolute top-0 right-0 w-64 h-64 bg-green-500/10 rounded-full blur-3xl"></div>
+               <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"></div>
+               
+               <div className="relative z-10">
+                 <h3 className="text-3xl font-bold mb-4 font-display">Before You Pay the Final Bill...</h3>
+                 <p className="text-slate-300 mb-10 text-lg max-w-2xl">
+                   Contractors run away once paid. Demand these three critical documents. If they hesitate, withhold final payment until they comply.
+                 </p>
 
-               <div className="space-y-6">
-                 <div className="flex gap-4">
-                   <div className="bg-green-500/20 p-2 rounded-lg h-fit"><FileText className="w-6 h-6 text-green-400" /></div>
-                   <div>
-                     <h4 className="font-bold text-lg">1. The "As-Built" Diagram</h4>
-                     <p className="text-sm text-slate-400 mt-1">A drawing showing exactly where pipes run in the walls. Essential so you don't drill into a wire while hanging a painting.</p>
+                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                   <div className="bg-white/5 p-6 rounded-2xl border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors">
+                     <div className="bg-green-500/20 w-12 h-12 rounded-xl flex items-center justify-center mb-4"><FileText className="w-6 h-6 text-green-400" /></div>
+                     <h4 className="font-bold text-xl mb-2">1. The "As-Built" Diagram</h4>
+                     <p className="text-sm text-slate-300">A drawing showing exactly where pipes run in the walls. Essential so you don't drill into a live wire while hanging a painting.</p>
                    </div>
-                 </div>
-                 <div className="flex gap-4">
-                   <div className="bg-blue-500/20 p-2 rounded-lg h-fit"><Activity className="w-6 h-6 text-blue-400" /></div>
-                   <div>
-                     <h4 className="font-bold text-lg">2. Insulation Resistance Test Report</h4>
-                     <p className="text-sm text-slate-400 mt-1">Proof that there are no nicks or cuts in the wire insulation inside the pipes.</p>
+                   
+                   <div className="bg-white/5 p-6 rounded-2xl border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors">
+                     <div className="bg-blue-500/20 w-12 h-12 rounded-xl flex items-center justify-center mb-4"><Activity className="w-6 h-6 text-blue-400" /></div>
+                     <h4 className="font-bold text-xl mb-2">2. Megger Test Report</h4>
+                     <p className="text-sm text-slate-300">Insulation Resistance test proof. Guarantees there are no nicks, cuts, or copper exposed in the wire insulation hidden inside the pipes.</p>
                    </div>
-                 </div>
-                 <div className="flex gap-4">
-                   <div className="bg-orange-500/20 p-2 rounded-lg h-fit"><Camera className="w-6 h-6 text-orange-400" /></div>
-                   <div>
-                     <h4 className="font-bold text-lg">3. Panel Labels</h4>
-                     <p className="text-sm text-slate-400 mt-1">Every breaker must be labeled. "AC Bedroom 1", not just "Switch 1".</p>
+                   
+                   <div className="bg-white/5 p-6 rounded-2xl border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors">
+                     <div className="bg-orange-500/20 w-12 h-12 rounded-xl flex items-center justify-center mb-4"><Camera className="w-6 h-6 text-orange-400" /></div>
+                     <h4 className="font-bold text-xl mb-2">3. Panel Directory</h4>
+                     <p className="text-sm text-slate-300">Every single breaker must be accurately labeled. "Master Bed AC", not just a meaningless "Switch 1".</p>
                    </div>
                  </div>
                </div>

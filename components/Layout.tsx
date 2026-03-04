@@ -5,8 +5,8 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   Menu, X, Zap, ShieldCheck, Search, ChevronRight, AlertOctagon,
   ChevronDown, Calculator, ClipboardCheck, AlertTriangle, UserCheck,
-  Hammer, BookOpen, PenTool, Image, Download, Mail, Globe, Map, LifeBuoy,
-  Facebook, Linkedin, Twitter, Instagram, MessageCircle
+  Facebook, Linkedin, Twitter, Instagram, MessageCircle, DollarSign,
+  Hammer, LifeBuoy, BookOpen, PenTool, Image, Download, Mail, Globe, Map, Camera, Baby, BatteryCharging, Bell, Gavel
 } from 'lucide-react';
 import { ARTICLES, APPLIANCES, ROOMS, HAZARD_GALLERY } from '../data';
 import { ReturnVisitModal } from './ReturnVisitModal';
@@ -102,7 +102,14 @@ const Navbar = () => {
       { type: 'Tool', title: 'Load Calculator', path: '/load-calc', sub: 'Tool' },
       { type: 'Tool', title: 'Safety Assessment', path: '/assessment', sub: 'Audit' },
       { type: 'Tool', title: 'Risk Predictor', path: '/risk-predictor', sub: 'Diagnosis' },
-      { type: 'Tool', title: 'Tenant Request', path: '/tenant-request', sub: 'Generator' },
+      { type: 'Tool', title: 'Home Buyer Scanner', path: '/home-buyer-scanner', sub: 'Audit' },
+      { type: 'Tool', title: 'Quote Analyzer', path: '/quote-analyzer', sub: 'Hiring' },
+      { type: 'Tool', title: 'Breaker Mapper', path: '/breaker-mapper', sub: 'Utility' },
+      { type: 'Tool', title: 'DIY or Deadly? Quiz', path: '/diy-quiz', sub: 'Game' },
+      { type: 'Tool', title: 'Nursery Setup', path: '/nursery-safety', sub: 'Baby Safety' },
+      { type: 'Tool', title: 'EV Charger Sizer', path: '/ev-charger', sub: 'Calculator' },
+      { type: 'Tool', title: 'Alarm Calendar', path: '/alarm-calendar', sub: 'Recall Radar' },
+      { type: 'Tool', title: 'Renters Demand', path: '/tenant-demand', sub: 'Legal Generator' },
       { type: 'Guide', title: 'Hardware Encyclopedia', path: '/hardware', sub: 'MCB/Wire/Switch' },
       { type: 'Guide', title: 'New Home Master Plan', path: '/new-home', sub: 'Construction' },
     ];
@@ -115,10 +122,16 @@ const Navbar = () => {
 
   // Nav Data Structure
   const toolsMenu = [
-    { name: 'Self Assessment', path: '/assessment', icon: ClipboardCheck, desc: '25-point safety audit', colorBg: 'bg-blue-100', colorText: 'text-blue-600' },
-    { name: 'Load Calculator', path: '/load-calc', icon: Calculator, desc: 'Bill & load estimator', colorBg: 'bg-green-100', colorText: 'text-green-600' },
+    { name: 'Renters Generator', path: '/tenant-demand', icon: Gavel, desc: 'Formal hazard notice', colorBg: 'bg-red-100', colorText: 'text-red-600' },
+    { name: 'Alarm Calendar', path: '/alarm-calendar', icon: Bell, desc: '10-year smoke alarm timer', colorBg: 'bg-orange-100', colorText: 'text-orange-600' },
+    { name: 'EV Charger Sizer', path: '/ev-charger', icon: BatteryCharging, desc: 'Avoid NEMA 14-50 fires', colorBg: 'bg-green-100', colorText: 'text-green-600' },
+    { name: 'Nursery Teardown', path: '/nursery-safety', icon: Baby, desc: 'Shock-proof for babies', colorBg: 'bg-rose-100', colorText: 'text-rose-600' },
+    { name: 'DIY Photo Quiz', path: '/diy-quiz', icon: Camera, desc: 'Can you spot the hazard?', colorBg: 'bg-orange-100', colorText: 'text-orange-600' },
+    { name: 'Quote Analyzer', path: '/quote-analyzer', icon: DollarSign, desc: 'Weed out bad contractors', colorBg: 'bg-indigo-100', colorText: 'text-indigo-600' },
+    { name: 'Home Buyer Scan', path: '/home-buyer-scanner', icon: Search, desc: '15-min open house check', colorBg: 'bg-blue-100', colorText: 'text-blue-600' },
+    { name: 'Breaker Mapper', path: '/breaker-mapper', icon: Map, desc: 'Generate printable labels', colorBg: 'bg-purple-100', colorText: 'text-purple-600' },
+    { name: 'Self Assessment', path: '/assessment', icon: ClipboardCheck, desc: '25-point safety audit', colorBg: 'bg-green-100', colorText: 'text-green-600' },
     { name: 'Risk Predictor', path: '/risk-predictor', icon: AlertTriangle, desc: 'Diagnose symptoms', colorBg: 'bg-red-100', colorText: 'text-red-600' },
-    { name: 'Tenant Request', path: '/tenant-request', icon: UserCheck, desc: 'Fix-it generator', colorBg: 'bg-purple-100', colorText: 'text-purple-600' },
   ];
 
   const guidesMenu = [
@@ -497,6 +510,54 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       desc: 'Electrical safety is critical. Discover our expert guide on home protection, hazard prevention, and daily safety tools for homeowners worldwide.',
       type: 'WebSite',
       keywords: 'electrical safety, home protection, fire prevention, shock hazards, electrical guide'
+    },
+    '/home-buyer-scanner': {
+      title: '15-Minute Home Buyer Electrical Scanner',
+      desc: 'Walking through an open house? Use this quick mobile scanner to spot costly electrical red flags before making an offer.',
+      type: 'SoftwareApplication',
+      keywords: 'home buying, electrical inspection, open house, electrical panel upgrade, real estate'
+    },
+    '/quote-analyzer': {
+      title: 'Contractor Quote Analyzer & B.S. Detector',
+      desc: 'Don\'t get scammed by shady electricians. Get fair price estimates and the top 3 vetting questions you must ask before hiring.',
+      type: 'SoftwareApplication',
+      keywords: 'electrician quotes, panel upgrade cost, EV charger installation cost, contractor scam'
+    },
+    '/breaker-mapper': {
+      title: 'Visual Breaker Box Mapper & Label Generator',
+      desc: 'Map out your messy electrical panel and print a perfectly sized, beautiful label sheet to tape inside your breaker box door.',
+      type: 'SoftwareApplication',
+      keywords: 'breaker box labels, electrical panel directory, circuit mapping tool, printable breaker labels'
+    },
+    '/diy-quiz': {
+      title: 'DIY or Deadly? Home Electrical Safety Photo Quiz',
+      desc: 'Can you spot the hidden electrical fire and shock hazards? Take our rapid-fire visual safety quiz to test your home inspector eye.',
+      type: 'SoftwareApplication',
+      keywords: 'electrical safety quiz, photo quiz, spot the hazard, DIY electrical, fire hazard quiz'
+    },
+    '/nursery-safety': {
+      title: 'New Parent "Shock-Proofing" Nursery Checklist',
+      desc: 'Prepare your nursery for your baby. Specialized electrical safety teardown for new parents regarding baby monitors, outlets, cords, and crib zones.',
+      type: 'SoftwareApplication',
+      keywords: 'nursery safety, baby proofing outlets, baby monitor safety, toddler electrical safety'
+    },
+    '/ev-charger': {
+      title: 'EV Charger Wire Sizer & Breaker Calculator',
+      desc: 'Calculate the correct wire gauge and breaker size for your home EV charger installed at a specific distance. Understand the continuous load 125% rule.',
+      type: 'SoftwareApplication',
+      keywords: 'ev charger installation, wire gauge calculator, noma 14-50 fire, continuous load rule'
+    },
+    '/alarm-calendar': {
+      title: 'Smoke Alarm 10-Year Calendar Expiration Timer & Recall Check',
+      desc: 'Generate a 10-year .ICS calendar reminder for your smoke alarms to prevent dead sensors, and search our recall database for recalled electrical products.',
+      type: 'SoftwareApplication',
+      keywords: 'smoke alarm expiration, 10 year alarm life, electrical product recalls, expired smoke detector'
+    },
+    '/tenant-demand': {
+      title: 'Renters\' Revenge: Electrical Hazard Demand Letter Generator',
+      desc: 'Landlord ignoring your sparking outlets? Generate a formal, legal-sounding Notice of Electrical Hazard to force them to fix dangerous code violations.',
+      type: 'SoftwareApplication',
+      keywords: 'tenant laws electrical, notice of hazard landlord, apartment electrical fire, renters rights electrical'
     },
     '/assessment': {
       title: 'Free Home Electrical Safety Audit',

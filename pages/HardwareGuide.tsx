@@ -1,7 +1,8 @@
 
 import React, { useState } from 'react';
 import { HARDWARE_DATA, STANDARDS_GUIDE } from '../data';
-import { Settings, Zap, CheckCircle2, AlertTriangle, BookOpen, ShoppingCart, Plus, Trash2, Copy, Printer, CheckCircle } from 'lucide-react';
+import { Settings, Zap, CheckCircle2, AlertTriangle, BookOpen, ShoppingCart, Plus, Trash2, Copy, Printer, CheckCircle, Globe, Layout, ArrowRight, BatteryCharging } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { RelatedTools } from '../components/RelatedTools';
 import { StickyTOC, TOCItem } from '../components/StickyTOC';
 
@@ -14,6 +15,7 @@ const HW_TOC: TOCItem[] = [
 
 
 export const HardwareGuide = () => {
+  const navigate = useNavigate();
   const [selectedLoad, setSelectedLoad] = useState('light');
   const [shoppingList, setShoppingList] = useState<Array<{ device: string; wire: string; breaker: string; socket: string }>>(() => {
     const saved = localStorage.getItem('hw_shopping_list');
@@ -322,7 +324,8 @@ export const HardwareGuide = () => {
         wire: '6.0mm² or 10.0mm² Armored Cable',
         breaker: '32A/40A RCBO (Type A)',
         switch: 'Dedicated Industrial Socket',
-        note: 'Requires specialized Type-A or Type-B RCD protection.'
+        note: 'Requires specialized Type-A or Type-B RCD protection. Important: See the full EV Sizer for exact wire gauge based on cable distance.',
+        link: '/ev-charger'
       };
       default: return null;
     }
@@ -334,24 +337,31 @@ export const HardwareGuide = () => {
     <div className="max-w-7xl mx-auto px-4 py-12">
       <StickyTOC items={HW_TOC} />
       {/* Header */}
-      <div className="text-center mb-16">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">Electrical Hardware Encyclopedia</h1>
-        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-          Don't just buy what the electrician asks for. Understand what you are paying for, how to check quality, and what the global safety ratings mean.
+      <div className="text-center mb-16 relative py-12">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-transparent blur-3xl rounded-[3rem] -z-10"></div>
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600 mb-6 font-display tracking-tight">
+          Electrical Hardware Encyclopedia
+        </h1>
+        <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto font-medium leading-relaxed">
+          Don't just buy what the electrician asks for. Understand what you're paying for, how to verify true quality, and what the global safety ratings mean.
         </p>
       </div>
 
       {/* 1. THE SPEC SELECTOR TOOL */}
-      <div id="hw-spec-selector" className="bg-slate-900 text-white rounded-2xl p-8 mb-16 shadow-2xl overflow-hidden relative">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600 rounded-full opacity-20 blur-3xl translate-x-1/2 -translate-y-1/2"></div>
+      <div id="hw-spec-selector" className="bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-slate-800 via-slate-900 to-black text-white rounded-[2.5rem] p-8 md:p-12 mb-20 shadow-2xl relative overflow-hidden ring-1 ring-white/10">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/20 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-[100px] pointer-events-none"></div>
         
         <div className="relative z-10">
-          <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-            <Settings className="w-6 h-6 text-green-400" /> Quick Spec Selector
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 text-blue-300 rounded-full text-xs font-bold uppercase tracking-wider mb-6 border border-white/10 backdrop-blur-md">
+            Interactive Tool
+          </div>
+          <h2 className="text-3xl md:text-4xl font-extrabold mb-8 flex items-center gap-3">
+            <Settings className="w-8 h-8 text-blue-400" /> Smart Spec Selector
           </h2>
-          <p className="text-gray-300 mb-8">Select a device to see the recommended wire size and breaker rating.</p>
+          <p className="text-slate-300 mb-10 text-lg max-w-3xl">Tap any household device below to instantly see the engineering-grade wire size, breaker rating, and socket type required for 100% safety.</p>
           
-          <div className="flex flex-wrap gap-3 mb-8">
+          <div className="flex flex-wrap gap-2 md:gap-3 mb-12">
             {[
               { id: 'light', label: 'Light/Fan' },
               { id: 'socket', label: 'General TV' },
@@ -396,10 +406,10 @@ export const HardwareGuide = () => {
               <button
                 key={type.id}
                 onClick={() => setSelectedLoad(type.id)}
-                className={`px-4 py-2 rounded-full font-medium transition-all text-sm md:text-base ${
+                className={`px-4 py-2.5 rounded-xl font-medium transition-all duration-300 text-sm md:text-base border ${
                   selectedLoad === type.id 
-                    ? 'bg-blue-500 text-white shadow-lg scale-105' 
-                    : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                    ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-[0_0_20px_rgba(59,130,246,0.5)] border-blue-400 scale-105' 
+                    : 'bg-white/5 hover:bg-white/10 text-slate-300 border-white/10 hover:border-white/20'
                 }`}
               >
                 {type.label}
@@ -408,30 +418,42 @@ export const HardwareGuide = () => {
           </div>
 
           {rec && (
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 animate-in slide-in-from-bottom-2">
-              <div className="bg-white/10 p-4 rounded-xl backdrop-blur-sm border border-white/10">
-                <div className="text-xs text-gray-400 uppercase font-bold mb-1">Target Device</div>
-                <div className="text-lg font-bold text-white leading-tight">{rec.device}</div>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 animate-in slide-in-from-bottom-8 duration-500">
+              <div className="bg-gradient-to-br from-white/10 to-transparent p-6 rounded-2xl backdrop-blur-xl border border-white/10 group hover:border-white/30 transition-colors">
+                <div className="text-xs text-slate-400 uppercase font-bold tracking-widest mb-2 flex items-center gap-2"><Zap className="w-3 h-3" /> Target Device</div>
+                <div className="text-xl font-bold text-white tracking-tight">{rec.device}</div>
               </div>
-              <div className="bg-white/10 p-4 rounded-xl backdrop-blur-sm border border-white/10">
-                <div className="text-xs text-gray-400 uppercase font-bold mb-1">Wire Size</div>
-                <div className="text-lg font-bold text-yellow-400 leading-tight">{rec.wire}</div>
+              <div className="bg-gradient-to-br from-white/10 to-transparent p-6 rounded-2xl backdrop-blur-xl border border-white/10 group hover:border-yellow-500/30 transition-colors">
+                <div className="text-xs text-yellow-500/70 uppercase font-bold tracking-widest mb-2">Wire Gauge</div>
+                <div className="text-xl font-bold text-yellow-400 tracking-tight">{rec.wire}</div>
               </div>
-              <div className="bg-white/10 p-4 rounded-xl backdrop-blur-sm border border-white/10">
-                <div className="text-xs text-gray-400 uppercase font-bold mb-1">Breaker (MCB)</div>
-                <div className="text-lg font-bold text-green-400 leading-tight">{rec.breaker}</div>
+              <div className="bg-gradient-to-br from-white/10 to-transparent p-6 rounded-2xl backdrop-blur-xl border border-white/10 group hover:border-emerald-500/30 transition-colors">
+                <div className="text-xs text-emerald-500/70 uppercase font-bold tracking-widest mb-2">Breaker (MCB)</div>
+                <div className="text-xl font-bold text-emerald-400 tracking-tight">{rec.breaker}</div>
               </div>
-              <div className="bg-white/10 p-4 rounded-xl backdrop-blur-sm border border-white/10">
-                <div className="text-xs text-gray-400 uppercase font-bold mb-1">Switch/Socket</div>
-                <div className="text-lg font-bold text-blue-400 leading-tight">{rec.switch}</div>
+              <div className="bg-gradient-to-br from-white/10 to-transparent p-6 rounded-2xl backdrop-blur-xl border border-white/10 group hover:border-blue-500/30 transition-colors">
+                <div className="text-xs text-blue-500/70 uppercase font-bold tracking-widest mb-2">Socket Spec</div>
+                <div className="text-xl font-bold text-blue-400 tracking-tight">{rec.switch}</div>
               </div>
+            </div>
+          )}
+
+          {(rec as any)?.link && (
+            <div className="mt-6 flex justify-center">
+              <button 
+                onClick={() => navigate((rec as any).link)}
+                className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 text-white rounded-2xl font-bold hover:bg-blue-500 transition-all shadow-xl shadow-blue-500/20"
+              >
+                {rec.device.includes('EV') ? <BatteryCharging className="w-5 h-5" /> : <Settings className="w-5 h-5" />}
+                Open Dedicated {(rec as any).device} Analyzer <ArrowRight className="w-5 h-5" />
+              </button>
             </div>
           )}
           
           {rec?.note && (
-             <div className="mt-4 bg-blue-900/40 border border-blue-500/30 p-3 rounded-lg text-sm text-blue-200 flex items-center gap-2">
-               <Zap className="w-4 h-4 text-yellow-400 flex-shrink-0" />
-               <span><strong>Safety Note:</strong> {rec.note}</span>
+             <div className="mt-6 bg-amber-500/10 border border-amber-500/30 p-5 rounded-2xl text-base text-amber-200 flex items-start sm:items-center gap-3 animate-in fade-in duration-700">
+               <AlertTriangle className="w-6 h-6 text-amber-400 flex-shrink-0" />
+               <span className="leading-relaxed"><strong>Crucial Note:</strong> {rec.note}</span>
              </div>
           )}
 
@@ -458,63 +480,71 @@ export const HardwareGuide = () => {
       </div>
 
       {/* 2. COMPONENT CARDS */}
-      <div id="hw-components" className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+      <div id="hw-components" className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20 animate-slide-up delay-200">
         {HARDWARE_DATA.map((item) => (
-          <div key={item.id} className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
-            <div className="flex justify-between items-start mb-4">
-              <div>
-                <h3 className="text-xl font-bold text-gray-900">{item.name}</h3>
-                <span className="text-sm font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded mt-1 inline-block">
-                  AKA: {item.aka}
-                </span>
-              </div>
-              <div className="bg-gray-100 p-2 rounded-lg">
-                <Zap className="w-6 h-6 text-gray-500" />
-              </div>
-            </div>
+          <div key={item.id} className="bg-white rounded-[2rem] p-8 border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all group overflow-hidden relative">
+            <div className="absolute -top-10 -right-10 w-32 h-32 bg-blue-50 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700"></div>
             
-            <p className="text-gray-600 mb-6 min-h-[48px]">{item.description}</p>
-            
-            <div className="space-y-4">
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <div className="text-xs font-bold text-gray-500 uppercase mb-2">Common Ratings</div>
-                <div className="flex flex-wrap gap-2">
-                  {item.ratings.map((r, i) => (
-                    <span key={i} className="px-2 py-1 bg-white border border-gray-200 text-xs font-mono rounded text-gray-700">
-                      {r}
-                    </span>
-                  ))}
+            <div className="relative z-10">
+              <div className="flex justify-between items-start mb-6">
+                <div>
+                  <h3 className="text-2xl font-bold text-gray-900 font-display">{item.name}</h3>
+                  <span className="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1.5 rounded-full mt-2 inline-block border border-blue-100">
+                    AKA: {item.aka}
+                  </span>
+                </div>
+                <div className="bg-gradient-to-br from-gray-50 to-gray-100 p-4 rounded-2xl shadow-sm border border-gray-200 group-hover:scale-110 group-hover:rotate-3 transition-transform">
+                  <Zap className="w-8 h-8 text-gray-400" />
                 </div>
               </div>
-
-              {item.standards && (
-                <div className="flex items-start gap-3">
-                  <div className="mt-0.5">
-                    <BookOpen className="w-5 h-5 text-indigo-600" />
+              
+              <p className="text-gray-600 mb-8 min-h-[48px] text-lg leading-relaxed">{item.description}</p>
+              
+              <div className="space-y-6">
+                <div className="bg-slate-50 p-5 rounded-2xl border border-slate-100">
+                  <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Common Ratings</div>
+                  <div className="flex flex-wrap gap-2">
+                    {item.ratings.map((r, i) => (
+                      <span key={i} className="px-3 py-1.5 bg-white border border-slate-200 text-sm font-bold shadow-sm rounded-lg text-slate-700">
+                        {r}
+                      </span>
+                    ))}
                   </div>
-                  <div>
-                    <div className="text-sm font-bold text-gray-900">Applicable Standards</div>
-                    <div className="text-sm text-indigo-700 font-mono">
-                      {item.standards.join(', ')}
+                </div>
+
+                {item.standards && (
+                  <div className="flex items-start gap-4 p-4 bg-indigo-50/50 rounded-2xl border border-indigo-100/50">
+                    <div className="bg-indigo-100 p-2 rounded-xl flex-shrink-0">
+                      <BookOpen className="w-5 h-5 text-indigo-600" />
+                    </div>
+                    <div>
+                      <div className="text-sm font-bold text-gray-900 mb-1">Applicable Standards</div>
+                      <div className="text-sm text-indigo-700 font-mono font-bold">
+                        {item.standards.join(', ')}
+                      </div>
                     </div>
                   </div>
+                )}
+
+                <div className="flex items-start gap-4 pb-4 border-b border-gray-100">
+                   <div className="bg-emerald-50 p-2 rounded-xl flex-shrink-0">
+                     <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+                   </div>
+                   <div>
+                     <div className="text-sm font-bold text-gray-900 mb-1">Selection Rule</div>
+                     <div className="text-sm text-gray-600 leading-relaxed">{item.selectionRule}</div>
+                   </div>
                 </div>
-              )}
 
-              <div className="flex items-start gap-3">
-                 <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                 <div>
-                   <div className="text-sm font-bold text-gray-900">Selection Rule</div>
-                   <div className="text-sm text-gray-600">{item.selectionRule}</div>
-                 </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                 <AlertTriangle className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
-                 <div>
-                   <div className="text-sm font-bold text-gray-900">Pro Tip</div>
-                   <div className="text-sm text-gray-600">{item.tip}</div>
-                 </div>
+                <div className="flex items-start gap-4">
+                   <div className="bg-orange-50 p-2 rounded-xl flex-shrink-0 mt-0.5">
+                     <AlertTriangle className="w-5 h-5 text-orange-600" />
+                   </div>
+                   <div>
+                     <div className="text-sm font-bold text-gray-900 mb-1">Expert Pro Tip</div>
+                     <div className="text-sm text-gray-600 leading-relaxed">{item.tip}</div>
+                   </div>
+                </div>
               </div>
             </div>
           </div>
@@ -522,18 +552,29 @@ export const HardwareGuide = () => {
       </div>
       
       {/* 3. STANDARDS GUIDE */}
-      <div id="hw-standards" className="bg-gradient-to-r from-gray-50 to-indigo-50 rounded-2xl p-8 border border-gray-100">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-          <BookOpen className="text-indigo-600" /> Decoding Global Standards
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {STANDARDS_GUIDE.map((std, i) => (
-            <div key={i} className="bg-white p-5 rounded-lg shadow-sm border border-gray-200">
-              <div className="font-mono text-lg font-bold text-indigo-700 mb-1">{std.code}</div>
-              <div className="font-bold text-gray-900 text-sm mb-2">{std.title}</div>
-              <p className="text-xs text-gray-600">{std.desc}</p>
-            </div>
-          ))}
+      <div id="hw-standards" className="bg-gradient-to-r from-gray-50 to-indigo-50/50 rounded-[2.5rem] p-8 md:p-12 border border-indigo-100/50 mb-16 overflow-hidden relative">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-[80px]"></div>
+        <div className="relative z-10">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
+            Global Compliance
+          </div>
+          <h2 className="text-3xl font-extrabold text-gray-900 mb-10 flex items-center gap-3">
+            <BookOpen className="text-indigo-600 w-8 h-8" /> Decoding Global Standards
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {STANDARDS_GUIDE.map((std, i) => (
+              <div key={i} className="bg-white p-6 rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-gray-100 hover:shadow-lg transition-shadow relative overflow-hidden group">
+                <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                  <Globe className="w-16 h-16 text-indigo-900" />
+                </div>
+                <div className="relative z-10">
+                  <div className="inline-block bg-indigo-50 px-3 py-1 rounded-lg font-mono text-lg font-bold text-indigo-700 mb-3 border border-indigo-100">{std.code}</div>
+                  <div className="font-bold text-gray-900 text-lg mb-2">{std.title}</div>
+                  <p className="text-sm text-gray-600 leading-relaxed">{std.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 

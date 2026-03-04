@@ -41,6 +41,16 @@ const SafetyCountryIndia = React.lazy(() => import('./pages/SafetyCountryIndia')
 const SafetyCountryUSA = React.lazy(() => import('./pages/SafetyCountryUSA').then(module => ({ default: module.SafetyCountryUSA })));
 const SafetyCountryUK = React.lazy(() => import('./pages/SafetyCountryUK').then(module => ({ default: module.SafetyCountryUK })));
 
+// Phase 2 Viral Features
+const HomeBuyerScanner = React.lazy(() => import('./pages/HomeBuyerScanner').then(module => ({ default: module.HomeBuyerScanner })));
+const QuoteAnalyzer = React.lazy(() => import('./pages/QuoteAnalyzer').then(module => ({ default: module.QuoteAnalyzer })));
+const BreakerMapper = React.lazy(() => import('./pages/BreakerMapper').then(module => ({ default: module.BreakerMapper })));
+const DIYPhotoQuiz = React.lazy(() => import('./pages/DIYPhotoQuiz').then(module => ({ default: module.DIYPhotoQuiz })));
+const NurserySafety = React.lazy(() => import('./pages/NurserySafety').then(module => ({ default: module.NurserySafety })));
+const EVChargerSizer = React.lazy(() => import('./pages/EVChargerSizer').then(module => ({ default: module.EVChargerSizer })));
+const AlarmCalendar = React.lazy(() => import('./pages/AlarmCalendar').then(module => ({ default: module.AlarmCalendar })));
+const TenantDemand = React.lazy(() => import('./pages/TenantDemand').then(module => ({ default: module.TenantDemand })));
+
 function App() {
   return (
     <HelmetProvider>
@@ -83,6 +93,17 @@ function App() {
               <Route path="/safety/india" element={<SafetyCountryIndia />} />
               <Route path="/safety/usa" element={<SafetyCountryUSA />} />
               <Route path="/safety/uk" element={<SafetyCountryUK />} />
+              
+              {/* Phase 2 Viral Features */}
+              <Route path="/home-buyer-scanner" element={<HomeBuyerScanner />} />
+              <Route path="/quote-analyzer" element={<QuoteAnalyzer />} />
+              <Route path="/breaker-mapper" element={<BreakerMapper />} />
+              <Route path="/diy-quiz" element={<DIYPhotoQuiz />} />
+              <Route path="/nursery-safety" element={<NurserySafety />} />
+              <Route path="/ev-charger" element={<EVChargerSizer />} />
+              <Route path="/alarm-calendar" element={<AlarmCalendar />} />
+              <Route path="/tenant-demand" element={<TenantDemand />} />
+              
               <Route path="*" element={<Home />} />
             </Routes>
           </Suspense>

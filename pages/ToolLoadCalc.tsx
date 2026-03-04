@@ -19,6 +19,8 @@ import {
   BatteryCharging
 } from 'lucide-react';
 import { LoadItem } from '../types';
+import { RelatedTools } from '../components/RelatedTools';
+import { useNavigate } from 'react-router-dom';
 
 // Enhanced data with categories
 const APPLIANCE_LIBRARY = [
@@ -91,14 +93,15 @@ const detectRegion = () => {
 };
 
 export const ToolLoadCalc = () => {
+  const navigate = useNavigate();
   const detectedRegion = React.useMemo(() => detectRegion(), []);
   const [items, setItems] = useState<LoadItem[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [costPerUnit, setCostPerUnit] = useState<number>(() => {
     const saved = localStorage.getItem('load_calc_settings');
-    if (saved) return JSON.parse(saved).rate || 0.15;
-    return 0.15;
+    if (saved) return JSON.parse(saved).rate || (detectedRegion.currCode === 'INR' ? 8 : 0.15);
+    return detectedRegion.currCode === 'INR' ? 8 : 0.15;
   });
   const [currency, setCurrency] = useState(() => {
     const saved = localStorage.getItem('load_calc_settings');
@@ -425,8 +428,8 @@ export const ToolLoadCalc = () => {
             </div>
             
             <div className="p-6">
-              <p className="text-indigo-200 text-sm mb-4">
-                Planning to run these {items.length} appliances during a power outage?
+              <p className="text-indigo-200 text-sm mb-6">
+                Planning to run these {items.length} appliances during a power outage or off-grid?
               </p>
 
               <div className="mb-6">
@@ -469,6 +472,15 @@ export const ToolLoadCalc = () => {
                     </div>
                     <div className="text-2xl font-bold text-yellow-400">{Math.ceil(totalWatts / 1000 * 1.2)} kW</div>
                   </div>
+
+                  <div className="pt-4 mt-4 border-t border-indigo-800">
+                    <button 
+                      onClick={() => navigate('/ev-charger')}
+                      className="w-full py-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl text-blue-200 text-sm font-bold flex items-center justify-center gap-2 transition-all"
+                    >
+                      <BatteryCharging className="w-4 h-4" /> Adding an EV? Open Wire Sizer
+                    </button>
+                  </div>
                 </div>
               ) : (
                 <div className="text-center text-indigo-400 text-sm py-4">
@@ -478,8 +490,15 @@ export const ToolLoadCalc = () => {
             </div>
           </div>
 
+          <RelatedTools currentPath="/load-calc" count={3} />
         </div>
       </div>
+
+      {/* Disclaimer */}
+      <div className="mt-12 text-center text-xs text-gray-400 max-w-2xl mx-auto">
+        <p><strong>Accuracy Disclaimer:</strong> Wattage figures are averages. Actual power draw depends on appliance age, brand, and efficiency ratings. Cost estimates rely on your manually entered rate and do not account for tiered municipal billing grids.</p>
+      </div>
+
     </div>
   );
 };
