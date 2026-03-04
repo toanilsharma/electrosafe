@@ -66,14 +66,56 @@ const CURRENCIES = [
   { code: 'ZAR', symbol: 'R', label: 'ZAR (R)' },
 ];
 
+// Detect voltage and currency from timezone
+const detectRegion = () => {
+  try {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (/America\/(New_York|Chicago|Denver|Los_Angeles|Phoenix|Anchorage|Honolulu|Toronto|Vancouver|Edmonton|Winnipeg|Halifax)/.test(tz)) {
+      return { voltage: 120, currCode: 'USD', label: '🇺🇸 Auto-detected: USA (120V)' };
+    }
+    if (/Asia\/Kolkata|Asia\/Calcutta/.test(tz)) {
+      return { voltage: 230, currCode: 'INR', label: '🇮🇳 Auto-detected: India (230V)' };
+    }
+    if (/Europe\/London|Europe\/Dublin/.test(tz)) {
+      return { voltage: 230, currCode: 'GBP', label: '🇬🇧 Auto-detected: UK (230V)' };
+    }
+    if (/Australia/.test(tz)) {
+      return { voltage: 230, currCode: 'AUD', label: '🇦🇺 Auto-detected: Australia (230V)' };
+    }
+    // EU
+    if (/Europe/.test(tz)) {
+      return { voltage: 230, currCode: 'EUR', label: '🌍 Auto-detected: Europe (230V)' };
+    }
+  } catch {}
+  return { voltage: 230, currCode: 'USD', label: '🌐 Default (230V)' };
+};
+
 export const ToolLoadCalc = () => {
+  const detectedRegion = React.useMemo(() => detectRegion(), []);
   const [items, setItems] = useState<LoadItem[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [costPerUnit, setCostPerUnit] = useState<number>(0.15);
-  const [currency, setCurrency] = useState(CURRENCIES[0]);
+  const [costPerUnit, setCostPerUnit] = useState<number>(() => {
+    const saved = localStorage.getItem('load_calc_settings');
+    if (saved) return JSON.parse(saved).rate || 0.15;
+    return 0.15;
+  });
+  const [currency, setCurrency] = useState(() => {
+    const saved = localStorage.getItem('load_calc_settings');
+    if (saved) {
+      const found = CURRENCIES.find(c => c.code === JSON.parse(saved).currCode);
+      if (found) return found;
+    }
+    return CURRENCIES.find(c => c.code === detectedRegion.currCode) || CURRENCIES[0];
+  });
+  const [voltage, setVoltage] = useState<number>(() => {
+    const saved = localStorage.getItem('load_calc_voltage');
+    return saved ? parseInt(saved) : detectedRegion.voltage;
+  });
   const [toastMsg, setToastMsg] = useState<string | null>(null);
   const [backupHours, setBackupHours] = useState(4);
+  const [autoDetectLabel] = useState(detectedRegion.label);
+
 
   // Load persistence for Items
   useEffect(() => {

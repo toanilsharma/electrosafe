@@ -33,7 +33,8 @@ export const Gallery = () => {
             <div className="aspect-w-16 aspect-h-12 bg-gray-200">
               <img 
                 src={item.src} 
-                alt={item.title} 
+                alt={`${item.title} — electrical hazard example showing ${item.risk}`}
+                loading="lazy"
                 className="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500"
               />
             </div>

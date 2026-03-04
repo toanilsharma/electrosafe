@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Snowflake, Sun, CloudRain, Leaf,
@@ -88,9 +88,38 @@ const getSeasonConfig = () => {
   };
 };
 
+// Get the next upcoming safety event date
+const getNextSafetyEvent = () => {
+  const now = new Date();
+  const year = now.getFullYear();
+  const candidates = [
+    { name: 'Fire Prevention Month (Oct)', date: new Date(year, 9, 1) },
+    { name: 'Fire Prevention Month (Oct)', date: new Date(year + 1, 9, 1) },
+    { name: 'Electrical Safety Month (May)', date: new Date(year, 4, 1) },
+    { name: 'Electrical Safety Month (May)', date: new Date(year + 1, 4, 1) },
+    { name: 'Home Safety Month (Jun)', date: new Date(year, 5, 1) },
+    { name: 'Home Safety Month (Jun)', date: new Date(year + 1, 5, 1) },
+  ].filter(e => e.date > now);
+  candidates.sort((a, b) => a.date.getTime() - b.date.getTime());
+  const next = candidates[0];
+  const diffMs = next.date.getTime() - now.getTime();
+  const diffDays = Math.floor(diffMs / 86400000);
+  return { name: next.name, days: diffDays };
+};
+
 export const SeasonalBanner: React.FC = () => {
   const config = getSeasonConfig();
   const SeasonIcon = config.icon;
+  const [daysSinceCheck, setDaysSinceCheck] = useState<number | null>(null);
+  const nextEvent = getNextSafetyEvent();
+
+  useEffect(() => {
+    const lastCheck = localStorage.getItem('assessment_last_date');
+    if (lastCheck) {
+      const days = Math.floor((Date.now() - new Date(lastCheck).getTime()) / 86400000);
+      setDaysSinceCheck(days);
+    }
+  }, []);
 
   return (
     <section className={`py-10 bg-gradient-to-r ${config.gradient} text-white relative overflow-hidden`}>
@@ -100,7 +129,7 @@ export const SeasonalBanner: React.FC = () => {
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-8">
-          
+
           {/* Left: Season info */}
           <div className="lg:w-1/2 text-center lg:text-left">
             <div className={`inline-flex items-center gap-2 px-4 py-1.5 ${config.accentBg} ${config.accentBorder} border rounded-full text-xs font-extrabold uppercase tracking-widest ${config.accentText} mb-4`}>
@@ -110,9 +139,20 @@ export const SeasonalBanner: React.FC = () => {
             <h2 className="text-3xl md:text-4xl font-extrabold mb-3 leading-tight">
               {config.title}
             </h2>
-            <p className="text-white/80 text-lg mb-6">
+            <p className="text-white/80 text-lg mb-4">
               {config.subtitle}
             </p>
+            {/* Countdown + Last Check Row */}
+            <div className="flex flex-wrap gap-3 mb-6 justify-center lg:justify-start">
+              <div className={`inline-flex items-center gap-2 px-3 py-1.5 ${config.accentBg} ${config.accentBorder} border rounded-lg text-sm font-bold ${config.accentText}`}>
+                ⏳ {nextEvent.days}d to {nextEvent.name}
+              </div>
+              {daysSinceCheck !== null && (
+                <div className={`inline-flex items-center gap-2 px-3 py-1.5 ${config.accentBg} ${config.accentBorder} border rounded-lg text-sm font-bold ${daysSinceCheck > 90 ? 'text-red-200' : config.accentText}`}>
+                  🏠 Last checked: {daysSinceCheck === 0 ? 'Today' : `${daysSinceCheck}d ago`}
+                </div>
+              )}
+            </div>
             <Link
               to={config.cta.link}
               className="inline-flex items-center gap-2 px-6 py-3 bg-white text-gray-900 rounded-xl font-bold hover:bg-gray-100 transition shadow-lg hover:shadow-xl hover:-translate-y-0.5"

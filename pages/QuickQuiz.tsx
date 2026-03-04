@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { ShieldCheck, ArrowRight, RotateCcw, Zap, Home as HomeIcon, AlertTriangle, CheckCircle2 } from 'lucide-react';
 import { ShareableScoreCard } from '../components/ShareableScoreCard';
+import { TrustBadge } from '../components/TrustBadge';
+import { RelatedTools } from '../components/RelatedTools';
+
+
 
 const QUIZ_QUESTIONS = [
   {
@@ -274,6 +278,10 @@ export const QuickQuiz = () => {
             toolPath="/quick-quiz"
           />
 
+          {/* Trust Badge */}
+          <TrustBadge />
+
+
           {/* Reset */}
           <div className="text-center mt-6">
             <button
@@ -283,6 +291,9 @@ export const QuickQuiz = () => {
               <RotateCcw className="w-4 h-4" /> Take Quiz Again
             </button>
           </div>
+
+          {/* Related Tools */}
+          <RelatedTools currentPath="/quick-quiz" count={3} />
         </div>
       )}
     </div>

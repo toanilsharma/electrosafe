@@ -32,6 +32,9 @@ import { HAZARD_GALLERY } from '../data';
 import { SocialShare } from '../components/SocialShare';
 import { SafetyTipOfTheDay } from '../components/SafetyTipOfTheDay';
 import { SeasonalBanner } from '../components/SeasonalBanner';
+import { FOMOCounter } from '../components/FOMOCounter';
+import { TrustBadgeModal } from '../components/TrustBadgeModal';
+
 
 export const Home = () => {
   const [showRentModal, setShowRentModal] = useState(false);
@@ -88,6 +91,10 @@ export const Home = () => {
               <AlertTriangle className="w-5 h-5 text-yellow-400" />
               Analyze Symptoms
             </Link>
+          </div>
+          {/* FOMO Counter — live social proof */}
+          <div className="animate-slide-up delay-300 mb-10">
+            <FOMOCounter />
           </div>
           {/* Quick Quiz CTA */}
           <div className="animate-slide-up delay-300 mb-16">

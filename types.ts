@@ -1,12 +1,29 @@
 
+export type RichContentBlock =
+  | { type: 'paragraph'; text: string }
+  | { type: 'heading'; text: string; level?: 2 | 3 }
+  | { type: 'callout'; variant: 'warning' | 'tip' | 'danger' | 'info'; title: string; text: string }
+  | { type: 'math'; formula: string; label?: string; description?: string }
+  | { type: 'stat'; value: string; unit?: string; label: string; color?: string }
+  | { type: 'comparison'; good: { title: string; items: string[] }; bad: { title: string; items: string[] } }
+  | { type: 'steps'; title?: string; steps: { title: string; text: string }[] }
+  | { type: 'tool-link'; tool: string; path: string; description: string; icon?: string }
+  | { type: 'diagram'; svg: string; caption?: string }
+  | { type: 'stats-row'; stats: { value: string; label: string; color?: string }[] }
+  | { type: 'quote'; text: string; author?: string };
+
 export interface Article {
   id: string; // Keep for internal ref if needed
   slug: string; // NEW: SEO friendly URL
   title: string;
   excerpt: string;
-  content: string[]; // Array of paragraphs
+  content: string[]; // Legacy: Array of paragraphs (backward compat)
+  richContent?: RichContentBlock[]; // NEW: Rich content blocks
   category: string;
   readTime: string;
+  heroColor?: string; // Gradient accent color for the article
+  relatedArticles?: string[]; // Slugs of related articles
+  relatedTools?: { name: string; path: string; why: string }[];
   // New Fields for World-Class Content
   faqs?: { question: string; answer: string }[];
   standards?: string[]; // e.g., ["IEC 60364-4-41"]

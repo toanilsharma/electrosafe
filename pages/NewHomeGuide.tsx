@@ -28,10 +28,24 @@ import {
   Camera,
   Flame
 } from 'lucide-react';
+import { StickyTOC, TOCItem } from '../components/StickyTOC';
+import { RelatedTools } from '../components/RelatedTools';
+
+const TOC_ITEMS: TOCItem[] = [
+  { id: 'phase-0', label: 'Phase 0: Hiring & Money' },
+  { id: 'phase-1', label: 'Phase 1: Planning & Layout' },
+  { id: 'phase-2', label: 'Phase 2: Smart Shopping' },
+  { id: 'phase-3', label: 'Phase 3: Supervision' },
+  { id: 'phase-4', label: 'Phase 4: Future Proofing' },
+  { id: 'phase-5', label: 'Phase 5: The Handover' },
+];
+
 
 export const NewHomeGuide = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 md:py-12">
+      <StickyTOC items={TOC_ITEMS} />
+
       {/* HERO SECTION */}
       <div className="text-center mb-12 md:mb-16">
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
@@ -47,7 +61,7 @@ export const NewHomeGuide = () => {
       </div>
 
       {/* PHASE 0: MONEY & HIRING */}
-      <section className="mb-16 md:mb-24 relative">
+      <section id="phase-0" className="mb-16 md:mb-24 relative">
         <div className="absolute left-8 top-16 bottom-0 w-0.5 bg-gray-200 hidden lg:block"></div>
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
           <div className="flex-shrink-0 flex flex-col items-center lg:items-center items-start">
@@ -124,7 +138,7 @@ export const NewHomeGuide = () => {
       </section>
 
       {/* PHASE 1: PLANNING & LAYOUT */}
-      <section className="mb-16 md:mb-24 relative">
+      <section id="phase-1" className="mb-16 md:mb-24 relative">
         <div className="absolute left-8 top-16 bottom-0 w-0.5 bg-gray-200 hidden lg:block"></div>
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
           <div className="flex-shrink-0 flex flex-col items-center lg:items-center items-start">
@@ -263,7 +277,7 @@ export const NewHomeGuide = () => {
       </section>
 
       {/* PHASE 2: SHOPPING (Procurement) */}
-      <section className="mb-16 md:mb-24 relative">
+      <section id="phase-2" className="mb-16 md:mb-24 relative">
         <div className="absolute left-8 top-16 bottom-0 w-0.5 bg-gray-200 hidden lg:block"></div>
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
           <div className="flex-shrink-0 flex flex-col items-center lg:items-center items-start">
@@ -314,7 +328,7 @@ export const NewHomeGuide = () => {
       </section>
 
       {/* PHASE 3: EXECUTION (Supervision) */}
-      <section className="mb-16 md:mb-24 relative">
+      <section id="phase-3" className="mb-16 md:mb-24 relative">
         <div className="absolute left-8 top-16 bottom-0 w-0.5 bg-gray-200 hidden lg:block"></div>
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
            <div className="flex-shrink-0 flex flex-col items-center lg:items-center items-start">
@@ -378,7 +392,7 @@ export const NewHomeGuide = () => {
       </section>
 
       {/* PHASE 4: FUTURE PROOFING */}
-      <section className="mb-16 md:mb-24 relative">
+      <section id="phase-4" className="mb-16 md:mb-24 relative">
         <div className="absolute left-8 top-16 bottom-0 w-0.5 bg-gray-200 hidden lg:block"></div>
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
           <div className="flex-shrink-0 flex flex-col items-center lg:items-center items-start">
@@ -425,7 +439,7 @@ export const NewHomeGuide = () => {
       </section>
 
       {/* PHASE 5: THE HANDOVER */}
-      <section className="relative">
+      <section id="phase-5" className="relative">
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
           <div className="flex-shrink-0 flex flex-col items-center lg:items-center items-start">
             <div className="w-14 h-14 md:w-16 md:h-16 bg-slate-800 rounded-2xl flex items-center justify-center text-white shadow-xl -rotate-3 mb-4 z-10 relative">
@@ -481,6 +495,8 @@ export const NewHomeGuide = () => {
         </p>
       </div>
 
+      {/* Related Tools */}
+      <RelatedTools currentPath="/new-home" count={3} />
     </div>
   );
 };

@@ -9,6 +9,11 @@ import {
   Facebook, Linkedin, Twitter, Instagram, MessageCircle
 } from 'lucide-react';
 import { ARTICLES, APPLIANCES, ROOMS, HAZARD_GALLERY } from '../data';
+import { ReturnVisitModal } from './ReturnVisitModal';
+import { DarkModeToggle, useDarkMode } from './DarkModeToggle';
+import { MobileTabBar } from './MobileTabBar';
+import { ExitIntentModal } from './ExitIntentModal';
+
 
 // --- NAV DROP DOWN COMPONENTS ---
 
@@ -72,6 +77,8 @@ const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const location = useLocation();
   const navigate = useNavigate();
+  const { dark, setDark } = useDarkMode();
+
 
   // Search Logic with Deep Linking
   const getSearchResults = () => {
@@ -158,6 +165,8 @@ const Navbar = () => {
 
             <div className="h-6 w-px bg-gray-200 mx-2"></div>
 
+            <DarkModeToggle dark={dark} onToggle={() => setDark(!dark)} />
+
             <button
               onClick={() => setIsSearchOpen(!isSearchOpen)}
               className="p-2 text-gray-500 hover:text-blue-600 hover:bg-gray-100 rounded-full transition"
@@ -167,7 +176,8 @@ const Navbar = () => {
           </div>
 
           {/* MOBILE TOGGLE */}
-          <div className="flex items-center lg:hidden gap-4">
+          <div className="flex items-center lg:hidden gap-3">
+            <DarkModeToggle dark={dark} onToggle={() => setDark(!dark)} />
             <button
               onClick={() => setIsSearchOpen(!isSearchOpen)}
               className="p-2 text-gray-500"
@@ -589,7 +599,79 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       desc: 'Emergency protocol for electrical fires and shocks. Immediate life-saving steps to isolate power and call for help during an electrical crisis.',
       type: 'MedicalWebPage',
       keywords: 'electrical emergency, fire protocol, electric shock, first aid, emergency steps'
-    }
+    },
+    '/score': {
+      title: 'Home Safety Score Card',
+      desc: 'View and share your home electrical safety score. Challenge friends and family to check their own home safety.',
+      type: 'WebPage',
+      keywords: 'home safety score, electrical safety score, share safety score, home safety check'
+    },
+    '/challenge': {
+      title: 'Home Safety Challenge',
+      desc: 'Your friend challenged you! Can your home beat their safety score? Take the free electrical safety check.',
+      type: 'WebPage',
+      keywords: 'home safety challenge, beat the score, electrical safety quiz, safety challenge'
+    },
+    '/room-audit': {
+      title: 'Room-by-Room Electrical Safety Audit',
+      desc: 'Free printable room-by-room home electrical safety checklist. Kitchen, Bathroom, Bedroom, Garage and Outdoor inspection guide.',
+      type: 'HowTo',
+      keywords: 'room safety audit, kitchen electrical safety, bathroom wiring, home inspection checklist'
+    },
+    '/glossary': {
+      title: 'Electrical Safety Glossary — 40+ Terms Explained Simply',
+      desc: 'Plain-English definitions of electrical safety terms: GFCI, RCD, MCB, AFCI, earthing, arc fault, voltage drop and more.',
+      type: 'WebPage',
+      keywords: 'electrical glossary, GFCI definition, RCD meaning, MCB explained, electrical terms'
+    },
+    '/is-it-safe': {
+      title: 'Is It Safe To...? — Home Electrical Safety Q&A',
+      desc: 'Quick answers to 24+ common home electrical safety questions. Extension cords, phone charging, heaters, storms, and more.',
+      type: 'FAQPage',
+      keywords: 'is it safe, extension cord safe, phone charging safety, heater safety, electrical Q&A'
+    },
+    '/bill-detector': {
+      title: 'Electricity Bill Spike Detector — Why Is My Bill High?',
+      desc: 'Find out why your electricity bill spiked suddenly. Enter last 3 months of bills to identify the likely electrical cause.',
+      type: 'SoftwareApplication',
+      keywords: 'electricity bill spike, high electricity bill, bill increase reason, electrical bill calculator'
+    },
+    '/my-home': {
+      title: 'My Home Safety Hub — Personal Safety Checklist',
+      desc: 'Track your home electrical safety with our 28-item checklist. Save progress, earn badges, and see your safety streak.',
+      type: 'WebPage',
+      keywords: 'home safety checklist, safety progress tracker, electrical safety dashboard, safety badges'
+    },
+    '/landlords': {
+      title: 'Electrical Safety for Landlords & Property Managers',
+      desc: 'Free landlord electrical safety resources: safety badge, printable tenant safety letter, and compliance inspection guides.',
+      type: 'WebPage',
+      keywords: 'landlord electrical safety, rental property safety, tenant safety letter, EICR landlord'
+    },
+    '/stories': {
+      title: 'Real Home Electrical Safety Near-Miss Stories',
+      desc: 'Real stories from homeowners who avoided electrical fires, shocks, and hazards using ElectroSafe.homes.',
+      type: 'WebPage',
+      keywords: 'electrical safety stories, near miss, home fire prevention, electrical hazard story'
+    },
+    '/safety/india': {
+      title: 'Home Electrical Safety Guide for India — IS 732, RCCB, Monsoon Safety',
+      desc: 'Complete electrical safety guide for Indian homes. IS 732, RCCB, monsoon safety, inverter battery, BEE ratings, and emergency numbers.',
+      type: 'WebPage',
+      keywords: 'home electrical safety India, IS 732, RCCB India, monsoon electrical safety, BEE star rating'
+    },
+    '/safety/usa': {
+      title: 'Home Electrical Safety Guide for USA — NEC, GFCI, AFCI',
+      desc: 'Complete electrical safety guide for US homes. NEC 2023, AFCI and GFCI requirements, aluminum wiring risks, panel upgrades.',
+      type: 'WebPage',
+      keywords: 'home electrical safety USA, NEC 2023, AFCI breaker, GFCI outlet, electrical panel upgrade'
+    },
+    '/safety/uk': {
+      title: 'Home Electrical Safety Guide for UK — BS 7671, EICR, RCD',
+      desc: 'Complete electrical safety guide for UK homes. BS 7671, Part P, EICR requirements, consumer unit safety, bathroom zone rules.',
+      type: 'WebPage',
+      keywords: 'home electrical safety UK, BS 7671, EICR report, Part P, RCD protection, consumer unit'
+    },
   };
 
   /* Restore necessary variable declarations */
@@ -707,7 +789,10 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       <main className="flex-grow">
         {children}
       </main>
+      <ReturnVisitModal />
+      <ExitIntentModal />
       <EmergencyButton />
+      <MobileTabBar />
       <Footer />
     </div>
   );

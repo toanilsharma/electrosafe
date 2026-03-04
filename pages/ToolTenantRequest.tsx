@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TENANT_ISSUES } from '../data';
-import { Copy, CheckCircle, MessageSquare, AlertTriangle, Send } from 'lucide-react';
+import { Copy, CheckCircle, MessageSquare, AlertTriangle, Send, Printer } from 'lucide-react';
+
 
 export const ToolTenantRequest = () => {
-  const [selectedIssueId, setSelectedIssueId] = useState(TENANT_ISSUES[0].id);
-  const [location, setLocation] = useState('');
-  const [recipient, setRecipient] = useState('Landlord'); // Landlord or Warden
+  const [selectedIssueId, setSelectedIssueId] = useState(() => localStorage.getItem('tenant_issue') || TENANT_ISSUES[0].id);
+  const [location, setLocation] = useState(() => localStorage.getItem('tenant_location') || '');
+  const [recipient, setRecipient] = useState(() => localStorage.getItem('tenant_recipient') || 'Landlord');
   const [copied, setCopied] = useState(false);
+
+  // Auto-save form state
+  useEffect(() => { localStorage.setItem('tenant_issue', selectedIssueId); }, [selectedIssueId]);
+  useEffect(() => { localStorage.setItem('tenant_location', location); }, [location]);
+  useEffect(() => { localStorage.setItem('tenant_recipient', recipient); }, [recipient]);
+
 
   const selectedIssue = TENANT_ISSUES.find(i => i.id === selectedIssueId) || TENANT_ISSUES[0];
 
@@ -127,11 +134,17 @@ Thank you,
               {copied ? <><CheckCircle className="w-5 h-5" /> Copied!</> : <><Copy className="w-5 h-5" /> Copy Text</>}
             </button>
              <a
-              href={`mailto:?subject=Urgent: Electrical Safety Issue in ${location || 'Property'}&body=${encodeURIComponent(generateMessage())}`}
+              href={`mailto:?subject=Urgent%3A%20Electrical%20Safety%20Issue%20in%20${encodeURIComponent(location || 'Property')}&cc=&body=${encodeURIComponent(generateMessage())}`}
               className="flex-1 flex items-center justify-center gap-2 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 font-bold border border-gray-300"
             >
-              <Send className="w-4 h-4" /> Open Email
+              <Send className="w-4 h-4" /> Open in Email
             </a>
+            <button
+              onClick={() => window.print()}
+              className="flex-1 flex items-center justify-center gap-2 py-3 bg-slate-800 text-white rounded-lg hover:bg-slate-900 font-bold"
+            >
+              <Printer className="w-4 h-4" /> Print / PDF
+            </button>
           </div>
         </div>
       </div>

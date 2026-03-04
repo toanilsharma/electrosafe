@@ -1,11 +1,53 @@
 
 import React, { useState } from 'react';
 import { HARDWARE_DATA, STANDARDS_GUIDE } from '../data';
-import { Settings, Zap, CheckCircle2, AlertTriangle, BookOpen } from 'lucide-react';
+import { Settings, Zap, CheckCircle2, AlertTriangle, BookOpen, ShoppingCart, Plus, Trash2, Copy, Printer, CheckCircle } from 'lucide-react';
+import { RelatedTools } from '../components/RelatedTools';
+import { StickyTOC, TOCItem } from '../components/StickyTOC';
+
+const HW_TOC: TOCItem[] = [
+  { id: 'hw-spec-selector', label: 'Quick Spec Selector' },
+  { id: 'hw-components', label: 'Component Cards' },
+  { id: 'hw-standards', label: 'Global Standards' },
+];
+
+
 
 export const HardwareGuide = () => {
   const [selectedLoad, setSelectedLoad] = useState('light');
-  
+  const [shoppingList, setShoppingList] = useState<Array<{ device: string; wire: string; breaker: string; socket: string }>>(() => {
+    const saved = localStorage.getItem('hw_shopping_list');
+    return saved ? JSON.parse(saved) : [];
+  });
+  const [showCart, setShowCart] = useState(false);
+  const [listCopied, setListCopied] = useState(false);
+
+  const addToList = (rec: { device: string; wire: string; breaker: string; switch: string }) => {
+    const exists = shoppingList.some(i => i.device === rec.device);
+    if (exists) return;
+    const newList = [...shoppingList, { device: rec.device, wire: rec.wire, breaker: rec.breaker, socket: rec.switch }];
+    setShoppingList(newList);
+    localStorage.setItem('hw_shopping_list', JSON.stringify(newList));
+    setShowCart(true);
+  };
+
+  const removeFromList = (device: string) => {
+    const newList = shoppingList.filter(i => i.device !== device);
+    setShoppingList(newList);
+    localStorage.setItem('hw_shopping_list', JSON.stringify(newList));
+  };
+
+  const copyList = () => {
+    const text = 'Project Materials List (from ElectroSafe.homes)\n' +
+      '='.repeat(45) + '\n' +
+      shoppingList.map((item, i) =>
+        `${i + 1}. ${item.device}\n   Wire: ${item.wire}\n   Breaker: ${item.breaker}\n   Socket: ${item.socket}`
+      ).join('\n\n');
+    navigator.clipboard.writeText(text);
+    setListCopied(true);
+    setTimeout(() => setListCopied(false), 2000);
+  };
+
   // Logic for the simple spec selector
   const getRecommendation = () => {
     switch(selectedLoad) {
@@ -290,6 +332,7 @@ export const HardwareGuide = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
+      <StickyTOC items={HW_TOC} />
       {/* Header */}
       <div className="text-center mb-16">
         <h1 className="text-4xl font-bold text-gray-900 mb-4">Electrical Hardware Encyclopedia</h1>
@@ -299,7 +342,7 @@ export const HardwareGuide = () => {
       </div>
 
       {/* 1. THE SPEC SELECTOR TOOL */}
-      <div className="bg-slate-900 text-white rounded-2xl p-8 mb-16 shadow-2xl overflow-hidden relative">
+      <div id="hw-spec-selector" className="bg-slate-900 text-white rounded-2xl p-8 mb-16 shadow-2xl overflow-hidden relative">
         <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600 rounded-full opacity-20 blur-3xl translate-x-1/2 -translate-y-1/2"></div>
         
         <div className="relative z-10">
@@ -392,12 +435,30 @@ export const HardwareGuide = () => {
              </div>
           )}
 
+          {/* Add to Shopping List Button */}
+          {rec && (
+            <button
+              onClick={() => addToList(rec)}
+              className={`mt-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm transition-all ${
+                shoppingList.some(i => i.device === rec.device)
+                  ? 'bg-green-500 text-white cursor-default'
+                  : 'bg-yellow-400 hover:bg-yellow-300 text-gray-900 hover:scale-105'
+              }`}
+            >
+              {shoppingList.some(i => i.device === rec.device) ? (
+                <><CheckCircle className="w-4 h-4" /> Added to Project List</>
+              ) : (
+                <><Plus className="w-4 h-4" /> Add to Project Materials List</>
+              )}
+            </button>
+          )}
+
           <p className="text-xs text-gray-500 mt-4">* General recommendations only. Always consult a certified electrician for cable lengths over 20 meters.</p>
         </div>
       </div>
 
       {/* 2. COMPONENT CARDS */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+      <div id="hw-components" className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
         {HARDWARE_DATA.map((item) => (
           <div key={item.id} className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
             <div className="flex justify-between items-start mb-4">
@@ -461,7 +522,7 @@ export const HardwareGuide = () => {
       </div>
       
       {/* 3. STANDARDS GUIDE */}
-      <div className="bg-gradient-to-r from-gray-50 to-indigo-50 rounded-2xl p-8 border border-gray-100">
+      <div id="hw-standards" className="bg-gradient-to-r from-gray-50 to-indigo-50 rounded-2xl p-8 border border-gray-100">
         <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
           <BookOpen className="text-indigo-600" /> Decoding Global Standards
         </h2>
@@ -476,6 +537,58 @@ export const HardwareGuide = () => {
         </div>
       </div>
 
+      {/* Related Tools */}
+      <RelatedTools currentPath="/hardware" count={3} />
+
+      {/* Floating Shopping Cart */}
+      {shoppingList.length > 0 && (
+        <>
+          {/* Toggle Button */}
+          <button
+            onClick={() => setShowCart(!showCart)}
+            className="fixed bottom-20 md:bottom-6 right-16 md:right-6 z-40 bg-yellow-400 hover:bg-yellow-300 text-gray-900 p-3.5 rounded-full shadow-xl transition-all hover:scale-110"
+            title="Project Materials List"
+          >
+            <ShoppingCart className="w-5 h-5" />
+            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+              {shoppingList.length}
+            </span>
+          </button>
+
+          {/* Cart Panel */}
+          {showCart && (
+            <div className="fixed bottom-36 md:bottom-20 right-4 z-50 w-80 bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden animate-in slide-in-from-bottom-4 zoom-in-95 duration-200">
+              <div className="bg-gray-900 dark:bg-gray-800 text-white p-4 flex items-center justify-between">
+                <h3 className="font-bold flex items-center gap-2"><ShoppingCart className="w-4 h-4" /> Project Materials</h3>
+                <span className="text-xs bg-yellow-400 text-gray-900 px-2 py-0.5 rounded-full font-bold">{shoppingList.length} items</span>
+              </div>
+              <div className="max-h-60 overflow-y-auto p-3 space-y-2 custom-scrollbar">
+                {shoppingList.map((item, i) => (
+                  <div key={i} className="bg-gray-50 dark:bg-gray-800 rounded-xl p-3 text-xs flex items-start gap-2">
+                    <div className="flex-1 min-w-0">
+                      <p className="font-bold text-gray-900 dark:text-gray-100 truncate">{item.device}</p>
+                      <p className="text-gray-500 dark:text-gray-400">Wire: {item.wire}</p>
+                      <p className="text-gray-500 dark:text-gray-400">MCB: {item.breaker}</p>
+                      <p className="text-gray-500 dark:text-gray-400">Socket: {item.socket}</p>
+                    </div>
+                    <button onClick={() => removeFromList(item.device)} className="text-gray-400 hover:text-red-500 mt-0.5">
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <div className="p-3 border-t border-gray-200 dark:border-gray-700 flex gap-2">
+                <button onClick={copyList} className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg font-bold text-xs transition ${listCopied ? 'bg-green-600 text-white' : 'bg-blue-600 text-white hover:bg-blue-700'}`}>
+                  {listCopied ? <><CheckCircle className="w-3.5 h-3.5" /> Copied!</> : <><Copy className="w-3.5 h-3.5" /> Copy List</>}
+                </button>
+                <button onClick={() => window.print()} className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg font-bold text-xs hover:bg-gray-200 transition">
+                  <Printer className="w-3.5 h-3.5" /> Print
+                </button>
+              </div>
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 };
