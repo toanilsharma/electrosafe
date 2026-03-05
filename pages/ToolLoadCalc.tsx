@@ -21,6 +21,7 @@ import {
 import { LoadItem } from '../types';
 import { RelatedTools } from '../components/RelatedTools';
 import { useNavigate } from 'react-router-dom';
+import { useCurrencyStore } from '../store/currencyStore';
 
 // Enhanced data with categories
 const APPLIANCE_LIBRARY = [
@@ -53,72 +54,37 @@ const APPLIANCE_LIBRARY = [
 
 const CATEGORIES = ['Kitchen', 'Climate', 'Living', 'Office', 'Utility'];
 
-const CURRENCIES = [
-  { code: 'USD', symbol: '$', label: 'USD ($)' },
-  { code: 'EUR', symbol: '€', label: 'EUR (€)' },
-  { code: 'GBP', symbol: '£', label: 'GBP (£)' },
-  { code: 'INR', symbol: '₹', label: 'INR (₹)' },
-  { code: 'AUD', symbol: 'A$', label: 'AUD (A$)' },
-  { code: 'CAD', symbol: 'C$', label: 'CAD (C$)' },
-  { code: 'JPY', symbol: '¥', label: 'JPY (¥)' },
-  { code: 'CNY', symbol: '¥', label: 'CNY (¥)' },
-  { code: 'AED', symbol: 'dh', label: 'AED (dh)' },
-  { code: 'SAR', symbol: 'SR', label: 'SAR (SR)' },
-  { code: 'NGN', symbol: '₦', label: 'NGN (₦)' },
-  { code: 'ZAR', symbol: 'R', label: 'ZAR (R)' },
-];
-
-// Detect voltage and currency from timezone
-const detectRegion = () => {
-  try {
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    if (/America\/(New_York|Chicago|Denver|Los_Angeles|Phoenix|Anchorage|Honolulu|Toronto|Vancouver|Edmonton|Winnipeg|Halifax)/.test(tz)) {
-      return { voltage: 120, currCode: 'USD', label: '🇺🇸 Auto-detected: USA (120V)' };
-    }
-    if (/Asia\/Kolkata|Asia\/Calcutta/.test(tz)) {
-      return { voltage: 230, currCode: 'INR', label: '🇮🇳 Auto-detected: India (230V)' };
-    }
-    if (/Europe\/London|Europe\/Dublin/.test(tz)) {
-      return { voltage: 230, currCode: 'GBP', label: '🇬🇧 Auto-detected: UK (230V)' };
-    }
-    if (/Australia/.test(tz)) {
-      return { voltage: 230, currCode: 'AUD', label: '🇦🇺 Auto-detected: Australia (230V)' };
-    }
-    // EU
-    if (/Europe/.test(tz)) {
-      return { voltage: 230, currCode: 'EUR', label: '🌍 Auto-detected: Europe (230V)' };
-    }
-  } catch {}
-  return { voltage: 230, currCode: 'USD', label: '🌐 Default (230V)' };
-};
-
 export const ToolLoadCalc = () => {
   const navigate = useNavigate();
-  const detectedRegion = React.useMemo(() => detectRegion(), []);
+  const { currency, format, convert } = useCurrencyStore();
+  
   const [items, setItems] = useState<LoadItem[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
+  
+  // Rate setting defaults to 0.15 USD converted to current currency
   const [costPerUnit, setCostPerUnit] = useState<number>(() => {
-    const saved = localStorage.getItem('load_calc_settings');
-    if (saved) return JSON.parse(saved).rate || (detectedRegion.currCode === 'INR' ? 8 : 0.15);
-    return detectedRegion.currCode === 'INR' ? 8 : 0.15;
+    const saved = localStorage.getItem('load_calc_rate_' + currency.code);
+    if (saved) return parseFloat(saved);
+    return Number(convert(0.15).toFixed(2));
   });
-  const [currency, setCurrency] = useState(() => {
-    const saved = localStorage.getItem('load_calc_settings');
-    if (saved) {
-      const found = CURRENCIES.find(c => c.code === JSON.parse(saved).currCode);
-      if (found) return found;
-    }
-    return CURRENCIES.find(c => c.code === detectedRegion.currCode) || CURRENCIES[0];
-  });
-  const [voltage, setVoltage] = useState<number>(() => {
-    const saved = localStorage.getItem('load_calc_voltage');
-    return saved ? parseInt(saved) : detectedRegion.voltage;
-  });
+
   const [toastMsg, setToastMsg] = useState<string | null>(null);
   const [backupHours, setBackupHours] = useState(4);
-  const [autoDetectLabel] = useState(detectedRegion.label);
 
+  // Whenever currency changes, reset the rate to standard defaults or saved local
+  useEffect(() => {
+    const saved = localStorage.getItem('load_calc_rate_' + currency.code);
+    if (saved) {
+      setCostPerUnit(parseFloat(saved));
+    } else {
+      setCostPerUnit(Number(convert(0.15).toFixed(2)));
+    }
+  }, [currency.code, convert]);
+
+  useEffect(() => {
+    localStorage.setItem('load_calc_rate_' + currency.code, costPerUnit.toString());
+  }, [costPerUnit, currency.code]);
 
   // Load persistence for Items
   useEffect(() => {
@@ -129,23 +95,6 @@ export const ToolLoadCalc = () => {
   useEffect(() => {
     localStorage.setItem('load_calc_items', JSON.stringify(items));
   }, [items]);
-
-  // Load persistence for Settings (Rate & Currency)
-  useEffect(() => {
-    const savedSettings = localStorage.getItem('load_calc_settings');
-    if (savedSettings) {
-      const { rate, currCode } = JSON.parse(savedSettings);
-      if (rate) setCostPerUnit(rate);
-      if (currCode) {
-        const found = CURRENCIES.find(c => c.code === currCode);
-        if (found) setCurrency(found);
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('load_calc_settings', JSON.stringify({ rate: costPerUnit, currCode: currency.code }));
-  }, [costPerUnit, currency]);
 
   // Toast Timer
   useEffect(() => {
@@ -231,24 +180,7 @@ export const ToolLoadCalc = () => {
           </div>
           
           <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
-            {/* Currency Selector */}
-            <div className="bg-white dark:bg-gray-900 dark:bg-gray-900/10 backdrop-blur-sm p-3 rounded-xl border border-white/20 flex-1 min-w-[140px]">
-              <label className="text-[10px] font-bold uppercase tracking-wider text-blue-200 mb-1 flex items-center gap-1">
-                <Globe className="w-3 h-3" /> Currency
-              </label>
-              <select 
-                value={currency.code}
-                onChange={(e) => {
-                  const found = CURRENCIES.find(c => c.code === e.target.value);
-                  if (found) setCurrency(found);
-                }}
-                className="w-full bg-transparent text-white font-bold text-lg border-none focus:ring-0 cursor-pointer p-0"
-              >
-                {CURRENCIES.map(c => (
-                  <option key={c.code} value={c.code} className="text-gray-900 dark:text-gray-100 dark:text-gray-100">{c.label}</option>
-                ))}
-              </select>
-            </div>
+            {/* Global Currency applies; removed local selector */}
 
             {/* Rate Input */}
             <div className="bg-white dark:bg-gray-900 dark:bg-gray-900/10 backdrop-blur-sm p-3 rounded-xl border border-white/20 flex-1 relative group min-w-[160px]">
@@ -409,13 +341,18 @@ export const ToolLoadCalc = () => {
               <div className="flex justify-between items-end mb-2">
                 <span className="text-gray-400 text-sm font-medium uppercase">Estimated Monthly Bill</span>
                 <span className="text-3xl font-bold text-green-400 flex items-center">
-                  <span className="text-2xl mr-1 opacity-70">{currency.symbol}</span>
-                  {monthlyCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  {format(monthlyCost)}
                 </span>
               </div>
-              <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 border-t border-gray-800 pt-3 mt-2">
+              <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 border-t border-gray-800 pt-3 mt-2 mb-4">
                 <span>Total Load: <span className="text-white">{totalKW} kW</span></span>
                 <span>Daily Usage: <span className="text-white">{dailyKWh.toFixed(1)} Units</span></span>
+              </div>
+              
+              <div className="bg-gray-800 rounded-lg p-3 text-xs text-gray-400 font-mono space-y-1">
+                 <p><strong className="text-gray-300">Mathematical Breakdown:</strong></p>
+                 <p>Daily Energy (kWh) = Σ(Watts × Qty × Hours) ÷ 1000 = {dailyKWh.toFixed(2)} kWh/day</p>
+                 <p>Monthly Cost = {dailyKWh.toFixed(2)} kWh × 30 days × {format(costPerUnit)}/kWh = {format(monthlyCost)}</p>
               </div>
             </div>
           </div>
@@ -460,7 +397,7 @@ export const ToolLoadCalc = () => {
                   <div className="bg-indigo-800 p-4 rounded-xl flex justify-between items-center">
                     <div>
                       <div className="text-xs text-indigo-300 uppercase font-bold">Required Battery Bank</div>
-                      <div className="text-xs text-indigo-400">@{batteryVoltage}V System</div>
+                      <div className="text-xs text-indigo-400">@12V/24V System</div>
                     </div>
                     <div className="text-2xl font-bold text-yellow-400">{requiredAh.toLocaleString()} Ah</div>
                   </div>

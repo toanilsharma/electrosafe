@@ -63,12 +63,16 @@ export const Home = () => {
             </div>
           </div>
 
-          <h1 className="text-5xl sm:text-6xl md:text-8xl font-extrabold tracking-tight mb-8 leading-tight animate-slide-up delay-100">
-            Is Your Home's Wiring <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-orange-400 to-yellow-400">
-              A Hidden Fire Hazard?
+          <h1 className="text-5xl sm:text-6xl md:text-8xl font-extrabold tracking-tight mb-4 leading-tight animate-slide-up delay-100">
+            The Ultimate <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400">
+              Home Electrical Safety Guide
             </span>
           </h1>
+
+          <h2 className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-orange-400 to-yellow-400 mb-6 animate-slide-up delay-100">
+            Is Your Home's Wiring A Hidden Fire Hazard?
+          </h2>
 
           <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-10 font-light leading-relaxed animate-slide-up delay-200">
             Why does your breaker keep tripping? Is that humming outlet safe? Stop guessing. We translate complex engineering codes into simple, instant safety checks.
@@ -155,7 +159,7 @@ export const Home = () => {
             </Link>
 
             {/* Risk Predictor (Medium - Alert Style) */}
-            <Link to="/risk-predictor" className="group md:col-span-1 lg:col-span-2 bg-slate-900 text-white rounded-3xl p-8 shadow-sm hover:shadow-xl hover:shadow-red-900/20 transition-all relative overflow-hidden animate-slide-up delay-200">
+            <Link to="/electrical-hazard-risk-predictor" className="group md:col-span-1 lg:col-span-2 bg-slate-900 text-white rounded-3xl p-8 shadow-sm hover:shadow-xl hover:shadow-red-900/20 transition-all relative overflow-hidden animate-slide-up delay-200">
               <div className="absolute right-0 bottom-0 opacity-10 group-hover:opacity-20 transition-opacity">
                 <Flame className="w-40 h-40 translate-x-10 translate-y-10" />
               </div>
@@ -172,7 +176,7 @@ export const Home = () => {
             </Link>
 
             {/* Load Calculator (Medium) */}
-            <Link to="/load-calc" className="group md:col-span-1 lg:col-span-1 bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-3xl p-6 border border-gray-200 dark:border-gray-700 dark:border-gray-700 shadow-sm hover:shadow-lg transition-all animate-slide-up delay-300">
+            <Link to="/electrical-load-calculator" className="group md:col-span-1 lg:col-span-1 bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-3xl p-6 border border-gray-200 dark:border-gray-700 dark:border-gray-700 shadow-sm hover:shadow-lg transition-all animate-slide-up delay-300">
               <div className="p-2 bg-green-100 w-fit rounded-xl mb-4 group-hover:bg-green-200 transition-colors">
                 <Calculator className="w-6 h-6 text-green-700" />
               </div>

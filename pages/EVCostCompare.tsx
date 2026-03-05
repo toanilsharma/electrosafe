@@ -4,33 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Car, Zap, Fuel, DollarSign, Leaf, Info, RotateCcw, TrendingDown } from 'lucide-react';
 import { RelatedTools } from '../components/RelatedTools';
 
-// ── Region & Defaults ────────────────────────────────────────
-interface RegionProfile {
-  currency: string; symbol: string; label: string;
-  elecRate: number; petrolPrice: number; publicChargeRate: number;
-  distanceUnit: string; volumeUnit: string; efficiencyUnit: string;
-  co2Petrol: number; co2Grid: number;
-}
-
-const REGIONS: Record<string, RegionProfile> = {
-  IN: { currency: 'INR', symbol: '₹', label: 'India', elecRate: 8, petrolPrice: 105, publicChargeRate: 18, distanceUnit: 'km', volumeUnit: 'L', efficiencyUnit: 'Wh/km', co2Petrol: 2.31, co2Grid: 0.82 },
-  US: { currency: 'USD', symbol: '$', label: 'USA', elecRate: 0.16, petrolPrice: 3.50, publicChargeRate: 0.40, distanceUnit: 'mi', volumeUnit: 'gal', efficiencyUnit: 'Wh/mi', co2Petrol: 8.89, co2Grid: 0.42 },
-  GB: { currency: 'GBP', symbol: '£', label: 'UK', elecRate: 0.34, petrolPrice: 1.50, publicChargeRate: 0.60, distanceUnit: 'mi', volumeUnit: 'L', efficiencyUnit: 'Wh/mi', co2Petrol: 2.31, co2Grid: 0.23 },
-  EU: { currency: 'EUR', symbol: '€', label: 'Europe', elecRate: 0.25, petrolPrice: 1.80, publicChargeRate: 0.55, distanceUnit: 'km', volumeUnit: 'L', efficiencyUnit: 'Wh/km', co2Petrol: 2.31, co2Grid: 0.30 },
-  AU: { currency: 'AUD', symbol: 'A$', label: 'Australia', elecRate: 0.30, petrolPrice: 2.00, publicChargeRate: 0.50, distanceUnit: 'km', volumeUnit: 'L', efficiencyUnit: 'Wh/km', co2Petrol: 2.31, co2Grid: 0.79 },
-};
-
-function detectRegion(): string {
-  try {
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    if (tz.startsWith('Asia/Kolkata') || tz.startsWith('Asia/Calcutta')) return 'IN';
-    if (tz.startsWith('America/')) return 'US';
-    if (tz.startsWith('Europe/London')) return 'GB';
-    if (tz.startsWith('Europe/')) return 'EU';
-    if (tz.startsWith('Australia/')) return 'AU';
-  } catch {}
-  return 'US';
-}
+import { useCurrencyStore } from '../store/currencyStore';
 
 // Animated counter
 const AnimCount: React.FC<{ value: number; prefix?: string; suffix?: string; decimals?: number }> = ({ value, prefix = '', suffix = '', decimals = 0 }) => {
@@ -51,26 +25,32 @@ const AnimCount: React.FC<{ value: number; prefix?: string; suffix?: string; dec
 
 // ── Main Component ───────────────────────────────────────────
 export const EVCostCompare: React.FC = () => {
-  const [regionKey, setRegionKey] = useState(detectRegion);
-  const region = REGIONS[regionKey];
+  const { currency, format, convert } = useCurrencyStore();
+
+  // Dynamic units based on currency/region
+  const distanceUnit = currency.code === 'USD' || currency.code === 'GBP' ? 'mi' : 'km';
+  const volumeUnit = currency.code === 'USD' ? 'gal' : 'L';
+  const efficiencyUnit = currency.code === 'USD' || currency.code === 'GBP' ? 'Wh/mi' : 'Wh/km';
 
   const [dailyDist, setDailyDist] = useState<number | ''>(50);
   const [evEfficiency, setEvEfficiency] = useState<number | ''>(150); // Wh/km or Wh/mi
-  const [elecRate, setElecRate] = useState<number | ''>(region.elecRate);
-  const [petrolPrice, setPetrolPrice] = useState<number | ''>(region.petrolPrice);
-  const [petrolEfficiency, setPetrolEfficiency] = useState<number | ''>(regionKey === 'US' ? 30 : 15); // mpg or km/L
-  const [publicRate, setPublicRate] = useState<number | ''>(region.publicChargeRate);
+  
+  // Convert standard USD rates to local currency on mount/currency switch
+  const [elecRate, setElecRate] = useState<number | ''>(Number(convert(0.16).toFixed(2)));
+  const [petrolPrice, setPetrolPrice] = useState<number | ''>(Number(convert(3.50).toFixed(2)));
+  const [publicRate, setPublicRate] = useState<number | ''>(Number(convert(0.40).toFixed(2)));
+  const [petrolEfficiency, setPetrolEfficiency] = useState<number | ''>(currency.code === 'USD' ? 30 : 15); // mpg or km/L
   const [showResults, setShowResults] = useState(false);
 
   useEffect(() => { window.scrollTo(0, 0); }, []);
+
   useEffect(() => {
-    const r = REGIONS[regionKey];
-    setElecRate(r.elecRate);
-    setPetrolPrice(r.petrolPrice);
-    setPublicRate(r.publicChargeRate);
-    setPetrolEfficiency(regionKey === 'US' ? 30 : 15);
-    setShowResults(false);
-  }, [regionKey]);
+    // Reset inputs gracefully when currency switches
+    setElecRate(Number(convert(0.16).toFixed(2)));
+    setPetrolPrice(Number(convert(3.50).toFixed(2)));
+    setPublicRate(Number(convert(0.40).toFixed(2)));
+    setPetrolEfficiency(currency.code === 'USD' ? 30 : 15);
+  }, [currency.code]);
 
   const calculate = () => {
     if (!dailyDist || !evEfficiency || !elecRate || !petrolPrice || !petrolEfficiency || !publicRate) return null;
@@ -101,11 +81,14 @@ export const EVCostCompare: React.FC = () => {
     const savingsVsPetrol = annualPetrol - annualHome;
     const percentSaved = (savingsVsPetrol / annualPetrol) * 100;
 
-    // CO₂
+    // CO₂ factors
+    const co2GridFactor = currency.code === 'INR' ? 0.82 : currency.code === 'GBP' ? 0.23 : 0.42;
+    const co2PetrolFactor = currency.code === 'USD' ? 8.89 : 2.31; // kg/gal vs kg/L
+
     const annualKwh = (d * eff / 1000) * 365;
-    const co2EV = annualKwh * region.co2Grid;
+    const co2EV = annualKwh * co2GridFactor;
     const annualFuel = (d / pEff) * 365;
-    const co2Petrol = annualFuel * region.co2Petrol;
+    const co2Petrol = annualFuel * co2PetrolFactor;
     const co2Saved = co2Petrol - co2EV;
 
     // Find max for bar sizing
@@ -155,17 +138,7 @@ export const EVCostCompare: React.FC = () => {
         </div>
       </motion.div>
 
-      {/* Region Selector */}
-      <motion.div className="flex justify-center mb-8" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
-        <div className="inline-flex gap-1 bg-slate-100 dark:bg-gray-800/50 dark:bg-gray-800/50 rounded-xl p-1">
-          {Object.entries(REGIONS).map(([key, r]) => (
-            <button key={key} onClick={() => setRegionKey(key)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${regionKey === key ? 'bg-white dark:bg-gray-900 dark:bg-gray-900 shadow text-blue-700' : 'text-slate-500 dark:text-gray-400 dark:text-gray-400 hover:text-slate-700 dark:text-gray-300 dark:text-gray-300'}`}>
-              {r.label}
-            </button>
-          ))}
-        </div>
-      </motion.div>
+      {/* Global Currency applies; removed local Region Selector */}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Input Panel */}
@@ -176,7 +149,7 @@ export const EVCostCompare: React.FC = () => {
           <div className="space-y-5">
 
             <div>
-              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300 mb-1.5">Daily Distance ({region.distanceUnit})</label>
+              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300 mb-1.5">Daily Distance ({distanceUnit})</label>
               <input type="number" className="w-full bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 dark:border-gray-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none font-medium" value={dailyDist} onChange={e => setDailyDist(e.target.value === '' ? '' : Number(e.target.value))} />
             </div>
 
@@ -184,16 +157,16 @@ export const EVCostCompare: React.FC = () => {
               <p className="text-xs font-bold text-cyan-800 uppercase tracking-wider mb-3 flex items-center gap-1.5"><Zap className="w-3.5 h-3.5" /> EV Parameters</p>
               <div className="space-y-3">
                 <div>
-                  <label className="text-xs text-cyan-700 font-medium block mb-1">EV Efficiency ({region.efficiencyUnit})</label>
+                  <label className="text-xs text-cyan-700 font-medium block mb-1">EV Efficiency ({efficiencyUnit})</label>
                   <input type="number" className="w-full border border-cyan-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-cyan-400 outline-none" value={evEfficiency} onChange={e => setEvEfficiency(e.target.value === '' ? '' : Number(e.target.value))} />
                   <p className="text-[10px] text-cyan-500 mt-0.5">Typical: 130-200 Wh/km · Tesla ≈ 150 · SUV ≈ 200</p>
                 </div>
                 <div>
-                  <label className="text-xs text-cyan-700 font-medium block mb-1">Home Rate ({region.symbol}/kWh)</label>
+                  <label className="text-xs text-cyan-700 font-medium block mb-1">Home Rate ({currency.symbol}/kWh)</label>
                   <input type="number" step="0.01" className="w-full border border-cyan-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-cyan-400 outline-none" value={elecRate} onChange={e => setElecRate(e.target.value === '' ? '' : Number(e.target.value))} />
                 </div>
                 <div>
-                  <label className="text-xs text-cyan-700 font-medium block mb-1">Public Charging Rate ({region.symbol}/kWh)</label>
+                  <label className="text-xs text-cyan-700 font-medium block mb-1">Public Charging Rate ({currency.symbol}/kWh)</label>
                   <input type="number" step="0.01" className="w-full border border-cyan-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-cyan-400 outline-none" value={publicRate} onChange={e => setPublicRate(e.target.value === '' ? '' : Number(e.target.value))} />
                 </div>
               </div>
@@ -203,11 +176,11 @@ export const EVCostCompare: React.FC = () => {
               <p className="text-xs font-bold text-orange-800 uppercase tracking-wider mb-3 flex items-center gap-1.5"><Fuel className="w-3.5 h-3.5" /> Petrol/Gas Vehicle</p>
               <div className="space-y-3">
                 <div>
-                  <label className="text-xs text-orange-700 font-medium block mb-1">Fuel Economy ({regionKey === 'US' ? 'mpg' : `${region.distanceUnit}/${region.volumeUnit}`})</label>
+                  <label className="text-xs text-orange-700 font-medium block mb-1">Fuel Economy ({currency.code === 'USD' ? 'mpg' : `${distanceUnit}/${volumeUnit}`})</label>
                   <input type="number" className="w-full border border-orange-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-orange-400 outline-none" value={petrolEfficiency} onChange={e => setPetrolEfficiency(e.target.value === '' ? '' : Number(e.target.value))} />
                 </div>
                 <div>
-                  <label className="text-xs text-orange-700 font-medium block mb-1">Fuel Price ({region.symbol}/{region.volumeUnit})</label>
+                  <label className="text-xs text-orange-700 font-medium block mb-1">Fuel Price ({currency.symbol}/{volumeUnit})</label>
                   <input type="number" step="0.01" className="w-full border border-orange-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-orange-400 outline-none" value={petrolPrice} onChange={e => setPetrolPrice(e.target.value === '' ? '' : Number(e.target.value))} />
                 </div>
               </div>
@@ -236,11 +209,11 @@ export const EVCostCompare: React.FC = () => {
                     <div>
                       <div className="flex justify-between text-sm mb-1.5">
                         <span className="text-green-400 font-bold flex items-center gap-1.5"><Zap className="w-4 h-4" /> Home Charging</span>
-                        <span className="text-white font-extrabold"><AnimCount value={Math.round(results.annualHome)} prefix={region.symbol} /></span>
+                        <span className="text-white font-extrabold">{format(results.annualHome)}</span>
                       </div>
                       <div className="h-8 bg-white dark:bg-gray-900 dark:bg-gray-900/10 rounded-full overflow-hidden">
                         <motion.div className="h-full bg-gradient-to-r from-green-500 to-emerald-400 rounded-full flex items-center justify-end pr-3" initial={{ width: 0 }} animate={{ width: `${(results.annualHome / results.maxCost) * 100}%` }} transition={{ duration: 1, delay: 0.2 }}>
-                          <span className="text-[10px] font-bold text-white/80">{region.symbol}{results.dailyHome.toFixed(2)}/day</span>
+                          <span className="text-[10px] font-bold text-white/80">{format(results.dailyHome)}/day</span>
                         </motion.div>
                       </div>
                     </div>
@@ -249,11 +222,11 @@ export const EVCostCompare: React.FC = () => {
                     <div>
                       <div className="flex justify-between text-sm mb-1.5">
                         <span className="text-blue-400 font-bold flex items-center gap-1.5"><Zap className="w-4 h-4" /> Public Charging</span>
-                        <span className="text-white font-extrabold"><AnimCount value={Math.round(results.annualPublic)} prefix={region.symbol} /></span>
+                        <span className="text-white font-extrabold">{format(results.annualPublic)}</span>
                       </div>
                       <div className="h-8 bg-white dark:bg-gray-900 dark:bg-gray-900/10 rounded-full overflow-hidden">
                         <motion.div className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full flex items-center justify-end pr-3" initial={{ width: 0 }} animate={{ width: `${(results.annualPublic / results.maxCost) * 100}%` }} transition={{ duration: 1, delay: 0.4 }}>
-                          <span className="text-[10px] font-bold text-white/80">{region.symbol}{results.dailyPublic.toFixed(2)}/day</span>
+                          <span className="text-[10px] font-bold text-white/80">{format(results.dailyPublic)}/day</span>
                         </motion.div>
                       </div>
                     </div>
@@ -262,11 +235,11 @@ export const EVCostCompare: React.FC = () => {
                     <div>
                       <div className="flex justify-between text-sm mb-1.5">
                         <span className="text-orange-400 font-bold flex items-center gap-1.5"><Fuel className="w-4 h-4" /> Petrol / Gas</span>
-                        <span className="text-white font-extrabold"><AnimCount value={Math.round(results.annualPetrol)} prefix={region.symbol} /></span>
+                        <span className="text-white font-extrabold">{format(results.annualPetrol)}</span>
                       </div>
                       <div className="h-8 bg-white dark:bg-gray-900 dark:bg-gray-900/10 rounded-full overflow-hidden">
                         <motion.div className="h-full bg-gradient-to-r from-orange-500 to-red-400 rounded-full flex items-center justify-end pr-3" initial={{ width: 0 }} animate={{ width: `${(results.annualPetrol / results.maxCost) * 100}%` }} transition={{ duration: 1, delay: 0.6 }}>
-                          <span className="text-[10px] font-bold text-white/80">{region.symbol}{results.dailyPetrol.toFixed(2)}/day</span>
+                          <span className="text-[10px] font-bold text-white/80">{format(results.dailyPetrol)}/day</span>
                         </motion.div>
                       </div>
                     </div>
@@ -275,7 +248,7 @@ export const EVCostCompare: React.FC = () => {
                   {/* Savings Banner */}
                   <motion.div className="mt-6 bg-green-500/20 border border-green-500/30 rounded-2xl p-4 text-center relative z-10" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1 }}>
                     <div className="text-green-400 text-xs font-bold uppercase tracking-wider mb-1">You Save With Home Charging</div>
-                    <div className="text-3xl font-extrabold text-white"><AnimCount value={Math.round(results.savingsVsPetrol)} prefix={region.symbol} /><span className="text-lg text-green-400">/yr</span></div>
+                    <div className="text-3xl font-extrabold text-white">{format(results.savingsVsPetrol)}<span className="text-lg text-green-400">/yr</span></div>
                     <p className="text-green-300/80 text-xs mt-1">That's <strong>{results.percentSaved.toFixed(0)}%</strong> less than petrol</p>
                   </motion.div>
                 </div>
@@ -299,14 +272,24 @@ export const EVCostCompare: React.FC = () => {
                   </div>
                 </motion.div>
 
-                {/* Formulas */}
+                {/* Formula Transparency */}
                 <div className="bg-slate-100 dark:bg-gray-800/50 dark:bg-gray-800/50 rounded-2xl p-5">
-                  <h4 className="text-xs font-bold text-slate-500 dark:text-gray-400 dark:text-gray-400 uppercase tracking-wider mb-3">Formulas Used</h4>
-                  <div className="space-y-2 text-sm text-slate-600 dark:text-gray-400 dark:text-gray-400 font-mono">
-                    <p>C<sub>home</sub> = (d × ε) ÷ 1000 × r<sub>elec</sub></p>
-                    <p>C<sub>petrol</sub> = d ÷ η<sub>fuel</sub> × r<sub>fuel</sub></p>
-                    <p>ΔC = C<sub>petrol</sub> − C<sub>home</sub></p>
-                    <p>CO₂ = E × EF<sub>source</sub></p>
+                  <h4 className="text-sm font-bold text-slate-800 dark:text-gray-200 uppercase tracking-wider mb-3">Mathematical Breakdown</h4>
+                  <p className="text-xs font-medium text-slate-500 mb-4 pb-2 border-b border-slate-200 dark:border-gray-700">Displaying transparent calculations according to SAE J1772 / IEC 61851 variables.</p>
+                  
+                  <div className="space-y-3 text-sm text-slate-600 dark:text-gray-400 font-mono bg-white dark:bg-gray-900 rounded-xl p-4 shadow-inner">
+                    <div>
+                      <span className="text-slate-400">Step 1: Daily Home EV Cost</span><br/>
+                      <span className="text-blue-600 dark:text-blue-400">C<sub>home</sub> = ({dailyDist} {distanceUnit} × {evEfficiency} {efficiencyUnit}) ÷ 1000 × {format(elecRate as number)} = {format(results.dailyHome)}/day</span>
+                    </div>
+                    <div>
+                      <span className="text-slate-400">Step 2: Daily Petrol Cost</span><br/>
+                      <span className="text-blue-600 dark:text-blue-400">C<sub>petrol</sub> = ({dailyDist} {distanceUnit} ÷ {petrolEfficiency} mpg/km.l) × {format(petrolPrice as number)} = {format(results.dailyPetrol)}/day</span>
+                    </div>
+                    <div>
+                      <span className="text-slate-400">Step 3: Annualized Delta</span><br/>
+                      <span className="text-blue-600 dark:text-blue-400">ΔSavings = ({format(results.dailyPetrol)} - {format(results.dailyHome)}) × 365 = {format(results.savingsVsPetrol)}/yr</span>
+                    </div>
                   </div>
                 </div>
 

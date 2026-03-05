@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { BatteryCharging, AlertTriangle, Info, ShieldAlert, ArrowRight } from 'lucide-react';
+import { BatteryCharging, AlertTriangle, Info, ShieldAlert, ArrowRight, DollarSign } from 'lucide-react';
+import { useCurrencyStore } from '../store/currencyStore';
 
 export const EVChargerSizer: React.FC = () => {
+  const { currency, format, convert } = useCurrencyStore();
   const [chargerAmps, setChargerAmps] = useState<number | ''>(48);
   const [distanceFt, setDistanceFt] = useState<number | ''>(50);
 
@@ -86,12 +88,11 @@ export const EVChargerSizer: React.FC = () => {
       <Helmet>
         <title>EV Charger Wire Sizer & NEMA 14-50 Warning | ElectroSafe.homes</title>
         <meta name="description" content="Calculate the correct wire gauge and breaker size for your home EV charger installed at a specific distance. Understand the 125% continuous load rule." />
-        <link rel="canonical" href="https://electrosafe.homes/ev-charger" />
       </Helmet>
 
       {/* Header */}
       <div className="text-center mb-10">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-green-100 text-green-700 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
           <BatteryCharging className="w-4 h-4" /> Garage Safety
         </div>
         <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-gray-100 dark:text-gray-100 mb-6 tracking-tight">
@@ -150,9 +151,9 @@ export const EVChargerSizer: React.FC = () => {
               <p className="text-xs text-slate-500 dark:text-gray-400 dark:text-gray-400 mt-2">Distance from breaker panel to the charger location.</p>
             </div>
             
-            <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 flex gap-3 items-start">
-               <Info className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-               <p className="text-sm text-blue-900">
+            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4 flex gap-3 items-start">
+               <Info className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
+               <p className="text-sm text-blue-900 dark:text-blue-200">
                  Did you know? Under NEC rules, a charger cannot pull 50 Amps from a 50 Amp breaker. It must use the "125% rule" for continuous loads.
                </p>
             </div>
@@ -170,7 +171,7 @@ export const EVChargerSizer: React.FC = () => {
              <div className="space-y-6 relative z-10">
                
                {/* Breaker Output */}
-               <div className="bg-white dark:bg-gray-900 dark:bg-gray-900/10 backdrop-blur-sm border border-white/10 rounded-2xl p-5">
+               <div className="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-5">
                  <div className="text-green-400 text-sm font-bold uppercase tracking-wider mb-1">Required Breaker Size</div>
                  <div className="flex items-end gap-2">
                     <span className="text-4xl font-extrabold text-white">{results.breakerChoice}</span>
@@ -182,7 +183,7 @@ export const EVChargerSizer: React.FC = () => {
                </div>
 
                {/* Wire Output */}
-               <div className="bg-white dark:bg-gray-900 dark:bg-gray-900/10 backdrop-blur-sm border border-white/10 rounded-2xl p-5">
+               <div className="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-5">
                  <div className="text-green-400 text-sm font-bold uppercase tracking-wider mb-1">Minimum Copper Wire</div>
                  <div className="flex items-end gap-2">
                     <span className="text-4xl font-extrabold text-white">{results.finalGaugeAwg}</span>
@@ -198,6 +199,19 @@ export const EVChargerSizer: React.FC = () => {
                    Must be THHN wire in conduit or appropriately rated NM-B cable (NM-B limits sizing to 60°C column, requiring thicker wire).
                  </p>
                </div>
+
+                {/* Mathematical Breakdown */}
+                <div className="bg-slate-800/50 rounded-2xl p-6 border border-white/10">
+                  <h4 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Calculation Transparency</h4>
+                  <div className="space-y-3 text-sm text-slate-300 font-mono">
+                    <p>1. Continuous Load = {chargerAmps}A × 1.25 = {results.continuousLoadAmps}A</p>
+                    <p>2. Breaker Choice = Next standard size ≥ {results.continuousLoadAmps}A ({results.breakerChoice}A)</p>
+                    <p>3. Voltage Drop Target = ≤ 3% @ {distanceFt} ft distance</p>
+                    <div className="pt-3 border-t border-slate-700">
+                      <p className="text-green-400 font-bold">Safety Standard Applied: NEC 625.40 & 210.19(A)(1)</p>
+                    </div>
+                  </div>
+                </div>
                
              </div>
            ) : (
@@ -210,15 +224,15 @@ export const EVChargerSizer: React.FC = () => {
       </div>
 
       {/* Critical NEMA 14-50 Warning */}
-      <div className="mt-12 bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-3xl p-6 md:p-8 shadow-xl border border-red-200">
+      <div className="mt-12 bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-3xl p-6 md:p-8 shadow-xl border border-red-200 dark:border-red-900/30">
          <div className="flex flex-col md:flex-row gap-6 items-start">
-            <div className="bg-red-50 p-4 rounded-full flex-shrink-0">
-               <ShieldAlert className="w-10 h-10 text-red-600" />
+            <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-full flex-shrink-0">
+               <ShieldAlert className="w-10 h-10 text-red-600 dark:text-red-400" />
             </div>
             <div>
                <h3 className="text-2xl font-bold text-slate-900 dark:text-gray-100 dark:text-gray-100 mb-3">The "Cheap NEMA 14-50" Fire Trap</h3>
                <p className="text-slate-600 dark:text-gray-400 dark:text-gray-400 leading-relaxed mb-4">
-                 If you are installing a plug-in EV charger using a NEMA 14-50 outlet (RV plug) instead of hardwiring, <strong>DO NOT</strong> let your electrician buy a $12 builder-grade receptacle from a hardware store (like Leviton).
+                 If you are installing a plug-in EV charger using a NEMA 14-50 outlet (RV plug) instead of hardwiring, <strong>DO NOT</strong> let your electrician buy a builder-grade receptacle from a hardware store for <strong>{format(convert(12))}</strong>.
                </p>
                <p className="text-slate-600 dark:text-gray-400 dark:text-gray-400 leading-relaxed mb-4">
                  Cheap outlets are meant for ovens that cycle on and off. EV chargers pull maximum heat for 10 straight hours, literally melting cheap plastic outlets and causing garage fires.
@@ -227,12 +241,12 @@ export const EVChargerSizer: React.FC = () => {
                <div className="bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 dark:border-gray-700 rounded-xl p-5 mb-4">
                   <h4 className="font-bold text-slate-900 dark:text-gray-100 dark:text-gray-100 mb-2">You MUST specify an industrial-grade outlet:</h4>
                   <ul className="list-disc pl-5 space-y-1 text-slate-700 dark:text-gray-300 dark:text-gray-300">
-                     <li><strong>Hubbell HBL9450A</strong> (approx. $80)</li>
-                     <li><strong>Bryant 9450FR</strong> (approx. $60)</li>
+                     <li><strong>Hubbell HBL9450A</strong> (approx. {format(convert(80))})</li>
+                     <li><strong>Bryant 9450FR</strong> (approx. {format(convert(60))})</li>
                   </ul>
                </div>
                
-               <div className="inline-block px-4 py-2 bg-green-100 text-green-800 font-bold rounded-lg text-sm">
+               <div className="inline-block px-4 py-2 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 font-bold rounded-lg text-sm">
                  💡 Or better yet: Save money on the GFCI breaker and outlet by having the electrician <strong>Hardwire</strong> the charger directly!
                </div>
             </div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { TrendingDown, TrendingUp, Minus, AlertTriangle, ArrowRight, DollarSign, Zap, CheckCircle2 } from 'lucide-react';
+import { useCurrencyStore } from '../store/currencyStore';
 
 interface MonthEntry { label: string; amount: string; units: string; }
 
@@ -15,6 +16,7 @@ const CAUSES = [
 ];
 
 export const BillDetector: React.FC = () => {
+  const { currency } = useCurrencyStore();
   const [months, setMonths] = useState<MonthEntry[]>([
     { label: 'Month 1 (oldest)', amount: '', units: '' },
     { label: 'Month 2', amount: '', units: '' },
@@ -22,6 +24,7 @@ export const BillDetector: React.FC = () => {
   ]);
   const [result, setResult] = useState<'idle' | 'ok' | 'spike'>('idle');
   const [spikePercent, setSpikePercent] = useState(0);
+  const [analysisData, setAnalysisData] = useState<{ avg: number, latest: number } | null>(null);
 
   const update = (idx: number, field: keyof MonthEntry, val: string) => {
     const updated = [...months];
@@ -35,6 +38,7 @@ export const BillDetector: React.FC = () => {
     const avg = amounts.slice(0, amounts.length - 1).reduce((a, b) => a + b, 0) / (amounts.length - 1);
     const latest = amounts[amounts.length - 1];
     const increase = ((latest - avg) / avg) * 100;
+    setAnalysisData({ avg, latest });
     setSpikePercent(Math.round(increase));
     setResult(increase >= 15 ? 'spike' : 'ok');
   };
@@ -54,7 +58,6 @@ export const BillDetector: React.FC = () => {
       <Helmet>
         <title>Electricity Bill Spike Detector — Why Is My Bill High? | ElectroSafe.homes</title>
         <meta name="description" content="Find out why your electricity bill spiked suddenly. Enter your last 3 months of bills and we'll identify the likely electrical cause — free tool, no sign-up." />
-        <link rel="canonical" href="https://electrosafe.homes/bill-detector" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
 
@@ -78,7 +81,7 @@ export const BillDetector: React.FC = () => {
                 <label className="text-xs font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 uppercase tracking-wider block mb-1">{m.label}</label>
               </div>
               <div>
-                <label className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 mb-1 block">Bill Amount (₹/$/-)</label>
+                <label className="text-xs text-gray-500 dark:text-gray-400 dark:text-gray-400 mb-1 block">Bill Amount ({currency.symbol})</label>
                 <input type="number" placeholder="e.g. 1500" min="0"
                   className="w-full px-3 py-2.5 border border-gray-200 dark:border-gray-700 dark:border-gray-700 rounded-xl text-gray-900 dark:text-gray-100 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 outline-none"
                   value={m.amount} onChange={e => update(i, 'amount', e.target.value)} />
@@ -109,7 +112,7 @@ export const BillDetector: React.FC = () => {
           </div>
 
           {result === 'spike' && (
-            <div>
+            <div className="mb-6">
               <h3 className="font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-3 flex items-center gap-2"><AlertTriangle className="w-4 h-4 text-amber-500" /> Likely Causes to Investigate:</h3>
               <div className="space-y-3">
                 {CAUSES.filter(c => c.pct <= Math.abs(spikePercent) + 10).map((c, i) => (
@@ -122,6 +125,19 @@ export const BillDetector: React.FC = () => {
                     <Link to={c.link} className="text-blue-600 hover:text-blue-800 flex-shrink-0"><ArrowRight className="w-4 h-4" /></Link>
                   </div>
                 ))}
+              </div>
+            </div>
+          )}
+
+          {/* Mathematical Breakdown */}
+          {analysisData && (
+            <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+              <h4 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-3">Mathematical Breakdown</h4>
+              <div className="bg-gray-100 dark:bg-gray-800/50 rounded-xl p-4 font-mono text-xs dark:text-gray-300 space-y-2">
+                <p>1. Average of Previous Bills = {currency.symbol}{analysisData.avg.toFixed(2)}</p>
+                <p>2. Current Bill = {currency.symbol}{analysisData.latest.toFixed(2)}</p>
+                <p>3. Percent Increase = (({analysisData.latest.toFixed(2)} - {analysisData.avg.toFixed(2)}) / {analysisData.avg.toFixed(2)}) × 100 = {spikePercent}%</p>
+                <p className="mt-2 text-[10px] opacity-70 italic">* Analysis follows standard utility audit practices identifying spikes &gt; 15% as abnormal.</p>
               </div>
             </div>
           )}

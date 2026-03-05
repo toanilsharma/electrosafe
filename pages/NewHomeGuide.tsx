@@ -28,6 +28,7 @@ import {
   Camera,
   Flame
 } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 import { StickyTOC, TOCItem } from '../components/StickyTOC';
 import { RelatedTools } from '../components/RelatedTools';
 
@@ -44,6 +45,52 @@ const TOC_ITEMS: TOCItem[] = [
 export const NewHomeGuide = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 md:py-12">
+      <Helmet>
+        <title>New Home Electrical Master Plan | ElectroSafe</title>
+        <meta name="description" content="Use this guide to manage budget, spot common scams, and ensure your dream home is ready for the next 50 years with flawless electrical setup." />
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "HowTo",
+              "name": "The Master Plan for a Flawless Electrical Setup in a New Home",
+              "description": "Don't trust the contractor blindly. Use this guide to manage budget, spot common scams, and ensure your dream home is ready for the next 50 years.",
+              "step": [
+                {
+                  "@type": "HowToStep",
+                  "name": "Phase 0: Hiring & Money",
+                  "text": "Understand the quote from the electrician to avoid being cheated before work even begins. Monitor the 'Cut Corners' scam detector for dangerous shortcuts."
+                },
+                {
+                  "@type": "HowToStep",
+                  "name": "Phase 1: Planning & Layout",
+                  "text": "Apply the socket density rules to ensure sufficient power access. Plan for high-power future needs like EV charging and induction stoves. Confirm the standard heights for switches and sockets."
+                },
+                {
+                  "@type": "HowToStep",
+                  "name": "Phase 2: Smart Shopping",
+                  "text": "Perform the wire quality 'Lighter Test' to ensure insulation self-extinguishes. Use the switch quality 'Heavy Box' test to ensure good materials."
+                },
+                {
+                  "@type": "HowToStep",
+                  "name": "Phase 3: Supervision",
+                  "text": "Use the Pre-Plaster Checklist to verify conduit alignment and clearances before cement covers them up. Ensure the contractor adheres to proper wire color codes."
+                },
+                {
+                  "@type": "HowToStep",
+                  "name": "Phase 4: Future Proofing",
+                  "text": "Add hidden smart wiring like solar conduit pipes, ceiling WiFi nodes, smart curtain paths, and smart neutral wires."
+                },
+                {
+                  "@type": "HowToStep",
+                  "name": "Phase 5: The Handover",
+                  "text": "Demand the 'As-Built' diagram, Megger Test Report, and Panel Directory before paying the final bill."
+                }
+              ]
+            }
+          `}
+        </script>
+      </Helmet>
       <StickyTOC items={TOC_ITEMS} />
 
       {/* PREMIUM HERO SECTION */}

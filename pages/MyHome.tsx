@@ -95,7 +95,6 @@ export const MyHome: React.FC = () => {
       <Helmet>
         <title>My Home Safety Checklist — Track Your Progress | ElectroSafe.homes</title>
         <meta name="description" content="Track your home electrical safety progress with our 28-item checklist. Save your progress, earn badges, and share your score with family." />
-        <link rel="canonical" href="https://electrosafe.homes/my-home" />
       </Helmet>
 
       {/* Header */}

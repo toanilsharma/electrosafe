@@ -41,7 +41,6 @@ export const Stories: React.FC = () => {
       <Helmet>
         <title>Real Electrical Safety Near-Miss Stories | ElectroSafe.homes</title>
         <meta name="description" content="Real stories from homeowners worldwide who avoided electrical fires, shocks, and hazards. Share yours and help protect other homes." />
-        <link rel="canonical" href="https://electrosafe.homes/stories" />
         <script type="application/ld+json">{JSON.stringify(reviewSchema)}</script>
       </Helmet>
 

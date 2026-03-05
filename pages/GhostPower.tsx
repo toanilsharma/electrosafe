@@ -32,27 +32,7 @@ const DEVICE_LIBRARY: Device[] = [
   { name: 'Electric Toothbrush Charger', standbyW: 1.5, category: 'Chargers', icon: Zap },
 ];
 
-// ── Region ──────────────────────────────────────────────────
-interface RegionProfile { symbol: string; label: string; rate: number; }
-const REGIONS: Record<string, RegionProfile> = {
-  IN: { symbol: '₹', label: 'India', rate: 8 },
-  US: { symbol: '$', label: 'USA', rate: 0.16 },
-  GB: { symbol: '£', label: 'UK', rate: 0.34 },
-  EU: { symbol: '€', label: 'Europe', rate: 0.25 },
-  AU: { symbol: 'A$', label: 'Australia', rate: 0.30 },
-};
-
-function detectRegion(): string {
-  try {
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    if (tz.startsWith('Asia/Kolkata') || tz.startsWith('Asia/Calcutta')) return 'IN';
-    if (tz.startsWith('America/')) return 'US';
-    if (tz.startsWith('Europe/London')) return 'GB';
-    if (tz.startsWith('Europe/')) return 'EU';
-    if (tz.startsWith('Australia/')) return 'AU';
-  } catch {}
-  return 'US';
-}
+import { useCurrencyStore } from '../store/currencyStore';
 
 // Animated counter
 const AnimN: React.FC<{ value: number; prefix?: string; suffix?: string; decimals?: number }> = ({ value, prefix = '', suffix = '', decimals = 0 }) => {
@@ -71,14 +51,13 @@ const AnimN: React.FC<{ value: number; prefix?: string; suffix?: string; decimal
 interface AddedDevice { device: Device; qty: number; hoursOff: number; }
 
 export const GhostPower: React.FC = () => {
-  const [regionKey, setRegionKey] = useState(detectRegion);
-  const region = REGIONS[regionKey];
+  const { currency, format, convert } = useCurrencyStore();
   const [added, setAdded] = useState<AddedDevice[]>([]);
-  const [monthlyBill, setMonthlyBill] = useState<number | ''>(region.rate > 1 ? 3000 : 150);
+  const [monthlyBill, setMonthlyBill] = useState<number | ''>(Math.round(convert(150)));
   const [showResults, setShowResults] = useState(false);
 
   useEffect(() => { window.scrollTo(0, 0); }, []);
-  useEffect(() => { setMonthlyBill(REGIONS[regionKey].rate > 1 ? 3000 : 150); }, [regionKey]);
+  useEffect(() => { setMonthlyBill(Math.round(convert(150))); }, [currency.code]);
 
   const addDevice = (dev: Device) => {
     setAdded(prev => {
@@ -98,10 +77,12 @@ export const GhostPower: React.FC = () => {
   const calculate = () => {
     if (added.length === 0) return null;
 
+    const localElecRate = Number(convert(0.16).toFixed(2));
+
     // P_ghost = Σ(W_standby × qty × hours_off_per_day)
     const dailyWh = added.reduce((sum, a) => sum + (a.device.standbyW * a.qty * a.hoursOff), 0);
     const annualKwh = (dailyWh * 365) / 1000;
-    const annualCost = annualKwh * region.rate;
+    const annualCost = annualKwh * localElecRate;
     const monthlyGhost = annualCost / 12;
     const billPercent = monthlyBill ? (monthlyGhost / (monthlyBill as number)) * 100 : 0;
 
@@ -110,13 +91,13 @@ export const GhostPower: React.FC = () => {
       name: a.device.name,
       qty: a.qty,
       dailyWh: a.device.standbyW * a.qty * a.hoursOff,
-      annualCost: (a.device.standbyW * a.qty * a.hoursOff * 365 / 1000) * region.rate,
+      annualCost: (a.device.standbyW * a.qty * a.hoursOff * 365 / 1000) * localElecRate,
     })).sort((a, b) => b.annualCost - a.annualCost);
 
     // Fire risk devices (cheap chargers drawing > 3W standby)
     const fireRisk = added.filter(a => a.device.standbyW >= 5.0).map(a => a.device.name);
 
-    return { dailyWh, annualKwh, annualCost, monthlyGhost, billPercent, breakdown, fireRisk };
+    return { dailyWh, annualKwh, annualCost, monthlyGhost, billPercent, breakdown, fireRisk, localElecRate };
   };
 
   const results = showResults ? calculate() : null;
@@ -155,17 +136,7 @@ export const GhostPower: React.FC = () => {
         </div>
       </motion.div>
 
-      {/* Region */}
-      <div className="flex justify-center mb-8">
-        <div className="inline-flex gap-1 bg-slate-100 dark:bg-gray-800/50 dark:bg-gray-800/50 rounded-xl p-1">
-          {Object.entries(REGIONS).map(([key, r]) => (
-            <button key={key} onClick={() => { setRegionKey(key); setShowResults(false); }}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${regionKey === key ? 'bg-white dark:bg-gray-900 dark:bg-gray-900 shadow text-purple-700' : 'text-slate-500 dark:text-gray-400 dark:text-gray-400 hover:text-slate-700 dark:text-gray-300 dark:text-gray-300'}`}>
-              {r.label}
-            </button>
-          ))}
-        </div>
-      </div>
+      {/* Global Currency applies; removed local Region Selector */}
 
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
         {/* Device Library (left) */}
@@ -234,7 +205,7 @@ export const GhostPower: React.FC = () => {
             {/* Monthly bill + calculate */}
             <div className="flex items-end gap-3 mt-4">
               <div className="flex-1">
-                <label className="text-xs font-bold text-slate-500 dark:text-gray-400 dark:text-gray-400 block mb-1">Monthly Bill ({region.symbol})</label>
+                <label className="text-xs font-bold text-slate-500 dark:text-gray-400 dark:text-gray-400 block mb-1">Monthly Bill ({currency.symbol})</label>
                 <input type="number" className="w-full border border-slate-200 dark:border-gray-700 dark:border-gray-700 rounded-xl px-3 py-2.5 text-sm focus:ring-2 focus:ring-purple-400 outline-none" value={monthlyBill} onChange={e => setMonthlyBill(e.target.value === '' ? '' : Number(e.target.value))} />
               </div>
               <button onClick={() => setShowResults(true)} disabled={added.length === 0}
@@ -261,7 +232,7 @@ export const GhostPower: React.FC = () => {
                     </div>
                     <div className="bg-white dark:bg-gray-900 dark:bg-gray-900/10 backdrop-blur-sm border border-white/10 rounded-2xl p-4 text-center">
                       <div className="text-purple-400 text-xs font-bold uppercase mb-1">Annual Cost</div>
-                      <div className="text-2xl font-extrabold text-white"><AnimN value={results.annualCost} prefix={region.symbol} decimals={0} /></div>
+                      <div className="text-2xl font-extrabold text-white">{format(results.annualCost)}</div>
                     </div>
                     <div className="bg-white dark:bg-gray-900 dark:bg-gray-900/10 backdrop-blur-sm border border-white/10 rounded-2xl p-4 text-center">
                       <div className="text-purple-400 text-xs font-bold uppercase mb-1">% of Bill</div>
@@ -289,7 +260,7 @@ export const GhostPower: React.FC = () => {
                           <p className="text-sm font-medium text-slate-700 dark:text-gray-300 dark:text-gray-300">{d.name} {d.qty > 1 && <span className="text-xs text-slate-400">×{d.qty}</span>}</p>
                           <p className="text-[10px] text-slate-400">{d.dailyWh.toFixed(0)} Wh/day standby</p>
                         </div>
-                        <span className="text-sm font-bold text-purple-700">{region.symbol}{d.annualCost.toFixed(0)}/yr</span>
+                        <span className="text-sm font-bold text-purple-700">{format(d.annualCost)}/yr</span>
                       </motion.div>
                     ))}
                   </div>
@@ -306,14 +277,24 @@ export const GhostPower: React.FC = () => {
                   </motion.div>
                 )}
 
-                {/* Formulas */}
+                {/* Formulas Transparency */}
                 <div className="bg-slate-100 dark:bg-gray-800/50 dark:bg-gray-800/50 rounded-2xl p-5">
-                  <h4 className="text-xs font-bold text-slate-500 dark:text-gray-400 dark:text-gray-400 uppercase tracking-wider mb-3">Formulas Used</h4>
-                  <div className="space-y-2 text-sm text-slate-600 dark:text-gray-400 dark:text-gray-400 font-mono">
-                    <p>P<sub>ghost</sub> = Σ(W<sub>standby</sub> × n × h<sub>off</sub>)</p>
-                    <p>E<sub>annual</sub> = P<sub>ghost</sub> × 365 ÷ 1000 &nbsp; [kWh]</p>
-                    <p>Cost = E<sub>annual</sub> × rate<sub>elec</sub></p>
-                    <p>Bill% = Cost<sub>ghost</sub> ÷ Bill<sub>monthly</sub> × 100</p>
+                  <h4 className="text-sm font-bold text-slate-800 dark:text-gray-200 uppercase tracking-wider mb-3">Mathematical Breakdown</h4>
+                  <p className="text-xs font-medium text-slate-500 mb-4 pb-2 border-b border-slate-200 dark:border-gray-700">Displaying transparent calculations according to IEC 62301 measurements.</p>
+                  
+                  <div className="space-y-3 text-sm text-slate-600 dark:text-gray-400 font-mono bg-white dark:bg-gray-900 rounded-xl p-4 shadow-inner">
+                    <div>
+                      <span className="text-slate-400">Step 1: Total Phantom Load</span><br/>
+                      <span className="text-purple-600 dark:text-purple-400">P<sub>ghost</sub> = Σ(W<sub>standby</sub> × qty × h<sub>off</sub>) = {results.dailyWh.toFixed(0)} Wh/day</span>
+                    </div>
+                    <div>
+                      <span className="text-slate-400">Step 2: Annual Energy Wasted</span><br/>
+                      <span className="text-purple-600 dark:text-purple-400">E<sub>annual</sub> = ({results.dailyWh.toFixed(0)} Wh × 365) ÷ 1000 = {results.annualKwh.toFixed(1)} kWh/yr</span>
+                    </div>
+                    <div>
+                      <span className="text-slate-400">Step 3: Financial Drain</span><br/>
+                      <span className="text-purple-600 dark:text-purple-400">Cost = {results.annualKwh.toFixed(1)} kWh × {format(results.localElecRate)}/kWh = {format(results.annualCost)}/yr</span>
+                    </div>
                   </div>
                 </div>
 

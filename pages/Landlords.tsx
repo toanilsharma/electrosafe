@@ -35,7 +35,6 @@ export const Landlords: React.FC = () => {
       <Helmet>
         <title>Electrical Safety for Landlords & Property Managers | ElectroSafe.homes</title>
         <meta name="description" content="Free landlord electrical safety resources: embeddable safety badge, printable tenant safety letter, inspection checklist, and compliance guides for rental properties." />
-        <link rel="canonical" href="https://electrosafe.homes/landlords" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
 

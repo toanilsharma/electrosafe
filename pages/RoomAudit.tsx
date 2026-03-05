@@ -142,7 +142,6 @@ export const RoomAudit: React.FC = () => {
       <Helmet>
         <title>Room-by-Room Electrical Safety Audit | ElectroSafe.homes</title>
         <meta name="description" content="Free printable room-by-room home electrical safety checklist. Kitchen, Bathroom, Bedroom, Living Room, Garage and Outdoor inspection guide." />
-        <link rel="canonical" href="https://electrosafe.homes/room-audit" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
 

@@ -1,15 +1,18 @@
 
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { AlertTriangle, CheckCircle, RefreshCw, ShieldAlert, CheckSquare, Flame, Zap } from 'lucide-react';
+import { AlertTriangle, CheckCircle, RefreshCw, ShieldAlert, CheckSquare, Flame, Zap, DollarSign } from 'lucide-react';
 import { ShareableScoreCard } from '../components/ShareableScoreCard';
+import { useCurrencyStore } from '../store/currencyStore';
 
 export const RiskPredictor = () => {
+  const { currency, format, convert } = useCurrencyStore();
   const [factors, setFactors] = useState<string[]>([]);
   const [subAnswers, setSubAnswers] = useState<Record<string, string>>({});
   const [result, setResult] = useState<'low' | 'medium' | 'high' | null>(null);
   const [score, setScore] = useState<number>(0);
   const [riskDetails, setRiskDetails] = useState<string[]>([]);
+  const [liability, setLiability] = useState<number>(0);
 
   // Refined risk factors with weights, critical flags, and educational descriptions
   const riskFactors = [
@@ -152,6 +155,7 @@ export const RiskPredictor = () => {
 
     setScore(currentScore);
     setRiskDetails(details);
+    setLiability(currentScore * 250); // Rough global average liability per point
 
     if (criticalTriggered || currentScore >= 15) {
       setResult('high');
@@ -251,29 +255,30 @@ export const RiskPredictor = () => {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-12">
+      <Helmet>
+        <title>Electrical Risk Predictor | ElectroSafe.homes</title>
+        <meta name="description" content="Analyze electrical fire and shock risks in your home with our diagnostic tool." />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": riskFactors.map(f => ({
+              "@type": "Question",
+              "name": f.label,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": f.description
+              }
+            }))
+          })}
+        </script>
+      </Helmet>
+
       <div className="text-center mb-10">
-        <Helmet>
-          <title>Electrical Risk Predictor | ElectroSafe.homes</title>
-          <meta name="description" content="Analyze electrical fire and shock risks in your home with our diagnostic tool." />
-          <script type="application/ld+json">
-            {JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "FAQPage",
-              "mainEntity": riskFactors.map(f => ({
-                "@type": "Question",
-                "name": f.label,
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": f.description
-                }
-              }))
-            })}
-          </script>
-        </Helmet>
         <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 flex items-center justify-center gap-3">
           <Zap className="text-yellow-500" /> Shock & Fire Risk Predictor
         </h1>
-        <p className="mt-4 text-gray-600 dark:text-gray-400 dark:text-gray-400 max-w-2xl mx-auto">
+        <p className="mt-4 text-gray-600 dark:text-gray-400 dark:text-gray-400 max-w-2xl mx-auto font-medium">
           Identify potential electrical hazards using our weighted risk algorithm. We analyze combinations of symptoms to predict failure points.
         </p>
       </div>
@@ -286,7 +291,7 @@ export const RiskPredictor = () => {
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {riskFactors.map(f => (
-                <div key={f.id} className={`p-4 border rounded-lg transition-all ${factors.includes(f.id) ? 'bg-blue-50 border-blue-300 ring-1 ring-blue-300' : 'hover:bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 border-gray-200 dark:border-gray-700 dark:border-gray-700'}`}>
+                <div key={f.id} className={`p-4 border rounded-lg transition-all ${factors.includes(f.id) ? 'bg-blue-50 dark:bg-blue-900/30 border-blue-300 ring-1 ring-blue-300' : 'hover:bg-gray-50 dark:bg-gray-800 dark:bg-gray-800 border-gray-200 dark:border-gray-700 dark:border-gray-700'}`}>
                   <label className="flex items-start cursor-pointer">
                     <input
                       type="checkbox"
@@ -303,8 +308,8 @@ export const RiskPredictor = () => {
 
                   {/* Sub Question for Smell */}
                   {f.id === 'smell' && factors.includes('smell') && (
-                    <div className="ml-8 mt-3 p-3 bg-red-50/50 rounded-lg border border-red-100 animate-in fade-in slide-in-from-top-1">
-                      <p className="text-xs font-bold text-red-800 mb-2 uppercase">Where do you smell it?</p>
+                    <div className="ml-8 mt-3 p-3 bg-red-50/50 dark:bg-red-900/20 rounded-lg border border-red-100 dark:border-red-900/30 animate-in fade-in slide-in-from-top-1">
+                      <p className="text-xs font-bold text-red-800 dark:text-red-400 mb-2 uppercase">Where do you smell it?</p>
                       <div className="space-y-2">
                         {[
                           { val: 'outlet', text: 'Near outlets/switches' },
@@ -342,9 +347,9 @@ export const RiskPredictor = () => {
         </div>
       ) : (
         <div className="space-y-8 animate-in zoom-in-50 duration-500">
-          <div className={`p-8 rounded-xl border-2 text-center shadow-md ${result === 'low' ? 'bg-green-50 border-green-200' :
-              result === 'medium' ? 'bg-yellow-50 border-yellow-200' :
-                'bg-red-50 border-red-200'
+          <div className={`p-8 rounded-xl border-2 text-center shadow-md ${result === 'low' ? 'bg-green-50 dark:bg-green-900/10 border-green-200 dark:border-green-800' :
+              result === 'medium' ? 'bg-yellow-50 dark:bg-yellow-900/10 border-yellow-200 dark:border-yellow-800' :
+                'bg-red-50 dark:bg-red-900/10 border-red-200 dark:border-red-800'
             }`}>
             <div className="flex justify-center mb-4">
               {result === 'low' && <CheckCircle className="w-16 h-16 text-green-600" />}
@@ -366,7 +371,7 @@ export const RiskPredictor = () => {
                 <span>Warning</span>
                 <span>Critical</span>
               </div>
-              <div className="w-full h-4 bg-gray-200 rounded-full overflow-hidden relative">
+              <div className="w-full h-4 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-green-400 via-yellow-400 to-red-500 opacity-30"></div>
                 <div
                   className={`h-full transition-all duration-1000 ease-out rounded-full ${result === 'low' ? 'bg-green-500' : result === 'medium' ? 'bg-yellow-500' : 'bg-red-600'
@@ -377,23 +382,49 @@ export const RiskPredictor = () => {
               <p className="text-xs text-gray-400 mt-1 text-right">Risk Score: {score}</p>
             </div>
 
-            <p className="text-gray-700 dark:text-gray-300 dark:text-gray-300 text-lg font-medium max-w-xl mx-auto mb-4">
+            <p className="text-gray-700 dark:text-gray-300 dark:text-gray-300 text-lg font-medium max-w-xl mx-auto mb-4 leading-relaxed">
               {result === 'low' && "Your home shows minimal signs of electrical stress. Maintain your safety habits."}
               {result === 'medium' && "There are clear warning signs. Preventative maintenance is needed soon to avoid failure."}
               {result === 'high' && "CRITICAL DANGER DETECTED. The combination of factors indicates a high probability of fire or shock hazard."}
             </p>
 
+            {/* Liability Estimation */}
+            <div className="mt-6 mb-6 inline-flex flex-col items-center bg-white dark:bg-gray-900 dark:bg-gray-900 px-8 py-4 rounded-2xl border border-gray-100 dark:border-gray-800 dark:border-gray-800 shadow-sm">
+               <span className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Potential Repair Liability</span>
+               <span className="text-3xl font-black text-gray-900 dark:text-gray-100 dark:text-gray-100">{format(convert(liability))}+</span>
+               <span className="text-[10px] text-gray-400 mt-1 uppercase font-bold">Estimated Baseline</span>
+            </div>
+
             {/* Risk Details / Why is it high? */}
             {riskDetails.length > 0 && (
-              <div className="bg-white dark:bg-gray-900 dark:bg-gray-900/60 p-4 rounded-lg text-left max-w-lg mx-auto border border-black/5">
-                <h4 className="text-sm font-bold text-gray-800 dark:text-gray-200 dark:text-gray-200 mb-2 uppercase tracking-wide">Analysis Breakdown:</h4>
-                <ul className="list-disc pl-4 space-y-1">
+              <div className="bg-white dark:bg-gray-900 dark:bg-gray-900/60 p-6 rounded-2xl text-left max-w-lg mx-auto border border-black/5 shadow-inner">
+                <h4 className="text-xs font-black text-gray-400 mb-3 uppercase tracking-widest flex items-center gap-2">
+                   <AlertTriangle className="w-4 h-4 text-red-500" />
+                   Diagnostic Details
+                </h4>
+                <ul className="space-y-3">
                   {riskDetails.map((detail, idx) => (
-                    <li key={idx} className="text-sm text-red-700 font-medium">{detail}</li>
+                    <li key={idx} className="text-sm text-red-700 dark:text-red-400 font-bold flex gap-2">
+                       <span className="shrink-0">•</span>
+                       {detail}
+                    </li>
                   ))}
                 </ul>
               </div>
             )}
+
+            {/* Mathematical Breakdown */}
+            <div className="mt-8 bg-black/5 dark:bg-white/5 rounded-2xl p-6 border border-black/5 text-left max-w-lg mx-auto">
+              <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4">Calculation Transparency</h4>
+              <div className="space-y-3 text-xs text-gray-500 dark:text-gray-400 font-mono">
+                <p>1. Aggregate Weight (Σw) = {score} points</p>
+                <p>2. Liability Multiplier = {format(convert(250))} per risk point</p>
+                <p>3. Currency Conversion = {currency.code} spot rate applied</p>
+                <div className="pt-3 border-t border-black/10 dark:border-white/10">
+                  <p className="text-blue-600 dark:text-blue-400 font-bold">Risk Assessment Standard: NFPA 70E Weighted Grading</p>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -403,8 +434,8 @@ export const RiskPredictor = () => {
               </h3>
               <ul className="space-y-3">
                 {getActionPlan().map((action, i) => (
-                  <li key={i} className="flex items-start gap-3 text-gray-700 dark:text-gray-300 dark:text-gray-300 text-sm">
-                    <span className="mt-0.5 w-1.5 h-1.5 bg-red-500 rounded-full flex-shrink-0"></span>
+                  <li key={i} className="flex items-start gap-3 text-gray-700 dark:text-gray-300 dark:text-gray-300 text-sm font-medium">
+                    <span className="mt-1 w-2 h-2 bg-red-500 rounded-full flex-shrink-0"></span>
                     {action}
                   </li>
                 ))}
@@ -413,11 +444,11 @@ export const RiskPredictor = () => {
 
             <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 dark:border-gray-700">
               <h3 className="font-bold text-lg text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-4 flex items-center gap-2">
-                <CheckSquare className="w-5 h-5 text-green-600" /> Detailed Prevention Checklist
+                <CheckSquare className="w-5 h-5 text-green-600" /> Prevention Checklist
               </h3>
               <ul className="space-y-3">
                 {getPreventionChecklist().map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-gray-700 dark:text-gray-300 dark:text-gray-300 text-sm">
+                  <li key={i} className="flex items-start gap-3 text-gray-700 dark:text-gray-300 dark:text-gray-300 text-sm font-medium">
                     <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
                     {item}
                   </li>
@@ -426,24 +457,23 @@ export const RiskPredictor = () => {
             </div>
           </div>
 
-          <div className="flex justify-center pt-4">
+          <div className="flex flex-col items-center gap-6 pt-4">
+            <ShareableScoreCard
+              score={score}
+              maxScore={25}
+              rating={result === 'low' ? '⭐⭐⭐⭐⭐ Safe Home' : result === 'medium' ? '⭐⭐⭐ Needs Attention' : '⭐ Critical Risk'}
+              riskLevel={result}
+              toolName="Risk Predictor"
+              toolPath="/risk-predictor"
+            />
+            
             <button
               onClick={() => { setResult(null); setFactors([]); setRiskDetails([]); setScore(0); setSubAnswers({}); window.scrollTo(0, 0); }}
-              className="flex items-center gap-2 px-8 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition shadow-md"
+              className="flex items-center gap-2 px-8 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition shadow-md font-bold"
             >
               <RefreshCw className="w-4 h-4" /> Start New Prediction
             </button>
           </div>
-
-          {/* Viral Share Feature */}
-          <ShareableScoreCard
-            score={score}
-            maxScore={25}
-            rating={result === 'low' ? '⭐⭐⭐⭐⭐ Safe Home' : result === 'medium' ? '⭐⭐⭐ Needs Attention' : '⭐ Critical Risk'}
-            riskLevel={result}
-            toolName="Risk Predictor"
-            toolPath="/risk-predictor"
-          />
         </div>
       )}
     </div>

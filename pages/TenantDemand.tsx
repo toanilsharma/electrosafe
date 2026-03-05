@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { FileText, Download, ShieldAlert, ArrowRight, Gavel, FileWarning } from 'lucide-react';
+import { FileText, Download, ShieldAlert, ArrowRight, Gavel, FileWarning, ShieldCheck, Info, Calculator } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const COMMON_ISSUES = [
   "Sparking or warm outlets",
@@ -18,9 +19,7 @@ export const TenantDemand: React.FC = () => {
   const [selectedIssues, setSelectedIssues] = useState<string[]>([]);
   const [customIssue, setCustomIssue] = useState('');
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  useEffect(() => { window.scrollTo(0, 0); }, []);
 
   const toggleIssue = (issue: string) => {
     setSelectedIssues(prev => 
@@ -85,144 +84,148 @@ Tenant
       <Helmet>
         <title>Renters' Revenge: Electrical Hazard Demand Letter | ElectroSafe.homes</title>
         <meta name="description" content="Landlord ignoring your sparking outlets? Generate a formal, legal-sounding Notice of Electrical Hazard to force them to fix dangerous code violations." />
-        <link rel="canonical" href="https://electrosafe.homes/tenant-demand" />
       </Helmet>
 
       {/* Header */}
-      <div className="text-center mb-12">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-red-100 text-red-800 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
-          <Gavel className="w-4 h-4 text-red-600" /> Tenant Protection
+      <motion.div className="text-center mb-12" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 rounded-full text-xs font-black uppercase tracking-widest mb-4">
+          <Gavel className="w-4 h-4" /> Legal Enforcement
         </div>
-        <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-gray-100 dark:text-gray-100 mb-6 tracking-tight">
-          The Renters' <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-rose-500">Revenge</span> Generator
+        <h1 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-gray-100 mb-6 tracking-tighter italic">
+          The <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-rose-600 underline">Demand</span> Generator
         </h1>
-        <p className="text-xl text-slate-600 dark:text-gray-400 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
-          Slumlords ignore texts. They don't ignore formal liability notices. Generate a legal-sounding "Notice of Electrical Hazard" to force your landlord to fix deadly code violations.
+        <p className="text-lg text-slate-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed font-medium">
+          Slumlords ignore texts. They don't ignore formal liability notices citing the Implied Warranty of Habitability. Generate your legal-weighted notice now.
         </p>
-      </div>
+      </motion.div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
-        {/* Form Container */}
-        <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-3xl p-6 md:p-8 shadow-xl border border-slate-100 dark:border-gray-800 dark:border-gray-800 h-fit">
-           <h2 className="text-2xl font-bold text-slate-900 dark:text-gray-100 dark:text-gray-100 mb-6 flex items-center gap-2">
-             <FileWarning className="w-6 h-6 text-red-500" /> Case Details
-           </h2>
+        {/* Left: Input */}
+        <div className="lg:col-span-5 space-y-6">
+           <div className="bg-white dark:bg-gray-900 p-8 rounded-[32px] border border-slate-100 dark:border-gray-800 shadow-xl">
+              <h2 className="text-xl font-black text-slate-900 dark:text-gray-100 mb-8 flex items-center gap-3">
+                <FileWarning className="w-6 h-6 text-rose-500" /> Case Details
+              </h2>
 
-           <div className="space-y-5">
-              <div>
-                 <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300 mb-1">Your Name</label>
-                 <input 
-                   type="text" 
-                   placeholder="Jane Doe"
-                   value={tenantName}
-                   onChange={(e) => setTenantName(e.target.value)}
-                   className="w-full bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 dark:border-gray-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none"
-                 />
-              </div>
-              
-              <div>
-                 <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300 mb-1">Landlord / Management Co. Name</label>
-                 <input 
-                   type="text" 
-                   placeholder="123 Property Management LLC"
-                   value={landlordName}
-                   onChange={(e) => setLandlordName(e.target.value)}
-                   className="w-full bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 dark:border-gray-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none"
-                 />
-              </div>
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Notice Date</label>
+                  <p className="text-lg font-black text-slate-800 dark:text-gray-200">{getTodayDate()}</p>
+                </div>
 
-              <div>
-                 <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300 mb-1">Property Address</label>
-                 <input 
-                   type="text" 
-                   placeholder="456 Danger Ave, Apt 4B"
-                   value={propertyAddress}
-                   onChange={(e) => setPropertyAddress(e.target.value)}
-                   className="w-full bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 dark:border-gray-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none"
-                 />
-              </div>
+                <div className="space-y-4">
+                  <input 
+                    type="text" 
+                    placeholder="Tenant Full Name"
+                    value={tenantName}
+                    onChange={(e) => setTenantName(e.target.value)}
+                    className="w-full bg-slate-50 dark:bg-gray-800 border-2 border-slate-100 dark:border-gray-700 rounded-2xl px-5 py-4 focus:ring-2 focus:ring-red-500 outline-none font-bold"
+                  />
+                  <input 
+                    type="text" 
+                    placeholder="Landlord / Management Name"
+                    value={landlordName}
+                    onChange={(e) => setLandlordName(e.target.value)}
+                    className="w-full bg-slate-50 dark:bg-gray-800 border-2 border-slate-100 dark:border-gray-700 rounded-2xl px-5 py-4 focus:ring-2 focus:ring-red-500 outline-none font-bold"
+                  />
+                  <input 
+                    type="text" 
+                    placeholder="Full Property Address"
+                    value={propertyAddress}
+                    onChange={(e) => setPropertyAddress(e.target.value)}
+                    className="w-full bg-slate-50 dark:bg-gray-800 border-2 border-slate-100 dark:border-gray-700 rounded-2xl px-5 py-4 focus:ring-2 focus:ring-red-500 outline-none font-bold"
+                  />
+                </div>
 
-              <div className="pt-4 border-t border-slate-100 dark:border-gray-800 dark:border-gray-800">
-                 <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300 mb-3">Select the Hazards Present:</label>
-                 <div className="grid grid-cols-1 gap-2">
+                <div className="pt-6 border-t border-slate-100 dark:border-gray-700">
+                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Evidence & Hazard Checklist</label>
+                  <div className="grid grid-cols-1 gap-2 mx-1">
                     {COMMON_ISSUES.map(issue => (
-                      <label key={issue} className={`flex items-start gap-3 p-3 rounded-lg border cursor-pointer transition-all ${
-                        selectedIssues.includes(issue) ? 'bg-red-50 border-red-200' : 'bg-white dark:bg-gray-900 dark:bg-gray-900 border-slate-200 dark:border-gray-700 dark:border-gray-700 hover:border-red-200 hover:bg-slate-50 dark:bg-gray-800 dark:bg-gray-800'
+                      <label key={issue} onClick={() => toggleIssue(issue)} 
+                        className={`flex items-start gap-4 p-4 rounded-2xl border-2 cursor-pointer transition-all ${
+                        selectedIssues.includes(issue) ? 'bg-rose-50 border-rose-500 shadow-sm' : 'bg-white dark:bg-gray-900 border-slate-50 dark:border-gray-800 hover:border-rose-200'
                       }`}>
-                         <input 
-                           type="checkbox" 
-                           checked={selectedIssues.includes(issue)}
-                           onChange={() => toggleIssue(issue)}
-                           className="mt-1 flex-shrink-0 w-4 h-4 text-red-600 rounded border-gray-300 focus:ring-red-500"
-                         />
-                         <span className={`text-sm ${selectedIssues.includes(issue) ? 'font-bold text-red-900' : 'text-slate-700 dark:text-gray-300 dark:text-gray-300'}`}>{issue}</span>
+                         <div className={`w-5 h-5 rounded-md border-2 shrink-0 flex items-center justify-center transition-colors ${selectedIssues.includes(issue) ? 'bg-rose-500 border-rose-500' : 'border-slate-200'}`}>
+                            {selectedIssues.includes(issue) && <ShieldCheck className="w-3.5 h-3.5 text-white" />}
+                         </div>
+                         <span className={`text-sm font-bold ${selectedIssues.includes(issue) ? 'text-rose-900' : 'text-slate-600 dark:text-gray-300'}`}>{issue}</span>
                       </label>
                     ))}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Custom Evidence Entry</label>
+                  <input 
+                    type="text" 
+                    placeholder="e.g. Breaker makes arcing noises at night"
+                    value={customIssue}
+                    onChange={(e) => setCustomIssue(e.target.value)}
+                    className="w-full bg-slate-50 dark:bg-gray-800 border-2 border-slate-100 dark:border-gray-700 rounded-2xl px-5 py-4 focus:ring-2 focus:ring-red-500 outline-none font-bold"
+                  />
+                </div>
+              </div>
+           </div>
+        </div>
+
+        {/* Right: Document Preview */}
+        <div className="lg:col-span-7 flex flex-col h-full gap-6">
+           <div className="bg-slate-900 rounded-[40px] shadow-2xl overflow-hidden flex flex-col h-full border border-slate-800">
+              <div className="px-8 py-6 flex items-center justify-between border-b border-white/5 bg-white/5">
+                 <h2 className="text-white font-black text-lg flex items-center gap-3 italic">
+                    <FileText className="w-6 h-6 text-rose-500" /> Formal Notice Preview
+                 </h2>
+                 <div className="flex gap-2">
+                    <div className="w-3 h-3 rounded-full bg-rose-500 shadow-lg shadow-rose-900/50" />
+                    <div className="w-3 h-3 rounded-full bg-white/10" />
+                    <div className="w-3 h-3 rounded-full bg-white/10" />
                  </div>
               </div>
-
-              <div>
-                 <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300 mb-1">Other Custom Hazard (Optional)</label>
-                 <input 
-                   type="text" 
-                   placeholder="e.g. Breaker panel makes buzzing noise"
-                   value={customIssue}
-                   onChange={(e) => setCustomIssue(e.target.value)}
-                   className="w-full bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 dark:border-gray-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none"
-                 />
-              </div>
-
-           </div>
-        </div>
-
-        {/* Live Preview Container */}
-        <div className="flex flex-col">
-           <div className="bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 rounded-t-3xl border border-slate-200 dark:border-gray-700 dark:border-gray-700 p-4 border-b-0 flex justify-between items-center">
-              <div className="flex items-center gap-2">
-                <FileText className="w-5 h-5 text-slate-500 dark:text-gray-400 dark:text-gray-400" />
-                <span className="font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300">Document Preview</span>
-              </div>
-              <div className="flex gap-1.5">
-                 <div className="w-3 h-3 rounded-full bg-red-400"></div>
-                 <div className="w-3 h-3 rounded-full bg-amber-400"></div>
-                 <div className="w-3 h-3 rounded-full bg-green-400"></div>
-              </div>
-           </div>
-           
-           <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 border border-slate-200 dark:border-gray-700 dark:border-gray-700 flex-1 shadow-inner relative">
-              <div className="absolute top-0 left-0 w-8 h-full bg-red-50/50 border-r border-red-100 hidden sm:block"></div>
-              <pre className="p-6 sm:pl-14 text-sm font-serif text-slate-800 dark:text-gray-200 dark:text-gray-200 whitespace-pre-wrap leading-relaxed">
-                 {generateLetterContent()}
-              </pre>
-           </div>
-           
-           <div className="bg-slate-900 rounded-b-3xl p-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-              <p className="text-slate-400 text-xs max-w-xs">
-                * This document generates a plain-text template. It does not constitute legal advice. Review local tenant laws.
-              </p>
               
-              <button 
-                onClick={downloadLetter}
-                className="w-full sm:w-auto inline-flex justify-center items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl transition shadow-lg shadow-red-500/30 flex-shrink-0"
-              >
-                 <Download className="w-5 h-5" /> Download Notice
-              </button>
-           </div>
-           
-           <div className="mt-6 bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl">
-             <div className="flex gap-3">
-               <ShieldAlert className="w-6 h-6 text-amber-600 flex-shrink-0" />
-               <p className="text-sm text-amber-900">
-                 <strong>Pro Tip:</strong> Send this via Certified Mail (USPS) with a Return Receipt. If a fire occurs after you send this, the landlord is massively liable. Just the threat of that liability usually forces immediate repair.
-               </p>
-             </div>
+              <div className="p-10 flex-grow relative">
+                 <div className="absolute top-0 left-0 w-12 h-full bg-white/5 border-r border-white/5 transition-opacity" />
+                 <pre className="relative z-10 w-full h-[600px] bg-transparent text-slate-300 font-serif text-sm leading-relaxed border-0 focus:ring-0 resize-none custom-scrollbar whitespace-pre-wrap">
+                    {generateLetterContent()}
+                 </pre>
+              </div>
+
+              <div className="p-10 bg-white/5 border-t border-white/5 text-center">
+                 <button 
+                    onClick={downloadLetter}
+                    className="w-full py-5 bg-rose-600 text-white rounded-[24px] font-black text-sm uppercase tracking-widest hover:bg-rose-700 transition-all shadow-xl shadow-rose-900/50 flex items-center justify-center gap-4 active:scale-95"
+                 >
+                    <Download className="w-6 h-6" /> Export Formal Demand (.txt)
+                 </button>
+              </div>
            </div>
 
+           {/* Legal Weight Footer */}
+           <div className="bg-slate-50 dark:bg-gray-800/50 p-8 rounded-[32px] border border-slate-100 dark:border-gray-800 flex flex-col md:flex-row items-center gap-8 shadow-sm">
+              <div className="p-4 bg-white dark:bg-gray-900 rounded-2xl shadow-sm text-rose-600 shrink-0">
+                 <ShieldAlert className="w-8 h-8" />
+              </div>
+              <div className="flex-1">
+                 <h3 className="font-black text-slate-900 dark:text-gray-100 mb-2 italic">Why Formal Notices Matter</h3>
+                 <p className="text-sm text-slate-600 dark:text-gray-400 font-medium leading-relaxed">
+                    Under the <strong className="font-black text-rose-600">Implied Warranty of Habitability</strong>, a landlord's failure to address "life-safety" hazards (like sparking wires) creates immediate legal liability. By sending this via Certified Mail, you establish a chain of custody that makes it nearly impossible for insurance or courts to side with the landlord in the event of a fire.
+                 </p>
+              </div>
+           </div>
         </div>
-
       </div>
 
+      {/* Bottom Transparency CTA */}
+      <div className="mt-16 bg-slate-900 rounded-[40px] p-8 md:p-12 text-center shadow-2xl relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-64 h-64 bg-red-500/10 rounded-full blur-3xl" />
+        <h2 className="text-2xl md:text-3xl font-black text-white mb-4 italic tracking-tighter uppercase">Transparent Vetting Logic</h2>
+        <p className="text-slate-400 mb-8 max-w-xl mx-auto font-medium">
+          The structure of this notice aligns with <strong className="text-white">Housing Court standards</strong> and <strong className="text-white">Landlord-Tenant Statutes</strong> found in most major jurisdictions. It prioritizes "Life Safety" language to maximize urgency.
+        </p>
+        <Link to="/tools" className="inline-flex items-center gap-3 px-8 py-4 bg-white text-slate-900 rounded-2xl font-black hover:bg-slate-50 transition-all shadow-xl text-sm uppercase tracking-widest">
+          Explore More Tools <ArrowRight className="w-5 h-5 text-red-600" />
+        </Link>
+      </div>
     </div>
   );
 };

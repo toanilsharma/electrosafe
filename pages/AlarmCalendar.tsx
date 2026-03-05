@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { Calendar, Bell, AlertTriangle, ShieldAlert, ArrowRight, Download, Search } from 'lucide-react';
+import { Calendar, Bell, AlertTriangle, ShieldAlert, ArrowRight, Download, Search, Zap, Calculator, Info, ShieldCheck } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const RECALLED_PRODUCTS = [
   { id: 1, brand: 'Kidde', type: 'Smoke/Carbon Monoxide Alarm', issue: 'Alarm can fail to alert consumers to a fire or CO incident.', year: '2021', model: 'TruSense Series' },
@@ -13,64 +14,30 @@ const RECALLED_PRODUCTS = [
 
 export const AlarmCalendar: React.FC = () => {
   const [installDate, setInstallDate] = useState<string>('');
-  const [alarmType, setAlarmType] = useState<string>('smoke'); // smoke (10 yr), CO (7 yr)
+  const [alarmType, setAlarmType] = useState<string>('smoke'); 
   const [searchTerm, setSearchTerm] = useState('');
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  useEffect(() => { window.scrollTo(0, 0); }, []);
 
   const getExpirationDetails = () => {
     if (!installDate) return null;
-    
     const start = new Date(installDate);
     const yearsToLive = alarmType === 'smoke' ? 10 : 7;
-    
     const end = new Date(start);
     end.setFullYear(end.getFullYear() + yearsToLive);
-    
     const today = new Date();
     const diffTime = end.getTime() - today.getTime();
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     const isExpired = diffDays <= 0;
-
-    return { 
-      expirationDate: end.toLocaleDateString(), 
-      isExpired, 
-      daysLeft: isExpired ? 0 : diffDays,
-      yearsToLive,
-      endObj: end
-    };
+    return { expirationDate: end.toLocaleDateString(), isExpired, daysLeft: isExpired ? 0 : diffDays, yearsToLive, endObj: end };
   };
 
   const generateICS = (endObj: Date, typeStr: string) => {
-    const formatDate = (date: Date) => {
-      return date.toISOString().replace(/-|:|\.\d+/g, '');
-    };
-
+    const formatDate = (date: Date) => date.toISOString().replace(/-|:|\.\d+/g, '');
     const start = formatDate(endObj);
-    // Make it a 1 hour event
     const end = new Date(endObj.getTime() + 60 * 60 * 1000);
     const endFormated = formatDate(end);
-
-    const icsContent = `BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//ElectroSafe.homes//Alarm Calendar//EN
-BEGIN:VEVENT
-UID:${new Date().getTime()}@electrosafe.homes
-DTSTAMP:${formatDate(new Date())}
-DTSTART:${start}
-DTEND:${endFormated}
-SUMMARY:CRITICAL: Replace ${typeStr} Alarm
-DESCRIPTION:Your ${typeStr} alarm has reached its manufacturer end-of-life and will no longer reliably detect deadly gases or fires. Replace it immediately. (Generated via ElectroSafe.homes)
-BEGIN:VALARM
-TRIGGER:-PT24H
-ACTION:DISPLAY
-DESCRIPTION:Reminder: Replace ${typeStr} Alarm tomorrow!
-END:VALARM
-END:VEVENT
-END:VCALENDAR`;
-
+    const icsContent = `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//ElectroSafe.homes//Alarm Calendar//EN\nBEGIN:VEVENT\nUID:${new Date().getTime()}@electrosafe.homes\nDTSTAMP:${formatDate(new Date())}\nDTSTART:${start}\nDTEND:${endFormated}\nSUMMARY:CRITICAL: Replace ${typeStr} Alarm\nDESCRIPTION:Your ${typeStr} alarm has reached its manufacturer end-of-life. (Generated via ElectroSafe.homes)\nBEGIN:VALARM\nTRIGGER:-PT24H\nACTION:DISPLAY\nDESCRIPTION:Reminder: Replace ${typeStr} Alarm tomorrow!\nEND:VALARM\nEND:VEVENT\nEND:VCALENDAR`;
     const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
     const link = document.createElement('a');
     link.href = window.URL.createObjectURL(blob);
@@ -81,7 +48,6 @@ END:VCALENDAR`;
   };
 
   const details = getExpirationDetails();
-  
   const filteredRecalls = RECALLED_PRODUCTS.filter(p => 
     p.brand.toLowerCase().includes(searchTerm.toLowerCase()) || 
     p.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -89,189 +55,191 @@ END:VCALENDAR`;
   );
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-8 md:py-12">
+    <div className="max-w-6xl mx-auto px-4 py-8 md:py-12">
       <Helmet>
         <title>Recall Radar & Smoke Alarm Calendar | ElectroSafe.homes</title>
         <meta name="description" content="Generate a 10-year calendar reminder for your smoke alarms and check our database for dangerous, recalled electrical panels and products." />
-        <link rel="canonical" href="https://electrosafe.homes/alarm-calendar" />
       </Helmet>
 
       {/* Header */}
-      <div className="text-center mb-12">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-orange-100 text-orange-700 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
-          <Bell className="w-4 h-4 text-orange-600 animate-wiggle" /> Time Bomb Check
+      <motion.div className="text-center mb-12" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-400 rounded-full text-xs font-black uppercase tracking-widest mb-4">
+          <Bell className="w-4 h-4" /> Component EOL Audit
         </div>
-        <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-gray-100 dark:text-gray-100 mb-6 tracking-tight">
-          The 10-Year <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-500">Alarm Calendar</span>
+        <h1 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-gray-100 mb-6 tracking-tighter italic">
+          The <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-red-600 underline">Alarm Lifespan</span> Tracker
         </h1>
-        <p className="text-xl text-slate-600 dark:text-gray-400 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
-          Sensors chemically degrade over time. Smoke alarms die at 10 years; Carbon Monoxide alarms die at 7. Put a reminder in your calendar today, so you don't burn tomorrow.
+        <p className="text-lg text-slate-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed font-medium">
+          Sensors chemically degrade at a predictable rate. Track your home's "Silent Sentinels" using manufacturer decay standards and NFPA safety codes.
         </p>
-      </div>
+      </motion.div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
         
-        {/* Input Panel */}
-        <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-3xl p-6 md:p-8 shadow-xl border border-slate-100 dark:border-gray-800 dark:border-gray-800 flex flex-col justify-center">
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-gray-100 dark:text-gray-100 mb-6">Set Your Expiration Timer</h2>
-          
-          <div className="space-y-6">
-            <div>
-              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300 mb-2">What type of alarm?</label>
-              <div className="flex gap-4">
-                 <button 
-                   onClick={() => setAlarmType('smoke')}
-                   className={`flex-1 py-3 px-4 rounded-xl font-bold border-2 transition-all ${
-                     alarmType === 'smoke' ? 'bg-orange-50 border-orange-500 text-orange-700' : 'bg-white dark:bg-gray-900 dark:bg-gray-900 border-slate-200 dark:border-gray-700 dark:border-gray-700 text-slate-500 dark:text-gray-400 dark:text-gray-400 hover:border-orange-300'
-                   }`}
-                 >
-                   Smoke (10 Yr)
-                 </button>
-                 <button 
-                   onClick={() => setAlarmType('co')}
-                   className={`flex-1 py-3 px-4 rounded-xl font-bold border-2 transition-all ${
-                     alarmType === 'co' ? 'bg-orange-50 border-orange-500 text-orange-700' : 'bg-white dark:bg-gray-900 dark:bg-gray-900 border-slate-200 dark:border-gray-700 dark:border-gray-700 text-slate-500 dark:text-gray-400 dark:text-gray-400 hover:border-orange-300'
-                   }`}
-                 >
-                   Carbon Monoxide (7 Yr)
-                 </button>
-              </div>
-            </div>
+        {/* Left: Tracker */}
+        <div className="lg:col-span-5 space-y-6">
+           <div className="bg-white dark:bg-gray-900 p-8 rounded-[32px] border border-slate-100 dark:border-gray-800 shadow-xl">
+              <h2 className="text-xl font-black text-slate-900 dark:text-gray-100 mb-8 flex items-center gap-3">
+                <Calendar className="w-6 h-6 text-rose-500" /> Sensor Audit
+              </h2>
+              
+              <div className="space-y-8">
+                <div>
+                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Alarm Technology</label>
+                  <div className="grid grid-cols-2 gap-4 p-1 bg-slate-50 dark:bg-gray-800 rounded-2xl border-2 border-slate-100 dark:border-gray-700">
+                    <button 
+                      onClick={() => setAlarmType('smoke')}
+                      className={`py-3 rounded-xl text-xs font-black transition-all ${alarmType === 'smoke' ? 'bg-white dark:bg-gray-700 text-rose-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+                    >
+                      Smoke (10 Yr)
+                    </button>
+                    <button 
+                      onClick={() => setAlarmType('co')}
+                      className={`py-3 rounded-xl text-xs font-black transition-all ${alarmType === 'co' ? 'bg-white dark:bg-gray-700 text-rose-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+                    >
+                      CO (7 Yr)
+                    </button>
+                  </div>
+                </div>
 
-            <div>
-              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300 mb-2">Manufacture Date (Printed on Back)</label>
-              <input 
-                type="date"
-                className="w-full bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 dark:border-gray-700 text-slate-900 dark:text-gray-100 dark:text-gray-100 rounded-xl px-4 py-3 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none font-medium text-lg"
-                value={installDate}
-                onChange={(e) => setInstallDate(e.target.value)}
-                max={new Date().toISOString().split("T")[0]}
-              />
-            </div>
-            
-            <div className="bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 rounded-xl p-4 flex gap-3 items-start border border-slate-200 dark:border-gray-700 dark:border-gray-700">
-               <AlertTriangle className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
-               <p className="text-sm text-slate-700 dark:text-gray-300 dark:text-gray-300">
-                 You must un-mount the alarm from the ceiling to look at the sticker on the back. Do not guess.
-               </p>
-            </div>
-          </div>
+                <div>
+                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Manufacture Date (From Sticker)</label>
+                  <input 
+                    type="date"
+                    className="w-full bg-slate-50 dark:bg-gray-800 border-2 border-slate-100 dark:border-gray-700 rounded-2xl px-5 py-4 focus:ring-2 focus:ring-rose-500 outline-none font-bold"
+                    value={installDate}
+                    onChange={(e) => setInstallDate(e.target.value)}
+                    max={new Date().toISOString().split("T")[0]}
+                  />
+                  <div className="mt-3 flex gap-2 items-start text-[10px] text-slate-400 font-bold uppercase tracking-tight italic">
+                     <Info className="w-3.5 h-3.5 shrink-0" /> Date is usually printed on the back plate. Unmount to verify.
+                  </div>
+                </div>
+              </div>
+           </div>
+
+           {/* Math Panel */}
+           <div className="bg-slate-900 rounded-[32px] p-8 text-white shadow-2xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-48 h-48 bg-rose-500/10 rounded-full blur-3xl" />
+              <h3 className="text-lg font-black mb-6 flex items-center gap-3">
+                 <Calculator className="w-6 h-6 text-rose-400" /> Decay Logic
+              </h3>
+              <div className="space-y-4">
+                 <div className="bg-white/5 p-5 rounded-2xl border border-white/5">
+                    <p className="text-[10px] font-black text-rose-400 uppercase tracking-widest mb-1">Chemical Half-Life Audit</p>
+                    <p className="text-sm font-medium leading-relaxed leading-relaxed font-mono">
+                      t_expiry = t_mfg + (Δy × 365.25)
+                    </p>
+                 </div>
+                 <div className="bg-white/5 p-5 rounded-2xl border border-white/5">
+                    <p className="text-sm font-medium text-slate-300 leading-relaxed">
+                       Ionization and photoelectric chambers degrade due to humidity and particulate accumulation. 10 years is the <strong className="text-white underline">absolute failure horizon</strong> per UL 217.
+                    </p>
+                 </div>
+              </div>
+           </div>
         </div>
 
-        {/* Results Panel */}
-        <div className={`rounded-3xl p-6 md:p-8 shadow-2xl relative overflow-hidden transition-all duration-500 ${
-          details ? (details.isExpired ? 'bg-red-900' : 'bg-slate-900') : 'bg-slate-800'
-        }`}>
-           
-           <h2 className="text-xl font-bold text-white mb-6 relative z-10">Sensor Status</h2>
-           
-           {details ? (
-             <div className="space-y-6 relative z-10 animate-fade-in">
-               
-               {details.isExpired ? (
-                 <div className="bg-red-500/20 border border-red-500/50 rounded-2xl p-6 text-center animate-pulse">
-                    <ShieldAlert className="w-16 h-16 text-red-500 mx-auto mb-4" />
-                    <h3 className="text-3xl font-black text-white mb-2">DEAD SENSOR</h3>
-                    <p className="text-red-200 text-lg">
-                      This alarm expired on <strong>{details.expirationDate}</strong>. It will no longer reliably detect a fire.
-                    </p>
-                 </div>
-               ) : (
-                 <div className="bg-white dark:bg-gray-900 dark:bg-gray-900/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center">
-                    <div className="text-4xl font-black text-white mb-2">{details.daysLeft}</div>
-                    <div className="text-orange-300 font-bold uppercase tracking-wider text-sm mb-4">Days of Protection Left</div>
-                    <p className="text-slate-300">
-                      Your {alarmType} sensor will chemically expire on <strong>{details.expirationDate}</strong>.
-                    </p>
-                 </div>
-               )}
-
-               {!details.isExpired && (
-                 <button 
-                   onClick={() => generateICS(details.endObj, alarmType.toUpperCase())}
-                   className="w-full flex justify-center items-center gap-2 py-4 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl transition shadow-lg shadow-orange-500/30 transform hover:-translate-y-1"
+        {/* Right: Status Output */}
+        <div className="lg:col-span-7">
+           <AnimatePresence mode="wait">
+              {details ? (
+                 <motion.div 
+                    key="results"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className={`rounded-[40px] p-10 shadow-2xl overflow-hidden relative border-4 ${
+                       details.isExpired ? 'bg-red-950 border-red-500' : 'bg-slate-900 border-white/5'
+                    }`}
                  >
-                   <Calendar className="w-5 h-5" /> Download .ICS Calendar Reminder
-                 </button>
-               )}
-               
-             </div>
-           ) : (
-             <div className="h-full flex flex-col items-center justify-center py-10 opacity-50 relative z-10">
-               <Calendar className="w-12 h-12 text-slate-400 mb-4" />
-               <p className="text-slate-400 text-center font-medium">Enter the date to calculate<br/>your sensor's death date.</p>
-             </div>
-           )}
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl" />
+                    
+                    <div className="relative z-10 text-center">
+                       {details.isExpired ? (
+                          <>
+                             <div className="w-24 h-24 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-red-500/50">
+                                <ShieldAlert className="w-12 h-12 text-white animate-pulse" />
+                             </div>
+                             <h3 className="text-5xl font-black text-white mb-4 tracking-tighter italic">LIFESPAN EXHAUSTED</h3>
+                             <p className="text-red-300 text-lg font-bold mb-8">
+                                This sensor expired on <span className="underline decoration-red-500 decoration-4 underline-offset-4">{details.expirationDate}</span>. No longer life-safe.
+                             </p>
+                          </>
+                       ) : (
+                          <>
+                             <div className="w-24 h-24 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-emerald-500/50">
+                                <ShieldCheck className="w-12 h-12 text-white" />
+                             </div>
+                             <div className="text-7xl font-black text-white mb-2 tracking-tighter">{details.daysLeft}</div>
+                             <p className="text-emerald-400 font-black uppercase tracking-[0.2em] text-xs mb-8">Days of Reliable Detection Remaining</p>
+                             <div className="bg-white/5 p-6 rounded-2xl border border-white/5 mb-8">
+                                <p className="text-slate-300 font-medium">EOL Date: <strong className="text-white">{details.expirationDate}</strong></p>
+                             </div>
+                          </>
+                       )}
+
+                       {!details.isExpired && (
+                          <button 
+                             onClick={() => generateICS(details.endObj, alarmType.toUpperCase())}
+                             className="w-full py-5 bg-rose-600 text-white rounded-3xl font-black text-sm uppercase tracking-widest hover:bg-rose-700 transition-all shadow-xl shadow-rose-900/50 flex items-center justify-center gap-3"
+                          >
+                             <Download className="w-5 h-5" /> Sync To Calendar
+                          </button>
+                       )}
+                    </div>
+                 </motion.div>
+              ) : (
+                 <div className="h-full min-h-[500px] bg-slate-100 dark:bg-gray-800/50 rounded-[40px] border-4 border-dashed border-slate-200 dark:border-gray-800 flex flex-center items-center justify-center p-12 italic text-slate-400 font-bold text-center">
+                    Enter Manufacture Date to Begin Lifespan Audit
+                 </div>
+              )}
+           </AnimatePresence>
         </div>
       </div>
 
-      {/* Feature 9b: The Recall Radar */}
-      <div className="mt-16 bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-3xl p-6 md:p-10 shadow-xl border border-slate-200 dark:border-gray-700 dark:border-gray-700">
-         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
+      {/* Recall Radar */}
+      <div className="bg-white dark:bg-gray-900 rounded-[40px] p-8 md:p-12 shadow-xl border border-slate-100 dark:border-gray-800">
+         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-12">
             <div>
-               <h2 className="text-3xl font-extrabold text-slate-900 dark:text-gray-100 dark:text-gray-100 mb-2">The Recall Radar</h2>
-               <p className="text-slate-600 dark:text-gray-400 dark:text-gray-400">Millions of dangerous electrical products are sitting in homes right now. Check if yours is one of them.</p>
+               <h2 className="text-3xl font-black text-slate-900 dark:text-gray-100 italic tracking-tighter">The Recall Radar</h2>
+               <p className="text-slate-500 dark:text-gray-400 font-medium mt-2">Database of documented catastrophic electrical component failures.</p>
             </div>
-            
-            <div className="relative w-full md:w-72">
-               <Search className="absolute left-3 top-3.5 h-5 w-5 text-slate-400" />
+            <div className="relative w-full md:w-80">
+               <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                <input 
                  type="text"
-                 placeholder="Search brands (e.g. Kidde, Eaton)"
-                 className="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                 placeholder="Search Brand (Kidde, Eaton...)"
+                 className="w-full pl-14 pr-6 py-4 bg-slate-50 dark:bg-gray-800 border-2 border-slate-100 dark:border-gray-700 rounded-2xl outline-none font-bold focus:border-rose-300"
                  value={searchTerm}
                  onChange={(e) => setSearchTerm(e.target.value)}
                />
             </div>
          </div>
          
-         <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-               <thead>
-                  <tr className="bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border-b border-slate-200 dark:border-gray-700 dark:border-gray-700">
-                     <th className="py-4 px-4 font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300">Brand / Type</th>
-                     <th className="py-4 px-4 font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300 hidden md:table-cell">Model Data</th>
-                     <th className="py-4 px-4 font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300">Deadly Defect</th>
-                  </tr>
-               </thead>
-               <tbody>
-                  {filteredRecalls.length > 0 ? (
-                    filteredRecalls.map(item => (
-                      <tr key={item.id} className="border-b border-slate-100 dark:border-gray-800 dark:border-gray-800 hover:bg-red-50/50 transition-colors">
-                         <td className="py-4 px-4">
-                            <div className="font-bold text-slate-900 dark:text-gray-100 dark:text-gray-100">{item.brand}</div>
-                            <div className="text-sm text-slate-500 dark:text-gray-400 dark:text-gray-400">{item.type}</div>
-                         </td>
-                         <td className="py-4 px-4 hidden md:table-cell">
-                            <span className="inline-block px-2.5 py-1 bg-slate-100 dark:bg-gray-800/50 dark:bg-gray-800/50 text-slate-700 dark:text-gray-300 dark:text-gray-300 text-xs rounded-md font-mono mb-1">{item.model}</span>
-                            <div className="text-xs text-slate-500 dark:text-gray-400 dark:text-gray-400">Recalled: {item.year}</div>
-                         </td>
-                         <td className="py-4 px-4">
-                            <div className="flex items-start gap-2 text-red-700">
-                               <AlertTriangle className="w-4 h-4 flex-shrink-0 mt-0.5" />
-                               <span className="text-sm font-medium">{item.issue}</span>
-                            </div>
-                         </td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan={3} className="py-8 text-center text-slate-500 dark:text-gray-400 dark:text-gray-400">
-                        No recalls found matching your search. Constantly check the CPSC website for updates.
-                      </td>
-                    </tr>
-                  )}
-               </tbody>
-            </table>
+         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredRecalls.map(item => (
+               <div key={item.id} className="bg-slate-50 dark:bg-gray-800/50 rounded-3xl p-6 border border-transparent hover:border-red-200 transition-all">
+                  <div className="flex justify-between items-start mb-4">
+                     <div>
+                        <h4 className="font-black text-slate-900 dark:text-gray-100">{item.brand}</h4>
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{item.model}</p>
+                     </div>
+                     <span className="bg-red-100 text-red-600 text-[10px] font-black px-2 py-1 rounded-lg">RECALLED</span>
+                  </div>
+                  <p className="text-xs font-medium text-slate-600 dark:text-gray-400 mb-4 leading-relaxed">{item.issue}</p>
+                  <div className="pt-4 border-t border-slate-200 dark:border-gray-700 flex justify-between items-center text-[10px] font-black text-slate-400">
+                     <span>{item.type}</span>
+                     <span>{item.year}</span>
+                  </div>
+               </div>
+            ))}
          </div>
-         
-         <div className="mt-8 text-center">
-             <a href="https://www.cpsc.gov/Recalls" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-blue-600 font-bold hover:text-blue-800 transition-colors">
-               View Official Gov CPSC Database <ArrowRight className="w-4 h-4" />
-             </a>
+         <div className="mt-12 text-center">
+            <a href="https://www.cpsc.gov/Recalls" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 text-blue-600 font-black text-xs uppercase tracking-widest hover:text-blue-700 border-b-2 border-transparent hover:border-blue-600 pb-1">
+               Official Government CPSC Database <ArrowRight className="w-4 h-4" />
+            </a>
          </div>
       </div>
-      
     </div>
   );
 };

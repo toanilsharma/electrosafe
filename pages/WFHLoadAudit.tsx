@@ -43,27 +43,20 @@ const DEVICE_LIBRARY: WFHDevice[] = [
   { name: 'Network Switch', watts: 15, category: 'Network' },
 ];
 
-// ── Region ──────────────────────────────────────────────────
-interface RegionProfile { symbol: string; label: string; voltage: number; circuitAmps: number; standard: string; }
-const REGIONS: Record<string, RegionProfile> = {
-  IN: { symbol: '₹', label: 'India', voltage: 230, circuitAmps: 16, standard: 'IS 732 / IEC 60884' },
-  US: { symbol: '$', label: 'USA', voltage: 120, circuitAmps: 15, standard: 'NEC 210.23(a)' },
-  GB: { symbol: '£', label: 'UK', voltage: 230, circuitAmps: 13, standard: 'BS 1363 / BS 7671' },
-  EU: { symbol: '€', label: 'Europe', voltage: 230, circuitAmps: 16, standard: 'IEC 60884' },
-  AU: { symbol: 'A$', label: 'Australia', voltage: 230, circuitAmps: 10, standard: 'AS/NZS 3112' },
-};
+import { useCurrencyStore } from '../store/currencyStore';
 
-function detectRegion(): string {
-  try {
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    if (tz.startsWith('Asia/Kolkata') || tz.startsWith('Asia/Calcutta')) return 'IN';
-    if (tz.startsWith('America/')) return 'US';
-    if (tz.startsWith('Europe/London')) return 'GB';
-    if (tz.startsWith('Europe/')) return 'EU';
-    if (tz.startsWith('Australia/')) return 'AU';
-  } catch {}
-  return 'US';
-}
+// ── Region mapping based on Currency ────────────────────────
+const getRegionFromCurrency = (currCode: string) => {
+  switch (currCode) {
+    case 'USD': case 'CAD': return { voltage: 120, circuitAmps: 15, standard: 'NEC 210.23(a)' };
+    case 'GBP': return { voltage: 230, circuitAmps: 13, standard: 'BS 1363 / BS 7671' };
+    case 'EUR': return { voltage: 230, circuitAmps: 16, standard: 'IEC 60884' };
+    case 'AUD': return { voltage: 230, circuitAmps: 10, standard: 'AS/NZS 3112' };
+    case 'INR': return { voltage: 230, circuitAmps: 16, standard: 'IS 732 / IEC 60884' };
+    case 'JPY': return { voltage: 100, circuitAmps: 15, standard: 'JIS C 8303' };
+    default: return { voltage: 230, circuitAmps: 13, standard: 'IEC 60884' }; // default 230V system
+  }
+};
 
 // Animated number
 const AnimN: React.FC<{ value: number; suffix?: string; decimals?: number }> = ({ value, suffix = '', decimals = 0 }) => {
@@ -82,8 +75,8 @@ const AnimN: React.FC<{ value: number; suffix?: string; decimals?: number }> = (
 interface AddedDev { device: WFHDevice; qty: number; }
 
 export const WFHLoadAudit: React.FC = () => {
-  const [regionKey, setRegionKey] = useState(detectRegion);
-  const region = REGIONS[regionKey];
+  const { currency } = useCurrencyStore();
+  const region = getRegionFromCurrency(currency.code);
   const [added, setAdded] = useState<AddedDev[]>([]);
 
   useEffect(() => { window.scrollTo(0, 0); }, []);
@@ -149,17 +142,7 @@ export const WFHLoadAudit: React.FC = () => {
         </div>
       </motion.div>
 
-      {/* Region */}
-      <div className="flex justify-center mb-8">
-        <div className="inline-flex gap-1 bg-slate-100 dark:bg-gray-800/50 dark:bg-gray-800/50 rounded-xl p-1">
-          {Object.entries(REGIONS).map(([key, r]) => (
-            <button key={key} onClick={() => setRegionKey(key)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${regionKey === key ? 'bg-white dark:bg-gray-900 dark:bg-gray-900 shadow text-indigo-700 dark:text-indigo-300' : 'text-slate-500 dark:text-gray-400 dark:text-gray-400 hover:text-slate-700 dark:text-gray-300 dark:text-gray-300'}`}>
-              {r.label}
-            </button>
-          ))}
-        </div>
-      </div>
+      {/* Global Currency applies; removed local Region Selector */}
 
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
         {/* Device Library */}
@@ -257,9 +240,12 @@ export const WFHLoadAudit: React.FC = () => {
                       <p className="text-sm font-medium text-slate-700 dark:text-gray-300 dark:text-gray-300 truncate">{a.device.name}</p>
                       <p className="text-[10px] text-slate-400">{a.device.watts}W × {a.qty} = {a.device.watts * a.qty}W</p>
                     </div>
-                    <input type="number" min={1} max={10} value={a.qty} onChange={e => updateQty(idx, Number(e.target.value))}
-                      className="w-12 text-center text-xs border border-slate-200 dark:border-gray-700 dark:border-gray-700 rounded-lg py-1 focus:ring-1 focus:ring-indigo-400 outline-none" />
-                    <button onClick={() => removeDevice(idx)} className="text-slate-300 hover:text-red-500 transition"><Trash2 className="w-4 h-4" /></button>
+                    <div className="flex gap-2 items-center">
+                      <button onClick={() => updateQty(idx, Math.max(1, a.qty - 1))} className="w-6 h-6 border border-slate-200 dark:border-gray-700 rounded text-slate-500">-</button>
+                      <span className="w-4 text-center text-sm font-bold">{a.qty}</span>
+                      <button onClick={() => updateQty(idx, a.qty + 1)} className="w-6 h-6 border border-slate-200 dark:border-gray-700 rounded text-slate-500">+</button>
+                    </div>
+                    <button onClick={() => removeDevice(idx)} className="text-slate-300 hover:text-red-500 transition ml-2"><Trash2 className="w-4 h-4" /></button>
                   </motion.div>
                 ))}
               </div>
@@ -280,14 +266,23 @@ export const WFHLoadAudit: React.FC = () => {
             </motion.div>
           )}
 
-          {/* Formulas */}
+          {/* Formulas Transparency */}
           <div className="bg-slate-100 dark:bg-gray-800/50 dark:bg-gray-800/50 rounded-2xl p-5">
-            <h4 className="text-xs font-bold text-slate-500 dark:text-gray-400 dark:text-gray-400 uppercase tracking-wider mb-3">Formulas Used</h4>
-            <div className="space-y-2 text-sm text-slate-600 dark:text-gray-400 dark:text-gray-400 font-mono">
-              <p>P<sub>total</sub> = Σ(P<sub>i</sub> × n<sub>i</sub>) &nbsp; [W]</p>
-              <p>I = P ÷ V &nbsp; [A] &nbsp;&nbsp; <span className="text-slate-400">({region.voltage}V system)</span></p>
-              <p>Load% = P<sub>total</sub> ÷ (V × I<sub>breaker</sub>) × 100</p>
-              <p>Max continuous = 80% × circuit rating</p>
+            <h4 className="text-sm font-bold text-slate-800 dark:text-gray-200 uppercase tracking-wider mb-3">Mathematical Breakdown</h4>
+            <p className="text-xs font-medium text-slate-500 mb-4 pb-2 border-b border-slate-200 dark:border-gray-700">Displaying transparent calculations according to {region.standard}.</p>
+            <div className="space-y-3 text-sm text-slate-600 dark:text-gray-400 font-mono bg-white dark:bg-gray-900 rounded-xl p-4 shadow-inner">
+              <div>
+                <span className="text-slate-400">Step 1: Total Power Draw</span><br/>
+                <span className="text-indigo-600 dark:text-indigo-400">P<sub>total</sub> = Σ(Watts × Qty) = {totalWatts} W</span>
+              </div>
+              <div>
+                <span className="text-slate-400">Step 2: Circuit Capacity</span><br/>
+                <span className="text-indigo-600 dark:text-indigo-400">P<sub>max</sub> = {region.voltage}V × {region.circuitAmps}A = {circuitCapacity} W</span>
+              </div>
+              <div>
+                <span className="text-slate-400">Step 3: Load Percentage</span><br/>
+                <span className="text-indigo-600 dark:text-indigo-400">Load = ({totalWatts} W ÷ {circuitCapacity} W) × 100 = {usagePercent.toFixed(1)}%</span>
+              </div>
             </div>
           </div>
         </div>

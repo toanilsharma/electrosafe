@@ -4,7 +4,7 @@ import { Home, Wrench, BookOpen, ShieldCheck, User } from 'lucide-react';
 
 const TABS = [
   { label: 'Home', icon: Home, to: '/' },
-  { label: 'Tools', icon: Wrench, to: '/assessment' },
+  { label: 'Tools', icon: Wrench, to: '/tools' },
   { label: 'Guides', icon: BookOpen, to: '/protection-guide' },
   { label: 'Safety', icon: ShieldCheck, to: '/quick-quiz' },
   { label: 'My Home', icon: User, to: '/my-home' },

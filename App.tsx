@@ -60,6 +60,7 @@ const WFHLoadAudit = React.lazy(() => import('./pages/WFHLoadAudit').then(module
 const ApplianceLife = React.lazy(() => import('./pages/ApplianceLife').then(module => ({ default: module.ApplianceLife })));
 const LightningRisk = React.lazy(() => import('./pages/LightningRisk').then(module => ({ default: module.LightningRisk })));
 const HolidayLights = React.lazy(() => import('./pages/HolidayLights').then(module => ({ default: module.HolidayLights })));
+const ToolsDirectory = React.lazy(() => import('./pages/ToolsDirectory').then(module => ({ default: module.ToolsDirectory })));
 
 function App() {
   return (
@@ -70,14 +71,12 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/assessment" element={<ToolAssessment />} />
-              <Route path="/load-calc" element={<ToolLoadCalc />} />
-              <Route path="/risk-predictor" element={<RiskPredictor />} />
               <Route path="/tenant-request" element={<ToolTenantRequest />} />
-              <Route path="/protection-guide" element={<GuideProtection />} />
               <Route path="/rooms" element={<Rooms />} />
               <Route path="/appliances" element={<Appliances />} />
               <Route path="/hardware" element={<HardwareGuide />} />
               <Route path="/new-home" element={<NewHomeGuide />} />
+              <Route path="/tools" element={<ToolsDirectory />} />
               <Route path="/everyday-safety" element={<EverydaySafety />} />
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/articles" element={<Articles />} />
@@ -115,14 +114,17 @@ function App() {
               <Route path="/tenant-demand" element={<TenantDemand />} />
               
               {/* Phase 6 Global Calculators */}
-              <Route path="/solar-roi" element={<SolarROI />} />
-              <Route path="/ev-cost-compare" element={<EVCostCompare />} />
-              <Route path="/ghost-power" element={<GhostPower />} />
-              <Route path="/dryer-vent-risk" element={<DryerVentRisk />} />
+              <Route path="/solar-roi-calculator" element={<SolarROI />} />
+              <Route path="/ev-charging-cost-calculator" element={<EVCostCompare />} />
+              <Route path="/ghost-power-calculator" element={<GhostPower />} />
+              <Route path="/dryer-vent-fire-risk-calculator" element={<DryerVentRisk />} />
               <Route path="/wfh-load-audit" element={<WFHLoadAudit />} />
-              <Route path="/appliance-life" element={<ApplianceLife />} />
-              <Route path="/lightning-risk" element={<LightningRisk />} />
+              <Route path="/appliance-life-expectancy-calculator" element={<ApplianceLife />} />
+              <Route path="/lightning-strike-calculator" element={<LightningRisk />} />
               <Route path="/holiday-lights" element={<HolidayLights />} />
+              <Route path="/surge-protection-guide" element={<GuideProtection />} />
+              <Route path="/electrical-load-calculator" element={<ToolLoadCalc />} />
+              <Route path="/electrical-hazard-risk-predictor" element={<RiskPredictor />} />
               
               <Route path="*" element={<Home />} />
             </Routes>

@@ -13,19 +13,19 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://electrosafe.homes/load-calc</loc>
+    <loc>https://electrosafe.homes/electrical-load-calculator</loc>
     <lastmod>2026-02-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://electrosafe.homes/risk-predictor</loc>
+    <loc>https://electrosafe.homes/electrical-hazard-risk-predictor</loc>
     <lastmod>2026-02-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://electrosafe.homes/protection-guide</loc>
+    <loc>https://electrosafe.homes/surge-protection-guide</loc>
     <lastmod>2026-02-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -376,25 +376,25 @@
   </url>
   <!-- Phase 6 Global Calculators (added 2026-03-04) -->
   <url>
-    <loc>https://electrosafe.homes/solar-roi</loc>
+    <loc>https://electrosafe.homes/solar-roi-calculator</loc>
     <lastmod>2026-03-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://electrosafe.homes/ev-cost-compare</loc>
+    <loc>https://electrosafe.homes/ev-charging-cost-calculator</loc>
     <lastmod>2026-03-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://electrosafe.homes/ghost-power</loc>
+    <loc>https://electrosafe.homes/ghost-power-calculator</loc>
     <lastmod>2026-03-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://electrosafe.homes/dryer-vent-risk</loc>
+    <loc>https://electrosafe.homes/dryer-vent-fire-risk-calculator</loc>
     <lastmod>2026-03-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -406,13 +406,13 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://electrosafe.homes/appliance-life</loc>
+    <loc>https://electrosafe.homes/appliance-life-expectancy-calculator</loc>
     <lastmod>2026-03-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://electrosafe.homes/lightning-risk</loc>
+    <loc>https://electrosafe.homes/lightning-strike-calculator</loc>
     <lastmod>2026-03-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

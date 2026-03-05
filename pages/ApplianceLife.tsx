@@ -51,31 +51,11 @@ const AnimN: React.FC<{ value: number; prefix?: string; suffix?: string; decimal
   return <span>{prefix}{d.toFixed(decimals)}{suffix}</span>;
 };
 
-// ── Region ──────────────────────────────────────────────────
-const REGIONS: Record<string, { symbol: string; label: string; rate: number }> = {
-  IN: { symbol: '₹', label: 'India', rate: 8 },
-  US: { symbol: '$', label: 'USA', rate: 0.16 },
-  GB: { symbol: '£', label: 'UK', rate: 0.34 },
-  EU: { symbol: '€', label: 'Europe', rate: 0.25 },
-  AU: { symbol: 'A$', label: 'Australia', rate: 0.30 },
-};
-
-function detectRegion(): string {
-  try {
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    if (tz.startsWith('Asia/Kolkata') || tz.startsWith('Asia/Calcutta')) return 'IN';
-    if (tz.startsWith('America/')) return 'US';
-    if (tz.startsWith('Europe/London')) return 'GB';
-    if (tz.startsWith('Europe/')) return 'EU';
-    if (tz.startsWith('Australia/')) return 'AU';
-  } catch {}
-  return 'US';
-}
+import { useCurrencyStore } from '../store/currencyStore';
 
 // ── Component ───────────────────────────────────────────────
 export const ApplianceLife: React.FC = () => {
-  const [regionKey, setRegionKey] = useState(detectRegion);
-  const region = REGIONS[regionKey];
+  const { currency, format, convert } = useCurrencyStore();
   const [selectedAppliance, setSelectedAppliance] = useState<string>(APPLIANCES[0].name);
   const [age, setAge] = useState<number | ''>(8);
   const [usage, setUsage] = useState<'light' | 'normal' | 'heavy'>('normal');
@@ -84,6 +64,7 @@ export const ApplianceLife: React.FC = () => {
 
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
+  const localElecRate = Number(convert(0.16).toFixed(2));
   const appliance = APPLIANCES.find(a => a.name === selectedAppliance)!;
 
   const calculate = () => {
@@ -108,7 +89,7 @@ export const ApplianceLife: React.FC = () => {
 
     // Annual extra cost from inefficiency
     const extraKwhYear = (wastedWatts * h * 365) / 1000;
-    const extraCostYear = extraKwhYear * region.rate;
+    const extraCostYear = extraKwhYear * localElecRate;
 
     // 5-year wasted cost
     const over5yr = extraCostYear * 5;
@@ -130,6 +111,7 @@ export const ApplianceLife: React.FC = () => {
       over5yr: Math.round(over5yr),
       safetyTier,
       effectiveAge: effectiveAge.toFixed(1),
+      localElecRate,
     };
   };
 
@@ -177,17 +159,7 @@ export const ApplianceLife: React.FC = () => {
         </div>
       </motion.div>
 
-      {/* Region */}
-      <div className="flex justify-center mb-8">
-        <div className="inline-flex gap-1 bg-slate-100 dark:bg-gray-800/50 dark:bg-gray-800/50 rounded-xl p-1">
-          {Object.entries(REGIONS).map(([key, r]) => (
-            <button key={key} onClick={() => { setRegionKey(key); setShowResults(false); }}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${regionKey === key ? 'bg-white dark:bg-gray-900 dark:bg-gray-900 shadow text-teal-700' : 'text-slate-500 dark:text-gray-400 dark:text-gray-400 hover:text-slate-700 dark:text-gray-300 dark:text-gray-300'}`}>
-              {r.label}
-            </button>
-          ))}
-        </div>
-      </div>
+      {/* Global Currency applies; removed local Region Selector */}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Input */}
@@ -291,23 +263,32 @@ export const ApplianceLife: React.FC = () => {
                   </div>
                   <div className="bg-white dark:bg-gray-900 dark:bg-gray-900/10 backdrop-blur-sm border border-white/10 rounded-2xl p-4 text-center">
                     <div className="text-red-400 text-xs font-bold uppercase mb-1">Extra Cost / Year</div>
-                    <div className="text-2xl font-extrabold text-white"><AnimN value={results.extraCostYear} prefix={region.symbol} /></div>
+                    <div className="text-2xl font-extrabold text-white">{format(results.extraCostYear)}</div>
                   </div>
                   <div className="bg-white dark:bg-gray-900 dark:bg-gray-900/10 backdrop-blur-sm border border-white/10 rounded-2xl p-4 text-center">
                     <div className="text-red-400 text-xs font-bold uppercase mb-1">Wasted Over 5 Years</div>
-                    <div className="text-2xl font-extrabold text-white"><AnimN value={results.over5yr} prefix={region.symbol} /></div>
+                    <div className="text-2xl font-extrabold text-white">{format(results.over5yr)}</div>
                   </div>
                 </div>
               </div>
 
-              {/* Formulas */}
+              {/* Formulas Transparency */}
               <div className="bg-slate-100 dark:bg-gray-800/50 dark:bg-gray-800/50 rounded-2xl p-5">
-                <h4 className="text-xs font-bold text-slate-500 dark:text-gray-400 dark:text-gray-400 uppercase tracking-wider mb-3">Formulas Used</h4>
-                <div className="space-y-2 text-sm text-slate-600 dark:text-gray-400 dark:text-gray-400 font-mono">
-                  <p>Age<sub>eff</sub> = Age × k<sub>usage</sub> &nbsp; <span className="text-slate-400">(k = 0.7 | 1.0 | 1.4)</span></p>
-                  <p>η<sub>loss</sub> = max(0, Age<sub>eff</sub> − T<sub>mid</sub>) × δ &nbsp; [%]</p>
-                  <p>P<sub>now</sub> = P<sub>rated</sub> × (1 + η<sub>loss</sub> ÷ 100)</p>
-                  <p>Extra Cost = ΔP × h × 365 ÷ 1000 × rate</p>
+                <h4 className="text-sm font-bold text-slate-800 dark:text-gray-200 uppercase tracking-wider mb-3">Mathematical Breakdown</h4>
+                <p className="text-xs font-medium text-slate-500 mb-4 pb-2 border-b border-slate-200 dark:border-gray-700">Displaying transparent calculations according to ENERGY STAR data.</p>
+                <div className="space-y-3 text-sm text-slate-600 dark:text-gray-400 font-mono bg-white dark:bg-gray-900 rounded-xl p-4 shadow-inner">
+                  <div>
+                    <span className="text-slate-400">Step 1: Effective Aging</span><br/>
+                    <span className="text-teal-600 dark:text-teal-400">Age<sub>eff</sub> = {age}yr × {usage === 'light' ? 0.7 : usage === 'heavy' ? 1.4 : 1.0} = {results.effectiveAge} yr</span>
+                  </div>
+                  <div>
+                    <span className="text-slate-400">Step 2: Efficiency Decay</span><br/>
+                    <span className="text-teal-600 dark:text-teal-400">η<sub>loss</sub> = {results.efficiencyLoss}% loss at current age</span>
+                  </div>
+                  <div>
+                    <span className="text-slate-400">Step 3: Annual Excess Cost</span><br/>
+                    <span className="text-teal-600 dark:text-teal-400">Cost = {results.wastedWatts}W × {hoursPerDay}h × 365 ÷ 1000 × {format(results.localElecRate)} = {format(results.extraCostYear)}/yr</span>
+                  </div>
                 </div>
               </div>
 

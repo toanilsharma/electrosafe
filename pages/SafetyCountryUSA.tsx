@@ -37,7 +37,6 @@ export const SafetyCountryUSA: React.FC = () => {
       <Helmet>
         <title>Home Electrical Safety Guide for USA — NEC, GFCI, AFCI | ElectroSafe.homes</title>
         <meta name="description" content="Complete electrical safety guide for US homes. NEC 2023 requirements, AFCI and GFCI protection, aluminum wiring risks, panel upgrades, and 120V vs 240V safety." />
-        <link rel="canonical" href="https://electrosafe.homes/safety/usa" />
         <meta name="keywords" content="home electrical safety USA, NEC 2023, AFCI breaker, GFCI outlet, aluminum wiring, electrical panel upgrade, US home wiring" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>

@@ -130,6 +130,42 @@ export const GuideProtection = () => {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
+      <Helmet>
+        <title>Circuit Protection & Breaker Guide | ElectroSafe</title>
+        <meta name="description" content="Learn how to select the right miniature circuit breakers, GFCIs, and RCDs for your specific needs." />
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "HowTo",
+              "name": "How to Choose the Right Circuit Protection for Your Home",
+              "description": "Determine the exact safety devices required for your home's profile. We use globally neutral engineering terms applicable to any standard (NEC, IEC, BS).",
+              "step": [
+                {
+                  "@type": "HowToStep",
+                  "name": "Enter Home Profile",
+                  "text": "Provide your home size, number of existing circuits, and sensitivity needs."
+                },
+                {
+                  "@type": "HowToStep",
+                  "name": "Identify Wet Areas",
+                  "text": "Check if bathrooms, kitchens, or outdoor areas need special ground-fault protection (RCD/GFCI)."
+                },
+                {
+                  "@type": "HowToStep",
+                  "name": "Identify High Power Loads",
+                  "text": "Note if you have EV chargers, induction stoves, or multiple ACs requiring dedicated breakers."
+                },
+                {
+                  "@type": "HowToStep",
+                  "name": "Analyze Protection Needs",
+                  "text": "Review the generated list of mandatory switchgear and critical safety warnings tailored to your home."
+                }
+              ]
+            }
+          `}
+        </script>
+      </Helmet>
       {/* Hero Header */}
       <div className="text-center mb-16 relative py-12">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-emerald-500/10 to-transparent blur-3xl rounded-[3rem] -z-10"></div>

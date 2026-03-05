@@ -14,6 +14,13 @@ import { ReturnVisitModal } from './ReturnVisitModal';
 import { DarkModeToggle, useDarkMode } from './DarkModeToggle';
 import { MobileTabBar } from './MobileTabBar';
 import { ExitIntentModal } from './ExitIntentModal';
+import { CurrencySelector } from './CurrencySelector';
+
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
 
 
 // --- NAV DROP DOWN COMPONENTS ---
@@ -100,9 +107,9 @@ const Navbar = () => {
       { type: 'Safety Tool', title: 'Baby Proofing', path: '/everyday-safety', sub: 'Child Safety', tab: 'baby' },
       { type: 'Safety Tool', title: 'Electrician Glossary', path: '/everyday-safety', sub: 'Terms', tab: 'glossary' },
 
-      { type: 'Tool', title: 'Load Calculator', path: '/load-calc', sub: 'Tool' },
+      { type: 'Tool', title: 'Load Calculator', path: '/electrical-load-calculator', sub: 'Tool' },
       { type: 'Tool', title: 'Safety Assessment', path: '/assessment', sub: 'Audit' },
-      { type: 'Tool', title: 'Risk Predictor', path: '/risk-predictor', sub: 'Diagnosis' },
+      { type: 'Tool', title: 'Risk Predictor', path: '/electrical-hazard-risk-predictor', sub: 'Diagnosis' },
       { type: 'Tool', title: 'Home Buyer Scanner', path: '/home-buyer-scanner', sub: 'Audit' },
       { type: 'Tool', title: 'Quote Analyzer', path: '/quote-analyzer', sub: 'Hiring' },
       { type: 'Tool', title: 'Breaker Mapper', path: '/breaker-mapper', sub: 'Utility' },
@@ -111,13 +118,13 @@ const Navbar = () => {
       { type: 'Tool', title: 'EV Charger Sizer', path: '/ev-charger', sub: 'Calculator' },
       { type: 'Tool', title: 'Alarm Calendar', path: '/alarm-calendar', sub: 'Recall Radar' },
       { type: 'Tool', title: 'Renters Demand', path: '/tenant-demand', sub: 'Legal Generator' },
-      { type: 'Tool', title: 'Solar ROI Calculator', path: '/solar-roi', sub: 'Payback & CO₂' },
-      { type: 'Tool', title: 'EV Cost Comparison', path: '/ev-cost-compare', sub: 'Cost Savings' },
-      { type: 'Tool', title: 'Ghost Power Finder', path: '/ghost-power', sub: 'Standby Cost' },
-      { type: 'Tool', title: 'Dryer Vent Risk', path: '/dryer-vent-risk', sub: 'Fire Safety' },
+      { type: 'Tool', title: 'Solar ROI Calculator', path: '/solar-roi-calculator', sub: 'Payback & CO₂' },
+      { type: 'Tool', title: 'EV Cost Comparison', path: '/ev-charging-cost-calculator', sub: 'Cost Savings' },
+      { type: 'Tool', title: 'Ghost Power Finder', path: '/ghost-power-calculator', sub: 'Standby Cost' },
+      { type: 'Tool', title: 'Dryer Vent Risk', path: '/dryer-vent-fire-risk-calculator', sub: 'Fire Safety' },
       { type: 'Tool', title: 'WFH Load Auditor', path: '/wfh-load-audit', sub: 'Circuit Check' },
-      { type: 'Tool', title: 'Appliance Life Gauge', path: '/appliance-life', sub: 'Efficiency' },
-      { type: 'Tool', title: 'Lightning Risk', path: '/lightning-risk', sub: 'IEC 62305' },
+      { type: 'Tool', title: 'Appliance Life Gauge', path: '/appliance-life-expectancy-calculator', sub: 'Efficiency' },
+      { type: 'Tool', title: 'Lightning Risk', path: '/lightning-strike-calculator', sub: 'IEC 62305' },
       { type: 'Tool', title: 'Holiday Lights Planner', path: '/holiday-lights', sub: 'Circuit Safety' },
       { type: 'Guide', title: 'Hardware Encyclopedia', path: '/hardware', sub: 'MCB/Wire/Switch' },
       { type: 'Guide', title: 'New Home Master Plan', path: '/new-home', sub: 'Construction' },
@@ -131,13 +138,13 @@ const Navbar = () => {
 
   // Nav Data Structure
   const toolsMenu = [
-    { name: 'Solar ROI Calculator', path: '/solar-roi', icon: Sun, desc: 'Payback period & CO₂ savings', colorBg: 'bg-amber-100', colorText: 'text-amber-600' },
-    { name: 'EV Cost Comparison', path: '/ev-cost-compare', icon: Car, desc: 'Home vs public vs petrol', colorBg: 'bg-blue-100', colorText: 'text-blue-600' },
-    { name: 'Ghost Power Finder', path: '/ghost-power', icon: Ghost, desc: 'Phantom standby cost', colorBg: 'bg-purple-100', colorText: 'text-purple-600' },
-    { name: 'Dryer Vent Fire Risk', path: '/dryer-vent-risk', icon: Flame, desc: 'Lint fire probability', colorBg: 'bg-red-100', colorText: 'text-red-600' },
+    { name: 'Solar ROI Calculator', path: '/solar-roi-calculator', icon: Sun, desc: 'Payback period & CO₂ savings', colorBg: 'bg-amber-100', colorText: 'text-amber-600' },
+    { name: 'EV Cost Comparison', path: '/ev-charging-cost-calculator', icon: Car, desc: 'Home vs public vs petrol', colorBg: 'bg-blue-100', colorText: 'text-blue-600' },
+    { name: 'Ghost Power Finder', path: '/ghost-power-calculator', icon: Ghost, desc: 'Phantom standby cost', colorBg: 'bg-purple-100', colorText: 'text-purple-600' },
+    { name: 'Dryer Vent Fire Risk', path: '/dryer-vent-fire-risk-calculator', icon: Flame, desc: 'Lint fire probability', colorBg: 'bg-red-100', colorText: 'text-red-600' },
     { name: 'WFH Load Auditor', path: '/wfh-load-audit', icon: Monitor, desc: 'Home office circuit check', colorBg: 'bg-indigo-100', colorText: 'text-indigo-600' },
-    { name: 'Appliance Life Gauge', path: '/appliance-life', icon: Clock, desc: 'Efficiency decay by age', colorBg: 'bg-teal-100', colorText: 'text-teal-600' },
-    { name: 'Lightning Risk', path: '/lightning-risk', icon: CloudLightning, desc: 'IEC 62305 strike odds', colorBg: 'bg-sky-100', colorText: 'text-sky-600' },
+    { name: 'Appliance Life Gauge', path: '/appliance-life-expectancy-calculator', icon: Clock, desc: 'Efficiency decay by age', colorBg: 'bg-teal-100', colorText: 'text-teal-600' },
+    { name: 'Lightning Risk', path: '/lightning-strike-calculator', icon: CloudLightning, desc: 'IEC 62305 strike odds', colorBg: 'bg-sky-100', colorText: 'text-sky-600' },
     { name: 'Holiday Lights Planner', path: '/holiday-lights', icon: Sparkles, desc: 'Max string calculator', colorBg: 'bg-red-100', colorText: 'text-red-600' },
     { name: 'Renters Generator', path: '/tenant-demand', icon: Gavel, desc: 'Formal hazard notice', colorBg: 'bg-red-100', colorText: 'text-red-600' },
     { name: 'Alarm Calendar', path: '/alarm-calendar', icon: Bell, desc: '10-year smoke alarm timer', colorBg: 'bg-orange-100', colorText: 'text-orange-600' },
@@ -148,13 +155,13 @@ const Navbar = () => {
     { name: 'Home Buyer Scan', path: '/home-buyer-scanner', icon: Search, desc: '15-min open house check', colorBg: 'bg-blue-100', colorText: 'text-blue-600' },
     { name: 'Breaker Mapper', path: '/breaker-mapper', icon: Map, desc: 'Generate printable labels', colorBg: 'bg-purple-100', colorText: 'text-purple-600' },
     { name: 'Self Assessment', path: '/assessment', icon: ClipboardCheck, desc: '25-point safety audit', colorBg: 'bg-green-100', colorText: 'text-green-600' },
-    { name: 'Risk Predictor', path: '/risk-predictor', icon: AlertTriangle, desc: 'Diagnose symptoms', colorBg: 'bg-red-100', colorText: 'text-red-600' },
+    { name: 'Risk Predictor', path: '/electrical-hazard-risk-predictor', icon: AlertTriangle, desc: 'Diagnose symptoms', colorBg: 'bg-red-100', colorText: 'text-red-600' },
   ];
 
   const guidesMenu = [
     { name: 'New Home Guide', path: '/new-home', icon: Hammer, desc: 'Construction master plan', colorBg: 'bg-orange-100', colorText: 'text-orange-600' },
     { name: 'Hardware Guide', path: '/hardware', icon: Zap, desc: 'MCB, Wires, Switch specs', colorBg: 'bg-yellow-100', colorText: 'text-yellow-600' },
-    { name: 'Protection Guide', path: '/protection-guide', icon: ShieldCheck, desc: 'Breaker selection', colorBg: 'bg-teal-100', colorText: 'text-teal-600' },
+    { name: 'Protection Guide', path: '/surge-protection-guide', icon: ShieldCheck, desc: 'Breaker selection', colorBg: 'bg-teal-100', colorText: 'text-teal-600' },
   ];
 
   const learnMenu = [
@@ -193,8 +200,9 @@ const Navbar = () => {
               <Download className="w-4 h-4" /> Downloads
             </Link>
 
-            <div className="h-6 w-px bg-gray-200 mx-2"></div>
+            <div className="h-6 w-px bg-gray-200 mx-1"></div>
 
+            <CurrencySelector />
             <DarkModeToggle dark={dark} onToggle={() => setDark(!dark)} />
 
             <button
@@ -210,10 +218,8 @@ const Navbar = () => {
           </div>
 
           {/* MOBILE TOGGLE */}
-          <div className="flex items-center lg:hidden gap-2 sm:gap-3">
-            <Link to="/assessment" className="px-3 py-1.5 bg-blue-600 text-white font-bold rounded-full text-xs shadow-md">
-               Scan
-            </Link>
+          <div className="flex items-center lg:hidden gap-2">
+            <CurrencySelector />
             <DarkModeToggle dark={dark} onToggle={() => setDark(!dark)} />
             <button
               onClick={() => setIsSearchOpen(!isSearchOpen)}
@@ -289,47 +295,93 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isMobileOpen && (
-        <div className="lg:hidden bg-white dark:bg-gray-900 dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 dark:border-gray-800 overflow-y-auto max-h-[80vh]">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <div className="px-3 py-2 text-xs font-bold text-gray-400 uppercase tracking-wider">Tools</div>
-            {toolsMenu.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                onClick={() => setIsMobileOpen(false)}
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 dark:text-gray-300 hover:text-blue-600 hover:bg-gray-50 dark:bg-gray-800 dark:bg-gray-800"
-              >
-                {link.name}
-              </Link>
-            ))}
-            <div className="px-3 py-2 text-xs font-bold text-gray-400 uppercase tracking-wider mt-4">Guides</div>
-            {guidesMenu.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                onClick={() => setIsMobileOpen(false)}
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 dark:text-gray-300 hover:text-blue-600 hover:bg-gray-50 dark:bg-gray-800 dark:bg-gray-800"
-              >
-                {link.name}
-              </Link>
-            ))}
-            <div className="px-3 py-2 text-xs font-bold text-gray-400 uppercase tracking-wider mt-4">Learn</div>
-            {learnMenu.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                onClick={() => setIsMobileOpen(false)}
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 dark:text-gray-300 hover:text-blue-600 hover:bg-gray-50 dark:bg-gray-800 dark:bg-gray-800"
-              >
-                {link.name}
-              </Link>
-            ))}
+        <div className="lg:hidden absolute top-16 left-0 w-full bg-white dark:bg-gray-900 shadow-2xl border-t border-gray-100 dark:border-gray-800 overflow-y-auto max-h-[85vh] z-50 animate-in slide-in-from-top-2">
+          <div className="px-4 py-6 space-y-8">
+            
+            {/* Tools Section */}
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 font-bold tracking-wider uppercase text-xs">
+                  <Calculator className="w-4 h-4" /> Smart Tools
+                </div>
+                <Link to="/tools" onClick={() => setIsMobileOpen(false)} className="text-xs text-gray-500 hover:text-blue-600 font-medium">View All →</Link>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {toolsMenu.slice(0, 8).map((link) => (
+                  <Link
+                    key={link.name}
+                    to={link.path}
+                    onClick={() => setIsMobileOpen(false)}
+                    className="flex items-center gap-3 p-3 rounded-xl border border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors group"
+                  >
+                    <div className={`p-2 rounded-lg ${link.colorBg} ${link.colorText}`}>
+                      <link.icon className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="text-sm font-bold text-gray-900 dark:text-gray-100">{link.name}</div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400 truncate w-48">{link.desc}</div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Guides Section */}
+            <div>
+              <div className="flex items-center gap-2 mb-4 text-orange-600 dark:text-orange-400 font-bold tracking-wider uppercase text-xs">
+                <Hammer className="w-4 h-4" /> Master Guides
+              </div>
+              <div className="space-y-2">
+                {guidesMenu.map((link) => (
+                  <Link
+                    key={link.name}
+                    to={link.path}
+                    onClick={() => setIsMobileOpen(false)}
+                    className="flex items-center gap-3 p-3 rounded-xl bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                  >
+                     <div className={`p-2 rounded-lg ${link.colorBg} ${link.colorText}`}>
+                      <link.icon className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="text-sm font-bold text-gray-900 dark:text-gray-100">{link.name}</div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400">{link.desc}</div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Knowledge Base Section */}
+            <div>
+              <div className="flex items-center gap-2 mb-4 text-purple-600 dark:text-purple-400 font-bold tracking-wider uppercase text-xs">
+                <BookOpen className="w-4 h-4" /> Knowledge Base
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {learnMenu.map((link) => (
+                  <Link
+                    key={link.name}
+                    to={link.path}
+                    onClick={() => setIsMobileOpen(false)}
+                    className="flex items-center gap-3 p-3 rounded-xl border border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+                  >
+                     <div className={`p-2 rounded-lg ${link.colorBg} ${link.colorText}`}>
+                      <link.icon className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="text-sm font-bold text-gray-900 dark:text-gray-100">{link.name}</div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400">{link.desc}</div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
             <Link
               to="/downloads"
               onClick={() => setIsMobileOpen(false)}
-              className="block px-3 py-2 rounded-md text-base font-medium text-green-600 hover:bg-green-50 mt-4 border border-green-200 text-center"
+              className="flex items-center justify-center gap-2 w-full p-4 rounded-xl font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/20"
             >
-              Download Checklists
+              <Download className="w-5 h-5" /> Download Resources
             </Link>
           </div>
         </div>
@@ -528,6 +580,15 @@ const EmergencyButton = () => {
 
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const location = useLocation();
+
+  useEffect(() => {
+    if (window.gtag) {
+      window.gtag('config', 'G-D9L2WJRB5N', {
+        page_path: location.pathname + location.search
+      });
+    }
+  }, [location]);
+
   const routeData: Record<string, { title: string; desc: string; type?: string; keywords: string; image?: string }> = {
     '/': {
       title: 'Complete Home Electrical Safety Guide',
@@ -589,19 +650,19 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       type: 'SoftwareApplication',
       keywords: 'safety audit, home inspection, electrical checklist, fire risk assessment, shock hazard'
     },
-    '/load-calc': {
+    '/electrical-load-calculator': {
       title: 'Electrical Load Calculator Tool',
       desc: 'Load calculator for preventing electrical fires. accurately estimate your household kW usage and Amps to ensure your wiring is never overloaded.',
       type: 'SoftwareApplication',
       keywords: 'load calculator, amperage estimate, wattage calculator, prevent overload, electrical design'
     },
-    '/protection-guide': {
+    '/surge-protection-guide': {
       title: 'Circuit Protection & Breaker Guide',
       desc: 'Circuit protection is your first line of defense. Learn how to select the right miniature circuit breakers, GFCIs, and RCDs for your specific needs.',
       type: 'HowTo',
       keywords: 'circuit breakers, GFCI, RCD, electrical protection, safety switches, fuse box'
     },
-    '/risk-predictor': {
+    '/electrical-hazard-risk-predictor': {
       title: 'Electrical Hazard Risk Predictor',
       desc: 'Risk predictor tool analyzes symptoms like burning smells or flickering lights. Diagnose hidden electrical fire and shock hazards before failure.',
       type: 'MedicalWebPage',
@@ -758,25 +819,25 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       keywords: 'home electrical safety UK, BS 7671, EICR report, Part P, RCD protection, consumer unit'
     },
     // Phase 6 Global Calculators
-    '/solar-roi': {
+    '/solar-roi-calculator': {
       title: 'Solar ROI & Panel Ready Check Calculator',
       desc: 'Calculate solar panel payback period, annual savings, CO₂ reduction, and check if your electrical panel can safely handle solar. IEC 62446 & NEC 690.',
       type: 'SoftwareApplication',
       keywords: 'solar ROI calculator, solar payback period, solar panel savings, CO2 reduction solar, panel ready check'
     },
-    '/ev-cost-compare': {
+    '/ev-charging-cost-calculator': {
       title: 'EV Charging Cost Comparison — Home vs Public vs Petrol',
       desc: 'Compare annual costs of home EV charging, public charging, and petrol/gas vehicles. Calculate CO₂ savings. Based on SAE J1772 & IEC 61851.',
       type: 'SoftwareApplication',
       keywords: 'EV charging cost, home charging vs public, EV vs petrol cost, electric vehicle savings'
     },
-    '/ghost-power': {
+    '/ghost-power-calculator': {
       title: 'Ghost Power Standby Cost Finder — IEC 62301',
       desc: 'Discover how much your smart home devices cost in phantom standby power. 22-device library with IEC 62301-measured standby values.',
       type: 'SoftwareApplication',
       keywords: 'phantom load calculator, standby power cost, ghost electricity, vampire power, smart home standby'
     },
-    '/dryer-vent-risk': {
+    '/dryer-vent-fire-risk-calculator': {
       title: 'Dryer Vent Fire Probability Meter — NFPA Data',
       desc: '5-question lint fire risk assessment with compound multipliers. 34% of dryer fires caused by lint buildup. Based on NFPA 211.',
       type: 'SoftwareApplication',
@@ -788,17 +849,17 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       type: 'SoftwareApplication',
       keywords: 'WFH circuit overload, home office electrical, bedroom circuit capacity, work from home power'
     },
-    '/appliance-life': {
+    '/appliance-life-expectancy-calculator': {
       title: 'Appliance Life Expectancy & Efficiency Gauge',
       desc: 'Check if your appliance is past its lifespan, losing efficiency, or becoming a safety hazard. 20+ appliances with ENERGY STAR data.',
       type: 'SoftwareApplication',
       keywords: 'appliance lifespan calculator, appliance efficiency, when to replace appliance, ENERGY STAR lifespan'
     },
-    '/lightning-risk': {
+    '/lightning-strike-calculator': {
       title: 'Lightning Strike Probability Calculator — IEC 62305',
       desc: 'Calculate lightning strike probability using IEC 62305-2 collection area formula. Includes surge protector ROI analysis.',
       type: 'SoftwareApplication',
-      keywords: 'lightning strike probability, IEC 62305 calculator, surge protector ROI, lightning protection'
+      keywords: 'lightning strike calculator, probability of lightning strike, surge protector ROI, IEC 62305 calculator'
     },
     '/holiday-lights': {
       title: 'Holiday Lights Safety Planner — Circuit Capacity Calculator',

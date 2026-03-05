@@ -5,17 +5,22 @@ import { TrustBadge } from '../components/TrustBadge';
 import { ShieldCheck, DollarSign, AlertCircle, HardHat, Check, AlertTriangle } from 'lucide-react';
 import { RelatedTools } from '../components/RelatedTools';
 
+import { useCurrencyStore } from '../store/currencyStore';
+
 type JobCategory = 'Panel Upgrade' | 'EV Charger' | 'Whole Home Rewire' | 'Add Dedicated Circuit' | 'Basic Repairs (Switches/Outlets)';
 
 const JOBS_DATA: Record<JobCategory, { 
-    priceRange: string, 
+    minCost: number,
+    maxCost: number,
+    costNote?: string,
     timeframe: string, 
     permitRequired: boolean,
     BSDetectorQuestions: { q: string, why: string }[],
     commonScam: string
 }> = {
   'Panel Upgrade': {
-    priceRange: '$2,500 - $4,500',
+    minCost: 2500,
+    maxCost: 4500,
     timeframe: '1-2 Days',
     permitRequired: true,
     BSDetectorQuestions: [
@@ -26,7 +31,9 @@ const JOBS_DATA: Record<JobCategory, {
     commonScam: "The 'Invisible Grounding' Scam: Charging $500 extra for 'new grounding rods' but secretly just tying into a rusty water pipe."
   },
   'EV Charger': {
-    priceRange: '$800 - $2,000 (Install only, not including charger hardware)',
+    minCost: 800,
+    maxCost: 2000,
+    costNote: '(Install only, not including hardware)',
     timeframe: '4-8 Hours',
     permitRequired: true,
     BSDetectorQuestions: [
@@ -37,7 +44,9 @@ const JOBS_DATA: Record<JobCategory, {
     commonScam: "Installing a cheap $12 dryer outlet (NEMA 14-50) from a hardware store instead of a $50+ commercial-grade one. The cheap ones melt after 6 months of continuous EV charging."
   },
   'Whole Home Rewire': {
-    priceRange: '$10,000 - $25,000+',
+    minCost: 10000,
+    maxCost: 25000,
+    costNote: '+ (Drywall repair extra)',
     timeframe: '1-3 Weeks',
     permitRequired: true,
     BSDetectorQuestions: [
@@ -48,7 +57,8 @@ const JOBS_DATA: Record<JobCategory, {
     commonScam: "The 'Pigtail Hack': Quoting for a 'rewire' but simply adding copper tips to old aluminum wire inside the outlets and calling it 'updated'."
   },
   'Add Dedicated Circuit': {
-    priceRange: '$300 - $800',
+    minCost: 300,
+    maxCost: 800,
     timeframe: '2-4 Hours',
     permitRequired: false, // Often not required for a single circuit depending on locale, but varies
     BSDetectorQuestions: [
@@ -59,7 +69,9 @@ const JOBS_DATA: Record<JobCategory, {
     commonScam: "Tapping into an existing heavily-loaded circuit (like the kitchen) instead of running a true 'dedicated' line back to the main box."
   },
   'Basic Repairs (Switches/Outlets)': {
-    priceRange: '$150 - $400 (Minimum visit fee applies)',
+    minCost: 150,
+    maxCost: 400,
+    costNote: '(Minimum visit fee applies)',
     timeframe: '1-2 Hours',
     permitRequired: false,
     BSDetectorQuestions: [
@@ -73,6 +85,7 @@ const JOBS_DATA: Record<JobCategory, {
 
 export const QuoteAnalyzer = () => {
   const [selectedJob, setSelectedJob] = useState<JobCategory | null>(null);
+  const { currency, format, convert } = useCurrencyStore();
 
   const jobKeys = Object.keys(JOBS_DATA) as JobCategory[];
 
@@ -81,7 +94,6 @@ export const QuoteAnalyzer = () => {
       <Helmet>
         <title>Contractor B.S. Detector | Quote Analyzer | ElectroSafe.homes</title>
         <meta name="description" content="Don't get scammed by an electrician. Use our Contractor B.S. Detector to find fair pricing and the 3 questions you MUST ask them before hiring." />
-        <link rel="canonical" href="https://electrosafe.homes/quote-analyzer" />
       </Helmet>
 
       <div className="text-center mb-12">
@@ -136,8 +148,11 @@ export const QuoteAnalyzer = () => {
                  
                  <div className="grid grid-cols-2 gap-6 relative z-10">
                    <div>
-                     <p className="text-gray-400 text-xs font-bold uppercase tracking-wider mb-1">Fair Price Range</p>
-                     <p className="text-2xl font-black text-green-400">{JOBS_DATA[selectedJob].priceRange}</p>
+                     <p className="text-gray-400 text-xs font-bold uppercase tracking-wider mb-1">Fair Price Range ({currency.code})</p>
+                     <p className="text-2xl font-black text-green-400">
+                       {format(Math.round(convert(JOBS_DATA[selectedJob].minCost)))} - {format(Math.round(convert(JOBS_DATA[selectedJob].maxCost)))}
+                     </p>
+                     {JOBS_DATA[selectedJob].costNote && <p className="text-xs text-gray-500 mt-1">{JOBS_DATA[selectedJob].costNote}</p>}
                    </div>
                    <div>
                      <p className="text-gray-400 text-xs font-bold uppercase tracking-wider mb-1">Permit Required?</p>
@@ -199,7 +214,8 @@ export const QuoteAnalyzer = () => {
       </div>
 
       {/* Disclaimer */}
-      <div className="mt-12 text-center text-xs text-gray-400 max-w-2xl mx-auto">
+      <div className="mt-12 text-center text-xs text-slate-500 max-w-2xl mx-auto space-y-4">
+        <p><strong>Calculations & Localizations:</strong> The base price estimates provided are derived from average national US labor and material costs. When you switch currencies, these base estimates (e.g. ${JOBS_DATA['Panel Upgrade'].minCost}) are mathematically translated to your local currency ({currency.code}) using an active exchange rate multiplier of {currency.exchangeRate}.</p>
         <p><strong>Disclaimer:</strong> Price ranges presented are national generalizations for typical scenarios. Costs in expensive metro areas or complex layouts will be higher. Always solicit three written quotes before hiring.</p>
       </div>
 

@@ -6,17 +6,7 @@ import { TrustBadge } from '../components/TrustBadge';
 import { Home, AlertTriangle, CheckCircle, Search, Info, MapPin, Zap, Eye, MousePointerClick, Activity, ShieldAlert, ArrowRight, ShieldCheck, Download, Globe, DollarSign } from 'lucide-react';
 import { RelatedTools } from '../components/RelatedTools';
 
-const getCurrency = () => {
-  try {
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    if (/Asia\/Kolkata|Asia\/Calcutta/.test(tz)) return { symbol: '₹', multiplier: 25 };
-    if (/Europe\/London|Europe\/Dublin/.test(tz)) return { symbol: '£', multiplier: 0.8 };
-    if (/Australia/.test(tz)) return { symbol: 'A$', multiplier: 1.5 };
-    if (/Europe/.test(tz)) return { symbol: '€', multiplier: 0.9 };
-    if (/America\/Toronto|America\/Vancouver/.test(tz)) return { symbol: 'C$', multiplier: 1.35 };
-  } catch {}
-  return { symbol: '$', multiplier: 1 };
-};
+import { useCurrencyStore } from '../store/currencyStore';
 
 const SCAN_ITEMS: any[] = [
   {
@@ -74,11 +64,11 @@ const PROPERTY_SIZES = [
 
 export const HomeBuyerScanner = () => {
   const navigate = useNavigate();
+  const { currency, format, convert } = useCurrencyStore();
   const [answers, setAnswers] = useState<Record<string, boolean | null>>({});
   const [propertySize, setPropertySize] = useState('medium');
   const [showScore, setShowScore] = useState(false);
   const [activeInfo, setActiveInfo] = useState<string | null>(null);
-  const [currencyConfig, setCurrencyConfig] = useState({ symbol: '$', multiplier: 1 });
   const [isLivePulse, setIsLivePulse] = useState(true);
   const resultRef = useRef<HTMLDivElement>(null);
 
@@ -89,7 +79,6 @@ export const HomeBuyerScanner = () => {
   }, [showScore]);
 
   useEffect(() => {
-    setCurrencyConfig(getCurrency());
     const interval = setInterval(() => setIsLivePulse(prev => !prev), 2000);
     return () => clearInterval(interval);
   }, []);
@@ -119,7 +108,6 @@ export const HomeBuyerScanner = () => {
   const handleSelect = (id: string, value: boolean) => {
     setAnswers(prev => ({ ...prev, [id]: value }));
   };
-
   const calculateScore = () => {
     let redFlags = 0;
     let totalQuestions = 0;
@@ -150,10 +138,11 @@ export const HomeBuyerScanner = () => {
       });
     });
 
-    return { redFlags, totalQuestions, estimatedCost, itemizedCosts };
+    return { redFlags, totalQuestions, estimatedCost, itemizedCosts, sizeMultiplier };
   };
 
-  const { redFlags, totalQuestions, estimatedCost, itemizedCosts } = calculateScore();
+  const results = calculateScore();
+  const { redFlags, totalQuestions, estimatedCost, itemizedCosts, sizeMultiplier } = results;
   const answeredCount = Object.keys(answers).length;
   const isComplete = answeredCount === totalQuestions;
   const progressPercent = Math.round((answeredCount / totalQuestions) * 100);
@@ -172,7 +161,6 @@ export const HomeBuyerScanner = () => {
         <Helmet>
           <title>Open House 15-Minute Electrical Scanner | ElectroSafe.homes</title>
           <meta name="description" content="Buying a house? Use our premium 15-minute open house electrical scanner to find hidden red flags, avoid money pits, and negotiate thousands off the asking price." />
-          <link rel="canonical" href="https://electrosafe.homes/home-buyer-scanner" />
         </Helmet>
 
         {/* Premium Hero Section */}
@@ -187,7 +175,7 @@ export const HomeBuyerScanner = () => {
             </span>
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-400 dark:text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed font-medium">
-            Don't buy a money pit. Keep this open on your phone as you walk through the house to instantly spot <strong className="text-gray-900 dark:text-gray-100 dark:text-gray-100">{currencyConfig.symbol}10,000+</strong> electrical red flags before making an offer.
+            Don't buy a money pit. Keep this open on your phone as you walk through the house to instantly spot <strong className="text-gray-900 dark:text-gray-100 dark:text-gray-100">{format(convert(10000))}+</strong> electrical red flags before making an offer.
           </p>
 
           <div className="flex justify-center gap-6 text-sm font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400">
@@ -268,7 +256,7 @@ export const HomeBuyerScanner = () => {
                             <p className="mb-3 leading-relaxed"><strong>The Risk:</strong> {item.why}</p>
                             <div className="inline-flex items-center gap-2 bg-white dark:bg-gray-900 dark:bg-gray-900 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-gray-700 dark:border-gray-700 font-bold text-slate-900 dark:text-gray-100 dark:text-gray-100 shadow-sm">
                                <AlertTriangle className="w-4 h-4 text-amber-500" />
-                               Est. Repair: {item.costVal ? <span className="text-red-600">{currencyConfig.symbol}{Math.round(item.costVal * currencyConfig.multiplier).toLocaleString()}+</span> : 'Variable'}
+                               Est. Repair: {item.costVal ? <span className="text-red-600">{format(convert(item.costVal * (PROPERTY_SIZES.find(s=>s.id===propertySize)?.multiplier || 1.0)))}+</span> : 'Variable'}
                             </div>
                           </div>
                         )}
@@ -371,7 +359,7 @@ export const HomeBuyerScanner = () => {
                   </div>
                   <div className="bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 p-8 rounded-3xl border border-slate-200 dark:border-gray-700 dark:border-gray-700 flex flex-col items-center justify-center text-center">
                     <p className="text-slate-500 dark:text-gray-400 dark:text-gray-400 text-xs font-black uppercase tracking-widest mb-2">Liability Estimation</p>
-                    <p className="text-5xl font-black text-slate-900 dark:text-gray-100 dark:text-gray-100 font-display tracking-tighter mt-2">{currencyConfig.symbol}{Math.round(estimatedCost * currencyConfig.multiplier).toLocaleString()}<span className="text-3xl text-slate-400">+</span></p>
+                    <p className="text-5xl font-black text-slate-900 dark:text-gray-100 dark:text-gray-100 font-display tracking-tighter mt-2">{format(convert(results.estimatedCost))}<span className="text-3xl text-slate-400">+</span></p>
                     <p className="text-slate-400 text-sm font-bold mt-2">Hardware & Labor Minimums</p>
                   </div>
                 </div>
@@ -386,7 +374,7 @@ export const HomeBuyerScanner = () => {
                       {itemizedCosts.map((item, idx) => (
                         <li key={idx} className="flex flex-col sm:flex-row justify-between items-start gap-4 border-b border-slate-200 dark:border-gray-700 dark:border-gray-700 pb-4 last:border-0 last:pb-0">
                            <span className="text-slate-700 dark:text-gray-300 dark:text-gray-300 text-sm font-medium leading-relaxed max-w-xl">{item.desc}</span>
-                           <span className="font-black text-rose-600 text-lg shrink-0 sm:text-right">{currencyConfig.symbol}{Math.round(item.cost * currencyConfig.multiplier).toLocaleString()}</span>
+                           <span className="font-black text-rose-600 text-lg shrink-0 sm:text-right">{format(convert(item.cost))}</span>
                         </li>
                       ))}
                     </ul>
@@ -409,7 +397,7 @@ export const HomeBuyerScanner = () => {
                       </div>
                       <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-5 rounded-2xl shadow-sm border border-rose-50 flex gap-4 items-start">
                         <div className="bg-rose-100 text-rose-700 w-8 h-8 rounded-full flex items-center justify-center font-black shrink-0 mt-0.5">2</div>
-                        <p className="text-gray-800 dark:text-gray-200 dark:text-gray-200 font-medium">Demand a price deduction of <strong>{currencyConfig.symbol}{Math.round((estimatedCost + 1000) * currencyConfig.multiplier).toLocaleString()}</strong> as a contingency credit to commission the repairs yourself post-purchase.</p>
+                        <p className="text-gray-800 dark:text-gray-200 dark:text-gray-200 font-medium">Demand a price deduction of <strong>{format(convert(estimatedCost + 1000))}</strong> as a contingency credit to commission the repairs yourself post-purchase.</p>
                       </div>
                     </div>
                   </div>
@@ -424,6 +412,18 @@ export const HomeBuyerScanner = () => {
                     </div>
                   </div>
                 )}
+                {/* Mathematical Breakdown */}
+                <div className="mt-8 bg-slate-50 dark:bg-gray-800/50 rounded-2xl p-6 border border-slate-200 dark:border-gray-700">
+                  <h4 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Calculation Transparency</h4>
+                  <div className="space-y-3 text-sm text-slate-600 dark:text-gray-400 font-mono">
+                    <p>1. Base Estimates = {redFlags} flags detected @ local labor rates</p>
+                    <p>2. Property Multiplier ({PROPERTY_SIZES.find(s=>s.id===propertySize)?.label}) = ×{sizeMultiplier}</p>
+                    <p>3. Currency Conversion = {currency.code} spot rate applied</p>
+                    <div className="pt-3 border-t border-slate-200 dark:border-gray-700">
+                      <p className="text-indigo-600 dark:text-indigo-400 font-bold">Total Estimated Budget: {format(convert(estimatedCost))}</p>
+                    </div>
+                  </div>
+                </div>
              </div>
 
              {/* Actions */}

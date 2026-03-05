@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { ShieldCheck, ArrowRight, RotateCcw, Zap, Home as HomeIcon, AlertTriangle, CheckCircle2 } from 'lucide-react';
+import { ShieldCheck, ArrowRight, RotateCcw, Zap, Home as HomeIcon, AlertTriangle, CheckCircle2, Calculator, Info } from 'lucide-react';
 import { ShareableScoreCard } from '../components/ShareableScoreCard';
 import { TrustBadge } from '../components/TrustBadge';
 import { RelatedTools } from '../components/RelatedTools';
-
-
+import { motion, AnimatePresence } from 'framer-motion';
 
 const QUIZ_QUESTIONS = [
   {
@@ -79,13 +78,6 @@ export const QuickQuiz = () => {
     return '⭐ High Risk';
   };
 
-  const getResultMessage = () => {
-    const level = getRiskLevel();
-    if (level === 'low') return "Great news! Your home appears electrically safe. Keep up the good maintenance habits!";
-    if (level === 'medium') return "Your home has some warning signs. A few simple fixes could dramatically improve your electrical safety.";
-    return "Your home may have serious electrical hazards. We strongly recommend a professional inspection.";
-  };
-
   const handleAnswer = (score: number, optionIdx: number) => {
     setSelectedOption(optionIdx);
     setShowInsight(true);
@@ -101,7 +93,7 @@ export const QuickQuiz = () => {
       } else {
         setShowResult(true);
       }
-    }, 2000);
+    }, 1500);
   };
 
   const resetQuiz = () => {
@@ -112,188 +104,176 @@ export const QuickQuiz = () => {
     setShowInsight(false);
   };
 
-  const question = QUIZ_QUESTIONS[currentQ];
   const progress = ((currentQ) / QUIZ_QUESTIONS.length) * 100;
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-12">
+    <div className="max-w-4xl mx-auto px-4 py-8 md:py-12">
       <Helmet>
         <title>Quick Safety Quiz — Is Your Home Safe? | ElectroSafe.homes</title>
-        <meta name="description" content="Take our free 60-second quiz to find out if your home has hidden electrical dangers. 5 simple questions, instant results." />
-        <link rel="canonical" href="https://electrosafe.homes/quick-quiz" />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://electrosafe.homes/quick-quiz" />
-        <meta property="og:title" content="Is Your Home Electrically Safe? — 60-Second Quiz" />
-        <meta property="og:description" content="5 simple questions to uncover hidden electrical dangers in your home. Free, instant results." />
-        <meta property="og:image" content="https://electrosafe.homes/android-chrome-512x512.png" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Is Your Home Electrically Safe? — 60-Second Quiz" />
-        <meta name="twitter:description" content="5 simple questions to uncover hidden electrical dangers in your home." />
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Quiz",
-            "name": "Home Electrical Safety Quick Quiz",
-            "description": "A 60-second quiz to evaluate your home's electrical safety",
-            "educationalLevel": "beginner",
-            "about": {
-              "@type": "Thing",
-              "name": "Home Electrical Safety"
-            }
-          })}
-        </script>
+        <meta name="description" content="Take our free 60-second quiz to find out if your home has hidden electrical dangers." />
       </Helmet>
 
       {!showResult ? (
-        <div className="animate-in fade-in duration-300">
+        <div className="max-w-2xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-10">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-yellow-100 text-yellow-800 text-xs font-bold uppercase tracking-wider mb-4">
-              <Zap className="w-3.5 h-3.5" /> 60-Second Quiz
+          <motion.div className="text-center mb-10" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 text-xs font-black uppercase tracking-widest mb-4">
+              <Zap className="w-3.5 h-3.5" /> Fast Audit
             </div>
-            <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-3">
-              Is Your Home Safe? ⚡
+            <h1 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-gray-100 mb-4 tracking-tighter italic">
+              Is Your Home <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-orange-600 underline">Safe?</span> ⚡
             </h1>
-            <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400 text-lg">
-              5 quick questions. No sign-up. Instant results.
-            </p>
-          </div>
+            <p className="text-slate-600 dark:text-gray-400 font-medium">60 seconds to uncover hidden electrical threats.</p>
+          </motion.div>
 
-          {/* Progress Bar */}
-          <div className="mb-8">
-            <div className="flex justify-between text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider">
-              <span>Question {currentQ + 1} of {QUIZ_QUESTIONS.length}</span>
+          {/* Progress */}
+          <div className="mb-12">
+            <div className="flex justify-between text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">
+              <span>Question {currentQ + 1} / {QUIZ_QUESTIONS.length}</span>
               <span>{Math.round(progress)}% complete</span>
             </div>
-            <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-              <div 
-                className="h-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-full transition-all duration-500 ease-out"
-                style={{ width: `${progress}%` }}
-              ></div>
+            <div className="w-full h-3 bg-slate-100 dark:bg-gray-800 rounded-full overflow-hidden shadow-inner">
+              <motion.div 
+                className="h-full bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full"
+                animate={{ width: `${progress}%` }}
+              />
             </div>
           </div>
 
           {/* Question Card */}
-          <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-8 rounded-3xl shadow-lg border border-gray-200 dark:border-gray-700 dark:border-gray-700 animate-in slide-in-from-right-4 duration-300" key={currentQ}>
-            <div className="flex items-start gap-4 mb-8">
-              <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                <span className="text-blue-700 font-extrabold">{currentQ + 1}</span>
+          <AnimatePresence mode="wait">
+            <motion.div 
+              key={currentQ}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              className="bg-white dark:bg-gray-900 p-8 md:p-10 rounded-[40px] shadow-2xl border border-slate-100 dark:border-gray-800 relative overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-500/5 rounded-full blur-3xl" />
+              
+              <div className="flex items-start gap-6 mb-10">
+                <div className="w-12 h-12 bg-yellow-100 dark:bg-yellow-900/30 rounded-2xl flex items-center justify-center shrink-0 font-black text-yellow-600">
+                  {currentQ + 1}
+                </div>
+                <h2 className="text-2xl font-black text-slate-900 dark:text-gray-100 leading-tight">
+                  {QUIZ_QUESTIONS[currentQ].question}
+                </h2>
               </div>
-              <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 leading-snug">
-                {question.question}
-              </h2>
-            </div>
 
-            <div className="space-y-3">
-              {question.options.map((opt, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => selectedOption === null && handleAnswer(opt.score, idx)}
-                  disabled={selectedOption !== null}
-                  className={`w-full text-left p-4 rounded-xl border-2 transition-all duration-200 font-medium ${
-                    selectedOption === idx
-                      ? opt.score === 0
-                        ? 'bg-green-50 border-green-400 text-green-800'
-                        : 'bg-amber-50 border-amber-400 text-amber-800'
-                      : selectedOption !== null
-                        ? 'opacity-50 cursor-not-allowed border-gray-200 dark:border-gray-700 dark:border-gray-700 text-gray-500 dark:text-gray-400 dark:text-gray-400'
-                        : 'border-gray-200 dark:border-gray-700 dark:border-gray-700 hover:border-blue-300 hover:bg-blue-50 text-gray-700 dark:text-gray-300 dark:text-gray-300 cursor-pointer'
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-                      selectedOption === idx ? 'border-current bg-current' : 'border-gray-300'
-                    }`}>
-                      {selectedOption === idx && <CheckCircle2 className="w-4 h-4 text-white" />}
+              <div className="space-y-4">
+                {QUIZ_QUESTIONS[currentQ].options.map((opt, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => selectedOption === null && handleAnswer(opt.score, idx)}
+                    disabled={selectedOption !== null}
+                    className={`w-full text-left p-6 rounded-[24px] border-2 transition-all duration-300 font-bold text-base flex items-center gap-4 ${
+                      selectedOption === idx
+                        ? 'bg-yellow-50 border-yellow-500 text-yellow-900 shadow-lg'
+                        : selectedOption !== null
+                          ? 'opacity-40 border-slate-100 grayscale'
+                          : 'border-slate-50 dark:border-gray-800 hover:border-yellow-200 hover:bg-yellow-50/30 text-slate-700 dark:text-gray-300'
+                    }`}
+                  >
+                    <div className={`w-6 h-6 rounded-full border-2 shrink-0 flex items-center justify-center ${selectedOption === idx ? 'bg-yellow-500 border-yellow-500' : 'border-slate-200'}`}>
+                       {selectedOption === idx && <CheckCircle2 className="w-4 h-4 text-white" />}
                     </div>
                     {opt.text}
-                  </div>
-                </button>
-              ))}
-            </div>
-
-            {/* Insight Flash */}
-            {showInsight && (
-              <div className="mt-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded-r-xl animate-in slide-in-from-bottom-2 duration-300">
-                <p className="text-sm font-bold text-blue-800 uppercase tracking-wider mb-1">💡 Did you know?</p>
-                <p className="text-sm text-blue-700">{question.insight}</p>
+                  </button>
+                ))}
               </div>
-            )}
-          </div>
+
+              {showInsight && (
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }} 
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mt-10 p-6 bg-slate-900 text-white rounded-[24px] relative overflow-hidden"
+                >
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-yellow-500/20 rounded-full blur-2xl" />
+                  <p className="text-[10px] font-black text-yellow-500 uppercase tracking-widest mb-2 flex items-center gap-2">
+                    <Info className="w-3.5 h-3.5" /> Intelligence Flash
+                  </p>
+                  <p className="text-sm font-medium leading-relaxed italic">"{QUIZ_QUESTIONS[currentQ].insight}"</p>
+                </motion.div>
+              )}
+            </motion.div>
+          </AnimatePresence>
         </div>
       ) : (
-        /* Results */
-        <div className="animate-in zoom-in-95 duration-500">
-          <div className="text-center mb-8">
-            <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full font-bold text-sm uppercase tracking-wider mb-4 ${
-              getRiskLevel() === 'low' 
-                ? 'bg-green-100 text-green-800'
-                : getRiskLevel() === 'medium'
-                  ? 'bg-yellow-100 text-yellow-800'
-                  : 'bg-red-100 text-red-800'
-            }`}>
-              {getRiskLevel() === 'low' ? <CheckCircle2 className="w-4 h-4" /> : <AlertTriangle className="w-4 h-4" />}
-              Quiz Complete
-            </div>
-            <h2 className="text-3xl font-extrabold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-3">Your Home Safety Score</h2>
+        <div className="max-w-4xl mx-auto animate-in zoom-in-95 duration-500">
+          <div className="text-center mb-12">
+             <h2 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-gray-100 tracking-tighter italic mb-4">Final <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-red-600 underline">Safety Score</span></h2>
           </div>
 
-          {/* Score Display */}
-          <div className={`p-8 rounded-3xl text-center mb-6 border-2 ${
-            getRiskLevel() === 'low' 
-              ? 'bg-green-50 border-green-200'
-              : getRiskLevel() === 'medium'
-                ? 'bg-yellow-50 border-yellow-200'
-                : 'bg-red-50 border-red-200'
-          }`}>
-            <div className={`text-7xl font-black mb-2 ${
-              getRiskLevel() === 'low' ? 'text-green-600' : getRiskLevel() === 'medium' ? 'text-yellow-600' : 'text-red-600'
-            }`}>
-              {safetyPercent}%
-            </div>
-            <p className="text-lg font-bold text-gray-800 dark:text-gray-200 dark:text-gray-200 mb-2">{getRating()}</p>
-            <p className="text-gray-600 dark:text-gray-400 dark:text-gray-400 max-w-md mx-auto">{getResultMessage()}</p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+             {/* Score Card */}
+             <div className={`lg:col-span-8 p-10 md:p-12 rounded-[48px] text-center border-4 shadow-2xl relative overflow-hidden transition-all ${
+               getRiskLevel() === 'low' ? 'bg-emerald-50 border-emerald-500/20' : getRiskLevel() === 'medium' ? 'bg-amber-50 border-amber-500/20' : 'bg-rose-50 border-rose-500/20'
+             }`}>
+                <div className="absolute top-0 right-0 w-64 h-64 bg-white/50 rounded-full blur-3xl" />
+                
+                <div className="relative z-10">
+                   <div className={`text-9xl font-black tracking-tighter mb-4 ${
+                     getRiskLevel() === 'low' ? 'text-emerald-600' : getRiskLevel() === 'medium' ? 'text-amber-600' : 'text-rose-600'
+                   }`}>
+                     {safetyPercent}%
+                   </div>
+                   <h3 className={`text-2xl font-black uppercase tracking-widest mb-6 ${
+                     getRiskLevel() === 'low' ? 'text-emerald-700' : getRiskLevel() === 'medium' ? 'text-amber-700' : 'text-rose-700'
+                   }`}>
+                      {getRating()}
+                   </h3>
+                   <div className="bg-white/40 dark:bg-gray-900/20 backdrop-blur-md p-8 rounded-[32px] border border-white/20 max-w-lg mx-auto mb-10">
+                      <p className="text-lg font-bold text-slate-800 dark:text-gray-200">
+                         {getRiskLevel() === 'low' ? "Great news! Your home appears electrically safe. Keep up the good maintenance habits!" :
+                          getRiskLevel() === 'medium' ? "Your home has some warning signs. A few simple fixes could dramatically improve your electrical safety." :
+                          "Your home may have serious electrical hazards. We strongly recommend a professional inspection."}
+                      </p>
+                   </div>
+
+                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                      <a href="/assessment" className="px-10 py-5 bg-slate-900 text-white rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-black transition-all shadow-xl shadow-slate-900/20 flex items-center justify-center gap-3">
+                         <ShieldCheck className="w-5 h-5" /> 25-Point Full Audit
+                      </a>
+                      <button onClick={resetQuiz} className="px-10 py-5 bg-white text-slate-900 border-2 border-slate-100 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-slate-50 transition-all shadow-sm flex items-center justify-center gap-3">
+                         <RotateCcw className="w-5 h-5" /> Retake
+                      </button>
+                   </div>
+                </div>
+             </div>
+
+             {/* Transparency Panel */}
+             <div className="lg:col-span-4 space-y-6">
+                <div className="bg-slate-900 rounded-[32px] p-8 text-white shadow-2xl relative overflow-hidden">
+                   <div className="absolute top-0 right-0 w-48 h-48 bg-yellow-500/10 rounded-full blur-3xl font-black" />
+                   <h4 className="text-[10px] font-black text-yellow-500 uppercase tracking-widest mb-6 flex items-center gap-2">
+                      <Calculator className="w-4 h-4" /> Scoring Engine
+                   </h4>
+                   <div className="space-y-4 font-mono text-xs text-slate-400">
+                      <p>• Baseline Max: {maxScore} pts</p>
+                      <p>• Deduction Factor: {totalScore} pts</p>
+                      <p>• Mathematical Yield: {safetyPercent}% Safe</p>
+                      <div className="pt-4 border-t border-white/5">
+                         <p className="text-white font-bold mb-1">Standard Reference:</p>
+                         <p className="leading-relaxed">NFPA 73 Standard for Electrical Inspections in Existing Dwellings.</p>
+                      </div>
+                   </div>
+                </div>
+
+                <div className="bg-blue-50 dark:bg-blue-900/10 p-8 rounded-[32px] border-2 border-blue-100 dark:border-blue-800">
+                   <h4 className="text-[10px] font-black text-blue-500 uppercase tracking-widest mb-4 flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4" /> Vetting Logic
+                   </h4>
+                   <p className="text-xs text-blue-800 dark:text-blue-300 font-bold leading-relaxed">
+                      Questions weighted by statistical probability of fire initiation. Cords and smell factors (MELT) carry 3x weight due to immediate arson risk.
+                   </p>
+                </div>
+             </div>
           </div>
 
-          {/* CTA to full assessment */}
-          <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-6 rounded-2xl border border-gray-200 dark:border-gray-700 dark:border-gray-700 shadow-sm mb-6 text-center">
-            <p className="text-sm font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400 uppercase tracking-wider mb-3">Want a detailed analysis?</p>
-            <a
-              href="/assessment"
-              className="inline-flex items-center gap-2 px-8 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition shadow-md"
-            >
-              <ShieldCheck className="w-5 h-5" />
-              Take Full 25-Point Assessment
-              <ArrowRight className="w-4 h-4" />
-            </a>
+          <div className="mt-12">
+             <TrustBadge />
+             <RelatedTools currentPath="/quick-quiz" count={3} />
           </div>
-
-          {/* Share Card */}
-          <ShareableScoreCard
-            score={totalScore}
-            maxScore={maxScore}
-            rating={getRating()}
-            riskLevel={getRiskLevel()}
-            toolName="Quick Safety Quiz"
-            toolPath="/quick-quiz"
-          />
-
-          {/* Trust Badge */}
-          <TrustBadge />
-
-
-          {/* Reset */}
-          <div className="text-center mt-6">
-            <button
-              onClick={resetQuiz}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 dark:text-gray-300 rounded-xl font-bold hover:bg-gray-200 transition"
-            >
-              <RotateCcw className="w-4 h-4" /> Take Quiz Again
-            </button>
-          </div>
-
-          {/* Related Tools */}
-          <RelatedTools currentPath="/quick-quiz" count={3} />
         </div>
       )}
     </div>

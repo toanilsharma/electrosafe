@@ -5,34 +5,7 @@ import { Sun, Zap, DollarSign, Leaf, ShieldCheck, AlertTriangle, ArrowRight, Inf
 import { Link } from 'react-router-dom';
 import { RelatedTools } from '../components/RelatedTools';
 
-// ── Region detection ─────────────────────────────────────────
-interface RegionProfile {
-  currency: string; symbol: string; voltageSystem: string;
-  avgSunHours: number; gridEmission: number; elecRate: number;
-  label: string;
-}
-
-const REGIONS: Record<string, RegionProfile> = {
-  IN: { currency: 'INR', symbol: '₹', voltageSystem: '230V / 50Hz', avgSunHours: 5.5, gridEmission: 0.82, elecRate: 8, label: 'India' },
-  US: { currency: 'USD', symbol: '$', voltageSystem: '120/240V / 60Hz', avgSunHours: 4.5, gridEmission: 0.42, elecRate: 0.16, label: 'USA' },
-  GB: { currency: 'GBP', symbol: '£', voltageSystem: '230V / 50Hz', avgSunHours: 3.0, gridEmission: 0.23, elecRate: 0.34, label: 'UK' },
-  EU: { currency: 'EUR', symbol: '€', voltageSystem: '230V / 50Hz', avgSunHours: 3.8, gridEmission: 0.30, elecRate: 0.25, label: 'Europe' },
-  AU: { currency: 'AUD', symbol: 'A$', voltageSystem: '230V / 50Hz', avgSunHours: 5.0, gridEmission: 0.79, elecRate: 0.30, label: 'Australia' },
-  AE: { currency: 'AED', symbol: 'dh', voltageSystem: '230V / 50Hz', avgSunHours: 6.5, gridEmission: 0.50, elecRate: 0.08, label: 'UAE' },
-};
-
-function detectRegion(): string {
-  try {
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    if (tz.startsWith('Asia/Kolkata') || tz.startsWith('Asia/Calcutta')) return 'IN';
-    if (tz.startsWith('America/')) return 'US';
-    if (tz.startsWith('Europe/London')) return 'GB';
-    if (tz.startsWith('Europe/')) return 'EU';
-    if (tz.startsWith('Australia/')) return 'AU';
-    if (tz.startsWith('Asia/Dubai')) return 'AE';
-  } catch {}
-  return 'US';
-}
+import { useCurrencyStore } from '../store/currencyStore';
 
 // ── Animated counter ─────────────────────────────────────────
 const AnimatedNumber: React.FC<{ value: number; prefix?: string; suffix?: string; decimals?: number }> = ({ value, prefix = '', suffix = '', decimals = 0 }) => {
@@ -61,25 +34,23 @@ const AnimatedNumber: React.FC<{ value: number; prefix?: string; suffix?: string
 
 // ── Main Component ───────────────────────────────────────────
 export const SolarROI: React.FC = () => {
-  const [regionKey, setRegionKey] = useState(detectRegion);
-  const region = REGIONS[regionKey];
+  const { currency, format, convert } = useCurrencyStore();
 
-  const [monthlyBill, setMonthlyBill] = useState<number | ''>(region.elecRate > 1 ? 3000 : 150);
+  const [monthlyBill, setMonthlyBill] = useState<number | ''>(Math.round(convert(150)));
   const [roofArea, setRoofArea] = useState<number | ''>(30);
   const [panelWp, setPanelWp] = useState(400);
-  const [systemCost, setSystemCost] = useState<number | ''>(region.elecRate > 1 ? 350000 : 15000);
+  const [systemCost, setSystemCost] = useState<number | ''>(Math.round(convert(15000)));
   const [existingLoad, setExistingLoad] = useState<number | ''>(5);
   const [panelCapacity, setPanelCapacity] = useState<number | ''>(10);
   const [showResults, setShowResults] = useState(false);
 
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
-  // When region changes, reset defaults
+  // When currency changes, actively translate the current inputs
   useEffect(() => {
-    const r = REGIONS[regionKey];
-    setMonthlyBill(r.elecRate > 1 ? 3000 : 150);
-    setSystemCost(r.elecRate > 1 ? 350000 : 15000);
-  }, [regionKey]);
+    setMonthlyBill(Math.round(convert(150)));
+    setSystemCost(Math.round(convert(15000)));
+  }, [currency.code]);
 
   const calculate = () => {
     if (!monthlyBill || !roofArea || !systemCost) return null;
@@ -87,19 +58,26 @@ export const SolarROI: React.FC = () => {
     // Solar capacity from roof (≈ 10 W/ft² or 100 W/m² usable)
     const maxPanels = Math.floor((roofArea as number) / 2); // ~2 m² per panel
     const systemKw = (maxPanels * panelWp) / 1000;
-    const sunHours = region.avgSunHours;
+    
+    // Default averages based on currency
+    const sunHours = currency.code === 'INR' ? 5.5 : currency.code === 'AUD' ? 5.0 : 4.5;
+    const gridEmission = currency.code === 'INR' ? 0.82 : currency.code === 'GBP' ? 0.23 : 0.42;
 
     // Energy production: E = P × h × 365 × η (system efficiency ~0.80)
     const eta = 0.80;
     const annualKwh = systemKw * sunHours * 365 * eta;
 
     // Financial
-    const annualSavings = annualKwh * region.elecRate;
+    // Calculate imputed electricity rate based on monthly bill and hypothetical usage
+    const assumedMonthlyUsageKwh = (monthlyBill as number) / (currency.code === 'INR' ? 8 : (currency.code === 'GBP' ? 0.34 : convert(0.16)));
+    const actualRate = (monthlyBill as number) / assumedMonthlyUsageKwh;
+
+    const annualSavings = annualKwh * actualRate;
     const paybackYears = (systemCost as number) / annualSavings;
     const roi25 = (annualSavings * 25 - (systemCost as number)) / (systemCost as number) * 100;
 
     // Environmental
-    const co2Saved = annualKwh * region.gridEmission; // kg CO₂/yr
+    const co2Saved = annualKwh * gridEmission; // kg CO₂/yr
     const treesEquiv = Math.round(co2Saved / 22); // ~22 kg CO₂ per tree per year
 
     // Safety check
@@ -120,6 +98,9 @@ export const SolarROI: React.FC = () => {
       totalLoadKw: totalLoadKw.toFixed(1),
       panelCap,
       eta,
+      sunHours,
+      actualRate,
+      gridEmission
     };
   };
 
@@ -159,17 +140,7 @@ export const SolarROI: React.FC = () => {
         </div>
       </motion.div>
 
-      {/* Region Selector */}
-      <motion.div className="flex justify-center mb-8" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
-        <div className="inline-flex gap-1 bg-slate-100 dark:bg-gray-800/50 dark:bg-gray-800/50 rounded-xl p-1">
-          {Object.entries(REGIONS).map(([key, r]) => (
-            <button key={key} onClick={() => { setRegionKey(key); setShowResults(false); }}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${regionKey === key ? 'bg-white dark:bg-gray-900 dark:bg-gray-900 shadow text-amber-700' : 'text-slate-500 dark:text-gray-400 dark:text-gray-400 hover:text-slate-700 dark:text-gray-300 dark:text-gray-300'}`}>
-              {r.label}
-            </button>
-          ))}
-        </div>
-      </motion.div>
+      {/* Replaced Region Selector with transparent global state via layout */}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Input Panel */}
@@ -181,8 +152,8 @@ export const SolarROI: React.FC = () => {
           <div className="space-y-5">
             {/* Monthly bill */}
             <div>
-              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300 mb-1.5">Monthly Electricity Bill ({region.symbol})</label>
-              <input type="number" className="w-full bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 dark:border-gray-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none font-medium" placeholder={`e.g. ${region.elecRate > 1 ? '3000' : '150'}`} value={monthlyBill} onChange={e => setMonthlyBill(e.target.value === '' ? '' : Number(e.target.value))} />
+              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300 mb-1.5">Monthly Electricity Bill ({currency.symbol})</label>
+              <input type="number" className="w-full bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 dark:border-gray-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none font-medium" placeholder={`e.g. ${convert(150)}`} value={monthlyBill} onChange={e => setMonthlyBill(e.target.value === '' ? '' : Number(e.target.value))} />
               <p className="text-xs text-slate-400 mt-1">Average monthly electricity cost</p>
             </div>
 
@@ -206,7 +177,7 @@ export const SolarROI: React.FC = () => {
 
             {/* System cost */}
             <div>
-              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300 mb-1.5">Total System Cost ({region.symbol})</label>
+              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300 mb-1.5">Total System Cost ({currency.symbol})</label>
               <input type="number" className="w-full bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 dark:border-gray-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none font-medium" placeholder="Including installation" value={systemCost} onChange={e => setSystemCost(e.target.value === '' ? '' : Number(e.target.value))} />
             </div>
 
@@ -262,7 +233,7 @@ export const SolarROI: React.FC = () => {
                     {/* Annual Savings */}
                     <div className="bg-white dark:bg-gray-900 dark:bg-gray-900/10 backdrop-blur-sm border border-white/10 rounded-2xl p-4">
                       <div className="text-green-400 text-xs font-bold uppercase tracking-wider mb-1">Annual Savings</div>
-                      <div className="text-3xl font-extrabold text-white"><AnimatedNumber value={results.annualSavings} prefix={region.symbol} /></div>
+                      <div className="text-3xl font-extrabold text-white">{format(results.annualSavings)}</div>
                       <p className="text-slate-400 text-xs mt-1">Savings = E × rate</p>
                     </div>
 
@@ -292,7 +263,7 @@ export const SolarROI: React.FC = () => {
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <div className="text-2xl font-extrabold text-emerald-700"><AnimatedNumber value={results.co2Saved} suffix=" kg" /></div>
-                      <p className="text-xs text-emerald-600">CO₂ saved per year · Grid factor: {region.gridEmission} kg/kWh</p>
+                      <p className="text-xs text-emerald-600">CO₂ saved per year · Grid factor: {results.gridEmission} kg/kWh</p>
                     </div>
                     <div>
                       <div className="text-2xl font-extrabold text-emerald-700">≈ <AnimatedNumber value={results.treesEquiv} /> 🌳</div>
@@ -317,14 +288,27 @@ export const SolarROI: React.FC = () => {
                   <p className="text-xs text-slate-500 dark:text-gray-400 dark:text-gray-400 mt-2">Rule: Total Load + Solar ≤ 80% × Panel Rating</p>
                 </motion.div>
 
-                {/* Formula Reference */}
+                {/* Formula Reference (Transparency) */}
                 <motion.div className="bg-slate-100 dark:bg-gray-800/50 dark:bg-gray-800/50 rounded-2xl p-5 mt-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7 }}>
-                  <h4 className="text-xs font-bold text-slate-500 dark:text-gray-400 dark:text-gray-400 uppercase tracking-wider mb-3">Formulas Used</h4>
-                  <div className="space-y-2 text-sm text-slate-600 dark:text-gray-400 dark:text-gray-400 font-mono">
-                    <p>E = P<sub>kW</sub> × h<sub>sun</sub> × 365 × η &nbsp;&nbsp; <span className="text-slate-400">(η = {results.eta})</span></p>
-                    <p>Savings = E × rate<sub>elec</sub></p>
-                    <p>T<sub>payback</sub> = Cost<sub>system</sub> ÷ Savings<sub>annual</sub></p>
-                    <p>CO₂ = E × EF<sub>grid</sub> &nbsp;&nbsp; <span className="text-slate-400">(EF = {region.gridEmission} kg/kWh)</span></p>
+                  <h4 className="text-sm font-bold text-slate-800 dark:text-gray-200 uppercase tracking-wider mb-3">Mathematical Breakdown</h4>
+                  <p className="text-xs font-medium text-slate-500 mb-4 pb-2 border-b border-slate-200 dark:border-gray-700">Displaying transparent calculations according to IS 732 / NEC 690 guidelines.</p>
+                  <div className="space-y-3 text-sm text-slate-600 dark:text-gray-400 font-mono bg-white dark:bg-gray-900 rounded-xl p-4 shadow-inner">
+                    <div>
+                      <span className="text-slate-400">Step 1: System kW</span><br/>
+                      <span className="text-blue-600 dark:text-blue-400">P = ({results.maxPanels} panels × {panelWp} Wp) ÷ 1000 = {results.systemKw} kW</span>
+                    </div>
+                    <div>
+                      <span className="text-slate-400">Step 2: Annual Production</span><br/>
+                      <span className="text-blue-600 dark:text-blue-400">E = {results.systemKw} kW × {results.sunHours}h × 365 × {results.eta}(η) = {results.annualKwh} kWh/yr</span>
+                    </div>
+                    <div>
+                      <span className="text-slate-400">Step 3: Payback Math</span><br/>
+                      <span className="text-blue-600 dark:text-blue-400">T = {format(systemCost as number)} ÷ {format(results.annualSavings)}/yr = {results.paybackYears} years</span>
+                    </div>
+                    <div>
+                      <span className="text-slate-400">Step 4: Safety Compliance (Panel Limit 80%)</span><br/>
+                      <span className="text-blue-600 dark:text-blue-400">Total Load ({results.totalLoadKw}kW) {results.panelSafe ? '≤' : '>'} Safe Limit ({(results.panelCap as number) * 0.8}kW) {results.panelSafe ? '✅' : '❌'}</span>
+                    </div>
                   </div>
                 </motion.div>
 

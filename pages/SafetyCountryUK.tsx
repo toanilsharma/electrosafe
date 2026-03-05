@@ -39,7 +39,6 @@ export const SafetyCountryUK: React.FC = () => {
       <Helmet>
         <title>Home Electrical Safety Guide for UK — BS 7671, EICR, RCD | ElectroSafe.homes</title>
         <meta name="description" content="Complete electrical safety guide for UK homes. BS 7671 18th Edition, Part P regulations, EICR requirements, consumer unit safety, RCD testing, and bathroom zone rules." />
-        <link rel="canonical" href="https://electrosafe.homes/safety/uk" />
         <meta name="keywords" content="home electrical safety UK, BS 7671, EICR report, Part P regulations, RCD protection, consumer unit upgrade, UK wiring regulations" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>

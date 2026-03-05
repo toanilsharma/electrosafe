@@ -100,7 +100,6 @@ export const Glossary: React.FC = () => {
       <Helmet>
         <title>Electrical Safety Glossary — 40+ Terms Explained Simply | ElectroSafe.homes</title>
         <meta name="description" content="Plain-English definitions of electrical safety terms: GFCI, RCD, MCB, AFCI, earthing, arc fault, voltage drop and more. Free electrical glossary for homeowners." />
-        <link rel="canonical" href="https://electrosafe.homes/glossary" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(definedTermSchema)}</script>
       </Helmet>

@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { ShareableScoreCard } from '../components/ShareableScoreCard';
-import { AlertCircle, CheckCircle2, XCircle, ArrowRight, Camera, Trophy, RotateCcw } from 'lucide-react';
+import { AlertCircle, CheckCircle2, XCircle, ArrowRight, Camera, Trophy, RotateCcw, Calculator, Info, ShieldCheck } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-// Quiz Data - simulated images via descriptive placeholders or real safe/unsafe scenarios
 const QUIZ_QUESTIONS = [
   {
     id: 1,
@@ -70,21 +70,12 @@ export const DIYPhotoQuiz: React.FC = () => {
   const [showResults, setShowResults] = useState(false);
   const [answeredList, setAnsweredList] = useState<boolean[]>([]);
 
-  const question = QUIZ_QUESTIONS[currentQuestionIdx];
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [currentQuestionIdx, showResults]);
+  useEffect(() => { window.scrollTo(0, 0); }, [currentQuestionIdx, showResults]);
 
   const handleSelect = (optionId: string, isCorrect: boolean) => {
-    if (selectedOption !== null) return; // Prevent double clicking
-    
+    if (selectedOption !== null) return;
     setSelectedOption(optionId);
-    
-    if (isCorrect) {
-      setScore(prev => prev + 1);
-    }
-    
+    if (isCorrect) setScore(prev => prev + 1);
     setAnsweredList(prev => [...prev, isCorrect]);
   };
 
@@ -105,179 +96,178 @@ export const DIYPhotoQuiz: React.FC = () => {
     setAnsweredList([]);
   };
 
-  const getScoreMessage = () => {
-    const percentage = (score / QUIZ_QUESTIONS.length) * 100;
-    if (percentage === 100) return { title: "Safety Inspector!", desc: "Flawless. You have an eagle eye for electrical hazards." };
-    if (percentage >= 80) return { title: "Well Trained!", desc: "Great job, but reviewing the ones you missed could save a life." };
-    if (percentage >= 60) return { title: "Risky Business.", desc: "You missed some critical hazards. Please review the safety explanations." };
-    return { title: "Danger Zone!", desc: "Your home might be hiding serious risks. Consider hiring a pro for an audit." };
-  };
-
-  if (showResults) {
-    const msg = getScoreMessage();
-    const finalScore = Math.round((score / QUIZ_QUESTIONS.length) * 100);
-    
-    return (
-      <div className="max-w-4xl mx-auto px-4 py-10">
-        <Helmet>
-          <title>DIY or Deadly? Quiz Results | ElectroSafe.homes</title>
-          <meta name="description" content="Your home electrical hazard identification score." />
-        </Helmet>
-        
-        <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-3xl p-8 md:p-12 shadow-xl border border-gray-100 dark:border-gray-800 dark:border-gray-800 text-center animate-fade-in relative overflow-hidden">
-          {/* Confetti background for perfect score */}
-          {finalScore === 100 && (
-            <div className="absolute inset-0 pointer-events-none opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCI+PGNpcmNsZSBjeD0iMjUiIGN5PSIyNSIgcj0iNSIgZmlsbD0iI2Y1OWMwYiIvPjwvc3ZnPg==')] " />
-          )}
-
-          <Trophy className={`w-20 h-20 mx-auto mb-6 ${finalScore >= 80 ? 'text-yellow-400' : 'text-gray-400'}`} />
-          <h1 className="text-4xl font-extrabold text-slate-900 dark:text-gray-100 dark:text-gray-100 mb-4">{msg.title}</h1>
-          <p className="text-xl text-gray-600 dark:text-gray-400 dark:text-gray-400 mb-8 max-w-lg mx-auto">{msg.desc}</p>
-          
-          <div className="inline-block p-1 bg-gradient-to-r from-blue-500 to-teal-400 rounded-3xl mb-8">
-            <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-[22px] px-10 py-6">
-              <div className="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500">
-                {score} / {QUIZ_QUESTIONS.length}
-              </div>
-              <div className="text-sm font-bold text-gray-400 uppercase tracking-widest mt-2">Correct Answers</div>
-            </div>
-          </div>
-          
-          {/* Feature: Shareable Card Generation */}
-          <div className="mt-8 mb-12">
-             <ShareableScoreCard 
-               score={finalScore} 
-               category="Visual Safety Quiz" 
-               shareText={`I scored ${finalScore}% on the "DIY or Deadly" Electrical Photo Quiz! Can you spot the hidden fire hazards? Take the test:`}
-               url="https://electrosafe.homes/diy-quiz"
-             />
-          </div>
-
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button onClick={restartQuiz} className="inline-flex justify-center items-center gap-2 px-8 py-3 bg-gray-100 dark:bg-gray-800/50 dark:bg-gray-800/50 hover:bg-gray-200 text-gray-700 dark:text-gray-300 dark:text-gray-300 font-bold rounded-xl transition">
-              <RotateCcw className="w-5 h-5" /> Retake Quiz
-            </button>
-            <Link to="/home-buyer-scanner" className="inline-flex justify-center items-center gap-2 px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition shadow-lg shadow-blue-500/30">
-              Try Home Buyer Scanner <ArrowRight className="w-5 h-5" />
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  const finalScorePercent = Math.round((score / QUIZ_QUESTIONS.length) * 100);
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8 md:py-12">
+    <div className="max-w-6xl mx-auto px-4 py-8 md:py-12">
       <Helmet>
         <title>DIY or Deadly? Photo Quiz | ElectroSafe.homes</title>
-        <meta name="description" content="Can you spot the hidden electrical fire and shock hazards? Take our rapid-fire visual safety quiz to test your home inspector eye." />
-        <link rel="canonical" href="https://electrosafe.homes/diy-quiz" />
+        <meta name="description" content="Can you spot the hidden electrical fire and shock hazards? Test your eye for safety." />
       </Helmet>
 
-      {/* Header & Progress */}
-      <div className="mb-8">
-        <div className="flex justify-between items-center mb-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-red-100 text-red-700 rounded-lg text-sm font-bold uppercase tracking-wide">
-            <Camera className="w-4 h-4" /> DIY or Deadly?
-          </div>
-          <div className="text-sm font-bold text-gray-500 dark:text-gray-400 dark:text-gray-400">
-            Question {currentQuestionIdx + 1} of {QUIZ_QUESTIONS.length}
-          </div>
-        </div>
-        
-        {/* Progress Bar Timeline */}
-        <div className="flex gap-1 h-2">
-          {QUIZ_QUESTIONS.map((_, idx) => {
-            let bgColor = "bg-gray-200";
-            if (idx < currentQuestionIdx) {
-              bgColor = answeredList[idx] ? "bg-green-500" : "bg-red-500";
-            } else if (idx === currentQuestionIdx) {
-              bgColor = "bg-blue-500 animate-pulse";
-            }
-            return (
-               <div key={idx} className={`flex-1 rounded-full ${bgColor} transition-colors duration-300`} />
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Question Card */}
-      <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-3xl overflow-hidden shadow-xl border border-gray-100 dark:border-gray-800 dark:border-gray-800 animate-slide-up">
-         
-         {/* Simulated Image Area - Using styled placeholder representing real photos */}
-         <div className="bg-slate-900 aspect-video md:aspect-[21/9] relative flex items-center justify-center p-8 text-center border-b-4 border-slate-800">
-            <div className="absolute top-4 left-4">
-              <span className="px-3 py-1 bg-black/50 backdrop-blur-md text-white/70 rounded-full text-xs font-mono">IMG_{currentQuestionIdx + 1}.JPG</span>
+      {!showResults ? (
+        <div className="max-w-3xl mx-auto">
+          {/* Header */}
+          <motion.div className="text-center mb-10" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-100 dark:bg-rose-900/30 text-rose-700 dark:text-rose-400 text-xs font-black uppercase tracking-widest mb-4">
+              <Camera className="w-3.5 h-3.5" /> Visual Intelligence
             </div>
-            <p className="text-xl md:text-2xl font-medium text-white max-w-xl leading-relaxed">
-              "{question.imageDesc}"
-            </p>
-         </div>
+            <h1 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-gray-100 mb-4 tracking-tighter italic">
+              DIY or <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-red-600 underline">Deadly?</span> 📸
+            </h1>
+            <p className="text-slate-600 dark:text-gray-400 font-medium">Spot the hidden electrical fire & shock hazards.</p>
+          </motion.div>
 
-         <div className="p-6 md:p-8">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-6 font-display">Is this setup Safe or Deadly?</h2>
-            
-            <div className="space-y-3 mb-8">
-               {question.options.map((opt) => {
-                 const isSelected = selectedOption === opt.id;
-                 const isCorrectStatus = isSelected && opt.isCorrect;
-                 const isWrongStatus = isSelected && !opt.isCorrect;
-                 const showCorrectAnswer = selectedOption !== null && opt.isCorrect;
+          {/* Progress */}
+          <div className="mb-12 flex gap-2 h-2.5">
+            {QUIZ_QUESTIONS.map((_, idx) => (
+              <div 
+                key={idx} 
+                className={`flex-1 rounded-full transition-all duration-500 ${
+                  idx < currentQuestionIdx ? (answeredList[idx] ? 'bg-emerald-500' : 'bg-rose-500') :
+                  idx === currentQuestionIdx ? 'bg-slate-300 animate-pulse' : 'bg-slate-100 dark:bg-gray-800'
+                }`} 
+              />
+            ))}
+          </div>
+
+          {/* Question Card */}
+          <AnimatePresence mode="wait">
+            <motion.div 
+               key={currentQuestionIdx}
+               initial={{ opacity: 0, y: 20 }}
+               animate={{ opacity: 1, y: 0 }}
+               exit={{ opacity: 0, y: -20 }}
+               className="bg-white dark:bg-gray-900 rounded-[48px] overflow-hidden shadow-2xl border border-slate-100 dark:border-gray-800"
+            >
+               <div className="bg-slate-900 aspect-video flex items-center justify-center p-12 text-center relative">
+                  <div className="absolute top-6 left-6 flex items-center gap-2">
+                     <div className="w-3 h-3 rounded-full bg-rose-500 animate-pulse" />
+                     <span className="text-[10px] font-black text-white/40 uppercase tracking-widest">Live Evidence View</span>
+                  </div>
+                  <p className="text-2xl md:text-3xl font-black text-white leading-tight italic tracking-tighter">
+                     "{QUIZ_QUESTIONS[currentQuestionIdx].imageDesc}"
+                  </p>
+               </div>
+
+               <div className="p-8 md:p-12">
+                  <h2 className="text-xl font-black text-slate-900 dark:text-gray-100 mb-8 uppercase tracking-tight">Vetting Choice:</h2>
+                  <div className="space-y-4 mb-10">
+                     {QUIZ_QUESTIONS[currentQuestionIdx].options.map((opt) => {
+                        const isSelected = selectedOption === opt.id;
+                        const showCorrect = selectedOption !== null && opt.isCorrect;
+                        const showWrong = isSelected && !opt.isCorrect;
+                        
+                        return (
+                           <button
+                              key={opt.id}
+                              onClick={() => handleSelect(opt.id, opt.isCorrect)}
+                              disabled={selectedOption !== null}
+                              className={`w-full text-left p-6 rounded-[24px] border-2 transition-all duration-300 font-bold flex items-center gap-4 ${
+                                 isSelected ? (opt.isCorrect ? 'bg-emerald-50 border-emerald-500 text-emerald-900 shadow-lg' : 'bg-rose-50 border-rose-500 text-rose-900 shadow-lg') :
+                                 showCorrect ? 'bg-emerald-50 border-emerald-500 text-emerald-900' :
+                                 selectedOption !== null ? 'opacity-40 border-slate-100 scale-95' :
+                                 'border-slate-50 dark:border-gray-800 hover:border-emerald-200 hover:bg-slate-50 text-slate-700 dark:text-gray-300'
+                              }`}
+                           >
+                              <div className={`w-6 h-6 rounded-full border-2 shrink-0 flex items-center justify-center ${isSelected || showCorrect ? (opt.isCorrect ? 'bg-emerald-500 border-emerald-500' : 'bg-rose-500 border-rose-500') : 'border-slate-200'}`}>
+                                 {(isSelected || showCorrect) && (opt.isCorrect ? <CheckCircle2 className="w-4 h-4 text-white" /> : <XCircle className="w-4 h-4 text-white" />)}
+                              </div>
+                              {opt.text}
+                           </button>
+                        );
+                     })}
+                  </div>
+
+                  {selectedOption !== null && (
+                     <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="space-y-8">
+                        <div className="bg-slate-50 dark:bg-gray-800 p-8 rounded-[32px] border-2 border-slate-100 dark:border-gray-700">
+                           <div className="flex items-center gap-2 text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">
+                              <Info className="w-4 h-4 text-rose-500" /> Forensic Breakdown
+                           </div>
+                           <p className="text-lg font-bold text-slate-800 dark:text-gray-200 leading-relaxed italic">
+                              {QUIZ_QUESTIONS[currentQuestionIdx].explanation}
+                           </p>
+                        </div>
+                        <button onClick={nextQuestion} className="w-full py-5 bg-slate-900 text-white rounded-[24px] font-black text-sm uppercase tracking-widest hover:bg-black transition-all shadow-xl flex items-center justify-center gap-3 active:scale-95">
+                           {currentQuestionIdx === QUIZ_QUESTIONS.length - 1 ? 'Analyze Final Score' : 'Next Evidence Item'} <ArrowRight className="w-5 h-5" />
+                        </button>
+                     </motion.div>
+                  )}
+               </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      ) : (
+        <div className="max-w-4xl mx-auto">
+           <div className="text-center mb-12">
+              <h2 className="text-5xl font-black text-slate-900 dark:text-gray-100 tracking-tighter italic">Forensic <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-red-600 underline">Report</span></h2>
+           </div>
+
+           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+              <div className={`lg:col-span-8 p-12 rounded-[56px] text-center border-4 shadow-2xl relative overflow-hidden ${
+                 finalScorePercent >= 80 ? 'bg-emerald-50 border-emerald-500/20' : 'bg-rose-50 border-rose-500/20'
+              }`}>
+                 <div className="absolute top-0 right-0 w-64 h-64 bg-white/50 rounded-full blur-3xl font-black" />
                  
-                 let btnStyle = "bg-white dark:bg-gray-900 dark:bg-gray-900 border-2 border-slate-200 dark:border-gray-700 dark:border-gray-700 text-slate-700 dark:text-gray-300 dark:text-gray-300 hover:border-blue-400 hover:bg-blue-50";
-                 
-                 if (isCorrectStatus || showCorrectAnswer) {
-                   btnStyle = "bg-green-50 border-2 border-green-500 text-green-800";
-                 } else if (isWrongStatus) {
-                   btnStyle = "bg-red-50 border-2 border-red-500 text-red-800";
-                 } else if (selectedOption !== null) {
-                   btnStyle = "bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border-2 border-slate-100 dark:border-gray-800 dark:border-gray-800 text-slate-400 opacity-60";
-                 }
-
-                 return (
-                   <button
-                     key={opt.id}
-                     onClick={() => handleSelect(opt.id, opt.isCorrect)}
-                     disabled={selectedOption !== null}
-                     className={`w-full text-left p-4 rounded-xl font-medium transition-all duration-300 flex items-start gap-4 ${btnStyle}`}
-                   >
-                     {/* Check/X Icon */}
-                     <div className="mt-0.5 flex-shrink-0">
-                       {(isCorrectStatus || showCorrectAnswer) && <CheckCircle2 className="w-5 h-5 text-green-600" />}
-                       {isWrongStatus && <XCircle className="w-5 h-5 text-red-600" />}
-                       {!isCorrectStatus && !isWrongStatus && !showCorrectAnswer && <div className="w-5 h-5 rounded-full border-2 border-current opacity-40" />}
-                     </div>
-                     <span className="text-lg">{opt.text}</span>
-                   </button>
-                 );
-               })}
-            </div>
-
-            {/* Explanation Area (Expands after selection) */}
-            {selectedOption !== null && (
-               <div className="animate-in fade-in slide-in-from-bottom-2 duration-500">
-                 <div className="p-6 rounded-2xl bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 dark:border-gray-700 mb-6">
-                    <div className="flex items-center gap-2 text-slate-600 dark:text-gray-400 dark:text-gray-400 font-bold mb-2 uppercase tracking-wider text-xs">
-                       <AlertCircle className="w-4 h-4" /> {question.hazardType}
+                 <div className="relative z-10">
+                    <Trophy className={`w-24 h-24 mx-auto mb-8 ${finalScorePercent >= 80 ? 'text-yellow-500 animate-bounce' : 'text-slate-300'}`} />
+                    <div className={`text-9xl font-black tracking-tighter mb-4 ${finalScorePercent >= 80 ? 'text-emerald-600' : 'text-rose-600'}`}>
+                       {finalScorePercent}%
                     </div>
-                    <p className="text-slate-800 dark:text-gray-200 dark:text-gray-200 leading-relaxed">
-                       {question.explanation}
+                    <h3 className="text-3xl font-black uppercase tracking-tighter text-slate-900 dark:text-gray-100 mb-8 italic">
+                       {finalScorePercent === 100 ? "Master Inspector" : finalScorePercent >= 80 ? "Certified Aware" : "Hazard Prone"}
+                    </h3>
+                    
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                       <Link to="/home-buyer-scanner" className="px-10 py-5 bg-slate-900 text-white rounded-[24px] font-black text-sm uppercase tracking-widest hover:bg-black transition-all shadow-xl flex items-center justify-center gap-3">
+                          <ShieldCheck className="w-5 h-5" /> Full Buyer Scanner
+                       </Link>
+                       <button onClick={restartQuiz} className="px-10 py-5 bg-white text-slate-900 border-2 border-slate-100 rounded-[24px] font-black text-sm uppercase tracking-widest hover:bg-slate-50 transition-all flex items-center justify-center gap-3">
+                          <RotateCcw className="w-5 h-5" /> Restart
+                       </button>
+                    </div>
+                 </div>
+              </div>
+
+              <div className="lg:col-span-4 space-y-6">
+                 <div className="bg-slate-900 rounded-[32px] p-8 text-white shadow-2xl">
+                    <h4 className="text-[10px] font-black text-rose-500 uppercase tracking-widest mb-6 flex items-center gap-2">
+                       <Calculator className="w-4 h-4" /> Deduction Logic
+                    </h4>
+                    <div className="space-y-4 text-xs font-mono text-slate-400">
+                       <p>• Items Scanned: {QUIZ_QUESTIONS.length}</p>
+                       <p>• Correct ID: {score}</p>
+                       <p>• Lethality Missed: {QUIZ_QUESTIONS.length - score}</p>
+                       <div className="pt-4 border-t border-white/5">
+                          <p className="text-rose-400 font-black mb-1">Risk Weighting:</p>
+                          <p>Misidentified hazards are assumed as "Homeowner Exposure" incidents.</p>
+                       </div>
+                    </div>
+                 </div>
+                 
+                 <div className="bg-indigo-50 dark:bg-indigo-900/10 p-8 rounded-[32px] border-2 border-indigo-100 dark:border-indigo-800">
+                    <h4 className="text-[10px] font-black text-indigo-500 uppercase tracking-widest mb-4 flex items-center gap-2">
+                       <Zap className="w-4 h-4" /> Transparency
+                    </h4>
+                    <p className="text-xs text-indigo-800 dark:text-indigo-300 font-bold leading-relaxed">
+                       All "Deadly" outcomes are based on <strong className="text-slate-900 dark:text-white">OSHA</strong> and <strong className="text-slate-900 dark:text-white">NFPA 70E</strong> arc flash and shock distance standards.
                     </p>
                  </div>
-                 
-                 <div className="flex justify-end">
-                    <button 
-                      onClick={nextQuestion}
-                      className="inline-flex items-center gap-2 px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition shadow-lg shadow-blue-500/30 group"
-                    >
-                      {currentQuestionIdx === QUIZ_QUESTIONS.length - 1 ? 'See Results' : 'Next Photo'} 
-                      <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                    </button>
-                 </div>
-               </div>
-            )}
-         </div>
-      </div>
+              </div>
+           </div>
+
+           <div className="mt-12">
+              <ShareableScoreCard 
+                 score={finalScorePercent} 
+                 toolName="Photo Hazard Quiz" 
+                 toolPath="/diy-quiz"
+                 rating={finalScorePercent >= 80 ? "Safety Pro" : "Needs Review"}
+                 riskLevel={finalScorePercent >= 80 ? "low" : "high"}
+              />
+           </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -325,7 +325,6 @@ export const Articles = () => {
             <title>{selectedArticle.seoTitle || selectedArticle.title} | ElectroSafe Articles</title>
             <meta name="description" content={selectedArticle.metaDescription || selectedArticle.excerpt} />
             <meta name="keywords" content={selectedArticle.keywords ? selectedArticle.keywords.join(', ') : ''} />
-            <link rel="canonical" href={`https://electrosafe.homes/articles/${selectedArticle.slug}`} />
             <meta property="og:type" content="article" />
             <meta property="og:url" content={`https://electrosafe.homes/articles/${selectedArticle.slug}`} />
             <meta property="og:title" content={selectedArticle.seoTitle || selectedArticle.title} />
@@ -480,7 +479,6 @@ export const Articles = () => {
       <Helmet>
         <title>Electrical Safety Articles | ElectroSafe Knowledge Base</title>
         <meta name="description" content="Expert electrical safety guides for homeowners. Learn about wiring hazards, prevent fires, and understand your home's electrical system." />
-        <link rel="canonical" href="https://electrosafe.homes/articles" />
       </Helmet>
 
       <div className="text-center mb-16">

@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { SEOHead } from '../components/SEOHead';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CloudLightning, ShieldCheck, AlertTriangle, Info, RotateCcw, DollarSign, Zap } from 'lucide-react';
+import { CloudLightning, ShieldCheck, AlertTriangle, Info, RotateCcw, DollarSign, Zap, Calculator } from 'lucide-react';
 import { RelatedTools } from '../components/RelatedTools';
+import { useCurrencyStore } from '../store/currencyStore';
 
 // Animated number
 const AnimN: React.FC<{ value: number; prefix?: string; suffix?: string; decimals?: number }> = ({ value, prefix = '', suffix = '', decimals = 0 }) => {
@@ -34,31 +35,9 @@ const ROOF_MATERIALS = [
   { label: 'Solar Panels on Roof', factor: 0.7, desc: 'Metal frame provides partial path' },
 ];
 
-// Regions for currency
-const REGIONS: Record<string, { symbol: string; label: string; surgeProtectorCost: number }> = {
-  IN: { symbol: '₹', label: 'India', surgeProtectorCost: 8000 },
-  US: { symbol: '$', label: 'USA', surgeProtectorCost: 300 },
-  GB: { symbol: '£', label: 'UK', surgeProtectorCost: 250 },
-  EU: { symbol: '€', label: 'Europe', surgeProtectorCost: 280 },
-  AU: { symbol: 'A$', label: 'Australia', surgeProtectorCost: 400 },
-};
-
-function detectRegion(): string {
-  try {
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    if (tz.startsWith('Asia/Kolkata') || tz.startsWith('Asia/Calcutta')) return 'IN';
-    if (tz.startsWith('America/')) return 'US';
-    if (tz.startsWith('Europe/London')) return 'GB';
-    if (tz.startsWith('Europe/')) return 'EU';
-    if (tz.startsWith('Australia/')) return 'AU';
-  } catch {}
-  return 'US';
-}
-
 // ── Component ───────────────────────────────────────────────
 export const LightningRisk: React.FC = () => {
-  const [regionKey, setRegionKey] = useState(detectRegion);
-  const region = REGIONS[regionKey];
+  const { currency, format, convert } = useCurrencyStore();
 
   const [height, setHeight] = useState<number | ''>(8); // meters
   const [gfdIdx, setGfdIdx] = useState(2); // temperate by default
@@ -86,7 +65,6 @@ export const LightningRisk: React.FC = () => {
     // Location factor C_d
     let Cd = 1.0;
     if (hasTrees) Cd = 0.5; // Taller trees nearby reduce direct strikes
-    // Terrain: assume flat (Cd = 1)
 
     // Raw strikes per year
     const Nd = Ng * Ae * Cd * 1e-6;
@@ -118,8 +96,9 @@ export const LightningRisk: React.FC = () => {
     else protectionLevel = 'None';
 
     // Electronics value at risk (avg home)
-    const electronicsValue = regionKey === 'IN' ? 200000 : regionKey === 'US' ? 5000 : 4000;
+    const electronicsValue = 5000; // Base USD value
     const surgeROI = hasSPD ? 0 : Math.round(electronicsValue * probYear * 25);
+    const spdCost = 300; // Average cost in USD
 
     return {
       Ae: Math.round(Ae),
@@ -132,6 +111,8 @@ export const LightningRisk: React.FC = () => {
       protectionLevel,
       surgeROI,
       Ng,
+      spdCost,
+      electronicsValue
     };
   };
 
@@ -141,7 +122,7 @@ export const LightningRisk: React.FC = () => {
     '@context': 'https://schema.org', '@type': 'FAQPage',
     mainEntity: [
       { '@type': 'Question', name: 'What is the probability of lightning striking my house?', acceptedAnswer: { '@type': 'Answer', text: 'The probability depends on your building height, location (ground flash density), and terrain. Using the IEC 62305 formula, a typical 8m house in a temperate region has roughly a 1 in 1,000 to 1 in 10,000 annual probability. Taller buildings and tropical regions have much higher risk.' } },
-      { '@type': 'Question', name: 'Do I need a whole-house surge protector?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Even nearby lightning strikes (within 2 km) can induce voltage surges that destroy unprotected electronics. A Type 2 SPD (Surge Protective Device) at your electrical panel costs $200-400 and protects thousands of dollars in equipment. Per IEC 62305-4, SPDs are recommended for all buildings in areas with Ng > 1.' } },
+      { '@type': 'Question', name: 'Do I need a whole-house surge protector?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Even nearby lightning strikes (within 2 km) can induce voltage surges that destroy unprotected electronics. A Type 2 SPD (Surge Protective Device) at your electrical panel costs around 300 USD and protects thousands of dollars in equipment. Per IEC 62305-4, SPDs are recommended for all buildings in areas with Ng > 1.' } },
     ]
   };
 
@@ -156,76 +137,92 @@ export const LightningRisk: React.FC = () => {
 
       {/* Header */}
       <motion.div className="text-center mb-10" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-sky-100 text-sky-700 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-sky-100 dark:bg-sky-900/30 text-sky-700 dark:text-sky-400 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
           <CloudLightning className="w-4 h-4" /> Storm Safety
         </div>
-        <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-gray-100 dark:text-gray-100 mb-4 tracking-tight">
-          Lightning Strike <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-blue-600">Probability</span> Calculator
+        <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-gray-100 dark:text-gray-100 mb-6 tracking-tight font-black">
+          Lightning <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-blue-600 italic">Probability</span> Calculator
         </h1>
-        <p className="text-lg text-slate-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-lg text-slate-600 dark:text-gray-400 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed font-medium">
           What are the <strong>real odds</strong> of a lightning strike hitting your home? Calculate your risk using the international <strong>IEC 62305</strong> standard.
         </p>
-        <div className="mt-3 inline-flex items-center gap-1.5 text-xs text-slate-400 font-medium">
-          <Info className="w-3.5 h-3.5" /> IEC 62305-2 · NFPA 780 · BS EN 62305
+        <div className="mt-4 inline-flex items-center gap-1.5 text-xs text-slate-400 font-bold uppercase tracking-widest">
+          <Info className="w-3.5 h-3.5" /> Derived from IEC 62305-2 · NFPA 780
         </div>
       </motion.div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Input */}
-        <motion.div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-3xl p-6 md:p-8 shadow-xl border border-slate-100 dark:border-gray-800 dark:border-gray-800" initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }}>
-          <h2 className="text-xl font-bold text-slate-900 dark:text-gray-100 dark:text-gray-100 mb-6 flex items-center gap-2"><CloudLightning className="w-5 h-5 text-sky-500" /> Your Building</h2>
-          <div className="space-y-5">
+        <motion.div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-[32px] p-6 md:p-10 shadow-xl border border-slate-100 dark:border-gray-800 dark:border-gray-800" initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }}>
+          <h2 className="text-xl font-black text-slate-900 dark:text-gray-100 dark:text-gray-100 mb-8 flex items-center gap-3">
+             <div className="p-2 bg-sky-50 dark:bg-sky-900/30 rounded-xl text-sky-500">
+                <CloudLightning className="w-6 h-6" />
+             </div>
+             Site Parameters
+          </h2>
+          <div className="space-y-6">
             <div>
-              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300 mb-1.5">Building Height (m)</label>
-              <input type="number" min={1} max={100} className="w-full bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 dark:border-gray-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-sky-500 outline-none font-medium" value={height} onChange={e => { setHeight(e.target.value === '' ? '' : Number(e.target.value)); setShowResults(false); }} />
-              <p className="text-xs text-slate-400 mt-1">1 story ≈ 3m · 2 story ≈ 6-8m · 3 story ≈ 9-12m</p>
+              <label className="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">Building Height (meters)</label>
+              <input type="number" min={1} max={100} className="w-full bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border-2 border-slate-100 dark:border-gray-700 dark:border-gray-700 rounded-2xl px-5 py-4 focus:ring-2 focus:ring-sky-500 outline-none font-bold text-lg" value={height} onChange={e => { setHeight(e.target.value === '' ? '' : Number(e.target.value)); setShowResults(false); }} />
+              <p className="text-[10px] font-bold text-slate-400 mt-2 uppercase">1 story ≈ 3m · 2 story ≈ 6-8m · 3 story ≈ 9-12m</p>
             </div>
 
             <div>
-              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300 mb-1.5">Storm Region (Ground Flash Density N<sub>g</sub>)</label>
-              <div className="space-y-2">
+              <label className="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">Storm Region (Ground Flash Density)</label>
+              <div className="grid grid-cols-1 gap-2">
                 {GFD_REGIONS.map((gfd, idx) => (
                   <button key={idx} onClick={() => { setGfdIdx(idx); setShowResults(false); }}
-                    className={`w-full text-left px-4 py-3 rounded-xl text-sm transition-all border ${gfdIdx === idx ? 'bg-sky-50 border-sky-300 text-sky-800 ring-1 ring-sky-300' : 'bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border-slate-100 dark:border-gray-800 dark:border-gray-800 text-slate-700 dark:text-gray-300 dark:text-gray-300 hover:bg-slate-100 dark:bg-gray-800/50 dark:bg-gray-800/50'}`}>
-                    <p className="font-medium">{gfd.label}</p>
-                    <p className="text-[10px] text-slate-400 mt-0.5">{gfd.desc}</p>
+                    className={`w-full text-left px-5 py-3 rounded-2xl text-sm transition-all border-2 ${gfdIdx === idx ? 'bg-sky-50 border-sky-500 text-sky-800 shadow-md transform scale-[1.01]' : 'bg-white dark:bg-gray-900 dark:bg-gray-900 border-slate-50 dark:border-gray-800 dark:border-gray-800 text-slate-700 dark:text-gray-300 dark:text-gray-300 hover:border-sky-200'}`}>
+                    <p className="font-extrabold">{gfd.label}</p>
+                    <p className="text-[10px] text-slate-400 font-medium">{gfd.desc}</p>
                   </button>
                 ))}
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300 mb-1.5">Roof Material</label>
-              <select className="w-full bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 dark:border-gray-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-sky-500 outline-none font-medium appearance-none"
-                value={roofIdx} onChange={e => { setRoofIdx(Number(e.target.value)); setShowResults(false); }}>
-                {ROOF_MATERIALS.map((rm, idx) => (
-                  <option key={idx} value={idx}>{rm.label} — {rm.desc}</option>
-                ))}
-              </select>
+              <label className="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">Roof Material</label>
+              <div className="relative">
+                <select className="w-full bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 border-2 border-slate-100 dark:border-gray-700 dark:border-gray-700 rounded-2xl px-5 py-4 focus:ring-2 focus:ring-sky-500 outline-none font-bold appearance-none"
+                  value={roofIdx} onChange={e => { setRoofIdx(Number(e.target.value)); setShowResults(false); }}>
+                  {ROOF_MATERIALS.map((rm, idx) => (
+                    <option key={idx} value={idx}>{rm.label}</option>
+                  ))}
+                </select>
+                <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none">
+                   <RotateCcw className="w-4 h-4 text-slate-400 rotate-90" />
+                </div>
+              </div>
             </div>
 
             {/* Checkboxes */}
-            <div className="space-y-3">
-              <label className="flex items-center gap-3 cursor-pointer">
-                <input type="checkbox" checked={hasTrees} onChange={e => { setHasTrees(e.target.checked); setShowResults(false); }}
-                  className="w-5 h-5 text-sky-600 rounded focus:ring-sky-500 border-gray-300" />
-                <span className="text-sm text-slate-700 dark:text-gray-300 dark:text-gray-300">Tall trees nearby (taller than building)</span>
+            <div className="bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 p-6 rounded-3xl space-y-4">
+              <label className="flex items-center gap-4 cursor-pointer group">
+                <div className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all ${hasTrees ? 'bg-sky-500 border-sky-500' : 'border-slate-300 group-hover:border-sky-400'}`}>
+                   {hasTrees && <ShieldCheck className="w-4 h-4 text-white" />}
+                </div>
+                <input type="checkbox" className="hidden" checked={hasTrees} onChange={e => { setHasTrees(e.target.checked); setShowResults(false); }} />
+                <span className="text-sm font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300 italic">Tall trees nearby (Shielding effect)</span>
               </label>
-              <label className="flex items-center gap-3 cursor-pointer">
-                <input type="checkbox" checked={hasLPS} onChange={e => { setHasLPS(e.target.checked); setShowResults(false); }}
-                  className="w-5 h-5 text-sky-600 rounded focus:ring-sky-500 border-gray-300" />
-                <span className="text-sm text-slate-700 dark:text-gray-300 dark:text-gray-300">Lightning rod / LPS installed</span>
+              <label className="flex items-center gap-4 cursor-pointer group">
+                 <div className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all ${hasLPS ? 'bg-sky-500 border-sky-500' : 'border-slate-300 group-hover:border-sky-400'}`}>
+                   {hasLPS && <ShieldCheck className="w-4 h-4 text-white" />}
+                </div>
+                <input type="checkbox" className="hidden" checked={hasLPS} onChange={e => { setHasLPS(e.target.checked); setShowResults(false); }} />
+                <span className="text-sm font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300 italic">LPS Rod / Mesh Installed</span>
               </label>
-              <label className="flex items-center gap-3 cursor-pointer">
-                <input type="checkbox" checked={hasSPD} onChange={e => { setHasSPD(e.target.checked); setShowResults(false); }}
-                  className="w-5 h-5 text-sky-600 rounded focus:ring-sky-500 border-gray-300" />
-                <span className="text-sm text-slate-700 dark:text-gray-300 dark:text-gray-300">Whole-house surge protector (SPD)</span>
+              <label className="flex items-center gap-4 cursor-pointer group">
+                 <div className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all ${hasSPD ? 'bg-sky-500 border-sky-500' : 'border-slate-300 group-hover:border-sky-400'}`}>
+                   {hasSPD && <ShieldCheck className="w-4 h-4 text-white" />}
+                </div>
+                <input type="checkbox" className="hidden" checked={hasSPD} onChange={e => { setHasSPD(e.target.checked); setShowResults(false); }} />
+                <span className="text-sm font-bold text-slate-700 dark:text-gray-300 dark:text-gray-300 italic">Whole-House SPD (Panel Protection)</span>
               </label>
             </div>
 
             <button onClick={() => setShowResults(true)}
-              className="w-full py-3.5 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white rounded-xl font-bold text-lg transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 flex items-center justify-center gap-2">
-              <CloudLightning className="w-5 h-5" /> Calculate Risk
+              className="w-full py-5 bg-gradient-to-br from-sky-500 to-blue-700 hover:from-sky-600 hover:to-blue-800 text-white rounded-2xl font-black text-xl transition-all shadow-xl hover:shadow-sky-200/50 flex items-center justify-center gap-3 active:scale-95">
+              <CloudLightning className="w-6 h-6" /> Analyze Probability
             </button>
           </div>
         </motion.div>
@@ -235,102 +232,137 @@ export const LightningRisk: React.FC = () => {
           {results ? (
             <motion.div key="results" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} className="space-y-6">
               {/* Lightning probability */}
-              <div className="bg-slate-900 rounded-3xl p-6 md:p-8 shadow-2xl relative overflow-hidden">
-                <div className="absolute -top-24 -right-24 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
+              <div className="bg-slate-900 rounded-[40px] p-8 md:p-10 shadow-2xl relative overflow-hidden text-center">
+                <div className="absolute -top-24 -right-24 w-80 h-80 bg-sky-500/20 rounded-full blur-[100px] pointer-events-none" />
+                <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
                 
                 {/* Lightning bolt animation */}
-                <motion.div className="text-center mb-6 relative z-10" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 200 }}>
-                  <CloudLightning className="w-16 h-16 text-yellow-400 mx-auto mb-3" />
-                  <div className="text-4xl font-extrabold text-white">1 in <AnimN value={results.odds === Infinity ? 999999 : results.odds} /></div>
-                  <p className="text-sky-400 text-sm font-medium mt-1">Annual probability of direct strike</p>
+                <motion.div className="relative z-10 mb-8" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 200, damping: 10 }}>
+                  <div className="relative inline-block">
+                     <CloudLightning className="w-20 h-20 text-yellow-400 mx-auto mb-4 filter drop-shadow-[0_0_15px_rgba(250,204,21,0.6)]" />
+                     <motion.div 
+                        className="absolute inset-0 bg-yellow-400/20 blur-2xl rounded-full"
+                        animate={{ opacity: [0.3, 0.6, 0.3] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                     />
+                  </div>
+                  <div className="text-5xl font-black text-white tracking-tighter italic">1 in <AnimN value={results.odds === Infinity ? 999999 : results.odds} /></div>
+                  <p className="text-sky-400 text-xs font-black uppercase tracking-[0.2em] mt-3 opacity-80">Annual strike probability</p>
                 </motion.div>
 
                 <div className="grid grid-cols-2 gap-4 relative z-10">
-                  <div className="bg-white dark:bg-gray-900 dark:bg-gray-900/10 backdrop-blur-sm border border-white/10 rounded-2xl p-4 text-center">
-                    <div className="text-sky-400 text-xs font-bold uppercase mb-1">Collection Area</div>
-                    <div className="text-2xl font-extrabold text-white">{results.Ae} m²</div>
-                    <p className="text-[10px] text-slate-400 mt-1">A<sub>e</sub> = LW + 6H(L+W) + 9πH²</p>
+                  <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-5 group hover:bg-white/10 transition-colors">
+                    <div className="text-sky-400 text-[10px] font-black uppercase tracking-widest mb-2 opacity-60">Impact Area</div>
+                    <div className="text-2xl font-black text-white">{results.Ae} m²</div>
+                    <div className="w-8 h-1 bg-sky-500/30 mx-auto mt-2 rounded-full"></div>
                   </div>
-                  <div className="bg-white dark:bg-gray-900 dark:bg-gray-900/10 backdrop-blur-sm border border-white/10 rounded-2xl p-4 text-center">
-                    <div className="text-sky-400 text-xs font-bold uppercase mb-1">N<sub>d</sub> (strikes/yr)</div>
-                    <div className="text-2xl font-extrabold text-white">{results.Nd}</div>
-                    <p className="text-[10px] text-slate-400 mt-1">N<sub>d</sub> = N<sub>g</sub> × A<sub>e</sub> × C<sub>d</sub> × 10⁻⁶</p>
+                  <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-5 group hover:bg-white/10 transition-colors">
+                    <div className="text-sky-400 text-[10px] font-black uppercase tracking-widest mb-2 opacity-60">Frequency (N<sub>d</sub>)</div>
+                    <div className="text-2xl font-black text-white">{results.Nd}</div>
+                    <div className="w-8 h-1 bg-sky-500/30 mx-auto mt-2 rounded-full"></div>
                   </div>
-                  <div className="bg-white dark:bg-gray-900 dark:bg-gray-900/10 backdrop-blur-sm border border-white/10 rounded-2xl p-4 text-center">
-                    <div className="text-amber-400 text-xs font-bold uppercase mb-1">25-Year Risk</div>
-                    <div className="text-2xl font-extrabold text-white"><AnimN value={parseFloat(results.prob25)} decimals={2} suffix="%" /></div>
+                  <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-5 group hover:bg-white/10 transition-colors">
+                    <div className="text-amber-400 text-[10px] font-black uppercase tracking-widest mb-2 opacity-60">25-Year Risk</div>
+                    <div className="text-2xl font-black text-white"><AnimN value={parseFloat(results.prob25)} decimals={2} suffix="%" /></div>
+                    <div className="w-8 h-1 bg-amber-500/30 mx-auto mt-2 rounded-full"></div>
                   </div>
-                  <div className="bg-white dark:bg-gray-900 dark:bg-gray-900/10 backdrop-blur-sm border border-white/10 rounded-2xl p-4 text-center">
-                    <div className="text-amber-400 text-xs font-bold uppercase mb-1">Protection Level</div>
-                    <div className="text-2xl font-extrabold text-white">{results.protectionLevel === 'None' ? '—' : `Class ${results.protectionLevel}`}</div>
-                    <p className="text-[10px] text-slate-400 mt-1">per IEC 62305-2</p>
+                  <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-5 group hover:bg-white/10 transition-colors">
+                    <div className="text-emerald-400 text-[10px] font-black uppercase tracking-widest mb-2 opacity-60">Safety Class</div>
+                    <div className="text-2xl font-black text-white">{results.protectionLevel === 'None' ? 'N/A' : `Class ${results.protectionLevel}`}</div>
+                    <div className="w-8 h-1 bg-emerald-500/30 mx-auto mt-2 rounded-full"></div>
                   </div>
                 </div>
               </div>
 
+               {/* Mathematical Breakdown */}
+               <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-3xl p-8 border border-slate-100 dark:border-gray-800 dark:border-gray-800 shadow-xl">
+                 <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center gap-2">
+                    <Calculator className="w-4 h-4 text-sky-500" /> Calculation Transparency
+                 </h4>
+                 <div className="space-y-4 text-sm text-slate-600 dark:text-gray-400 dark:text-gray-400 font-mono">
+                   <div className="p-4 bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 rounded-2xl border border-slate-100 dark:border-gray-700 dark:border-gray-700">
+                     <p className="mb-2">1. Collection Area (A<sub>e</sub>):</p>
+                     <p className="text-indigo-600 dark:text-indigo-400 font-bold">LW + 6H(L+W) + 9πH² = {results.Ae}m²</p>
+                   </div>
+                   <div className="p-4 bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 rounded-2xl border border-slate-100 dark:border-gray-700 dark:border-gray-700">
+                     <p className="mb-2">2. Strikes Per Year (N<sub>d</sub>):</p>
+                     <p className="text-indigo-600 dark:text-indigo-400 font-bold">{results.Ng} × {results.Ae} × 10⁻⁶ = {results.Nd}</p>
+                   </div>
+                   <div className="p-4 bg-slate-50 dark:bg-gray-800 dark:bg-gray-800 rounded-2xl border border-slate-100 dark:border-gray-700 dark:border-gray-700">
+                     <p className="mb-2">3. Prob. (1 - e⁻ᴺᵈ):</p>
+                     <p className="text-indigo-600 dark:text-indigo-400 font-bold">{results.probPercent}% Annual Probability</p>
+                   </div>
+                   <p className="text-[10px] text-slate-400 font-bold pt-2 uppercase tracking-tight">Standard Applied: IEC 62305-2 (Protection against lightning)</p>
+                 </div>
+               </div>
+
               {/* Surge Protector ROI */}
               {!hasSPD && results.surgeROI > 0 && (
-                <motion.div className="bg-amber-50 border border-amber-200 rounded-3xl p-6" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
-                  <h3 className="font-bold text-amber-900 mb-3 flex items-center gap-2"><DollarSign className="w-5 h-5" /> Surge Protector ROI</h3>
-                  <p className="text-sm text-amber-800 mb-2">
-                    Without a whole-house SPD, a nearby lightning strike can destroy {region.symbol}{regionKey === 'IN' ? '2,00,000' : regionKey === 'US' ? '5,000' : '4,000'}+ in electronics (TVs, routers, PCs, appliances).
+                <motion.div className="bg-amber-50 dark:bg-amber-900/10 border-2 border-amber-200 dark:border-amber-800 rounded-3xl p-8" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+                  <h3 className="font-extrabold text-amber-900 dark:text-amber-400 mb-4 flex items-center gap-3">
+                     <DollarSign className="w-6 h-6 bg-amber-500 text-white rounded-full p-1" /> Financial Risk Assessment
+                  </h3>
+                  <p className="text-sm text-amber-800 dark:text-amber-200 mb-6 font-medium leading-relaxed">
+                    Without professional surge protection, even nearby strikes induce voltage spikes that destroy sensitive device motherboards.
                   </p>
-                  <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-xl p-4 border border-amber-100">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-xs text-slate-500 dark:text-gray-400 dark:text-gray-400 uppercase font-bold">Expected Loss (25 yr)</p>
-                        <p className="text-xl font-extrabold text-amber-700">{region.symbol}<AnimN value={results.surgeROI} /></p>
-                      </div>
-                      <div className="text-center px-4">
-                        <p className="text-xs text-slate-500 dark:text-gray-400 dark:text-gray-400 uppercase font-bold">SPD Cost</p>
-                        <p className="text-xl font-extrabold text-green-600">{region.symbol}{region.surgeProtectorCost}</p>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-xs text-slate-500 dark:text-gray-400 dark:text-gray-400 uppercase font-bold">Verdict</p>
-                        <p className="text-lg font-extrabold text-green-600">{results.surgeROI > region.surgeProtectorCost ? '✅ Worth it' : '≈ Break even'}</p>
-                      </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-5 rounded-2xl border border-amber-200 shadow-sm">
+                      <p className="text-[10px] font-black text-slate-400 uppercase mb-1">Expected Loss (25yr)</p>
+                      <p className="text-2xl font-black text-red-600">{format(convert(results.surgeROI))}</p>
                     </div>
+                    <div className="bg-white dark:bg-gray-900 dark:bg-gray-900 p-5 rounded-2xl border border-amber-200 shadow-sm">
+                      <p className="text-[10px] font-black text-slate-400 uppercase mb-1">Protection Cost</p>
+                      <p className="text-2xl font-black text-emerald-600">{format(convert(results.spdCost))}</p>
+                    </div>
+                  </div>
+                  <div className="mt-6 p-4 bg-white/50 dark:bg-white/5 rounded-xl border border-white/20 text-center">
+                     <span className="text-sm font-black text-amber-700 dark:text-amber-400 italic">Verdict: {results.surgeROI > results.spdCost ? 'SPD is highly cost-effective' : 'SPD is recommended for equipment longevity'}</span>
                   </div>
                 </motion.div>
               )}
 
               {/* Protection installed */}
               {(hasLPS || hasSPD) && (
-                <motion.div className="bg-green-50 border border-green-200 rounded-3xl p-6" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
-                  <h3 className="font-bold text-green-900 mb-2 flex items-center gap-2"><ShieldCheck className="w-5 h-5" /> Protection Active</h3>
-                  <p className="text-sm text-green-700">
-                    {hasLPS && 'Lightning Protection System (LPS) reduces direct damage risk by ~98%. '}
-                    {hasSPD && 'Surge Protective Device (SPD) clamps induced voltage surges to safe levels. '}
-                    Your residual risk: <strong>{results.protectedRisk}%</strong>
+                <motion.div className="bg-emerald-50 dark:bg-emerald-900/10 border-2 border-emerald-200 dark:border-emerald-800 rounded-3xl p-8 shadow-lg shadow-emerald-100" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+                  <h3 className="font-black text-emerald-900 dark:text-emerald-400 mb-4 flex items-center gap-3">
+                     <ShieldCheck className="w-7 h-7 text-emerald-600" /> Mitigation Active
+                  </h3>
+                  <p className="text-sm text-emerald-800 dark:text-emerald-200 font-medium leading-relaxed">
+                    {hasLPS && 'Your Lightning Protection System (LPS) safely redirects direct hits into the earth. '}
+                    {hasSPD && 'Your Whole-House SPD intercepts induced voltage surges before they reach your home electronics. '}
                   </p>
+                  <div className="mt-4 pt-4 border-t border-emerald-200 dark:border-emerald-800 flex items-center justify-between">
+                     <span className="text-xs font-bold text-emerald-600 uppercase tracking-widest">Residual Probability</span>
+                     <span className="text-xl font-black text-emerald-700 dark:text-emerald-400">{results.protectedRisk}%</span>
+                  </div>
                 </motion.div>
               )}
 
-              {/* Formulas */}
-              <div className="bg-slate-100 dark:bg-gray-800/50 dark:bg-gray-800/50 rounded-2xl p-5">
-                <h4 className="text-xs font-bold text-slate-500 dark:text-gray-400 dark:text-gray-400 uppercase tracking-wider mb-3">IEC 62305-2 Formulas</h4>
-                <div className="space-y-2 text-sm text-slate-600 dark:text-gray-400 dark:text-gray-400 font-mono">
-                  <p>A<sub>e</sub> = LW + 6H(L + W) + 9πH²</p>
-                  <p>N<sub>d</sub> = N<sub>g</sub> × A<sub>e</sub> × C<sub>d</sub> × 10⁻⁶</p>
-                  <p>P<sub>strike</sub> = 1 − e<sup>−N<sub>d</sub></sup></p>
-                  <p>P<sub>25yr</sub> = 1 − (1 − P)²⁵</p>
-                  <p>N<sub>g</sub> = {results.Ng} flashes/km²/yr (selected region)</p>
-                </div>
-              </div>
-
               <button onClick={() => { setShowResults(false); window.scrollTo(0, 0); }}
-                className="w-full py-3 bg-slate-200 hover:bg-slate-300 text-slate-700 dark:text-gray-300 dark:text-gray-300 rounded-xl font-bold transition flex items-center justify-center gap-2">
-                <RotateCcw className="w-4 h-4" /> Recalculate
+                className="w-full py-4 bg-slate-100 hover:bg-slate-200 text-slate-600 dark:text-gray-300 dark:text-gray-300 rounded-2xl font-black transition-all border-2 border-slate-200 dark:border-gray-700 dark:border-gray-700 flex items-center justify-center gap-2 mb-10">
+                <RotateCcw className="w-5 h-5" /> Start New Assessment
               </button>
             </motion.div>
           ) : (
-            <motion.div key="placeholder" className="bg-slate-900 rounded-3xl p-10 shadow-2xl flex flex-col items-center justify-center min-h-[400px] relative overflow-hidden" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-              <div className="absolute -top-24 -right-24 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
-              <CloudLightning className="w-16 h-16 text-yellow-500/50 mb-6 animate-pulse" />
-              <p className="text-slate-400 text-center font-medium text-lg">Enter your building details<br />to calculate strike probability</p>
-              <div className="mt-6 text-xs text-slate-500 dark:text-gray-400 dark:text-gray-400 font-mono text-center space-y-1">
-                <p>N<sub>d</sub> = N<sub>g</sub> × A<sub>e</sub> × C<sub>d</sub> × 10⁻⁶</p>
-                <p>P = 1 − e<sup>−N<sub>d</sub></sup></p>
+            <motion.div key="placeholder" className="bg-slate-900 rounded-[40px] p-10 shadow-2xl flex flex-col items-center justify-center min-h-[500px] relative overflow-hidden" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+              <div className="absolute -top-24 -right-24 w-80 h-80 bg-sky-500/10 rounded-full blur-[100px] pointer-events-none" />
+              <div className="relative">
+                 <CloudLightning className="w-20 h-20 text-yellow-500/30 mb-8 animate-pulse" />
+                 <motion.div 
+                    className="absolute inset-0 bg-sky-400/10 blur-3xl rounded-full"
+                    animate={{ scale: [1, 1.5, 1] }}
+                    transition={{ duration: 4, repeat: Infinity }}
+                 />
+              </div>
+              <p className="text-slate-300 text-center font-bold text-2xl tracking-tight leading-snug">
+                 Ready for Analysis<br />
+                 <span className="text-slate-500 text-sm font-medium">Enter your building details<br />to reveal strike probability.</span>
+              </p>
+              
+              <div className="mt-12 w-full max-w-xs space-y-3 opacity-30">
+                 <div className="h-1 bg-slate-800 rounded-full w-full"></div>
+                 <div className="h-1 bg-slate-800 rounded-full w-3/4 mx-auto"></div>
+                 <div className="h-1 bg-slate-800 rounded-full w-1/2 mx-auto"></div>
               </div>
             </motion.div>
           )}

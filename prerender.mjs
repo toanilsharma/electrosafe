@@ -22,10 +22,10 @@ const PORT = 4173;
 const ROUTES = [
   '/',
   '/assessment',
-  '/load-calc',
-  '/risk-predictor',
+  '/electrical-load-calculator',
+  '/electrical-hazard-risk-predictor',
   '/tenant-request',
-  '/protection-guide',
+  '/surge-protection-guide',
   '/rooms',
   '/appliances',
   '/hardware',
@@ -64,13 +64,13 @@ const ROUTES = [
   '/alarm-calendar',
   '/tenant-demand',
   // Phase 6 Global Calculators
-  '/solar-roi',
-  '/ev-cost-compare',
-  '/ghost-power',
-  '/dryer-vent-risk',
+  '/solar-roi-calculator',
+  '/ev-charging-cost-calculator',
+  '/ghost-power-calculator',
+  '/dryer-vent-fire-risk-calculator',
   '/wfh-load-audit',
-  '/appliance-life',
-  '/lightning-risk',
+  '/appliance-life-expectancy-calculator',
+  '/lightning-strike-calculator',
   '/holiday-lights',
 ];
 

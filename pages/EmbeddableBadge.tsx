@@ -46,7 +46,6 @@ export const EmbeddableBadge = () => {
       <Helmet>
         <title>Free Safety Badge for Your Website | ElectroSafe.homes</title>
         <meta name="description" content="Add a free 'Verified by ElectroSafe' badge to your property listing, landlord website, or real estate page. Build trust with tenants and buyers." />
-        <link rel="canonical" href="https://electrosafe.homes/badge" />
         <meta property="og:title" content="Free Safety Badge for Your Website" />
         <meta property="og:description" content="Show tenants and buyers that electrical safety matters. Embed our free verification badge on your property listings." />
         <meta property="og:image" content="https://electrosafe.homes/android-chrome-512x512.png" />

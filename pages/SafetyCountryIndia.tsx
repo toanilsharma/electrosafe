@@ -53,7 +53,6 @@ export const SafetyCountryIndia: React.FC = () => {
       <Helmet>
         <title>Home Electrical Safety Guide for India — IS 732, RCCB, Monsoon Safety | ElectroSafe.homes</title>
         <meta name="description" content="Complete electrical safety guide for Indian homes. IS 732 compliance, RCCB testing, monsoon safety, inverter battery precautions, BEE star ratings, and emergency numbers." />
-        <link rel="canonical" href="https://electrosafe.homes/safety/india" />
         <meta name="keywords" content="home electrical safety India, IS 732, RCCB India, monsoon electrical safety, inverter battery safety, BEE star rating, electrical safety guide India" />
         <script type="application/ld+json">{JSON.stringify(howToSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
