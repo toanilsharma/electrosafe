@@ -54,7 +54,7 @@ const NavDropdown = ({ title, items, icon: Icon }: { title: string, items: any[]
       </button>
 
       {isOpen && (
-        <div className="absolute top-full left-0 w-80 bg-white dark:bg-gray-900 dark:bg-gray-900 rounded-xl shadow-xl border border-gray-100 dark:border-gray-800 dark:border-gray-800 overflow-hidden z-50 animate-in fade-in slide-in-from-top-2">
+        <div className="absolute top-full left-0 w-80 max-h-[80vh] overflow-y-auto custom-scrollbar bg-white dark:bg-gray-900 rounded-xl shadow-xl border border-gray-100 dark:border-gray-800 z-50 animate-in fade-in slide-in-from-top-2">
           <div className="p-2 space-y-1">
             {items.map((item, idx) => (
               <Link
@@ -247,7 +247,7 @@ const Navbar = () => {
                 autoFocus
                 type="text"
                 placeholder="Search articles, appliances, hazards..."
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -304,10 +304,9 @@ const Navbar = () => {
                 <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 font-bold tracking-wider uppercase text-xs">
                   <Calculator className="w-4 h-4" /> Smart Tools
                 </div>
-                <Link to="/tools" onClick={() => setIsMobileOpen(false)} className="text-xs text-gray-500 hover:text-blue-600 font-medium">View All →</Link>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {toolsMenu.slice(0, 8).map((link) => (
+                {toolsMenu.map((link) => (
                   <Link
                     key={link.name}
                     to={link.path}
